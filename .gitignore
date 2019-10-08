@@ -1,0 +1,22 @@
+wp-config.php
+# Composer
+/vendor
+
+# WP-CLI
+wp-cli.local.yml
+
+.idea/
+#docker/
+node_modules
+
+.DS_Store
+.sass-cache
+npm-debug.log
+
+nginx.conf
+
+phpmyadmin
+products/
+.tmb/
+.quarantine/
+wp-content/uploads/
