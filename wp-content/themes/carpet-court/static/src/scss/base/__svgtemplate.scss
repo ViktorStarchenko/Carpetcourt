@@ -1,0 +1,34 @@
+@mixin <%=common %>() {
+  content: ' ';
+  display: inline-block;
+  font-size: <%= baseSize %>px;
+  background-image: url("<%=svgPath%>");
+  background-repeat: no-repeat;
+  background-size: <%= relWidth %>em <%= relHeight %>em;
+
+  .no-svg & {
+    background-image: url("<%=pngPath%>");
+  }
+}
+
+[class*='<%=common %>-'] {
+  display: inline-block;
+
+  &:before {
+    @include <%=common %>;
+  }
+}
+<% _.forEach(svg, function(svgItem) { %>
+@mixin <%=svgItem.name%>() {
+  background-position: <%= svgItem.relPositionX %>em <%= svgItem.relPositionY %>em;
+  width: <%= svgItem.relWidth %>em;
+  height: <%= svgItem.relHeight %>em;
+}
+
+.<%=svgItem.name%> {
+
+  &:before {
+    @include <%=svgItem.name%>;
+  }
+}
+<% }); %>

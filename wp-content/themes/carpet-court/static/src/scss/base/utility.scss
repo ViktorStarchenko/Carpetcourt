@@ -1,0 +1,34 @@
+$_screen-map-min: (
+  xs: $screen-xs-min,
+  sm: $screen-sm-min,
+  md: $screen-md-min,
+  lg: $screen-lg-min,
+  xl: $screen-xl-min
+);
+
+$_screen-map-max: (
+  mob: $screen-mob-max,
+  xs: $screen-xs-max,
+  sm: $screen-sm-max,
+  md: $screen-md-max,
+  lg: $screen-lg-max
+);
+
+
+// hidden min
+@each $point, $screen in $_screen-map-min {
+  .hidden-#{$point}-min {
+    @media (min-width: $screen) {
+      display: none !important;
+    }
+  }
+}
+
+// hidden max
+@each $point, $screen in $_screen-map-max {
+  .hidden-#{$point}-max {
+    @media (max-width: $screen) {
+      display: none !important;
+    }
+  }
+}

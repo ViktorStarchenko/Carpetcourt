@@ -1,0 +1,32 @@
+block vars
+	- var bodyClass = ''
+	- var pageTitle = 'Layout'
+	- var DIR = ''
+
+include ../mixins/index
+
+doctype html
+html
+	head
+		meta(charset='UTF-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no')
+		meta(name='format-detection', content='telephone=no')
+		meta(name='SKYPE_TOOLBAR', content='SKYPE_TOOLBAR_PARSER_COMPATIBLE')
+		title #{pageTitle}
+		link(rel='icon', type='image/png', href='#{DIR}favicon.png')
+		link(rel='apple-touch-icon-precomposed', href='#{DIR}apple-touch-icon.png')
+		link(rel='stylesheet', href='#{DIR}css/app.min.css')
+	body(class="#{bodyClass}")
+		.g-wrap
+			block header
+				include ../../components/header/index
+			.g-main
+				block content
+					| content
+			block footer
+				include ../../components/footer/index
+		//- scripts
+		script(src='#{DIR}js/libs/jquery-3.2.1.min.js')
+		script(src='#{DIR}js/libs/slick.min.js')
+		script(src='#{DIR}js/app.min.js')

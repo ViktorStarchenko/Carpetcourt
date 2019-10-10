@@ -1,0 +1,20 @@
+@mixin ic2() {
+  content: ' ';
+  display: inline-block;
+  font-size: 10px;
+  background-image: url("../images/sprite_svg.svg");
+  background-repeat: no-repeat;
+  background-size: 0em 0em;
+
+  .no-svg & {
+    background-image: url("../images/sprite_svg.png");
+  }
+}
+
+[class*='ic2-'] {
+  display: inline-block;
+
+  &:before {
+    @include ic2;
+  }
+}

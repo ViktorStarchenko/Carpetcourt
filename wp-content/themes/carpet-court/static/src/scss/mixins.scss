@@ -1,0 +1,76 @@
+@mixin ff-black() {
+  font-family: $font-black, $font-family-sans-serif;
+}
+@mixin ff-heavy() {
+  font-family: $font-heavy, $font-family-sans-serif;
+}
+@mixin ff-medium() {
+  font-family: $font-medium, $font-family-sans-serif;
+}
+@mixin ff-book() {
+  font-family: $font-book, $font-family-sans-serif;
+}
+@mixin ff-light() {
+  font-family: $font-light, $font-family-sans-serif;
+}
+
+
+@function rem($px) {
+  @if ($px == 0) { $px: 0px }
+  @return ($px / $font-size-root) * 1rem;
+}
+
+
+
+@mixin break-word() {
+  overflow-wrap: break-word; // does not support IE, Firefox; is a copy of word-wrap
+  word-wrap: break-word;
+}
+
+@mixin nowrap() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@mixin nowrap-multiline() {
+  position: relative;
+  overflow: hidden;
+  text-align: justify;
+  padding-right: 1rem;
+
+  &:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.2rem;
+    background: $body-bg;
+  }
+}
+
+
+@mixin placeholder($color: #eee) {
+  &:-moz-placeholder {
+    color: $color;
+    opacity: 1;
+  }
+  &::-moz-placeholder {
+    color: $color;
+    opacity: 1;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+}

@@ -1,0 +1,183 @@
+// Colors
+//
+
+$border-color-default:                   #E4E4E4;
+$backdrop-color-default:                 rgba(#343433, 0.3);
+
+// Body
+
+$body-bg:                                #fff;
+$body-other-bg:                          #F5F5F5;
+$body-color:                             #8E949D;
+$body-other-color:                       #878787;
+
+
+// Links
+
+$link-color:                             #000000;
+$link-decoration:                        underline;
+$link-hover-color:                       #000000;
+$link-hover-decoration:                  underline;
+
+
+// Grid
+//
+
+// Grid columns
+
+$grid-columns:                           12;
+$grid-gutter-width:                      40px;
+
+
+// Grid breakpoints
+
+$screen-xs:                              580px;
+$screen-sm:                              768px;
+$screen-md:                              1024px;
+$screen-lg:                              1280px;
+$screen-xl:                              1440px;
+
+$screen-mob-max:                         $screen-xs - 1;
+$screen-xs-min:                          $screen-xs;
+$screen-xs-max:                          $screen-sm - 1;
+$screen-sm-min:                          $screen-sm;
+$screen-sm-max:                          $screen-md - 1;
+$screen-md-min:                          $screen-md;
+$screen-md-max:                          $screen-lg - 1;
+$screen-lg-min:                          $screen-lg;
+$screen-lg-max:                          $screen-xl - 1;
+$screen-xl-min:                          $screen-xl;
+
+$grid-breakpoints: (
+  xs:                                    $screen-xs,
+  sm:                                    $screen-sm,
+  md:                                    $screen-md,
+  lg:                                    $screen-lg,
+  xl:                                    $screen-xl
+);
+
+
+// Grid containers
+
+$container-max-widths: (
+  xs:                                    580px,
+  sm:                                    740px,
+  md:                                    940px,
+  lg:                                    1200px,
+  xl:                                    1340px
+);
+
+
+// Typography
+//
+
+$font-black:                             Avenir-Black;
+$font-book:                              Avenir-Book;
+$font-heavy:                             Avenir-Heavy;
+$font-light:                             Avenir-Light;
+$font-medium:                            Avenir-Medium;
+
+$font-family-base:                       $font-book, $font-family-sans-serif;
+$font-size-root:                         16px;
+$font-size-base:                         1rem; // 16px
+
+$font-weight-light:                      300;
+$font-weight-normal:                     400;
+$font-weight-medium:                     500;
+$font-weight-bold:                       700;
+
+$font-weight-base:                       $font-weight-normal;
+$line-height-base:                       1.375rem; // 22px
+$letter-spacing-base:                    normal;
+
+$h1-font-size:                           36px;
+$h1-font-size-small:                     28px;
+$h2-font-size:                           28px;
+$h2-font-size-small:                     22px;
+$h3-font-size:                           22px;
+$h4-font-size:                           20px;
+$h5-font-size:                           18px;
+$h6-font-size:                           16px;
+
+$h1-line-height:                         44px;
+$h1-line-height-small:                   36px;
+$h2-line-height:                         36px;
+$h2-line-height-small:                   30px;
+$h3-line-height:                         30px;
+$h4-line-height:                         28px;
+$h5-line-height:                         26px;
+$h6-line-height:                         24px;
+
+$headings-margin-bottom:                 20px;
+$headings-font-family:                   $font-medium, $font-family-sans-serif;
+$headings-font-weight:                   $font-weight-normal;
+$headings-transform:                     none;
+$headings-color:                         #000;
+$headings-letter-spacing:                $letter-spacing-base;
+
+$paragraph-margin-bottom:                12px;
+$paragraph-margin-bottom-lg:             20px;
+
+$lead-font-size:                         18px;
+$lead-line-height:                       26px;
+
+$small-font-size:                        14px;
+$small-line-height:                      18px;
+
+$hr-margin-y:                            40px;
+$hr-border-color:                        $border-color-default;
+$hr-border-width:                        1px;
+
+
+// Page
+//
+
+$header-top-height:                      50px;
+$header-wrap-height:                     90px;
+$header-wrap-height-mobile:              60px;
+$header-breadcrumbs-height:              60px;
+
+
+// Buttons
+//
+
+$btn-height:                             50px;
+$btn-default-bg:                         #eee;
+$btn-default-color:                      #000000;
+$btn-font-family:                        $font-heavy, $font-family-sans-serif;
+$btn-font-size:                          15px;
+$btn-line-height:                        18px;
+$btn-letter-spacing:                     $letter-spacing-base;
+$btn-border-width:                       1px;
+$btn-border-radius:                      $btn-height / 2;
+$btn-text-transform:                     none;
+
+$btn-padding-top-different:              0;
+$btn-padding-bottom-different:           0;
+$btn-padding-top:                        ceil(($btn-height - $btn-line-height - ($btn-border-width * 2)) / 2) + $btn-padding-top-different - $btn-padding-bottom-different;
+$btn-padding-bottom:                     floor(($btn-height - $btn-line-height - ($btn-border-width * 2)) / 2) - $btn-padding-top-different + $btn-padding-bottom-different;
+$btn-padding-x:                          30px;
+
+
+// Forms
+//
+
+$input-height:                           50px;
+$input-default-bg:                       $body-bg;
+$input-default-color:                    $body-color;
+$input-border-color:                     #DDDFE1;
+$input-placeholder-color:                rgba(#9B9B9B, 0.76);
+$input-font-size:                        15px;
+$input-line-height:                      18px;
+$input-border-width:                     1px;
+$input-border-radius:                    $input-height / 2;
+$input-text-transform:                   none;
+$input-font-family:                      $font-family-base;
+$input-font-weight:                      $font-weight-normal;
+$input-letter-spacing:                   $letter-spacing-base;
+
+$input-padding-top-different:            0;
+$input-padding-bottom-different:         0;
+$input-padding-top:                      ceil(($input-height - $input-line-height - ($input-border-width * 2)) / 2) + $input-padding-top-different - $input-padding-bottom-different;
+$input-padding-bottom:                   floor(($input-height - $input-line-height - ($input-border-width * 2)) / 2) - $input-padding-top-different + $input-padding-bottom-different;
+$input-padding-x:                        30px;
