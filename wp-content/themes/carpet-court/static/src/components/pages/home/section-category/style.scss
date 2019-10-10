@@ -1,4 +1,4 @@
-/* layout.scss */
+/* section-category.scss */
 
 // variables **********************************************************************************************************
 
@@ -6,13 +6,6 @@
 
 // styles *************************************************************************************************************
 
-body {
+.section-category {
 
-}
-
-
-.container {
-  @media (min-width: $screen-sm-min) {
-    width: calc(100% - (#{$page-gutter-width} - #{$grid-gutter-width}));
-  }
 }

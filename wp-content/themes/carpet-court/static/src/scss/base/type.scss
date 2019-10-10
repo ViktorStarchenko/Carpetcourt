@@ -9,9 +9,16 @@ h1, h2, h3, h4, h5, h6,
   color: $headings-color;
   text-transform: $headings-transform;
   letter-spacing: $headings-letter-spacing;
+  font-size: rem($headings-font-size);
+  line-height: rem($headings-line-height);
+
+  @media (max-width: $screen-xs-max) {
+    font-size: rem($headings-font-size-small);
+    line-height: rem($headings-line-height-small);
+  }
 }
 
-h1, .h1 {
+/*h1, .h1 {
   @include font-size($h1-font-size);
   line-height: rem($h1-line-height);
 
@@ -45,7 +52,7 @@ h5, .h5 {
 h6, .h6 {
   @include font-size($h6-font-size);
   line-height: rem($h6-line-height);
-}
+}*/
 
 
 //

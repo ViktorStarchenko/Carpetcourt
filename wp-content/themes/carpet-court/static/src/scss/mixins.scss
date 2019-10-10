@@ -1,17 +1,14 @@
-@mixin ff-black() {
-  font-family: $font-black, $font-family-sans-serif;
-}
-@mixin ff-heavy() {
-  font-family: $font-heavy, $font-family-sans-serif;
+@mixin ff-regular() {
+  font-family: $font-regular, $font-family-sans-serif;
 }
 @mixin ff-medium() {
   font-family: $font-medium, $font-family-sans-serif;
 }
-@mixin ff-book() {
-  font-family: $font-book, $font-family-sans-serif;
+@mixin ff-semibold() {
+  font-family: $font-semibold, $font-family-sans-serif;
 }
-@mixin ff-light() {
-  font-family: $font-light, $font-family-sans-serif;
+@mixin ff-semibold-italic() {
+  font-family: $font-semibold-italic, $font-family-sans-serif;
 }
 
 

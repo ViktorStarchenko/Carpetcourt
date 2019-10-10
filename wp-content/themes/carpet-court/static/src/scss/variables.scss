@@ -1,22 +1,21 @@
 // Colors
 //
 
-$border-color-default:                   #E4E4E4;
-$backdrop-color-default:                 rgba(#343433, 0.3);
+$color-main-red:                         #f13e4b;
+$color-main-grey:                        #434a4f;
+$border-color-default:                   #dbdbdb;
 
 // Body
 
 $body-bg:                                #fff;
-$body-other-bg:                          #F5F5F5;
-$body-color:                             #8E949D;
-$body-other-color:                       #878787;
+$body-color:                             $color-main-grey;
 
 
 // Links
 
-$link-color:                             #000000;
+$link-color:                             $body-color;
 $link-decoration:                        underline;
-$link-hover-color:                       #000000;
+$link-hover-color:                       #00a0de;
 $link-hover-decoration:                  underline;
 
 
@@ -26,8 +25,8 @@ $link-hover-decoration:                  underline;
 // Grid columns
 
 $grid-columns:                           12;
-$grid-gutter-width:                      40px;
-
+$grid-gutter-width:                      30px;
+$page-gutter-width:                      60px;
 
 // Grid breakpoints
 
@@ -62,24 +61,23 @@ $grid-breakpoints: (
 $container-max-widths: (
   xs:                                    580px,
   sm:                                    740px,
-  md:                                    940px,
-  lg:                                    1200px,
-  xl:                                    1340px
+  md:                                    990px,
+  lg:                                    1250px,
+  xl:                                    1410px
 );
 
 
 // Typography
 //
 
-$font-black:                             Avenir-Black;
-$font-book:                              Avenir-Book;
-$font-heavy:                             Avenir-Heavy;
-$font-light:                             Avenir-Light;
-$font-medium:                            Avenir-Medium;
+$font-regular:                           Omnes-Regular;
+$font-medium:                            Omnes-Medium;
+$font-semibold:                          Omnes-SemiBold;
+$font-semibold-italic:                   Omnes-SemiBold-Italic;
 
-$font-family-base:                       $font-book, $font-family-sans-serif;
+$font-family-base:                       $font-regular, $font-family-sans-serif;
 $font-size-root:                         16px;
-$font-size-base:                         1rem; // 16px
+$font-size-base:                         15px;
 
 $font-weight-light:                      300;
 $font-weight-normal:                     400;
@@ -87,13 +85,13 @@ $font-weight-medium:                     500;
 $font-weight-bold:                       700;
 
 $font-weight-base:                       $font-weight-normal;
-$line-height-base:                       1.375rem; // 22px
-$letter-spacing-base:                    normal;
+$line-height-base:                       22px;
+$letter-spacing-base:                    0.15px;
 
 $h1-font-size:                           36px;
 $h1-font-size-small:                     28px;
-$h2-font-size:                           28px;
-$h2-font-size-small:                     22px;
+$h2-font-size:                           26px;
+$h2-font-size-small:                     20px;
 $h3-font-size:                           22px;
 $h4-font-size:                           20px;
 $h5-font-size:                           18px;
@@ -101,22 +99,26 @@ $h6-font-size:                           16px;
 
 $h1-line-height:                         44px;
 $h1-line-height-small:                   36px;
-$h2-line-height:                         36px;
-$h2-line-height-small:                   30px;
+$h2-line-height:                         30px;
+$h2-line-height-small:                   22px;
 $h3-line-height:                         30px;
 $h4-line-height:                         28px;
 $h5-line-height:                         26px;
 $h6-line-height:                         24px;
 
-$headings-margin-bottom:                 20px;
-$headings-font-family:                   $font-medium, $font-family-sans-serif;
+$headings-font-size:                     26px;
+$headings-line-height:                   30px;
+$headings-font-size-small:               20px;
+$headings-line-height-small:             22px;
+
+$headings-margin-bottom:                 22px;
+$headings-font-family:                   $font-semibold-italic, $font-family-sans-serif;
 $headings-font-weight:                   $font-weight-normal;
 $headings-transform:                     none;
-$headings-color:                         #000;
+$headings-color:                         $body-color;
 $headings-letter-spacing:                $letter-spacing-base;
 
-$paragraph-margin-bottom:                12px;
-$paragraph-margin-bottom-lg:             20px;
+$paragraph-margin-bottom:                22px;
 
 $lead-font-size:                         18px;
 $lead-line-height:                       26px;
@@ -125,38 +127,36 @@ $small-font-size:                        14px;
 $small-line-height:                      18px;
 
 $hr-margin-y:                            40px;
-$hr-border-color:                        $border-color-default;
+$hr-border-color:                        rgba($border-color-default, 0.5);
 $hr-border-width:                        1px;
 
 
 // Page
 //
 
-$header-top-height:                      50px;
-$header-wrap-height:                     90px;
-$header-wrap-height-mobile:              60px;
-$header-breadcrumbs-height:              60px;
+
 
 
 // Buttons
 //
 
 $btn-height:                             50px;
-$btn-default-bg:                         #eee;
-$btn-default-color:                      #000000;
-$btn-font-family:                        $font-heavy, $font-family-sans-serif;
+$btn-default-bg:                         $color-main-red;
+$btn-default-bg-hover:                   $color-main-grey;
+$btn-default-color:                      #fff;
+$btn-font-family:                        $font-medium, $font-family-sans-serif;
 $btn-font-size:                          15px;
 $btn-line-height:                        18px;
 $btn-letter-spacing:                     $letter-spacing-base;
 $btn-border-width:                       1px;
-$btn-border-radius:                      $btn-height / 2;
+$btn-border-radius:                      4px;
 $btn-text-transform:                     none;
 
 $btn-padding-top-different:              0;
 $btn-padding-bottom-different:           0;
 $btn-padding-top:                        ceil(($btn-height - $btn-line-height - ($btn-border-width * 2)) / 2) + $btn-padding-top-different - $btn-padding-bottom-different;
 $btn-padding-bottom:                     floor(($btn-height - $btn-line-height - ($btn-border-width * 2)) / 2) - $btn-padding-top-different + $btn-padding-bottom-different;
-$btn-padding-x:                          30px;
+$btn-padding-x:                          20px;
 
 
 // Forms
