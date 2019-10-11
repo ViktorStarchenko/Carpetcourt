@@ -1,1 +1,27 @@
+-
+	var data = [
+		{image: DIR + 'images/category/category-image-1.jpg', title: 'carpet'},
+		{image: DIR + 'images/category/category-image-2.jpg', title: 'laminate'},
+		{image: DIR + 'images/category/category-image-3.jpg', title: 'vinyl'},
+		{image: DIR + 'images/category/category-image-4.jpg', title: 'tiles'},
+		{image: DIR + 'images/category/category-image-5.jpg', title: 'wood'},
+		{image: DIR + 'images/category/category-image-6.jpg', title: 'vinyl planks'},
+		{image: DIR + 'images/category/category-image-7.jpg', title: 'curtains & blinds'},
+		{image: DIR + 'images/category/category-image-8.jpg', title: 'rigid'}
+	];
+
 .section-category
+	.container
+		.s-heading
+			.s-heading__part
+				.h2.s-title We have the perfect solution for every lifestyle
+			.s-heading__part
+				a.btn.btn-index.btn--grey(href='#') view all products
+		.s-list.js-card-wrapper
+			each item in data
+				.list-item
+					+card(item.image, item.title)
+		.s-list-simple
+			each item in data
+				.list-item
+					a(href='#') #{item.title}

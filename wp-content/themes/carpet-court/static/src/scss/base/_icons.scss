@@ -36,11 +36,14 @@
   @if $filename == icon-cross {
   $char: "\E002";
 }
-  @if $filename == nav-next {
+  @if $filename == menu-arrow {
   $char: "\E003";
 }
-  @if $filename == nav-prev {
+  @if $filename == nav-next {
   $char: "\E004";
+}
+  @if $filename == nav-prev {
+  $char: "\E005";
 }
 
 @return $char;
@@ -62,6 +65,9 @@
 }
 .ic-icon-cross {
   @include ic(icon-cross);
+}
+.ic-menu-arrow {
+  @include ic(menu-arrow);
 }
 .ic-nav-next {
   @include ic(nav-next);

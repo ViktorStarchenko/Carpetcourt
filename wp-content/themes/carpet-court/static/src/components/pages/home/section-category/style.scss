@@ -7,5 +7,124 @@
 // styles *************************************************************************************************************
 
 .section-category {
+  padding: 60px 0 0;
 
+  @media (max-width: $screen-xs-max) {
+    padding-top: 50px;
+  }
+
+
+  .s-heading {
+    @media (min-width: $screen-md-min) {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    @media (max-width: $screen-sm-max) {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+
+    .s-heading__part {
+
+      + .s-heading__part {
+        @media (max-width: $screen-sm-max) {
+          margin-top: 35px;
+        }
+      }
+    }
+
+
+    .btn {
+      min-width: 150px;
+    }
+  }
+
+
+  .s-title {
+    margin: 0;
+  }
+
+
+  .s-list {
+    margin-top: 40px;
+    margin-left: -5px;
+    margin-right: -5px;
+
+    @media (min-width: $screen-sm-min) {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    @media (max-width: $screen-xs-max) {
+      display: none;
+    }
+
+
+    .list-item {
+      padding: 5px;
+
+      @media (min-width: $screen-lg-min) {
+        flex: 0 0 25%;
+        max-width: 25%;
+      }
+      @media (min-width: $screen-md-min) {
+        flex: 0 0 33.33%;
+        max-width: 33.33%;
+      }
+      @media (min-width: $screen-sm-min) {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+  }
+
+
+  .s-list-simple {
+    margin-top: 40px;
+    border-top: 1px solid rgba($color-border-default, 0.5);
+    border-bottom: 1px solid rgba($color-border-default, 0.5);
+
+    @media (min-width: $screen-sm-min) {
+      display: none;
+    }
+    @media (max-width: $screen-mob-max) {
+      margin-left: -($grid-gutter-width / 2);
+      margin-right: -($grid-gutter-width / 2);
+    }
+
+
+    .list-item {
+
+      @media (max-width: $screen-mob-max) {
+        padding-left: ($grid-gutter-width / 2);
+        padding-right: ($grid-gutter-width / 2);
+      }
+
+      + .list-item {
+        border-top: 1px solid rgba($color-border-default, 0.5);
+      }
+
+      a {
+        position: relative;
+        @include ff-medium;
+        display: block;
+        text-decoration: none;
+        font-size: rem(16px);
+        padding: 14px 0;
+        @include ic(menu-arrow);
+
+        &:before {
+          display: block;
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translateY(-50%);
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }

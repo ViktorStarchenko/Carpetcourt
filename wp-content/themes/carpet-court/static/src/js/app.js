@@ -191,40 +191,6 @@ var mm = (function($) {
     };
 }(jq));
 
-
-// modal open
-var checkModal = {
-    
-    getPaddingRight: function(el) {
-        return el.length ? +el.css('padding-right').replace('px', '') : 0;
-    },
-    
-    init: function() {
-        this.modals = $('.modal');
-        this.header = $('.g-header');
-        this.headerParts = this.header.find('.h-part');
-        if (!this.modals.length) return false;
-    
-        this.modals.each(function() {
-            var self = $(this);
-            
-            self.off('show.bs.modal').on('show.bs.modal', function() {
-                var scrollbarWidth = getScrollbarWidth();
-                checkModal.headerParts.each(function() {
-                    var self = $(this);
-                    self.css('padding-right', scrollbarWidth + checkModal.getPaddingRight(self));
-                });
-            });
-    
-            self.off('hidden.bs.modal').on('hidden.bs.modal', function() {
-                checkModal.headerParts.each(function() {
-                    $(this).css('padding-right', '');
-                });
-            });
-        });
-    }
-};
-
 /*==================================================================================================================*/
 
 !function ($) {
@@ -267,50 +233,41 @@ var checkModal = {
     }
     
     
-    var pageHeader = {
-    
-        init: function() {
-            this.header = $('.g-header');
-            this.backdrop = this.header.find('.h-backdrop');
-            this.menu = this.header.find('.h-menu');
-            this.items = this.menu.find('>.menu-item');
-            if (!this.items.length) return false;
-    
-            this.items.each(function() {
-                var self = $(this);
-                
-                self.on('mouseenter', function() {
-                    self.addClass('menu-item--hover');
-                    if (self.hasClass('menu-item--dropdown')) {
-                        pageHeader.backdrop.stop().fadeIn(200);
-                    }
-                });
-                self.on('mouseleave', function() {
-                    self.removeClass('menu-item--hover');
-                    if (self.hasClass('menu-item--dropdown')) {
-                        pageHeader.backdrop.stop().fadeOut(200);
-                    }
-                });
-            });
-        }
-    };
-    
-    
-    var loginModal = {
+    // modal open
+    var checkModal = {
+        
+        getPaddingRight: function(el) {
+            return el.length ? +el.css('padding-right').replace('px', '') : 0;
+        },
         
         init: function() {
-            this.modal = $('#loginModal');
-            if (!this.modal.length) return false;
-    
-            $window.on('resizeWidth', function() {
-                if (window.innerWidth < 1024 && loginModal.modal.hasClass('show')) {
-                    loginModal.modal.modal('hide');
-                }
+            this.modals = $('.modal');
+            this.header = $('.g-header');
+            this.headerParts = this.header.find('.h-part');
+            if (!this.modals.length) return false;
+            
+            this.modals.each(function() {
+                var self = $(this);
+                
+                self.off('show.bs.modal').on('show.bs.modal', function() {
+                    var scrollbarWidth = getScrollbarWidth();
+                    checkModal.headerParts.each(function() {
+                        var self = $(this);
+                        self.css('padding-right', scrollbarWidth + checkModal.getPaddingRight(self));
+                    });
+                });
+                
+                self.off('hidden.bs.modal').on('hidden.bs.modal', function() {
+                    checkModal.headerParts.each(function() {
+                        $(this).css('padding-right', '');
+                    });
+                });
             });
         }
     };
     
 
+    
     // Call functions
     $(function () {
         isTouch();
@@ -318,10 +275,8 @@ var checkModal = {
         ieDetect();
         pageScrolled();
         selectPlaceholder();
-        pageHeader.init();
-        mm.init();
         checkModal.init();
-        loginModal.init();
+        mm.init();
     });
 
     $window.on('load', function () {

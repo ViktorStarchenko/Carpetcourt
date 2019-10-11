@@ -3,7 +3,7 @@
 
 $color-main-red:                         #f13e4b;
 $color-main-grey:                        #434a4f;
-$border-color-default:                   #dbdbdb;
+$color-border-default:                   #dbdbdb;
 
 // Body
 
@@ -127,7 +127,7 @@ $small-font-size:                        14px;
 $small-line-height:                      18px;
 
 $hr-margin-y:                            40px;
-$hr-border-color:                        rgba($border-color-default, 0.5);
+$hr-border-color:                        rgba($color-border-default, 0.5);
 $hr-border-width:                        1px;
 
 

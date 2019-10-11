@@ -11,6 +11,22 @@ body {
 }
 
 
+.g-wrap {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.g-main {
+  margin-bottom: auto;
+}
+
+
 .container {
   @media (min-width: $screen-sm-min) {
     width: calc(100% - (#{$page-gutter-width} - #{$grid-gutter-width}));
