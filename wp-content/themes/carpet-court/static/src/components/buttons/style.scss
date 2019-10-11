@@ -30,7 +30,7 @@
   font-size: rem($btn-font-size);
   line-height: rem($btn-line-height);
   padding: $btn-padding-top $btn-padding-x $btn-padding-bottom;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 
   &:hover {
     text-decoration: none;

@@ -1,1 +1,12 @@
 .section-hero
+	.carousel-wrap
+		.carousel-slider
+			- var n = 0
+			while n < 3
+				- n++
+				.slide
+					img.slide-image.hidden-xs-max(src='#{DIR}images/hero/hero-slide-large.jpg')
+					img.slide-image.hidden-sm-min(src='#{DIR}images/hero/hero-slide-small.jpg')
+		.carousel-nav
+			button.btn.btn-prev.ic-nav-prev(type='button')
+			button.btn.btn-next.ic-nav-next(type='button')
