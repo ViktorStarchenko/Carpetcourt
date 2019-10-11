@@ -20,3 +20,4 @@ products/
 .tmb/
 .quarantine/
 wp-content/uploads/
+/docker
