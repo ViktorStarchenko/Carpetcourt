@@ -24,19 +24,17 @@
         }());
     }
     
-    
     var cards = {
         
         init: function() {
             var wrappers = $('.js-card-wrapper');
             if (!wrappers.length) return false;
-    
+            
             wrappers.each(function() {
                 new Card($(this));
             });
         }
     };
-    
 
     $window.on('load', function() {
         cards.init();

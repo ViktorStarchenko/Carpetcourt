@@ -14,6 +14,7 @@
   }
 
 
+  // slider
   .carousel-slider {
 
     // not init
@@ -25,11 +26,21 @@
         }
       }
     }
+
+    // init
+    &.slick-initialized {
+
+      ~ .carousel-nav,
+      ~ .carousel-dots {
+        opacity: 1;
+      }
+    }
   }
 
 
   .slide {
-
+    display: block;
+    text-decoration: none;
 
     .slide-image {
       display: block;
@@ -38,8 +49,10 @@
   }
 
 
+  // nav
   .carousel-nav {
-
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
 
@@ -107,6 +120,39 @@
 
     &:before {
       margin-left: 1px;
+    }
+  }
+
+
+  // dots
+  .carousel-dots {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    ul {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-wrap: nowrap;
+
+      @media (max-width: $screen-xs-max) {
+        bottom: 10px;
+      }
+
+      li {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(#000, 0.2);
+        margin: 0 2px;
+        cursor: pointer;
+
+        &.slick-active {
+          background: rgba(#000, 0.4);
+        }
+      }
     }
   }
 }
