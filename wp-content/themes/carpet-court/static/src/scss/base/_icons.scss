@@ -30,20 +30,41 @@
 @function ic-char($filename) {
   $char: "";
 
-  @if $filename == icon-check {
+  @if $filename == help-email {
   $char: "\E001";
 }
-  @if $filename == icon-cross {
+  @if $filename == help-location {
   $char: "\E002";
 }
-  @if $filename == menu-arrow {
+  @if $filename == help-phone {
   $char: "\E003";
 }
-  @if $filename == nav-next {
+  @if $filename == icon-check {
   $char: "\E004";
 }
-  @if $filename == nav-prev {
+  @if $filename == icon-cross {
   $char: "\E005";
+}
+  @if $filename == menu-arrow {
+  $char: "\E006";
+}
+  @if $filename == nav-next {
+  $char: "\E007";
+}
+  @if $filename == nav-prev {
+  $char: "\E008";
+}
+  @if $filename == soc-facebook {
+  $char: "\E009";
+}
+  @if $filename == soc-instagram {
+  $char: "\E00A";
+}
+  @if $filename == soc-pinterest {
+  $char: "\E00B";
+}
+  @if $filename == soc-youtube {
+  $char: "\E00C";
 }
 
 @return $char;
@@ -60,6 +81,15 @@
 }
 }
 
+.ic-help-email {
+  @include ic(help-email);
+}
+.ic-help-location {
+  @include ic(help-location);
+}
+.ic-help-phone {
+  @include ic(help-phone);
+}
 .ic-icon-check {
   @include ic(icon-check);
 }
@@ -74,4 +104,16 @@
 }
 .ic-nav-prev {
   @include ic(nav-prev);
+}
+.ic-soc-facebook {
+  @include ic(soc-facebook);
+}
+.ic-soc-instagram {
+  @include ic(soc-instagram);
+}
+.ic-soc-pinterest {
+  @include ic(soc-pinterest);
+}
+.ic-soc-youtube {
+  @include ic(soc-youtube);
 }
