@@ -1,2 +1,66 @@
+-
+	var data = [
+		{image: DIR + 'images/category/category-image-1.jpg', title: 'carpet'},
+		{image: DIR + 'images/category/category-image-2.jpg', title: 'laminate'},
+		{image: DIR + 'images/category/category-image-3.jpg', title: 'vinyl'},
+		{image: DIR + 'images/category/category-image-4.jpg', title: 'tiles'},
+		{image: DIR + 'images/category/category-image-5.jpg', title: 'wood'},
+		{image: DIR + 'images/category/category-image-6.jpg', title: 'vinyl planks'},
+		{image: DIR + 'images/category/category-image-7.jpg', title: 'curtains & blinds'},
+		{image: DIR + 'images/category/category-image-8.jpg', title: 'rigid'}
+	];
+
 header.g-header
-	| header
+	.h-bar.js-check-padding
+		.container
+			.h-bar__inner
+				.bar-text
+					| finance options available  -
+					=' '
+					a(href='#') find out more
+				.bar-menu
+					.menu-item
+						a.ic-bar-heart(href='#') saved items
+					.menu-item
+						a.ic-bar-phone(href='#') 0800 787 777
+	.h-wrap.js-check-padding
+		.container
+			.h-wrap__inner
+				.h-burger
+					button.btn-burger.mm-opener(type='button', data-target='#mobileMenu')
+						span.icon
+				.h-search
+					a.ic-nav-search(href='#')
+				.h-logo
+					a(href='/home.html')
+						img(src='#{DIR}images/logo-dark.png')
+				.h-nav
+					.nav-item
+						a(href='#', data-dropdown='#nav-1') product
+					.nav-item
+						a(href='#', data-dropdown='#nav-2') design
+					.nav-item
+						a(href='#', data-dropdown='#nav-3') advice
+					.nav-item
+						a(href='#', data-dropdown='#nav-4') commercial
+					.nav-item.nav-item--promo
+						a(href='#') promotions
+					.nav-item.nav-item--right
+						a.ic-nav-search(href='#') search
+					.nav-item.nav-item--right
+						a.ic-nav-location(href='#') find a store
+				.h-button
+					a.btn.btn-index(href='#') free measure & quote
+				.h-favorite
+					a.ic-bar-heart(href='#')
+				.h-location
+					a.ic-nav-location(href='#')
+	.h-dropdown.js-check-padding
+		.container
+			- var n = 0
+			while n < 4
+				- n++
+				.dropdown-menu.js-card-wrapper(id='nav-#{n}')
+					each item in data
+						.menu-item
+							+card-small(item.image, item.title)

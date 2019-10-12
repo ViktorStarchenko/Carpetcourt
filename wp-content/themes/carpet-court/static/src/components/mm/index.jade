@@ -1,0 +1,35 @@
+-
+	var menu = [
+		{title: 'product', submenu: true},
+		{title: 'design', submenu: true},
+		{title: 'advice', submenu: true},
+		{title: 'commercial', submenu: true},
+		{title: 'promotions', submenu: false}
+	];
+	var submenu = ['carpet', 'laminate', 'vinyl', 'tiles', 'wood', 'vinyl planks', 'curtains & blinds', 'rigid '];
+
+#mobileMenu.g-mm
+	.mm-wrap
+		.swipe-menu
+			each item1 in menu
+				.menu-item
+					a(href='#', class='#{item1.submenu ? "lnk-next" : ""}') #{item1.title}
+					if (item1.submenu)
+						.item-dropdown
+							.dropdown-nav
+								.dropdown-nav__ttl #{item1.title}
+								.dropdown-nav__btn
+									button.btn.btn-index.btn--grey.lnk-back(type='button') back
+							.dropdown-menu
+								each item2 in submenu
+									.menu-item
+										a.lnk-next(href='#') #{item2}
+										.item-dropdown
+											.dropdown-nav
+												.dropdown-nav__ttl #{item2}
+												.dropdown-nav__btn
+													button.btn.btn-index.btn--grey.lnk-back(type='button') back
+											.dropdown-menu
+												each item3 in submenu
+													.menu-item
+														a(href='#') #{item3}

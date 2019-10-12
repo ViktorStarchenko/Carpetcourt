@@ -37,12 +37,6 @@ function isTouch() {
 }
 
 
-// is scrolled
-function pageScrolled() {
-    window.scrollY > 0 ? $body.addClass('page-scrolled') : $body.removeClass('page-scrolled');
-}
-
-
 // identify ОС
 function getOS() {
     var OSName = 'Unknown';
@@ -98,99 +92,6 @@ function getInternetExplorerVersion() {
     return false;
 }
 
-
-// mobile menu
-var mm = (function($) {
-    var self = {};
-    self.instance = null;
-    self.isOpened = false;
-    self.timeout = null;
-    
-    self.close = function() {
-        self.isOpened = false;
-        $body.removeClass('mm-opened');
-        self.menus.removeClass('opened');
-        self.timeout = setTimeout(function() {
-            self.menus.find('.menu-item').removeClass('opened');
-        }, 600);
-    };
-    
-    self.open = function(id) {
-        var mm = $(id);
-        if (!mm.length) return false;
-        self.isOpened = true;
-        mm.addClass('opened');
-        $body.addClass('mm-opened');
-        clearTimeout(self.timeout);
-    };
-    
-    self.resize = function() {
-        self.windowWidth = window.innerWidth;
-        if (self.windowWidth > 1023 && self.isOpened) {
-            self.close();
-        }
-    };
-    
-    self.buttons = function() {
-        var buttons = $('.mm-opener');
-        if (!buttons.length) return false;
-    
-        buttons.each(function (){
-            var btn = $(this);
-            var isBurger = btn.hasClass('btn-burger');
-            var id = btn.attr('data-target');
-    
-            btn.on('click', function (){
-                if (self.isOpened) {
-                    return isBurger ? self.close() : false;
-                }
-                if (id) self.open(id);
-            });
-        });
-    };
-    
-    self.swipeMenu = function() {
-        var lnkNext = self.menus.find('.lnk-next');
-        var lnkBack = self.menus.find('.lnk-back');
-    
-        lnkNext.on('click', function(e) {
-            e.preventDefault();
-            $(this).closest('.menu-item').addClass('opened');
-        });
-    
-        lnkBack.on('click', function(e) {
-            e.preventDefault();
-            $(this).closest('.menu-item').removeClass('opened');
-        });
-    };
-    
-    
-    // constructor
-    self.createInstance = function() {
-        self.menus = $('.g-mm');
-        if (!self.menus.length) return {};
-        
-        self.resize();
-        self.buttons();
-        self.swipeMenu();
-    
-        $window.on('resizeWidth', function() {
-            self.resize();
-        });
-    
-        return {
-            open: self.open,
-            close: self.close
-        };
-    };
-    
-    return {
-        init: function() {
-            return self.instance || (self.instance = self.createInstance());
-        }
-    };
-}(jq));
-
 /*==================================================================================================================*/
 
 !function ($) {
@@ -236,36 +137,228 @@ var mm = (function($) {
     // modal open
     var checkModal = {
         
-        getPaddingRight: function(el) {
-            return el.length ? +el.css('padding-right').replace('px', '') : 0;
-        },
-        
         init: function() {
             this.modals = $('.modal');
-            this.header = $('.g-header');
-            this.headerParts = this.header.find('.h-part');
             if (!this.modals.length) return false;
             
             this.modals.each(function() {
                 var self = $(this);
                 
                 self.off('show.bs.modal').on('show.bs.modal', function() {
-                    var scrollbarWidth = getScrollbarWidth();
-                    checkModal.headerParts.each(function() {
-                        var self = $(this);
-                        self.css('padding-right', scrollbarWidth + checkModal.getPaddingRight(self));
-                    });
+                    window.checkOverflowPadding.check();
                 });
                 
                 self.off('hidden.bs.modal').on('hidden.bs.modal', function() {
-                    checkModal.headerParts.each(function() {
-                        $(this).css('padding-right', '');
-                    });
+                    window.checkOverflowPadding.reset();
                 });
             });
         }
     };
     
+    
+    // check overflow padding
+    function initCheckOverflowPadding() {
+        window.checkOverflowPadding = (function() {
+            var self = {};
+            self.instance = null;
+        
+            self._getPaddingRight = function(el) {
+                return el.length ? +el.css('padding-right').replace('px', '') : 0;
+            };
+        
+            self.check = function() {
+                var scrollbarWidth = getScrollbarWidth();
+                self.parts.each(function() {
+                    var part = $(this);
+                    part.css('padding-right', scrollbarWidth + self._getPaddingRight(part));
+                });
+            };
+        
+            self.reset = function() {
+                self.parts.each(function() {
+                    $(this).css('padding-right', '');
+                });
+            };
+        
+            // constructor
+            self.createInstance = function() {
+                self.parts = $('.js-check-padding');
+                if (!self.parts.length) return {
+                    check: function() { return false; },
+                    reset: function() { return false; }
+                };
+            
+                return {
+                    check: self.check,
+                    reset: self.reset
+                };
+            };
+        
+            return self.instance || (self.instance = self.createInstance());
+        }());
+    }
+    
+    
+    // overlay
+    function initOverlay() {
+        window.overlay = (function() {
+            var self = {};
+            self.instance = null;
+            self.isEnabled = false;
+        
+            self.enable = function() {
+                self.isEnabled = true;
+                self.wrap.addClass('g-wrap--overlay');
+                return self.isEnabled;
+            };
+        
+            self.disable = function() {
+                self.isEnabled = false;
+                self.wrap.removeClass('g-wrap--overlay');
+                return self.isEnabled;
+            };
+        
+            // constructor
+            self.createInstance = function() {
+                self.wrap = $('.g-wrap');
+                if (!self.wrap.length) return {
+                    enable: function() { return false; },
+                    disable: function() { return false; }
+                };
+            
+                return {
+                    enable: self.enable,
+                    disable: self.disable
+                };
+            };
+        
+            return self.instance || (self.instance = self.createInstance());
+        }());
+    }
+    
+    
+    // mobile menu
+    function initMobileMenu() {
+        window.mm = (function() {
+            var self = {};
+            self.instance = null;
+            self.isOpened = false;
+            self.timeout = null;
+        
+            self.close = function() {
+                window.checkOverflowPadding.reset();
+                window.overlay.disable();
+                self.isOpened = false;
+                $body.removeClass('mm-opened');
+                self.menus.removeClass('opened');
+                self.timeout = setTimeout(function() {
+                    self.menus.find('.menu-item').removeClass('opened');
+                }, 600);
+                return self.isOpened;
+            };
+        
+            self.open = function(id) {
+                var mm = $(id);
+                if (!mm.length) return false;
+                window.checkOverflowPadding.check();
+                window.overlay.enable();
+                self.isOpened = true;
+                mm.addClass('opened');
+                $body.addClass('mm-opened');
+                clearTimeout(self.timeout);
+                return self.isOpened;
+            };
+        
+            self.resize = function() {
+                self.windowWidth = window.innerWidth;
+                if (self.windowWidth > 1279 && self.isOpened) {
+                    self.close();
+                }
+            };
+        
+            self.buttons = function() {
+                var buttons = $('.mm-opener');
+                if (!buttons.length) return false;
+            
+                buttons.each(function() {
+                    var btn = $(this);
+                    var isBurger = btn.hasClass('btn-burger');
+                    var id = btn.attr('data-target');
+                
+                    btn.on('click', function(e) {
+                        e.stopPropagation();
+                        if (self.isOpened) {
+                            return isBurger ? self.close() : false;
+                        }
+                        if (id) self.open(id);
+                    });
+                });
+            };
+        
+            self.swipeMenu = function() {
+                var lnkNext = self.menus.find('.lnk-next');
+                var lnkBack = self.menus.find('.lnk-back');
+            
+                lnkNext.on('click', function(e) {
+                    e.preventDefault();
+                    $(this).closest('.menu-item').addClass('opened');
+                });
+            
+                lnkBack.on('click', function(e) {
+                    e.preventDefault();
+                    $(this).closest('.menu-item').removeClass('opened');
+                });
+            };
+        
+        
+            // constructor
+            self.createInstance = function() {
+                self.menus = $('.g-mm');
+                if (!self.menus.length) return {
+                    open: function() { return false; },
+                    close: function() { return false; }
+                };
+            
+                self.resize();
+                self.buttons();
+                self.swipeMenu();
+            
+                $window.on('resizeWidth', function() {
+                    self.resize();
+                });
+                $window.on('click', function() {
+                    if (self.isOpened) self.close();
+                });
+                self.menus.on('click', function(e) {
+                    e.stopPropagation();
+                });
+            
+                return {
+                    open: self.open,
+                    close: self.close
+                };
+            };
+        
+            return self.instance || (self.instance = self.createInstance());
+        }());
+    }
+    
+    
+    // is scrolled
+    function pageScrolled() {
+        window.scrollY > 0 ? $body.addClass('page-scrolled') : $body.removeClass('page-scrolled');
+    
+        var header = $('.g-header');
+        var bar = header.find('.h-bar');
+        var mm = $('.g-mm');
+    
+        if (!bar.length) return false;
+        var offset = window.scrollY > bar.outerHeight() ? bar.outerHeight() : window.scrollY;
+        header.css('transform', 'translateY(' + -offset + 'px)');
+    
+        if (!mm.length) return false;
+        mm.css('padding-top', header.outerHeight() - offset + 'px');
+    }
 
     
     // Call functions
@@ -275,8 +368,10 @@ var mm = (function($) {
         ieDetect();
         pageScrolled();
         selectPlaceholder();
+        initCheckOverflowPadding();
+        initOverlay();
+        initMobileMenu();
         checkModal.init();
-        mm.init();
     });
 
     $window.on('load', function () {
@@ -288,7 +383,7 @@ var mm = (function($) {
     });
 
     $window.on('resizeWidth', function() {
-    
+        pageScrolled();
     });
 
     $window.on('scroll', function () {

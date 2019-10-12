@@ -30,41 +30,56 @@
 @function ic-char($filename) {
   $char: "";
 
-  @if $filename == help-email {
+  @if $filename == bar-heart {
   $char: "\E001";
 }
-  @if $filename == help-location {
+  @if $filename == bar-phone {
   $char: "\E002";
 }
-  @if $filename == help-phone {
+  @if $filename == drop-arrow {
   $char: "\E003";
 }
-  @if $filename == icon-check {
+  @if $filename == help-email {
   $char: "\E004";
 }
-  @if $filename == icon-cross {
+  @if $filename == help-location {
   $char: "\E005";
 }
-  @if $filename == menu-arrow {
+  @if $filename == help-phone {
   $char: "\E006";
 }
-  @if $filename == nav-next {
+  @if $filename == icon-check {
   $char: "\E007";
 }
-  @if $filename == nav-prev {
+  @if $filename == icon-cross {
   $char: "\E008";
 }
-  @if $filename == soc-facebook {
+  @if $filename == menu-arrow {
   $char: "\E009";
 }
-  @if $filename == soc-instagram {
+  @if $filename == nav-location {
   $char: "\E00A";
 }
-  @if $filename == soc-pinterest {
+  @if $filename == nav-next {
   $char: "\E00B";
 }
-  @if $filename == soc-youtube {
+  @if $filename == nav-prev {
   $char: "\E00C";
+}
+  @if $filename == nav-search {
+  $char: "\E00D";
+}
+  @if $filename == soc-facebook {
+  $char: "\E00E";
+}
+  @if $filename == soc-instagram {
+  $char: "\E00F";
+}
+  @if $filename == soc-pinterest {
+  $char: "\E010";
+}
+  @if $filename == soc-youtube {
+  $char: "\E011";
 }
 
 @return $char;
@@ -81,6 +96,15 @@
 }
 }
 
+.ic-bar-heart {
+  @include ic(bar-heart);
+}
+.ic-bar-phone {
+  @include ic(bar-phone);
+}
+.ic-drop-arrow {
+  @include ic(drop-arrow);
+}
 .ic-help-email {
   @include ic(help-email);
 }
@@ -99,11 +123,17 @@
 .ic-menu-arrow {
   @include ic(menu-arrow);
 }
+.ic-nav-location {
+  @include ic(nav-location);
+}
 .ic-nav-next {
   @include ic(nav-next);
 }
 .ic-nav-prev {
   @include ic(nav-prev);
+}
+.ic-nav-search {
+  @include ic(nav-search);
 }
 .ic-soc-facebook {
   @include ic(soc-facebook);

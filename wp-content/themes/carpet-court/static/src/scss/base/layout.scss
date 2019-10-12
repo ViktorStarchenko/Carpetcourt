@@ -47,6 +47,11 @@ body {
 
 .g-main {
   margin-bottom: auto;
+  padding-top: ($header_bar-height + $header_wrap-height-desk);
+
+  @media (max-width: $screen-md-max) {
+    padding-top: ($header_bar-height + $header_wrap-height-mob);
+  }
 }
 
 

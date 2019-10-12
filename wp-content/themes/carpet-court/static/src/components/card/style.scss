@@ -72,4 +72,20 @@
     white-space: nowrap;
     padding-left: 20px;
   }
+
+
+  // small
+  &.card--small {
+
+    .card-label {
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .card-title {
+      text-align: center;
+      font-size: rem(14px);
+      line-height: rem(18px);
+    }
+  }
 }
