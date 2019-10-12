@@ -359,6 +359,126 @@ function getInternetExplorerVersion() {
         if (!mm.length) return false;
         mm.css('padding-top', header.outerHeight() - offset + 'px');
     }
+    
+    
+    // nav
+    var nav = {
+        
+        reset: function() {
+            window.overlay.disable();
+            this.navigationItems.removeClass('active');
+            this.dropdown.fadeOut(300);
+        },
+        
+        resize: function() {
+            this.windowWidth = window.innerWidth;
+            if (this.windowWidth < 1280) {
+                this.reset();
+            }
+        },
+        
+        listeners: function() {
+            this.navigationLinks.each(function() {
+                var link = $(this);
+                var item = link.closest('.nav-item');
+                
+                link.on('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    if (item.hasClass('active')) {
+                        nav.reset();
+                        return false;
+                    }
+                    
+                    var dropdown = $(link.attr("data-dropdown"));
+                    if (!dropdown.length) return false;
+                    window.overlay.enable();
+                    nav.dropdown.fadeIn(300);
+                    nav.navigationItems.removeClass('active');
+                    item.addClass('active');
+                    nav.dropdownItems.removeClass('active');
+                    dropdown.addClass('active');
+                });
+            });
+        },
+        
+        init: function() {
+            this.header = $('.g-header');
+            this.navigation = this.header.find('.h-nav');
+            this.navigationItems = this.navigation.find('.nav-item');
+            this.navigationLinks = this.navigationItems.find('a[data-dropdown]');
+            this.dropdown = this.header.find('.h-dropdown');
+            this.dropdownItems = this.dropdown.find('.dropdown-menu');
+            if (!this.navigationLinks.length || !this.dropdownItems.length) return false;
+            
+            this.resize();
+            this.listeners();
+            
+            $window.on('resizeWidth', function() {
+                nav.resize();
+            });
+            $window.on('click', function() {
+                nav.reset();
+            });
+            this.dropdown.on('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+    };
+    
+    
+    // search
+    function initSearch() {
+        window.search = (function() {
+            var self = {};
+            self.instance = null;
+            self.isOpened = false;
+        
+            self.open = function() {
+                self.isOpened = true;
+                $body.addClass('search-opened');
+                return self.isOpened;
+            };
+        
+            self.close = function() {
+                self.isOpened = false;
+                $body.removeClass('search-opened');
+                return self.isOpened;
+            };
+            
+            self.buttons = function() {
+                var buttons = $('.search-opener');
+                if (!buttons.length) return false;
+    
+                buttons.each(function() {
+                    $(this).on('click', function(e) {
+                        e.preventDefault();
+                        self.isOpened ? self.close() : self.open();
+                    });
+                });
+            };
+        
+            // constructor
+            self.createInstance = function() {
+                self.wrap = $('.g-search');
+                if (!self.wrap.length) return {
+                    open: function() { return false; },
+                    close: function() { return false; }
+                };
+    
+                self.buttons();
+            
+                return {
+                    open: self.open,
+                    close: self.close
+                };
+            };
+        
+            return self.instance || (self.instance = self.createInstance());
+        }());
+    }
+    
 
     
     // Call functions
@@ -371,6 +491,8 @@ function getInternetExplorerVersion() {
         initCheckOverflowPadding();
         initOverlay();
         initMobileMenu();
+        initSearch();
+        nav.init();
         checkModal.init();
     });
 

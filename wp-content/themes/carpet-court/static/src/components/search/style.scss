@@ -1,0 +1,86 @@
+/* g-search.scss */
+
+// variables **********************************************************************************************************
+
+// mixins *************************************************************************************************************
+
+// styles *************************************************************************************************************
+
+.g-search {
+  position: fixed;
+  z-index: 1001;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(#000, 0.85);
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  transform-origin: 50% 0;
+  transform: scale(0);
+  visibility: hidden;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
+
+  .search-opened & {
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+
+
+  .search-opener {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 9px 10px;
+
+    &:before {
+      display: block;
+    }
+  }
+
+
+  .search-wrap {
+
+  }
+
+  .search-form {
+    text-align: center;
+
+    input[type='text'] {
+      @include ff-regular;
+      display: block;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 30px;
+      background: transparent;
+      @include placeholder(rgba(#fff, 0.5));
+      border: none;
+      padding: 0;
+      font-size: rem(60px);
+      line-height: rem(64px);
+      height: 64px;
+      font-weight: $font-weight-base;
+      letter-spacing: $letter-spacing-base;
+
+      @media (max-width: $screen-sm-max) {
+        font-size: rem(30px);
+        line-height: rem(34px);
+        height: 34px;
+      }
+      @media (max-width: $screen-xs-max) {
+        font-size: rem(20px);
+        line-height: rem(24px);
+        height: 24px;
+      }
+    }
+
+    .btn-submit {
+      text-transform: uppercase;
+      min-width: 200px;
+    }
+  }
+}

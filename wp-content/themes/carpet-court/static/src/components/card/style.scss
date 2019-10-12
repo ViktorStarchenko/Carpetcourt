@@ -78,8 +78,17 @@
   &.card--small {
 
     .card-label {
-      justify-content: center;
+      bottom: 15px;
+      left: 15px;
+      width: calc(100% - 30px);
       padding: 10px;
+      justify-content: center;
+
+      @media (max-width: $screen-lg-max) {
+        bottom: 10px;
+        left: 10px;
+        width: calc(100% - 20px);
+      }
     }
 
     .card-title {
