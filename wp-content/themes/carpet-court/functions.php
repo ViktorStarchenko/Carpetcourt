@@ -2221,6 +2221,18 @@ function ct_minimum_comment_length( $commentdata ){
     return $commentdata;
 }
 
+
+function my_search_form( $form ) {
+
+    $form = '<form role="search" method="get" class="search-form" action="' . esc_url( home_url( '/' ) ) . '">
+				<input type="text" class="search-field" placeholder="type keyword(s) here" value="' . get_search_query() . '" name="s" />
+				<button type="submit" class="btn btn-submit search-submit">Search</button>
+			</form>';
+
+    return $form;
+}
+add_filter( 'get_search_form', 'my_search_form' );
+
 add_theme_support( 'post-thumbnails' );
 function cc_mime_types($mimes)
 {

@@ -131,10 +131,6 @@
                         <div class="search-form">
                             <?php get_search_form();?>
                         </div>
-                        <form class="search-form">
-                            <input type="text" placeholder="type keyword(s) here">
-                            <button type="submit" class="btn btn-submit">Search</button>
-                        </form>
                     </div>
                 </div>
             </div>
