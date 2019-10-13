@@ -1,0 +1,47 @@
+/* locator-info.scss */
+
+// variables **********************************************************************************************************
+
+// mixins *************************************************************************************************************
+
+// styles *************************************************************************************************************
+
+.locator-info {
+
+
+  .locator-info__group {
+
+    + .locator-info__group {
+      margin-top: 30px;
+    }
+  }
+
+
+  .locator-info__ttl {
+    @include ff-medium;
+    font-size: rem(18px);
+    line-height: rem(24px);
+    margin-bottom: 5px;
+
+    @media (max-width: $screen-sm-max) {
+      font-size: rem(16px);
+      line-height: rem(20px);
+    }
+  }
+
+
+  .locator-info__row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: -($grid-gutter-width / 2);
+    margin-right: -($grid-gutter-width / 2);
+  }
+
+
+  .locator-info__col {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-left: ($grid-gutter-width / 2);
+    padding-right: ($grid-gutter-width / 2);
+  }
+}

@@ -1,0 +1,32 @@
+.section-content
+	.container
+		.s-wrap
+			.row
+				.s-content.col-md-7
+					.locator-accordion
+						- var n = 0
+						- var p = 0
+						while n < 2
+							- n++
+							.acc-group(id='group-#{n}')
+								h2.acc-title North Island
+								while p < 6
+									- p++
+									.acc-panel
+										.acc-head
+											a.acc-link(data-toggle='collapse', href='#panel-#{n}-#{p}', class="#{p === 1 && n === 1 ? '' : 'collapsed'}") Auckland
+										.collapse(id='panel-#{n}-#{p}', class="#{p === 1 && n === 1 ? 'show' : ''}", data-parent="#group-#{n}")
+											.acc-body
+												include ../locator-info/index
+								- p = 0
+				.s-sidebar.col-md-5
+					.assistance-box
+						.assistance-box__title need assistance?
+						.assistance-box__text Please don’t hesitate to contact us for any questions or queries that you may have.
+						.assistance-box__list
+							.list-item
+								a.ic-help-phone(href='#') 0800 787 777
+							.list-item
+								a.ic-help-email(href='#') email us
+							.list-item
+								a.ic-help-location(href='#') PO Box 105806, Auckland

@@ -59,4 +59,8 @@ body {
   @media (min-width: $screen-sm-min) {
     width: calc(100% - (#{$page-gutter-width} - #{$grid-gutter-width}));
   }
+
+  &.container--fluid {
+    max-width: none;
+  }
 }
