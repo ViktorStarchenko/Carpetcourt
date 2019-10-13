@@ -10,7 +10,180 @@
  */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Credentials: true");
-?><!DOCTYPE html>
+?>
+<?php /** new design */ ?>
+<?php if (is_front_page()) : ?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+            document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '268676176963977'); // Insert your pixel ID here.
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=268676176963977&ev=PageView&noscript=1"/></noscript>
+    <!-- DO NOT MODIFY -->
+    <!-- End Facebook Pixel Code -->
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+            document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '268676176963977', {
+            em: 'insert_email_variable'
+        });
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=268676176963977&ev=PageView&noscript=1"/></noscript>
+    <!-- DO NOT MODIFY -->
+    <!-- End Facebook Pixel Code -->
+
+    <?php wp_head(); ?>
+</head>
+<?php
+    $logo = get_field('logo', 'option');
+    $topBar = get_field('top_bar', 'option');
+    $header = get_field('header', 'option');
+?>
+<body <?php body_class(); ?>>
+    <div class="g-wrap js-check-padding">
+        <header class="g-header">
+        <div class="h-bar js-check-padding">
+            <div class="container">
+                <div class="h-bar__inner">
+                    <?php if (!empty($topBar['text'])) : ?>
+                    <div class="bar-text">
+                        <?= $topBar['text'] ?>
+                    </div>
+                    <?php endif; ?>
+                    <div class="bar-menu">
+                        <?php if (is_user_logged_in()) : ?>
+                            <?php if (!empty($topBar['wishlist_logened'])) : ?>
+                                <div class="menu-item"><a href="<?= $topBar['wishlist_logened']['url'] ?>" class="ic-bar-heart"><?= $topBar['wishlist_logened']['title'] ?></a></div>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <?php if (!empty($topBar['wishlist_guest'])) : ?>
+                                <div class="menu-item"><a href="<?= $topBar['wishlist_guest']['url'] ?>" class="ic-bar-heart"><?= $topBar['wishlist_guest']['title'] ?></a></div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if (!empty($topBar['phone'])) : ?>
+                        <div class="menu-item"><a href="<?= $topBar['phone']['url'] ?>" class="ic-bar-phone"><?= $topBar['phone']['title'] ?></a></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h-wrap js-check-padding">
+            <div class="container">
+                <div class="h-wrap__inner">
+                    <div class="h-burger">
+                        <button type="button" data-target="#mobileMenu" class="btn-burger mm-opener"><span class="icon"></span></button>
+                    </div>
+                    <div class="h-search"><a href="#" class="ic-nav-search search-opener"></a></div>
+                    <?php if (!empty($logo['dark'])) : ?>
+                    <div class="h-logo">
+                        <a href="<?= get_option( 'home' ); ?>">
+                            <img src="<?= $logo['dark']['url'] ?>" alt="<?= get_option( 'blogname' ); ?>">
+                        </a>
+                    </div>
+                    <?php endif; ?>
+                    <div class="h-nav">
+                        <?php if (!empty($header['navigation'])) : ?>
+                            <?php foreach ($header['navigation'] as $key => $item) : ?>
+                                <?php if (!empty($item['link'])) : ?>
+                                    <?php
+                                        $dropdown = '';
+                                        if (!empty($item['sub_items'])) {
+                                            $dropdown = ' data-dropdown="#nav-' . $key . '" ';
+                                        }
+
+                                        $isPromotions = '';
+                                        if (!empty($item['isPromotions'])) {
+                                            $isPromotions = ' nav-item--promo ';
+                                        }
+                                    ?>
+                                    <div class="nav-item <?= $isPromotions ?>">
+                                        <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" <?= $dropdown ?> ><?= $item['link']['title'] ?></a>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <div class="nav-item nav-item--right"><a href="#" class="ic-nav-search search-opener">search</a></div>
+                        <?php if (!empty($header['location'])) : ?>
+                            <div class="nav-item nav-item--right"><a href="<?= $header['location']['url'] ?>" class="ic-nav-location"><?= $header['location']['title'] ?></a></div>
+                        <?php endif; ?>
+                    </div>
+                    <?php if (!empty($header['button'])) : ?>
+                    <div class="h-button">
+                        <a href="<?= $header['button']['url'] ?>" class="btn btn-index"><?= $header['button']['title'] ?></a>
+                    </div>
+                    <?php endif; ?>
+                    <?php if (is_user_logged_in()) : ?>
+                        <?php if (!empty($topBar['wishlist_logened'])) : ?>
+                            <div class="h-favorite"><a href="<?= $topBar['wishlist_logened']['url'] ?>" class="ic-bar-heart"></a></div>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <?php if (!empty($topBar['wishlist_guest'])) : ?>
+                            <div class="h-favorite"><a href="<?= $topBar['wishlist_guest']['url'] ?>" class="ic-bar-heart"></a></div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if (!empty($header['location'])) : ?>
+                        <div class="h-location"><a href="<?= $header['location']['url'] ?>" class="ic-nav-location"></a></div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="h-dropdown js-check-padding">
+            <div class="container">
+                <?php if (!empty($header['navigation'])) : ?>
+                    <?php foreach ($header['navigation'] as $key => $item) : ?>
+                        <?php if (!empty($item['link'])) : ?>
+                            <?php if (!empty($item['sub_items'])) : ?>
+                            <div id="nav-<?= $key ?>" class="dropdown-menu js-card-wrapper">
+                                <?php foreach ($item['sub_items'] as $dropdown) : ?>
+                                <?php if (!empty($dropdown['sub_item'])) : ?>
+                                <?php
+                                    $image = '';
+                                    if ($dropdown['image']) {
+                                        $image = $dropdown['image']['url'];
+                                    }
+                                ?>
+                                <div class="menu-item">
+                                    <a href="<?= $dropdown['sub_item']['url'] ?>" style="background-image: url(<?= $image ?>)" class="card card--small">
+                                        <div class="card-label">
+                                            <div class="card-title"><?= $dropdown['sub_item']['title'] ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </header>
+            <div class="g-main">
+<?php else: ?>
+<?php /** old design */ ?>
+<!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
     <link rel="profile" href="https://gmpg.org/xfn/11">
@@ -495,3 +668,4 @@ if( is_product() ){ ?>
         <?php get_search_form();?>
     </div>
     <div class="site-content">
+<?php endif; ?>

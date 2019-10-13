@@ -1,3 +1,162 @@
+<?php if (is_front_page()) : ?>
+
+<?php
+    $logo = get_field('logo', 'option');
+    $social = get_field('social', 'option');
+    $footer = get_field('footer', 'option');
+    $header = get_field('header', 'option');
+?>
+            </div>
+            <footer class="g-footer">
+                <div class="f-wrap">
+                    <div class="container">
+                        <div class="f-section">
+                            <div class="section-description">
+                                <?php if (!empty($logo['light'])) : ?>
+                                <div class="section-description__logo"><img src="<?= $logo['light']['url'] ?>"></div>
+                                <?php endif; ?>
+                                <?php if (!empty($footer['description'])) : ?>
+                                <div class="section-description__text">
+                                    <?= $footer['description'] ?>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="section-menu">
+                                <?php if (!empty($footer['contact_title'])) : ?>
+                                <div class="section-menu__title"><?= $footer['contact_title'] ?></div>
+                                <?php endif; ?>
+                                <?php if (!empty($footer['contacts'])) : ?>
+                                <div class="section-menu__list">
+                                    <?php foreach ($footer['contacts'] as $contact) : ?>
+                                        <div class="list-item">
+                                            <a href="<?= $contact['url'] ?>" class="<?= $contact['type'] ?>"><?= $contact['title'] ?></a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="f-section">
+                            <div class="section-description">
+                                <?php if (!empty($footer['info_title'])) : ?>
+                                    <div class="section-description__title">
+                                        <?= $footer['info_title'] ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (!empty($footer['info_description'])) : ?>
+                                    <div class="section-description__text">
+                                        <?= $footer['info_description'] ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            <?php if (!empty($footer['navigation'])) : ?>
+                            <div class="section-menu">
+                                <div class="section-menu__list">
+                                    <?php foreach ($footer['navigation'] as $item) : ?>
+                                    <?php if (!empty($item['link'])) : ?>
+                                    <div class="list-item"><a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['title'] ?>"><?= $item['link']['title'] ?></a></div>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="f-bar">
+                    <div class="container">
+                        <div class="f-bar__inner">
+                            <?php if (!empty($social['items'])) : ?>
+                            <div class="f-bar__part part--social">
+                                <div class="f-social">
+                                    <?php foreach ($social['items'] as $item) : ?>
+                                        <a href="<?= $item['url'] ?>" class="<?= $item['type'] ?>"></a>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                            <?php if (!empty($footer['copy'])) : ?>
+                            <div class="f-bar__part part--copyright">
+                                <div class="f-copyright"><?= date('Y') ?> © <?= $footer['copy'] ?></div>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <?php if (!empty($header['navigation'])) : ?>
+            <div id="mobileMenu" class="g-mm">
+                <div class="mm-wrap">
+                    <div class="swipe-menu">
+                        <?php foreach ($header['navigation'] as $item) : ?>
+                            <?php if (!empty($item['link'])) : ?>
+                                <?php
+                                    $isPromotions = '';
+                                    if (!empty($item['isPromotions'])) {
+                                        $isPromotions = ' nav-item--promo ';
+                                    }
+                                ?>
+                                <div class="menu-item <?= $isPromotions ?>">
+                                    <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" class="lnk-next"><?= $item['link']['title'] ?></a>
+                                    <?php if (!empty($item['sub_items'])) : ?>
+                                    <div class="item-dropdown">
+                                        <div class="dropdown-nav">
+                                            <div class="dropdown-nav__ttl"><?= $item['link']['title'] ?></div>
+                                            <div class="dropdown-nav__btn">
+                                                <button type="button" class="btn btn-index btn--grey lnk-back">back</button>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-menu">
+                                            <?php foreach ($item['sub_items'] as $dropdown) : ?>
+                                                <?php if (!empty($dropdown['sub_item'])) : ?>
+                                                <div class="menu-item">
+                                                    <a href="<?= $dropdown['sub_item']['url'] ?>" target="<?= $dropdown['sub_item']['target'] ?>" class="lnk-next"><?= $dropdown['sub_item']['title'] ?></a>
+                                                </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+            <div class="g-search">
+                <button type="button" class="btn search-opener ic-icon-cross"></button>
+                <div class="container">
+                    <div class="search-wrap">
+                        <div class="search-form">
+                            <?php get_search_form();?>
+                        </div>
+                        <form class="search-form">
+                            <input type="text" placeholder="type keyword(s) here">
+                            <button type="submit" class="btn btn-submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            var google_conversion_id = 840223342;
+            var google_custom_params = window.google_tag_params;
+            var google_remarketing_only = true;
+            /* ]]> */
+        </script>
+        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+        </script>
+        <noscript>
+            <div style="display:inline;">
+                <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/840223342/?guid=ON&amp;script=0"/>
+            </div>
+        </noscript>
+        <?php wp_footer(); ?>
+    </body>
+</html>
+<?php else: ?>
    <?php global $cc_options;?>
    <?php if( !get_field('enable_one_page_scroller', get_the_ID()) ){ ?>
     </div>
@@ -391,3 +550,4 @@ var google_remarketing_only = true;
 </noscript>
 </body>
 </html>
+<?php endif; ?>
