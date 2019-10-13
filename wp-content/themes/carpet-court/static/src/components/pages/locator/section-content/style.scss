@@ -30,6 +30,19 @@
   }
 
 
+  .s-title {
+    @media (max-width: $screen-sm-max) {
+      text-align: center;
+    }
+  }
+
+
+  .s-image {
+    display: block;
+    max-width: 100%;
+  }
+
+
   .locator-accordion {
     @media (max-width: $screen-mob-max) {
       margin-left: -($grid-gutter-width / 2);
