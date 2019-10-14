@@ -43,7 +43,7 @@
     }
 
     .swipe-menu {
-      .item-dropdown {
+      .item-drop {
         transition: transform 0.4s ease;
       }
     }
@@ -72,7 +72,7 @@
     padding: 0 ($grid-gutter-width / 2);
 
     &.opened {
-      > .item-dropdown {
+      > .item-drop {
         transform: translateX(0);
       }
     }
@@ -102,7 +102,7 @@
   }
 
 
-  .item-dropdown {
+  .item-drop {
     position: absolute;
     z-index: 5;
     top: 0;
@@ -117,7 +117,7 @@
   }
 
 
-  .dropdown-nav {
+  .drop-nav {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -126,12 +126,12 @@
     padding: ($grid-gutter-width / 2);
 
 
-    .dropdown-nav__ttl {
+    .drop-nav__ttl {
       @include ff-medium;
       opacity: 0.5;
     }
 
-    .dropdown-nav__btn {
+    .drop-nav__btn {
 
       .btn {
         padding-top: 5px;
@@ -141,7 +141,7 @@
   }
 
 
-  .dropdown-menu {
+  .drop-menu {
 
   }
 }
