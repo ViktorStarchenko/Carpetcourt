@@ -75,10 +75,12 @@ html{
 }
 body{margin: 0;}
 body:not(.single){margin: 0 !important;}
+/*
 body.error404,body.search,body.page-id-8.page-template-default.woocommerce-account,
 .cpm-margin-no-slider{
     margin-top: 117px !important;
 }
+*/
 article,
 aside,
 details,

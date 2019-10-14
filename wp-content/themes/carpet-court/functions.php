@@ -74,6 +74,7 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
 
  function carpet_court_scripts() {
 
+     if(!is_front_page()){
          /*bootstrap.min.css included in vertical.min.css*/
          // wp_enqueue_style( 'carpet-court-vertical-css', get_template_directory_uri().'/assets/css/vertical.min.css' );
          wp_enqueue_style( 'cc-plugin-style', get_template_directory_uri().'/assets/css/cpm-plugins.css' );
@@ -129,16 +130,23 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
 
          wp_localize_script( 'carpet-court-script-js', 'script_modal', $script_modal );
 
-     if(!is_admin()) {
-         // new design
-         enqueue_versioned_style('theme-styles', '/static/public/css/app.min.css');
-
-         wp_deregister_script( 'jquery' );
-         enqueue_versioned_script( 'jquery',  '/static/public/js/libs/jquery-3.2.1.min.js', false, false);
-         wp_enqueue_script( 'jquery' );
-         
-         enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
-         enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
+         if(!is_admin()) {
+             // new design
+             enqueue_versioned_style('theme-styles', '/static/public/css/app.min.css');
+             enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
+             enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
+         }
+     } else {
+         if(!is_admin()) {
+            // new design
+            enqueue_versioned_style('theme-styles', '/static/public/css/app.min.css');
+            wp_deregister_script( 'jquery' );
+            enqueue_versioned_script( 'jquery',  '/static/public/js/libs/jquery-3.2.1.min.js', false, false);
+            wp_enqueue_script( 'jquery' );
+            enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
+            enqueue_versioned_script( 'bootstrap-js',  '/static/public/js/bootstrap.min.js', array('jquery'), true);
+            enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
+         }
      }
 }
 add_action( 'wp_enqueue_scripts', 'carpet_court_scripts' );

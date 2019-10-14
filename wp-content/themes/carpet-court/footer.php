@@ -97,14 +97,14 @@
                                 <div class="menu-item <?= $isPromotions ?>">
                                     <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" class="lnk-next"><?= $item['link']['title'] ?></a>
                                     <?php if (!empty($item['sub_items'])) : ?>
-                                    <div class="item-dropdown">
-                                        <div class="dropdown-nav">
-                                            <div class="dropdown-nav__ttl"><?= $item['link']['title'] ?></div>
-                                            <div class="dropdown-nav__btn">
+                                    <div class="item-drop">
+                                        <div class="drop-nav">
+                                            <div class="drop-nav__ttl"><?= $item['link']['title'] ?></div>
+                                            <div class="drop-nav__btn">
                                                 <button type="button" class="btn btn-index btn--grey lnk-back">back</button>
                                             </div>
                                         </div>
-                                        <div class="dropdown-menu">
+                                        <div class="drop-menu">
                                             <?php foreach ($item['sub_items'] as $dropdown) : ?>
                                                 <?php if (!empty($dropdown['sub_item'])) : ?>
                                                 <div class="menu-item">
@@ -147,9 +147,6 @@
                 <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/840223342/?guid=ON&amp;script=0"/>
             </div>
         </noscript>
-        <?php wp_footer(); ?>
-    </body>
-</html>
 <?php /*
    <?php global $cc_options;?>
    <?php if( !get_field('enable_one_page_scroller', get_the_ID()) ){ ?>
@@ -241,6 +238,7 @@
 <?php wp_footer(); ?>
 
 */ ?>
+<?php if (!is_front_page()) : ?>
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 
@@ -544,5 +542,7 @@ var google_remarketing_only = true;
 <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/840223342/?guid=ON&amp;script=0"/>
 </div>
 </noscript>
+<?php endif; ?>
+<?php wp_footer(); ?>
 </body>
 </html>
