@@ -116,3 +116,19 @@ ul, ol {
     padding: 0;
   }
 }
+
+
+//
+// Bootstrap 3 fix
+//
+.collapse {
+  &.in {
+    display: block !important;
+  }
+}
+
+.fade {
+  &.in {
+    opacity: 1 !important;
+  }
+}
