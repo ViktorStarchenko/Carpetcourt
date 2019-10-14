@@ -1,5 +1,5 @@
 // !!!DO NOT OFF!!!
-// @include bootstrap.js
+// ## @include bootstrap.js
 
 
 // Global variables
@@ -408,8 +408,8 @@ function getInternetExplorerVersion() {
             this.navigation = this.header.find('.h-nav');
             this.navigationItems = this.navigation.find('.nav-item');
             this.navigationLinks = this.navigationItems.find('a[data-dropdown]');
-            this.dropdown = this.header.find('.h-dropdown');
-            this.dropdownItems = this.dropdown.find('.dropdown-menu');
+            this.dropdown = this.header.find('.h-drop');
+            this.dropdownItems = this.dropdown.find('.drop-menu');
             if (!this.navigationLinks.length || !this.dropdownItems.length) return false;
             
             this.resize();

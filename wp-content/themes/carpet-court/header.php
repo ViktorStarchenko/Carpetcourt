@@ -12,7 +12,6 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Credentials: true");
 ?>
 <?php /** new design */ ?>
-<?php if (is_front_page()) : ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -61,7 +60,7 @@ header("Access-Control-Allow-Credentials: true");
     $header = get_field('header', 'option');
 ?>
 <body <?php body_class(); ?>>
-    <div class="g-wrap js-check-padding">
+    <div class="g-wrap <?php if (is_front_page()) : ?> js-check-padding <?php endif; ?>">
         <header class="g-header">
         <div class="h-bar js-check-padding">
             <div class="container">
@@ -148,13 +147,13 @@ header("Access-Control-Allow-Credentials: true");
                 </div>
             </div>
         </div>
-        <div class="h-dropdown js-check-padding">
+        <div class="h-drop js-check-padding">
             <div class="container">
                 <?php if (!empty($header['navigation'])) : ?>
                     <?php foreach ($header['navigation'] as $key => $item) : ?>
                         <?php if (!empty($item['link'])) : ?>
                             <?php if (!empty($item['sub_items'])) : ?>
-                            <div id="nav-<?= $key ?>" class="dropdown-menu js-card-wrapper">
+                            <div id="nav-<?= $key ?>" class="drop-menu js-card-wrapper">
                                 <?php foreach ($item['sub_items'] as $dropdown) : ?>
                                 <?php if (!empty($dropdown['sub_item'])) : ?>
                                 <?php
@@ -180,9 +179,280 @@ header("Access-Control-Allow-Credentials: true");
             </div>
         </div>
     </header>
-            <div class="g-main">
-<?php else: ?>
+    <div class="g-main">
+<?php if (!is_front_page()) : ?>
+    <!-- this is for new slide menu  -->
+    <script type="text/javascript">
+        var disable_f = 0;
+    </script>
+<?php
+if ( get_field('disable_page_refresh', get_the_ID() ) ) {
+    ?>
+    <script type="text/javascript">
+        disable_f = 1;
+    </script>
+    <?php
+}
+?>
+<?php if( is_singular() && get_field('enable_one_page_scroller', get_the_ID()) ){?>
+
+
+    <div class="cpm-preloader"><div class="loader-icon"></div></div>
+    <div class="slider-menu-section">
+        <ul class="slier-menu-right">
+            <?php
+            $menu_title = "Banner";
+            if( get_field('banner_menu_title', get_the_ID()) ){
+                $menu_title = get_field('banner_menu_title', get_the_ID());
+            }
+            if( get_field('add_slider_shortcode', get_the_ID()) ){
+                ?>
+                <li><a class="active" href="#section-0"><span></span></a><div class="tooltip"><span><?php echo get_field('banner_menu_title', get_the_ID()); ?></span></div></li>
+            <?php } ?>
+        </ul>
+    </div>
+<?php } ?>
 <?php /** old design */ ?>
+
+
+<?php if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); } ?>
+
+    <style type="text/css">
+
+        .color-term-name {
+            position: absolute;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            text-align: center;
+            color: white;
+            margin: 0px auto;
+            right: 0;
+            font-size: 30px;
+            font-weight: 600;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        .color-term-name span {
+            width: 100%;
+            display: table-cell;
+            vertical-align: middle;
+            height: 100%;
+        }
+        #easy_zoom{
+            width:300px;
+            height:300px;
+            border:5px solid #eee;
+            background:#fff;
+            color:#ffffff;
+            font-size: 24px;
+            font-weight: 500;
+            position:absolute;
+            overflow:hidden;
+            -moz-box-shadow:0 0 10px #777;
+            -webkit-box-shadow:0 0 10px #777;
+            box-shadow:0 0 10px #777;
+            line-height:300px;
+            text-align:center;
+            z-index: 9999;
+            top: -250px;
+        }
+        #easy_zoom img{
+            width: 100%;
+            height: 100%;
+        }
+        div#collapse-color {
+            position: relative;
+        }
+
+        #easy_zoom .color-i-term{
+            position: relative;
+        }
+        #cceasy_zoom{
+            width:300px;
+            height:300px;
+            border:5px solid #eee;
+            background:#fff;
+            color:#ffffff;
+            font-size: 24px;
+            font-weight: 500;
+            position:absolute;
+            overflow:hidden;
+            -moz-box-shadow:0 0 10px #777;
+            -webkit-box-shadow:0 0 10px #777;
+            box-shadow:0 0 10px #777;
+            line-height:300px;
+            text-align:center;
+            z-index: 9999;
+            bottom: 40px;
+            left: 0px;
+        }
+        #cceasy_zoom img{
+            width: 100%;
+            height: 100%;
+        }
+        div#collapse-color {
+            position: relative;
+        }
+
+        #cceasy_zoom .color-i-term{
+            position: relative;
+        }
+        .list-color-available ul li {
+            position: relative;
+        }
+    </style>
+<?php
+$pagename = get_query_var('pagename');
+
+if(is_front_page()){
+
+    ?>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'pageType':'home'
+        });
+    </script>
+<?php }
+elseif(is_product()){
+global $post, $product;
+$terms = get_the_terms( $product->id, 'product_cat' );
+foreach ($terms as $term) {
+    $categ = $term->slug;
+    break;
+}
+
+
+// $categ = $product->get_categories();
+
+?>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'pageType':'product',
+            'productCategory':'<?php echo $categ; ?>'
+        });
+    </script>
+<?php }
+elseif(is_search()){ ?>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'pageType':'searchresults'
+        });
+    </script>
+<?php }
+elseif($pagename == 'measure-and-quote'){ ?>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'pageType':'contactus'
+        });
+    </script>
+<?php }
+elseif($pagename == 'thanks-for-your-email'){ ?>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event':'quoteSubmitted'
+        });
+    </script>
+<?php }
+elseif($pagename == 'my-account'){ ?>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event':'accountCreated'
+        });
+    </script>
+<?php }
+elseif($pagename == 'search'){ ?>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'pageType':'searchresults'
+        });
+    </script>
+<?php }
+
+elseif($pagename == 'store-finder'){ ?>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'pageType':'storefinder'
+        });
+    </script>
+<?php }
+elseif($pagename == 'advice'){ ?>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'pageType':'advice'
+        });
+    </script>
+<?php }
+?>
+
+
+<?php
+if ( $pagename == 'style-guide' ) { ?>
+    <div class="modal grow" id="style-guide-modal-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog modal-lg modal-xlg" role="document">
+
+            <div class="modal-content">
+                <div class="modalbox-header pull-right">
+                    <form>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                    </form>
+                </div>
+                <div class="modal-body" id="post-popup-style-guide-cc">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+
+} ?>
+    <div class="modal cc-model fade cc-masonry-popup" id="pop-up-video" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body clearfix">
+                    <div class="col-sm-12">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php
+
+if( is_product() ){ ?>
+    <div class="modal fade" id="like-img-modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body img-modal-body clearfix">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+
+}
+?>
+<?php endif; ?>
+<?php /*
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -668,4 +938,4 @@ if( is_product() ){ ?>
         <?php get_search_form();?>
     </div>
     <div class="site-content">
-<?php endif; ?>
+<?php */ ?>

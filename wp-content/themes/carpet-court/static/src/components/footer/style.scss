@@ -173,6 +173,10 @@
     min-height: 50px;
     padding: 15px 0;
 
+    @media (min-width: $screen-md-min) {
+      padding-left: 60px;
+      padding-right: 60px;
+    }
     @media (min-width: $screen-sm-min) {
       display: flex;
       flex-wrap: nowrap;

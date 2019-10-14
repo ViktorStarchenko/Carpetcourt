@@ -72,8 +72,13 @@
     padding: 0 ($grid-gutter-width / 2);
 
     &.opened {
+<<<<<<< HEAD
+      > .item-dropdown {
+        transform: translateX(-1px);
+=======
       > .item-drop {
         transform: translateX(0);
+>>>>>>> dev-rt-header
       }
     }
 

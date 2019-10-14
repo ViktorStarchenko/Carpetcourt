@@ -55,12 +55,12 @@ header.g-header
 					a.ic-bar-heart(href='#')
 				.h-location
 					a.ic-nav-location(href='#')
-	.h-dropdown.js-check-padding
+	.h-drop.js-check-padding
 		.container
 			- var n = 0
 			while n < 4
 				- n++
-				.dropdown-menu.js-card-wrapper(id='nav-#{n}')
+				.drop-menu.js-card-wrapper(id='nav-#{n}')
 					each item in data
 						.menu-item
 							+card-small(item.image, item.title)
