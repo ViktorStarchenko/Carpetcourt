@@ -1,0 +1,25 @@
+/* font-face.scss */
+
+// mixins *************************************************************************************************************
+@mixin font-face($font-family, $font, $class) {
+  @font-face {
+    font-family: '#{$font}';
+    font-style: normal;
+    font-weight: 400;
+    src: local('#{$font-family}'),
+         local('#{$font}'),
+    url('../fonts/#{$font}.woff') format('woff'),
+    url('../fonts/#{$font}.woff2') format('woff2')
+  }
+
+  .#{$class} {
+    font-family: $font, $font-family-sans-serif;
+  }
+}
+
+// styles *************************************************************************************************************
+
+@include font-face('', Omnes-Medium, font-medium);
+@include font-face('', Omnes-Regular, font-regular);
+@include font-face('', Omnes-SemiBold, font-semibold);
+@include font-face('', Omnes-SemiBold-Italic, font-semibold-italic);

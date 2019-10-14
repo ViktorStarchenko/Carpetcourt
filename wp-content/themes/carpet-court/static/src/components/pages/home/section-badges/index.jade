@@ -1,0 +1,17 @@
+-
+	var data = [
+		{image: DIR + 'images/badges/badge-1.svg', text: '57 stores nationwide'},
+		{image: DIR + 'images/badges/badge-2.svg', text: 'free measure & quote'},
+		{image: DIR + 'images/badges/badge-3.svg', text: 'finance options available'},
+		{image: DIR + 'images/badges/badge-4.svg', text: 'expertise in all commercial sectors'},
+		{image: DIR + 'images/badges/badge-5.svg', text: '2019 Reader’s Digest Quality service award'}
+	];
+
+.section-badges
+	.container
+		.s-list
+			each item in data
+				.list-item
+					.item-image
+						img(src='#{item.image}')
+					.item-text #{item.text}

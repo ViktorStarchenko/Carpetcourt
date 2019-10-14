@@ -1,0 +1,40 @@
+/* section-story.scss */
+
+// variables **********************************************************************************************************
+
+// mixins *************************************************************************************************************
+
+// styles *************************************************************************************************************
+
+.section-story {
+  background-color: #53595e;
+  padding: 60px 0;
+  color: #fff;
+  font-size: rem(13px);
+  line-height: rem(20px);
+
+  @media (max-width: $screen-xs-max) {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+
+  .s-title {
+    @include ff-medium;
+    font-size: rem(18px);
+    line-height: rem(24px);
+    margin-bottom: $headings-margin-bottom;
+
+    @media (max-width: $screen-xs-max) {
+      font-size: rem(14px);
+      line-height: rem(20px);
+    }
+  }
+
+
+  p {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

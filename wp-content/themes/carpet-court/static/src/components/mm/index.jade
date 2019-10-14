@@ -15,21 +15,21 @@
 				.menu-item
 					a(href='#', class='#{item1.submenu ? "lnk-next" : ""}') #{item1.title}
 					if (item1.submenu)
-						.item-drop
-							.drop-nav
-								.drop-nav__ttl #{item1.title}
-								.drop-nav__btn
+						.item-dropdown
+							.dropdown-nav
+								.dropdown-nav__ttl #{item1.title}
+								.dropdown-nav__btn
 									button.btn.btn-index.btn--grey.lnk-back(type='button') back
-							.drop-menu
+							.dropdown-menu
 								each item2 in submenu
 									.menu-item
 										a.lnk-next(href='#') #{item2}
-										.item-drop
-											.drop-nav
-												.drop-nav__ttl #{item2}
-												.drop-nav__btn
+										.item-dropdown
+											.dropdown-nav
+												.dropdown-nav__ttl #{item2}
+												.dropdown-nav__btn
 													button.btn.btn-index.btn--grey.lnk-back(type='button') back
-											.drop-menu
+											.dropdown-menu
 												each item3 in submenu
 													.menu-item
 														a(href='#') #{item3}
