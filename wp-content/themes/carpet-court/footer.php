@@ -1,5 +1,3 @@
-<?php if (is_front_page()) : ?>
-
 <?php
     $logo = get_field('logo', 'option');
     $social = get_field('social', 'option');
@@ -152,7 +150,7 @@
         <?php wp_footer(); ?>
     </body>
 </html>
-<?php else: ?>
+<?php /*
    <?php global $cc_options;?>
    <?php if( !get_field('enable_one_page_scroller', get_the_ID()) ){ ?>
     </div>
@@ -241,6 +239,8 @@
   </div><!-- .site-info -->
 </footer><!-- #colophon -->
 <?php wp_footer(); ?>
+
+*/ ?>
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 
@@ -546,4 +546,3 @@ var google_remarketing_only = true;
 </noscript>
 </body>
 </html>
-<?php endif; ?>
