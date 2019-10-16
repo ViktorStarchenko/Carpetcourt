@@ -97,10 +97,10 @@
                                 <div class="menu-item <?= $isPromotions ?>">
                                     <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" class="lnk-next"><?= $item['link']['title'] ?></a>
                                     <?php if (!empty($item['sub_items'])) : ?>
-                                    <div class="item-drop">
-                                        <div class="drop-nav">
-                                            <div class="drop-nav__ttl"><?= $item['link']['title'] ?></div>
-                                            <div class="drop-nav__btn">
+                                    <div class="item-dropdown">
+                                        <div class="dropdown-nav">
+                                            <div class="dropdown-nav__ttl"><?= $item['link']['title'] ?></div>
+                                            <div class="dropdown-nav__btn">
                                                 <button type="button" class="btn btn-index btn--grey lnk-back">back</button>
                                             </div>
                                         </div>

@@ -807,6 +807,7 @@ input[type='submit']:active
     text-transform: uppercase;
     color: #ee2d24;
     background: #fff;
+    border: none !important;
 }
 .btn-cc-white:visited{
     color: #ee2d24;
