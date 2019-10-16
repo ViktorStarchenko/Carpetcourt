@@ -108,7 +108,7 @@
                                             <?php foreach ($item['sub_items'] as $dropdown) : ?>
                                                 <?php if (!empty($dropdown['sub_item'])) : ?>
                                                 <div class="menu-item">
-                                                    <a href="<?= $dropdown['sub_item']['url'] ?>" target="<?= $dropdown['sub_item']['target'] ?>" class="lnk-next"><?= $dropdown['sub_item']['title'] ?></a>
+                                                    <a href="<?= $dropdown['sub_item']['url'] ?>" target="<?= $dropdown['sub_item']['target'] ?>" class=""><?= $dropdown['sub_item']['title'] ?></a>
                                                 </div>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
