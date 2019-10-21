@@ -59,6 +59,9 @@
 			  $image_url	="https://carpetcourt.nz/wp-content/uploads/2017/09/floor.png";
 		  }
 
+		   //dump($taxonomy);
+		   //dump($cc_options);
+
 		  $alter_hidden_class = '';
 		  if ( $taxonomy == 'pa_looks' || $taxonomy == 'pa_color' || $taxonomy == 'cpm_accents' ) {
 			  $alter_hidden_class = 'hidden';
@@ -103,6 +106,7 @@
 				  <div class="panel-heading" role="tab" id="heading-<?php echo $taxonomy;?>">
 					  <h4 class="panel-title">
 						  <a class="accordion-toggle" data-toggle="collapse" href="#collapse-<?php echo $taxonomy;?>">
+
 							  <?php if ( !is_null($image_url) ) { ?>
 							  <span class="tax-icon"><img src="<?php echo $image_url?>" width="32px" height="32px" /></span>
 							  <?php } ?>
@@ -150,7 +154,7 @@
 
 							  $image = '';
 							  if ( $thumbnail_id ) {
-								  $image = wp_get_attachment_image_src( $thumbnail_id, ($taxonomy == "product_color")?'thumbnail':'filtertype_image' );
+								  $image = wp_get_attachment_image_src( $thumbnail_id, ($taxonomy == "product_color")?'thumbnail':'thumbnail' );
 								  $image = $image[0];
 							  }
 
@@ -206,7 +210,7 @@
 										  $image = '';
 										  if ( $thumbnail_id ) {
 											  // $image = wp_get_attachment_image_src( $thumbnail_id, ($taxonomy == "product_color")?'thumbnail':'filtertype_image' );
-											  $image = wp_get_attachment_image_src( $thumbnail_id, 'filtertype_image' );
+											  $image = wp_get_attachment_image_src( $thumbnail_id, 'thumbnail' );
 											  $image = $image[0];
 										  }
 

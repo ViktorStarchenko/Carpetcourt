@@ -8183,3 +8183,29 @@ padding:15px 0 !important;
 .cc-resene-reviews hr {margin: 1px auto;}
 .cc-resene-reviews .commentlist .description p { margin: 0;}
 .cc-resene-reviews .collapse-container { padding-top: 0px;}
+
+
+.cc-filter-dark a, .cc-filter-dark a:hover{
+    text-decoration: none;
+}
+
+.filter-right .breadcrumb{
+    display: none;
+}
+
+span#showLeft.active .arrow-angle-toogle{
+    top: 74px !important;
+    left: -78px !important;
+}
+
+.arrow-angle-toogle{
+    left: -99px !important;
+}
+
+.filter-left .fig-hover a img{
+    width: auto;
+    max-height: 100px;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+}
