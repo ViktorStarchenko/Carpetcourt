@@ -1,6 +1,6 @@
 <?php
 
-//show_admin_bar(false);
+show_admin_bar(false);
 define('FS_METHOD', 'direct');
 define('ALLOW_UNFILTERED_UPLOADS', true);
 
