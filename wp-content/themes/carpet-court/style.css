@@ -8202,7 +8202,7 @@ span#showLeft.active .arrow-angle-toogle{
     left: -99px !important;
 }
 
-.pa_fibres .filter-left .fig-hover a img{
+.filter-left .pa_fibres .fig-hover a img{
     width: auto;
     max-height: 100px;
     margin: 0 auto;
