@@ -8185,7 +8185,7 @@ padding:15px 0 !important;
 .cc-resene-reviews .collapse-container { padding-top: 0px;}
 
 
-.cc-filter-dark a, .cc-filter-dark a:hover{
+.cc-filter-dark a, .cc-filter-dark a:hover, a.accordion-toggle{
     text-decoration: none;
 }
 
