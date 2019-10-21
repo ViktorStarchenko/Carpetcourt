@@ -1,0 +1,49 @@
+/* breadcrumbs.scss */
+
+// variables **********************************************************************************************************
+
+// mixins *************************************************************************************************************
+
+// styles *************************************************************************************************************
+
+.breadcrumbs {
+  padding: 15px 0;
+
+
+  .breadcrumbs-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-left: -10px;
+
+
+    .list-item {
+      position: relative;
+      color: #808487;
+      font-size: rem(12px);
+      line-height: rem(16px);
+      margin-left: 10px;
+      padding: 2px 0;
+
+      + .list-item {
+        padding-left: 14px;
+
+        &:before {
+          content: '/';
+          display: block;
+          opacity: 0.8;
+          position: absolute;
+          top: 2px;
+          left: 0;
+          font-size: rem(10px);
+        }
+      }
+
+      a,
+      span {
+        display: block;
+        text-decoration: none;
+      }
+    }
+  }
+}

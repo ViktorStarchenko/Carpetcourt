@@ -1,0 +1,376 @@
+/* g-header.scss */
+
+// variables **********************************************************************************************************
+
+// mixins *************************************************************************************************************
+
+// styles *************************************************************************************************************
+
+.g-header {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  top: 0;
+  left: 0;
+  will-change: top;
+  border-bottom: 1px solid rgba($color-border-default, 0.5);
+
+
+  .container {
+    max-width: none;
+  }
+
+
+  // bar
+  .h-bar {
+    background-color: #f5f6f6;
+  }
+
+  .h-bar__inner {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    height: $header_bar-height;
+
+    @media (max-width: $screen-md-max) {
+      justify-content: center;
+    }
+  }
+
+  .bar-text {
+    @media (max-width: $screen-md-max) {
+      font-size: rem(12px);
+      line-height: rem(14px);
+      color: #808487;
+      text-align: center;
+    }
+  }
+
+  .bar-menu {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-left: -10px;
+    margin-right: -10px;
+
+    @media (max-width: $screen-md-max) {
+      display: none;
+    }
+
+    .menu-item {
+      padding: 0 10px;
+
+      > a {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        text-decoration: none;
+
+        &:before {
+          display: block;
+          margin-right: 5px;
+          font-size: rem(11px);
+        }
+      }
+    }
+  }
+
+
+  // wrap
+  .h-wrap {
+    background-color: #fff;
+  }
+
+  .h-wrap__inner {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    height: $header_wrap-height-desk;
+
+    @media (max-width: $screen-md-max) {
+      height: $header_wrap-height-mob;
+    }
+  }
+
+
+  // logo
+  .h-logo {
+    @media (max-width: $screen-md-max) {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+
+      @media (max-width: $screen-md-max) {
+        max-height: 30px;
+      }
+    }
+  }
+
+
+  // button
+  .h-button {
+    @media (max-width: $screen-md-max) {
+      display: none;
+    }
+  }
+
+
+  // nav
+  .h-nav {
+    flex: 1;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 0 25px 0 50px;
+    margin-left: -15px;
+    margin-right: -15px;
+
+    @media (max-width: $screen-md-max) {
+      display: none;
+    }
+
+    .nav-item {
+      margin: 0 15px;
+
+      &.nav-item--right {
+        margin-left: auto;
+
+        + .nav-item--right {
+          margin-left: 15px;
+        }
+      }
+
+
+      > a {
+        @include ff-medium;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        text-decoration: none;
+
+        &[data-dropdown] {
+          @include ic(drop-arrow);
+          position: relative;
+
+          &:before {
+            font-size: rem(4px);
+            order: 2;
+            margin: 0 0 0 8px;
+          }
+        }
+
+        &:before {
+          display: block;
+          margin-right: 8px;
+        }
+      }
+
+
+      &.nav-item--promo {
+
+        > a {
+          color: $color-main-red;
+        }
+      }
+
+      &.active {
+
+        > a {
+          color: $link-hover-color;
+        }
+      }
+    }
+  }
+
+
+  // dropdown
+  .h-drop {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: 30px 0;
+    border-top: 1px solid rgba($color-border-default , 0.5);
+    border-bottom: 1px solid rgba($color-border-default , 0.5);
+
+    @media (max-width: $screen-md-max) {
+      display: none !important;
+    }
+  }
+
+  .drop-menu {
+    display: none;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-left: -5px;
+    margin-right: -5px;
+
+    &.active {
+      display: flex;
+    }
+
+    .menu-item {
+      flex: 0 0 12.5%;
+      max-width: 12.5%;
+      padding: 0 5px;
+    }
+  }
+
+
+  // burger
+  .h-burger {
+    @media (min-width: $screen-lg-min) {
+      display: none;
+    }
+
+    .btn-burger {
+      position: relative;
+      display: block;
+      width: 22px;
+      height: 18px;
+      outline: none;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+
+      &:hover {
+
+        .icon {
+          &,
+          &:before,
+          &:after {
+            background: $link-hover-color;
+          }
+        }
+      }
+
+      .icon {
+
+        &,
+        &:before,
+        &:after {
+          display: block;
+          position: absolute;
+          transition: all 0.3s ease;
+          width: 100%;
+          height: 2px;
+          background: $color-main-grey;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        &:before,
+        &:after {
+          content: '';
+          transform-origin: center;
+          will-change: transform;
+        }
+
+        &:before {
+          margin-top: -7px;
+        }
+
+        &:after {
+          margin-top: 7px;
+        }
+      }
+
+
+      // open
+      .mm-opened & {
+
+        .icon {
+          background: transparent;
+
+          &:before {
+            margin: 0;
+            transform: translate(-50%, -50%) rotate3d(0, 0, 1, 135deg) scale(1);
+          }
+
+          &:after {
+            margin: 0;
+            transform: translate(-50%, -50%) rotate3d(0, 0, 1, -135deg) scale(1);
+          }
+        }
+      }
+    }
+  }
+
+
+  // search
+  .h-search {
+    margin-left: 20px;
+    margin-right: auto;
+
+    @media (min-width: $screen-lg-min) {
+      display: none;
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+      font-size: rem(20px);
+
+      &:before {
+        display: block;
+      }
+    }
+  }
+
+
+  // location
+  .h-location {
+    @media (min-width: $screen-lg-min) {
+      display: none;
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+      font-size: rem(20px);
+
+      &:before {
+        display: block;
+      }
+    }
+  }
+
+
+  // favorite
+  .h-favorite {
+    margin-right: 20px;
+    margin-left: auto;
+
+    @media (min-width: $screen-lg-min) {
+      display: none;
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+      font-size: rem(20px);
+
+      &:before {
+        display: block;
+      }
+    }
+  }
+}

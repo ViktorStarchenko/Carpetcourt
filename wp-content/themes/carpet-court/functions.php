@@ -1,9 +1,10 @@
 <?php
 
-show_admin_bar(false);
+//show_admin_bar(false);
 define('FS_METHOD', 'direct');
 define('ALLOW_UNFILTERED_UPLOADS', true);
 
+include "include/findStore.php";
 include "include/acfAdminPanel.php";
 
 if ( ! function_exists( 'carpet_court_setup' ) ) :
@@ -74,7 +75,7 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
 
  function carpet_court_scripts() {
 
-     if(!is_front_page()){
+     if(!newDesign()){
          /*bootstrap.min.css included in vertical.min.css*/
          // wp_enqueue_style( 'carpet-court-vertical-css', get_template_directory_uri().'/assets/css/vertical.min.css' );
          wp_enqueue_style( 'cc-plugin-style', get_template_directory_uri().'/assets/css/cpm-plugins.css' );
@@ -2273,4 +2274,13 @@ function dump($data, $exit = false){
     if($exit){
         exit();
     }
+}
+
+function newDesign() {
+    if (is_front_page()) {
+        return true;
+    } else {
+        return false;
+    }
+
 }

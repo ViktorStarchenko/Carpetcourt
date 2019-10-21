@@ -1,0 +1,205 @@
+/* locator-hero.scss */
+
+// variables **********************************************************************************************************
+
+// mixins *************************************************************************************************************
+
+// styles *************************************************************************************************************
+
+.locator-hero {
+
+
+  .container {
+    @media (max-width: $screen-xs-max) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+
+  .s-wrap {
+    @media (min-width: $screen-md-min) {
+      position: relative;
+      padding: 80px 0;
+      min-height: 550px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+
+  .s-locator {
+    @media (min-width: $screen-lg-min) {
+      margin-left: calc((100% - #{$page-content-width}) / 2);
+    }
+    @media (min-width: $screen-md-min) {
+      position: relative;
+      z-index: 2;
+      background: $body-bg;
+      width: 440px;
+      box-shadow: 0 2px 8px rgba(67, 74, 79, 0.15);
+      margin-left: ($grid-gutter-width / 2);
+    }
+    @media (max-width: $screen-xs-max) {
+      padding-left: ($grid-gutter-width / 2);
+      padding-right: ($grid-gutter-width / 2);
+    }
+
+
+    .s-locator__header {
+      padding: 30px 40px;
+      border-bottom: 1px solid rgba($color-border-default, 0.5);
+
+      @media (max-width: $screen-sm-max) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      @media (max-width: $screen-xs-max) {
+        padding-top: 10px;
+      }
+    }
+
+    .header-title {
+      @include ff-medium;
+      font-size: rem(40px);
+      line-height: rem(44px);
+      margin-bottom: 15px;
+
+      @media (max-width: $screen-xs-max) {
+        font-size: rem(26px);
+        line-height: rem(30px);
+      }
+    }
+
+    .header-subtitle {
+      @include ff-medium;
+      margin-bottom: 8px;
+    }
+
+    .header-address {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+
+    .s-locator__body {
+      padding: 30px 40px 40px;
+
+      @media (max-width: $screen-sm-max) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    .body-form {
+
+      .body-form__title {
+        margin-bottom: 10px;
+      }
+
+      .body-form__control {
+        position: relative;
+        @include ic(drop-arrow);
+
+        &:before {
+          display: block;
+          position: absolute;
+          top: 50%;
+          right: 15px;
+          transform: translateY(-50%);
+          font-size: rem(4px);
+        }
+
+        + .body-form__control {
+          margin-top: 10px;
+        }
+      }
+
+      select {
+        appearance: none;
+        @include ff-regular;
+        display: block;
+        width: 100%;
+        border: 1px solid #d7d7d7;
+        border-radius: 4px;
+        font-size: rem($font-size-base);
+        line-height: rem($line-height-base);
+        padding: 13px 30px 13px 15px;
+        height: 50px;
+        color: $body-color;
+        background: #fff;
+
+        &.placeholder {
+          color: #808487;
+        }
+
+        &[disabled] {
+          background-color: #f5f6f6;
+        }
+      }
+    }
+
+
+    .s-locator__footer {
+      padding: 0 40px 40px;
+
+      @media (max-width: $screen-sm-max) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+
+      .locator-info {
+        font-size: rem(13px);
+        line-height: rem(18px);
+
+        .locator-info__ttl {
+          font-size: rem($font-size-base);
+          line-height: rem($line-height-base);
+        }
+      }
+    }
+  }
+
+
+  .s-map {
+    position: relative;
+
+    @media (min-width: $screen-md-min) {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      width: 100%;
+      padding-bottom: 80%;
+
+      @media (min-width: $screen-md-min) {
+        display: none;
+      }
+      @media (min-width: $screen-sm-min) {
+        padding-bottom: 60%;
+      }
+    }
+
+
+    iframe {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      margin: 0;
+    }
+  }
+}
