@@ -8225,3 +8225,7 @@ h4.panel-title span.tax-name, h4.filterpanel-title{
 a.custom-addtowishlist-btn img{
     width: 100%;
 }
+
+.orange-text strong{
+    color: #f78721 !important;
+}
