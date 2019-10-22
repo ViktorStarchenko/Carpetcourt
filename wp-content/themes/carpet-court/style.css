@@ -8195,11 +8195,11 @@ padding:15px 0 !important;
 
 span#showLeft.active .arrow-angle-toogle{
     top: 74px !important;
-    left: -78px !important;
+    left: -70px !important;
 }
 
 .arrow-angle-toogle{
-    left: -99px !important;
+    left: -88px !important;
 }
 
 .filter-left .pa_fibres .fig-hover a img{
@@ -8208,4 +8208,8 @@ span#showLeft.active .arrow-angle-toogle{
     margin: 0 auto;
     text-align: center;
     display: block;
+}
+
+h4.panel-title .tax-name span, h4.filterpanel-title{
+    font-family: 'Omnes', sans-serif;
 }

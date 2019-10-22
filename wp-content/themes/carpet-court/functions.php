@@ -73,7 +73,7 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
  add_action( 'widgets_init', 'carpet_court_widgets_init' );
 
  function carpet_court_scripts() {
-
+     wp_enqueue_style('hm_custom_css', get_site_url(null, '/index.php').'?hm_custom_css_draft=1', array(), time());
      if(!is_front_page()){
          /*bootstrap.min.css included in vertical.min.css*/
          // wp_enqueue_style( 'carpet-court-vertical-css', get_template_directory_uri().'/assets/css/vertical.min.css' );
