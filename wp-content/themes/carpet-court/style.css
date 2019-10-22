@@ -8218,6 +8218,10 @@ h4.panel-title span.tax-name, h4.filterpanel-title{
     margin-top: 15px;
 }
 
-.list-product-wrap .list-product .range-btn{
+.list-product-wrap .list-product .range-btn, form input[type="submit"], form button{
     font-weight: bold;
+}
+
+a.custom-addtowishlist-btn img{
+    width: 100%;
 }
