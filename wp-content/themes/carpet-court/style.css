@@ -8210,6 +8210,6 @@ span#showLeft.active .arrow-angle-toogle{
     display: block;
 }
 
-h4.panel-title .tax-name span, h4.filterpanel-title{
+h4.panel-title span.tax-name, h4.filterpanel-title{
     font-family: 'Omnes', sans-serif;
 }
