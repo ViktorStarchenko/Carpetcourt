@@ -71,25 +71,8 @@ $args = [
 
 $retailers = get_posts($args);
 
-/*
-
-$matressesCategory = get_category_by_slug('Beds');
-$matresses = get_posts(['numberposts' => -1, 'category' => $matressesCategory->cat_ID]);
-
-$collectionsCategory = get_category_by_slug('sleep-collections');
-$collections = get_posts(['numberposts' => -1, 'category' => $collectionsCategory->cat_ID]);
-*/
-
 ob_start();
 ?>
-    <style>
-        #wpsl-stores {
-            display: block !important;
-        }
-        #wpsl-direction-details {
-            display: none !important;
-        }
-    </style>
 
      <?php /*
                         <div class="app-store-filter__title"><span>Mattresses</span></div>
@@ -176,7 +159,9 @@ ob_start();
                         </div>
                     </div>
                 </div>
-                <div class="s-map"><iframe width="100%" height="100%" src="https://maps.google.com/maps?width=100%&amp;height=100%&amp;hl=en&amp;q=1%20Grafton%20Street%2C%20Dublin%2C%20Ireland+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no"></iframe></div>
+                <div class="s-map">
+                    <div id="wpsl-gmap" class="wpsl-gmap-canvas app-map-big displaysNoneTabs"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -231,7 +216,7 @@ ob_start();
                             </div>
                         </div>
                         <div class="page-layout__col col-lg-7">
-                            <div id="wpsl-gmap" class="wpsl-gmap-canvas app-map-big displaysNoneTabs"></div>
+
                         </div>
                     </div>
 

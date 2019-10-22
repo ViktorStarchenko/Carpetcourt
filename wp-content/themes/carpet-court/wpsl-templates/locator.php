@@ -8,8 +8,30 @@
 //wp_enqueue_script('wpsl-js', get_template_directory_uri() . '/static/public/js/libs/wpsl-gmap-custom.min.js', ['jquery'], WPSL_VERSION_NUM, true);
 //wp_localize_script( 'wpsl-js', 'wpslAjaxVariables', ['retailers' => get_retailers_list(), 'retailers_groups' => get_retailers_groups() ] );
 ?>
-
 <?php get_header(); ?>
+<?php
+    $categories = get_categories([
+        'taxonomy' => 'wpsl_store_category',
+        'hide_empty' => false
+    ]);
+
+    dump($categories);
+
+    $partners_obj = get_terms( 'wpsl_store_category', array('hide_empty' => false) );
+    dump($partners_obj);
+
+    foreach ($categories as $category) {
+        $args = [
+            'post_type' => 'wpsl_stores',
+            'post_status' => 'publish',
+            'numberposts' => -1,
+            'category' => $category->term_id,
+        ];
+        $stories = get_posts($args);
+
+        dump($stories);
+    }
+?>
     <div class="breadcrumbs">
         <div class="container container--fluid">
             <div class="breadcrumbs-list">
