@@ -8213,3 +8213,11 @@ span#showLeft.active .arrow-angle-toogle{
 h4.panel-title span.tax-name, h4.filterpanel-title{
     font-family: 'Omnes', sans-serif;
 }
+
+.list-title.col .tsrange{
+    margin-top: 15px;
+}
+
+.list-product-wrap .list-product .range-btn{
+    font-weight: bold;
+}
