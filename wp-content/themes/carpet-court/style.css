@@ -8058,6 +8058,10 @@ body.page-template-template-keep ul.thumbs-step li.media:last-child a{
     .address-widget li:last-child{
         display: none;
     }
+
+    .product .product_title{
+        margin-top: 60px !important;
+    }
 }
 
 @media (max-width: 675px) {
