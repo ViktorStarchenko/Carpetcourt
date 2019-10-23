@@ -15,22 +15,40 @@
         'hide_empty' => false
     ]);
 
-    dump($categories);
+    //dump($categories);
 
-    $partners_obj = get_terms( 'wpsl_store_category', array('hide_empty' => false) );
-    dump($partners_obj);
-
-    foreach ($categories as $category) {
+    $storeInfo = [];
+    $cities = [];
+    $stories = [];
+    foreach ($categories as $key => $category) {
         $args = [
             'post_type' => 'wpsl_stores',
             'post_status' => 'publish',
             'numberposts' => -1,
-            'category' => $category->term_id,
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'wpsl_store_category',
+                    'field' => 'id',
+                    'terms' => $category->cat_ID,
+                    'include_children' => false
+                )
+            )
         ];
-        $stories = get_posts($args);
-
-        dump($stories);
+        $stories[$key] = get_posts($args);
+        foreach ($stories[$key] as $store) {
+            $storeInfo[$store->ID] = get_post_meta($store->ID);
+            $cities[$key][] = $storeInfo[$store->ID]['wpsl_city'][0];
+        }
+        $cities[$key] = array_unique($cities[$key]);
+        sort($cities[$key]);
     }
+
+    //dump($cities);
+    //dump($stories);
+
+
+
+    exit();
 ?>
     <div class="breadcrumbs">
         <div class="container container--fluid">
@@ -41,294 +59,50 @@
         </div>
     </div>
     <?= do_shortcode('[wpsl]'); ?>
+
+    <?php if (!empty($categories)) : ?>
     <div class="section-content">
         <div class="container">
             <div class="s-wrap">
                 <div class="row">
                     <div class="s-content col-md-7">
                         <div class="locator-accordion">
-                            <div id="group-1" class="acc-group">
-                                <h2 class="acc-title">North Island</h2>
+                            <?php foreach ($categories as $key => $category) : ?>
+                            <div id="group-<?= $key ?>" class="acc-group">
+                                <h2 class="acc-title"><?= $category->name ?></h2>
+                                <?php foreach ($cities[$key] as $key2 => $city) : ?>
                                 <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-1-1" class="acc-link">Auckland</a></div>
-                                    <div id="panel-1-1" data-parent="#group-1" class="collapse show">
+                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-<?= $key ?>-<?= $key2 ?>" class="acc-link collapsed"><?= $city ?></a></div>
+                                    <div id="panel-<?= $key ?>-<?= $key2 ?>" data-parent="#group-<?= $key ?>" class="collapse">
                                         <div class="acc-body">
                                             <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
+
+                                                <?php
+                                                dump($stories[$key]);
+                                                ?>
+
+                                                <?php foreach ($stories[$key] as $story) : ?>
+                                                    <?php
+                                                        dump($story);
+                                                        dump($storeInfo[$store->ID]['wpsl_city']);
+                                                    ?>
+                                                    <?php if ($storeInfo[$store->ID]['wpsl_city'][0] == $city) : ?>
+                                                        <div class="locator-info__group">
+                                                            <div class="locator-info__ttl"><?= $store->post_title ?></div>
+                                                            <div class="locator-info__row">
+                                                                <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
+                                                                <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
+                                                            </div>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-1-2" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-1-2" data-parent="#group-1" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-1-3" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-1-3" data-parent="#group-1" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-1-4" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-1-4" data-parent="#group-1" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-1-5" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-1-5" data-parent="#group-1" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-1-6" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-1-6" data-parent="#group-1" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
-                            <div id="group-2" class="acc-group">
-                                <h2 class="acc-title">North Island</h2>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-2-1" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-2-1" data-parent="#group-2" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-2-2" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-2-2" data-parent="#group-2" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-2-3" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-2-3" data-parent="#group-2" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-2-4" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-2-4" data-parent="#group-2" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-2-5" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-2-5" data-parent="#group-2" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acc-panel">
-                                    <div class="acc-head"><a data-toggle="collapse" href="#panel-2-6" class="acc-link collapsed">Auckland</a></div>
-                                    <div id="panel-2-6" data-parent="#group-2" class="collapse">
-                                        <div class="acc-body">
-                                            <div class="locator-info">
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Kaitaia</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">5 Empire Street,<br>Kaitaia, 0410<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 408 4362<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="locator-info__group">
-                                                    <div class="locator-info__ttl">Carpet Court Whangarei</div>
-                                                    <div class="locator-info__row">
-                                                        <div class="locator-info__col">26 Commerce St,<br>Whangarei, 0110<br><a href="#">View more</a></div>
-                                                        <div class="locator-info__col">Phone: 09 430 0771<br><a href="#">Email this store</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <div class="s-sidebar col-md-5">
@@ -346,6 +120,8 @@
             </div>
         </div>
     </div>
+    <?php endif; ?>
+
     <div class="section-come">
         <div class="container">
             <div class="s-wrap">
