@@ -8214,7 +8214,7 @@ span#showLeft.active .arrow-angle-toogle{
     display: block;
 }
 
-h4.panel-title span.tax-name, h4.filterpanel-title{
+h4.panel-title span.tax-name, h4.filterpanel-title, .vc_separator h4{
     font-family: 'Omnes', sans-serif;
 }
 
@@ -8232,4 +8232,46 @@ a.custom-addtowishlist-btn img{
 
 .orange-text strong{
     color: #f78721 !important;
+}
+
+.vc_separator .vc_sep_holder .vc_sep_line {
+    border-color: #b2b2b3;
+}
+.vc_separator.vc_sep_color_grey .vc_sep_line {
+    border-color: #b2b2b3;
+    height: 2px;
+}
+
+.wpb_content_element.vc_separator_align_center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-scroll-nav a, .page-scroll-nav a:hover, .contact-details a, .contact-details a:hover{
+    text-decoration: none;
+}
+
+.single h1.title{
+    line-height: 1.2;
+}
+
+.store-profile-wrap .vc_separator.vc_separator_align_center h4, section#contact h4{
+    text-transform: uppercase;
+    font-weight: 500;
+    width: auto;
+    text-align: center;
+    padding: 0 15px;
+    background: white
+}
+
+.wpb_content_element.vc_separator_align_center:before{
+    position: absolute;
+    content: "";
+    height: 2px;
+    background: #b2b2b3;
+    z-index: -1;
+    width: 100%;
+    left: 0;
+    top: 10px;
 }

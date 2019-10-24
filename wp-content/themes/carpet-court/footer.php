@@ -27,7 +27,11 @@
                                 <div class="section-menu__list">
                                     <?php foreach ($footer['contacts'] as $contact) : ?>
                                         <div class="list-item">
-                                            <a href="<?= $contact['url'] ?>" class="<?= $contact['type'] ?>"><?= $contact['title'] ?></a>
+                                            <?php if ($contact['url'] == '#') : ?>
+                                                <a class="<?= $contact['type'] ?>"><?= $contact['title'] ?></a>
+                                            <?php else : ?>
+                                                <a href="<?= $contact['url'] ?>" class="<?= $contact['type'] ?>"><?= $contact['title'] ?></a>
+                                            <?php endif; ?>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
