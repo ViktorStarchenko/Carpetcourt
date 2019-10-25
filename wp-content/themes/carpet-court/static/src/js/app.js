@@ -382,15 +382,7 @@ function getInternetExplorerVersion() {
                 var link = $(this);
                 var item = link.closest('.nav-item');
                 
-                link.on('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    if (item.hasClass('active')) {
-                        nav.reset();
-                        return false;
-                    }
-                    
+                link.on('mouseenter', function(e) {
                     var dropdown = $(link.attr("data-dropdown"));
                     if (!dropdown.length) return false;
                     window.overlay.enable();
@@ -399,6 +391,10 @@ function getInternetExplorerVersion() {
                     item.addClass('active');
                     nav.dropdownItems.removeClass('active');
                     dropdown.addClass('active');
+                });
+
+                $('body').on('click', function(e) {
+                    nav.reset();
                 });
             });
         },
