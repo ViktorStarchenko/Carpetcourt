@@ -391,7 +391,9 @@ function getInternetExplorerVersion() {
                     item.addClass('active');
                     nav.dropdownItems.removeClass('active');
                     dropdown.addClass('active');
-                }).on('mouseleave', function(e) {
+                });
+
+                $('body').on('click', function(e) {
                     nav.reset();
                     return false;
                 });
