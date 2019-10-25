@@ -381,18 +381,8 @@ function getInternetExplorerVersion() {
             this.navigationLinks.each(function() {
                 var link = $(this);
                 var item = link.closest('.nav-item');
-                var isClickable = link.hasClass('clickable');
                 
-                link.on('click', function(e) {
-                    if (isClickable) return;
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    if (item.hasClass('active')) {
-                        nav.reset();
-                        return false;
-                    }
-                    
+                link.on('mouseenter', function(e) {
                     var dropdown = $(link.attr("data-dropdown"));
                     if (!dropdown.length) return false;
                     window.overlay.enable();
@@ -401,19 +391,9 @@ function getInternetExplorerVersion() {
                     item.addClass('active');
                     nav.dropdownItems.removeClass('active');
                     dropdown.addClass('active');
-                });
-                
-                if (!isClickable) return;
-    
-                link.on('mouseenter', function() {
-                    var dropdown = $(link.attr("data-dropdown"));
-                    if (!dropdown.length) return false;
-                    window.overlay.enable();
-                    nav.dropdown.fadeIn(300);
-                    nav.navigationItems.removeClass('active');
-                    item.addClass('active');
-                    nav.dropdownItems.removeClass('active');
-                    dropdown.addClass('active');
+                }).on('mouseleave', function(e) {
+                    nav.reset();
+                    return false;
                 });
             });
         },

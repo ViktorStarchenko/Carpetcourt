@@ -99,19 +99,11 @@
                                     }
                                 ?>
                                 <div class="menu-item <?= $isPromotions ?>">
-                                    <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" class="lnk-next"><?= $item['link']['title'] ?></a>
+                                    <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" <?php if(!$isPromotions):?>class="lnk-next"<?php endif; ?>><?= $item['link']['title'] ?></a>
                                     <?php if (!empty($item['sub_items'])) : ?>
                                     <div class="item-dropdown">
                                         <div class="dropdown-nav">
-                                            <div class="dropdown-nav__ttl<?php if(isset($item['link']['url'])): ?> clickable<?php endif; ?>">
-                                            <?php if(isset($item['link']['url'])): ?>
-                                            <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" class="">
-                                            <?php endif; ?>
-                                              <?= $item['link']['title'] ?>
-                                            <?php if(isset($item['link']['url'])): ?>
-                                            </a> 
-                                            <?php endif; ?>
-                                              </div>
+                                            <div class="dropdown-nav__ttl"><?= $item['link']['title'] ?></div>
                                             <div class="dropdown-nav__btn">
                                                 <button type="button" class="btn btn-index btn--grey lnk-back">back</button>
                                             </div>
@@ -124,6 +116,11 @@
                                                 </div>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
+                                            <?php if(strtolower($item['link']['title']) == "products"): ?>
+                                                <div class="menu-item">
+                                                  <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>">View all products</a>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <?php endif; ?>

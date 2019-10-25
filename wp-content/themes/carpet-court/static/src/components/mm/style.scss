@@ -99,6 +99,12 @@
         }
       }
     }
+
+    &.nav-item--promo {
+      > a {
+        color: $color-main-red;
+      }
+    }
   }
 
 
@@ -126,13 +132,9 @@
     padding: ($grid-gutter-width / 2);
 
 
-    .dropdown-nav__ttl{
+    .dropdown-nav__ttl {
       @include ff-medium;
       opacity: 0.5;
-
-      &.clickable{
-        opacity: 1;
-      }
     }
 
     .dropdown-nav__btn {
