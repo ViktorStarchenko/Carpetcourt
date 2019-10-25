@@ -395,7 +395,6 @@ function getInternetExplorerVersion() {
 
                 $('body').on('click', function(e) {
                     nav.reset();
-                    return false;
                 });
             });
         },
