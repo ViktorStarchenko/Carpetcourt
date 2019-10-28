@@ -141,9 +141,9 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
          if(!is_admin()) {
             // new design
             enqueue_versioned_style('theme-styles', '/static/public/css/app.min.css');
-            wp_deregister_script( 'jquery' );
-            enqueue_versioned_script( 'jquery',  '/static/public/js/libs/jquery-3.2.1.min.js', false, false);
-            wp_enqueue_script( 'jquery' );
+            //wp_deregister_script( 'jquery' );
+            //enqueue_versioned_script( 'jquery',  '/static/public/js/libs/jquery-3.2.1.min.js', false, false);
+            //wp_enqueue_script( 'jquery' );
             enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
             enqueue_versioned_script( 'bootstrap-js',  '/static/public/js/bootstrap.min.js', array('jquery'), true);
             enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
@@ -2278,8 +2278,26 @@ function dump($data, $exit = false){
     }
 }
 
+add_filter( 'wpseo_breadcrumb_output', 'custom_wpseo_breadcrumb_output' );
+function custom_wpseo_breadcrumb_output( $output ){
+
+    $output = str_replace("<span><span>", "", $output);
+    $output = str_replace("</span></span>", "", $output);
+
+    return $output;
+}
+
 function newDesign() {
-    if (is_front_page()) {
+    $post = get_post();
+
+    $flag = false;
+    if (!empty($post)) {
+        if ($post->post_type == 'wpsl_stores') {
+            $flag = true;
+        }
+    }
+
+    if (is_front_page() || $flag) {
         return true;
     } else {
         return false;

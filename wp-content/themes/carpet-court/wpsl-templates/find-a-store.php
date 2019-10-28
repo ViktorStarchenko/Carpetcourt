@@ -1,114 +1,135 @@
 <?php
 global $wpsl_settings, $wpsl;
-$autoload_class = (!$wpsl_settings['autoload']) ? 'wpsl-not-loaded' : '';
-
-$selectedRetailerId = null;
-if (isset($_GET['retailer_id'])) {
-    $selectedRetailerId = $_GET['retailer_id'];
-}
-
-$postId = null;
-if (isset($_GET['post_id'])) {
-    $postId = $_GET['post_id'];
-} else if (isset($_GET['range'])) {
-    $rangePost = get_page_by_path( $_GET['range'], OBJECT, 'post' );
-    if (!is_null($rangePost)) {
-        $postId = $rangePost->ID;
+$taxonomy = 'wpsl_store_category';
+$ID = 0;
+$regionID = 0;
+if (is_single()) {
+    $ID = get_the_ID();
+    $regions = get_the_terms($ID, $taxonomy);
+    if (!empty($regions)) {
+        $regionID = $regions[0]->term_id;
     }
 }
-
-$collectionId = null;
-if (isset($_GET['collection_id'])) {
-    $collectionId = $_GET['collection_id'];
-} else if (isset($_GET['collection'])) {
-    $collectionPost = get_page_by_path( $_GET['collection'], OBJECT, 'post' );
-    if (!is_null($collectionPost)) {
-        $collectionId = $collectionPost->ID;
-    }
+if (is_tax($taxonomy)) {
+    $regionID = get_queried_object()->term_id;
 }
-
-$query = null;
-if (isset($_GET['address'])) {
-    $query = $_GET['address'];
-}
-
-$retailersGroupCategory = get_category_by_slug('retailer-groups');
-$metaQuery = [
-    [
-        'key'     => 'enable',
-        'value'   => true,
-        'compare' => '=',
-    ],
-];
-
-/*
-if ($postId) {
-    $metaQuery[] = [
-        [
-            'key'     => 'range',
-            'value'   => '"' . $postId . '"',
-            'compare' => 'LIKE',
-        ],
-    ];
-}
-if ($collectionId) {
-    $metaQuery[] = [
-        [
-            'key'     => 'collections',
-            'value'   => '"' . $collectionId . '"',
-            'compare' => 'LIKE',
-        ],
-    ];
-}*/
-
-$args = [
-    'numberposts'   => -1,
-    'category'      => $retailersGroupCategory->cat_ID,
-    'post__in'      => get_field('retailers_groups_filter_order'),
-    'meta_query'    => $metaQuery,
-    'orderby'       => 'post__in'
-];
-
-$retailers = get_posts($args);
-
+$categories = get_categories([
+    'taxonomy' => $taxonomy,
+    'hide_empty' => false
+]);
 ob_start();
 ?>
+<style>
+    .hide{
+        display: none;
+    }
+    .breadcrumbs-list, .breadcrumbs-list a, .breadcrumbs-list span{
+        margin: 0 8px;
+        position: relative;
+        color: #808487;
+        font-size: .75rem;
+        line-height: 1rem;
+        padding: 2px 0;
+        display: block;
+        text-decoration: none;
+    }
+</style>
+<script>
+    isStore = <?= $ID ?>;
+</script>
+<script>
+    jQuery(document).ready(function () {
+        const regionSelect = jQuery("#regions");
+        const storeSelect = jQuery("#stories");
+        const footerInfo = jQuery(".s-locator__footer");
+        const headerInfo = jQuery(".header-box");
 
-     <?php /*
-                        <div class="app-store-filter__title"><span>Mattresses</span></div>
-                        <div class="app-store-filter__list">
-                            <?php foreach ($matresses as $matresse): ?>
-                                <ul class="app-store-filter__list-nav">
-                                    <li><label class="app-button-filter _inline<?= $matresse->ID == $postId ? ' active' : '' ?>"><?= $matresse->post_title ?>
-                                            <input type="checkbox" name="range" value="<?= $matresse->ID ?>" <?= $matresse->ID == $postId ? ' checked="checked"' : '' ?> style="display: none;"/>
-                                        </label></li>
+        getStories(regionSelect.val());
+        regionSelect.on('change', function () {
+            var category = jQuery(this).val();
+            isStore = 0;
+            console.log(isStore);
+            footerInfo.addClass("hide");
+            headerInfo.addClass("hide");
+            getStories(category);
+        });
 
-                                    <?php $subRanges = get_field('sub_ranges', $matresse); ?>
-                                    <?php foreach ($subRanges as $subRange): ?>
-                                        <?php $lowerCase = preg_match('/([0-9]+)i/', $subRange->post_title) ?>
-                                        <li>
-                                            <label  class="app-button-filter _inline<?= $lowerCase ? ' _lower-case' : '' ?>">&#8985; &nbsp;<?= $subRange->post_title ?>
-                                                <input type="checkbox" name="sub_range" value="<?= $subRange->ID ?>" style="display: none;"/>
-                                            </label></li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            <?php endforeach; ?>
-                        </div>
-                        */ ?>
-     <?php /*
-                        <div class="app-store-filter__title"><span>Collections</span></div>
-                        <div class="app-store-filter__list">
-                            <?php foreach ($collections as $collection): ?>
-                                <ul class="app-store-filter__list-nav">
-                                    <li><label class="app-button-filter _inline<?= $collection->ID == $collectionId ? ' active' : '' ?>"><?= $collection->post_title ?>
-                                            <input type="checkbox" name="collections" value="<?= $collection->ID ?>" <?= $collection->ID == $collectionId ? ' checked="checked"' : '' ?> style="display: none;"/>
-                                        </label>
-                                    </li>
-                                </ul>
-                            <?php endforeach; ?>
-                        </div>
-                        */ ?>
+        storeSelect.on('change', function () {
+            var store = jQuery(this).val();
+            footerInfo.addClass("hide");
+            headerInfo.addClass("hide");
+            isStore = 0;
+            getStore(store);
+        });
+        function getStories(category = 0) {
+            storeSelect.attr("disabled", true);
+            if (category > 0) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '<?php echo admin_url('admin-ajax.php');?>',
+                    dataType: "json",
+                    data: { action : 'get_ajax_posts', category: category },
+                    success: function( response ) {
+                        let selected = '';
+                        if ( isStore === 0 ){
+                            selected = ' selected="selected" ';
+                        }
+                        storeSelect.html('<option ' + selected + ' value="0">-Select Store-</option>');
+                        jQuery.each( response, function( key, value ) {
+                            let selected = '';
+                            if (isStore > 0) {
+                                selected = ' selected="selected" ';
+                            }
+                            storeSelect.append('<option ' + selected + ' value="' + value.ID + '">' + value.post_title + '</option>');
+                        } );
+                        storeSelect.attr("disabled", false);
+                        storeSelect.val(isStore);
+                        if ( isStore > 0 ) {
+                            setTimeout(function () {
+                                storeSelect.trigger('change');
+                            }, 1000);
+                        }
+                    }
+                });
+            } else {
+                storeSelect.val(0).trigger('change');
+            }
+        }
 
+        function getStore(store = 0) {
+            jQuery.ajax({
+                type: 'POST',
+                url: '<?php echo admin_url('admin-ajax.php');?>',
+                dataType: "json",
+                data: { action : 'get_ajax_post', store: store },
+                success: function( response ) {
+                    if (response) {
+
+                        jQuery(".phone").html(response.phone).attr("href", "tel:"+response.phone);
+                        jQuery(".email").attr("href", "mailto:"+response.email);
+                        jQuery(".address").html(response.address);
+                        jQuery(".address2").html(response.address2);
+                        jQuery(".url").attr("href", response.url);
+                        jQuery(".store-title").html(response.store);
+
+                        jQuery(".mon").html(response.work.monday);
+                        jQuery(".tue").html(response.work.tuesday);
+                        jQuery(".wed").html(response.work.wednesday);
+                        jQuery(".thu").html(response.work.thursday);
+                        jQuery(".fri").html(response.work.friday);
+                        jQuery(".sat").html(response.work.saturday);
+                        jQuery(".sun").html(response.work.sunday);
+                        jQuery(".today").html(response.work.today);
+
+                        footerInfo.removeClass("hide");
+                        headerInfo.removeClass("hide");
+                    }
+                }
+            });
+        }
+    });
+</script>
+<?php wp_enqueue_script('wpsl-js', get_template_directory_uri() . '/wpsl-templates/custom-wpsl-gmap.js', ['jquery'], WPSL_VERSION_NUM, true); ?>
 
     <div class="locator-hero">
         <div class="container container--fluid">
@@ -116,44 +137,63 @@ ob_start();
                 <div class="s-locator">
                     <div class="s-locator__header">
                         <h1 class="header-title">store locator</h1>
-                        <div class="header-subtitle">Use my current location to find the nearest store:</div>
-                        <div class="header-address">Grey Lynn, Auckland<a href="#">View store</a></div>
+                        <div class="header-box hide">
+                            <div class="header-subtitle">Use my current location to find the nearest store:</div>
+                            <div class="header-address"><span class="store-title"></span><a href="#" class="url">View store</a></div>
+                        </div>
                     </div>
                     <div class="s-locator__body">
                         <div class="body-form">
                             <div class="body-form__title">Please select a region and store.</div>
                             <div class="body-form__control">
-                                <select>
-                                    <option value="placeholder">-Select Region-</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                <select name="region" id="regions">
+                                    <option value="0">-Select Region-</option>
+                                    <?php foreach ($categories as $category) : ?>
+                                        <?php
+                                            $selected = '';
+                                            if ($category->term_id == $regionID) {
+                                                $selected = ' selected="selected" ';
+                                            }
+                                        ?>
+                                        <option <?= $selected ?> value="<?= $category->term_id ?>"><?= $category->name ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="body-form__control">
-                                <select disabled="">
-                                    <option value="placeholder">-Select Store-</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                            <div class="body-form__control" >
+                                <select id="stories">
+                                    <option value="0">-Select Store-</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="s-locator__footer">
+                    <div class="s-locator__footer hide">
                         <div class="locator-info">
                             <div class="locator-info__group">
                                 <div class="locator-info__ttl">Address</div>
                                 <div class="locator-info__row">
-                                    <div class="locator-info__col">6/8 Morningside Dr,<br>Sandringham, Auckland,<br>1025</div>
-                                    <div class="locator-info__col">Phone: 09 601 8090<br><a href="#">Email this store</a></div>
+                                    <div class="locator-info__col"><span class="address"></span><br><span class="address2"></span></div>
+                                    <div class="locator-info__col">Phone:
+                                        <a href="" class="phone"></a><br>
+                                        <a href="#" class="email">Email this store</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="locator-info__group">
                                 <div class="locator-info__ttl">Store Hours</div>
                                 <div class="locator-info__row">
-                                    <div class="locator-info__col">Today: 8:30am - 5:00pm<br>Mon: 8:30am - 5:00pm<br>Tue: 8:30am - 5:00pm<br>Wed: 8:30am - 5:00pm<br><a href="#">View more</a></div>
-                                    <div class="locator-info__col">Thu: 8:30am - 5:00pm<br>Fri: 8:30am - 5:00pm<br>Sat: 9:00am - 4:00pm<br>Sun: 10:00am - 4:00pm</div>
+                                    <div class="locator-info__col">
+                                        <div class="">Today: <span class="today"></span></div>
+                                        <div class="">Mon: <span class="mon"></span></div>
+                                        <div class="">Tue: <span class="tue"></span></div>
+                                        <div class="">Wed: <span class="wed"></span></div>
+                                        <a href="#" class="url">View more</a>
+                                    </div>
+                                    <div class="locator-info__col">
+                                        <div class="">Thu: <span class="thu"></span></div>
+                                        <div class="">Fri: <span class="fri"></span></div>
+                                        <div class="">Sat: <span class="sat"></span></div>
+                                        <div class="">Sun: <span class="sun"></span></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -166,6 +206,7 @@ ob_start();
         </div>
     </div>
 
+    <?php /*
     <div class="section-content">
         <div class="container">
             <div class="page-hat">
@@ -194,10 +235,7 @@ ob_start();
                             </div>
                             <form class="search-form">
                                 <div class="form-group">
-                                    <div class="form-group__control">
-                                        <input id="wpsl-search-input" type="text" value="<?= $query ?>" placeholder="" name="wpsl-search-input">
-                                        <button id="wpsl-search-btn"><i class="app-svg search"></i></button>
-                                    </div>
+
                                 </div>
                             </form>
                             <div class="search-location hidden-sm-min">
@@ -225,4 +263,5 @@ ob_start();
             </div>
         </div>
     </div>
+    */ ?>
 <?php return ob_get_clean();

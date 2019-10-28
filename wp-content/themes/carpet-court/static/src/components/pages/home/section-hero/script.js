@@ -1,4 +1,4 @@
-!function() {
+!function($) {
     
     function Hero(hero) {
         var self = this;
@@ -55,4 +55,4 @@
     $window.on('load', function() {
         hero.init();
     });
-}();
+}(jQuery);
