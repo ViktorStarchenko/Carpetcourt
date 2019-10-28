@@ -458,6 +458,7 @@ jQuery(document).on('ready', function() {
 				settings.alternateMarkerUrl = markerProps.alternateMarkerUrl;
 			} else {
 				settings.url = wpslSettings.url + "img/markers/";
+                settings.url = '/wp-content/themes/carpet-court/wpsl-templates/markers/';
 			}
 
 			for ( var key in markerProps ) {

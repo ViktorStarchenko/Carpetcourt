@@ -1,6 +1,14 @@
 <?php
 
+add_filter( 'wpsl_admin_marker_dir', 'custom_admin_marker_dir' );
+function custom_admin_marker_dir() {
+
+    $admin_marker_dir = get_stylesheet_directory() . '/wpsl-templates/markers/';
+
+    return $admin_marker_dir;
+}
 add_filter('wpsl_templates', 'custom_templates');
+define( 'WPSL_MARKER_URI', dirname( get_bloginfo( 'stylesheet_url') ) . '/wpsl-templates/markers/' );
 
 //Store locator
 function custom_templates($templates)
