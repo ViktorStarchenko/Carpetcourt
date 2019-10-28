@@ -1,0 +1,14 @@
+extends ../tpl/layout
+
+block vars
+	- var bodyClass = ''
+	- var pageTitle = 'Store locator - Store'
+	- var DIR = ''
+block content
+	include ../../components/elements/breadcrumbs/index
+	include ../../components/pages/locator/locator-hero/index
+	include ../../components/pages/locator/section-content-store/index
+	include ../../components/pages/locator/locator-reviews/index
+	include ../../components/pages/home/section-come/index
+	include ../../components/pages/home/section-badges/index
+	include ../../components/pages/home/section-story/index

@@ -1,0 +1,93 @@
+/* buttons.scss */
+
+// variables **********************************************************************************************************
+
+// mixins *************************************************************************************************************
+
+// styles *************************************************************************************************************
+
+.btn {
+  display: inline-block;
+  margin: 0;
+  font-weight: $font-weight-normal;
+  font-family: $btn-font-family;
+  text-align: center;
+  text-decoration: none;
+  text-transform: $btn-text-transform;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  border: $btn-border-width solid transparent;
+  border-radius: $btn-border-radius;
+  max-width: 100%;
+  user-select: none;
+  box-shadow: none;
+  background-image: none;
+  background-color: $btn-default-bg;
+  color: $btn-default-color;
+  letter-spacing: $btn-letter-spacing;
+  @include nowrap;
+  font-size: rem($btn-font-size);
+  line-height: rem($btn-line-height);
+  padding: $btn-padding-top $btn-padding-x $btn-padding-bottom;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:not(:disabled):not(.disabled):hover {
+    background-color: $btn-default-bg-hover;
+    color: $btn-default-color;
+  }
+
+  &:not(:disabled):not(.disabled):active {
+    background-color: $btn-default-bg-hover;
+    color: $btn-default-color;
+  }
+
+  &.disabled,
+  &[disabled] {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.3;
+  }
+}
+
+
+// Alternate buttons
+// --------------------------------------------------
+
+.btn-index {
+  border-color: $btn-default-bg;
+  background-color: transparent;
+  color: $btn-default-bg;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  &:not(:disabled):not(.disabled):hover {
+    background-color: $btn-default-bg;
+    color: $btn-default-color;
+  }
+
+  &:not(:disabled):not(.disabled):active {
+    background-color: $btn-default-bg;
+    color: $btn-default-color;
+  }
+
+
+  &.btn--grey {
+    border-color: rgba($color-main-grey, 0.6);
+    color: $color-main-grey;
+
+    &:not(:disabled):not(.disabled):hover {
+      background-color: $color-main-grey;
+      color: $btn-default-color;
+    }
+
+    &:not(:disabled):not(.disabled):active {
+      background-color: $color-main-grey;
+      color: $btn-default-color;
+    }
+  }
+}

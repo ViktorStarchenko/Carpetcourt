@@ -60,7 +60,7 @@ header("Access-Control-Allow-Credentials: true");
     $header = get_field('header', 'option');
 ?>
 <body <?php body_class(); ?>>
-    <div class="g-wrap <?php if (is_front_page()) : ?> js-check-padding <?php endif; ?>">
+    <div class="g-wrap <?php if (newDesign()) : ?> js-check-padding <?php endif; ?>">
         <header class="g-header">
         <div class="h-bar js-check-padding">
             <div class="container">
@@ -180,7 +180,7 @@ header("Access-Control-Allow-Credentials: true");
         </div>
     </header>
     <div class="g-main">
-<?php if (!is_front_page()) : ?>
+<?php if (!newDesign()) : ?>
     <!-- this is for new slide menu  -->
     <script type="text/javascript">
         var disable_f = 0;

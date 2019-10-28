@@ -247,7 +247,7 @@
 <?php wp_footer(); ?>
 
 */ ?>
-<?php if (!is_front_page()) : ?>
+<?php if (!newDesign()) : ?>
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 
