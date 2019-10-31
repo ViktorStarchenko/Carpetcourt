@@ -39,6 +39,7 @@
                     <p><?= $term->description ?></p>
                     <?php if (!empty($stories)) : ?>
                     <div class="locator-info">
+                        <?= $schemeLocalBusiness = ' '; ?>
                         <?php foreach ($stories as $store) : ?>
                         <div class="locator-info__group">
                             <div class="locator-info__ttl"><?= $store->post_title ?></div>
@@ -70,7 +71,84 @@
                                 </div>
                             </div>
                         </div>
+                            <?php
+                            $image[0] = '';
+                            if (has_post_thumbnail( $store->ID ) ) {
+                                $image = wp_get_attachment_image_src( get_post_thumbnail_id( $store->ID ), 'large' );
+                            }
+                            $country = '';
+                            if (!empty($storeInfo['wpsl_country_iso'][0])) {
+                                $country = $storeInfo['wpsl_country_iso'][0];
+                            }
+
+                            $zip = '';
+                            if (!empty($storeInfo['wpsl_zip'][0])) {
+                                $country = $storeInfo['wpsl_zip'][0];
+                            }
+
+                            $city = '';
+                            if (!empty($storeInfo['wpsl_city'][0])) {
+                                $city = $storeInfo['wpsl_city'][0];
+                            }
+
+                            $state = '';
+                            if (!empty($storeInfo['wpsl_state'][0])) {
+                                $state = $storeInfo['wpsl_state'][0];
+                            }
+
+                            $address = '';
+                            if (!empty($storeInfo['wpsl_address'][0])) {
+                                $address = $storeInfo['wpsl_address'][0];
+                            }
+
+                            $phone = '';
+                            if (!empty($storeInfo['wpsl_phone'][0])) {
+                                $phone = $storeInfo['wpsl_phone'][0];
+                            }
+
+                            $lat = '';
+                            if (!empty($storeInfo['wpsl_lat'][0])) {
+                                $lat = $storeInfo['wpsl_lat'][0];
+                            }
+
+                            $lng = '';
+                            if (!empty($storeInfo['wpsl_lng'][0])) {
+                                $lng = $storeInfo['wpsl_lng'][0];
+                            }
+
+                            $geo = '';
+                            if (!empty($lat) && !empty($lng)) {
+                                $geo = '
+                                    "geo": {
+                                        "@type": "GeoCoordinates",
+                                        "latitude": '.$lat.',
+                                        "longitude": '.$lng.'
+                                    },
+                                ';
+                            }
+                            $schemeLocalBusiness .= '{
+                                "@type": "LocalBusiness",
+                                "priceRange":"NZD",
+                                "image": [
+                                    "'.$image[0].'"
+                                ],
+                                "@id": "'.get_permalink($store->ID).'",
+                                "name": "'.$store->post_title.'",
+                                "address": {
+                                    "@type": "PostalAddress",
+                                    "streetAddress": "'.$address.'",
+                                    "addressLocality": "'.$city.'",
+                                    "addressRegion": "'.$state.'",
+                                    "postalCode": "'.$zip.'",
+                                    "addressCountry": "'.$country.'"
+                                },
+                                '.$geo.'
+                                "url": "'.get_permalink($store->ID).'",
+                                "telephone": "'.$phone.'"
+                            },';
+                            ?>
                         <?php endforeach; ?>
+                        <?php $schemeLocalBusiness = substr($schemeLocalBusiness, 0, -1); ?>
                     </div>
                     <?php endif; ?>
                 </div>
@@ -108,5 +186,26 @@ if (!empty($story)) {
 }
 
 ?>
+<?php
+$logo = get_field('logo', 'option');
+?>
+<script type="application/ld+json">
+
+    {
+        "@context": {
+            "@vocab": "http://schema.org/"
+        },
+        "@graph": [
+            {
+                "@id": "http://www.your-domain.co.uk",
+                "@type": "Organization",
+                "name": "<?= get_bloginfo() ?>",
+                "url" : "<?= get_option( 'home' ); ?>",
+                "logo" : "<?= $logo['dark']['url'] ?>"
+            },
+            <?= $schemeLocalBusiness; ?>
+        ]
+    }
+</script>
 <?php get_footer(); ?>
 
