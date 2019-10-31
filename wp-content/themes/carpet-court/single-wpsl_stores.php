@@ -248,6 +248,19 @@
 
 <?php
 $logo = get_field('logo', 'option');
+$footer = get_field('footer', 'option');
+
+$organizationPhone = '';
+$organizationAddress = '';
+foreach ($footer['contacts'] as $contact) {
+    if ($contact['type']=='ic-help-phone') {
+        $organizationPhone = ' "telephone": "'.$contact['title'].'", ';
+    }
+
+    if ($contact['type']=='ic-help-location') {
+        $organizationAddress = ' "address": "'.$contact['title'].'" ';
+    }
+}
 ?>
 <script type="application/ld+json">
 
@@ -257,11 +270,13 @@ $logo = get_field('logo', 'option');
         },
         "@graph": [
             {
-                "@id": "http://www.your-domain.co.uk",
+                "@id": "<?= get_option( 'home' ); ?>",
                 "@type": "Organization",
                 "name": "<?= get_bloginfo() ?>",
                 "url" : "<?= get_option( 'home' ); ?>",
                 "logo" : "<?= $logo['dark']['url'] ?>",
+                <?= $organizationPhone; ?>
+                <?= $organizationAddress; ?>
             },
             {
                 "@type": "LocalBusiness",
