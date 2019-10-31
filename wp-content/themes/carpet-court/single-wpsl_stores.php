@@ -35,16 +35,70 @@
                             <div class="locator-info__ttl">Address</div>
                             <div class="locator-info__row">
                                 <div class="locator-info__col">
-                                    <?php if (!empty($storeInfo['wpsl_address'][0])) : ?>
-                                        <?= $storeInfo['wpsl_address'][0] ?>
+                                    <?php
+
+                                        $country = '';
+                                        if (!empty($storeInfo['wpsl_country_iso'][0])) {
+                                            $country = $storeInfo['wpsl_country_iso'][0];
+                                        }
+
+                                        $zip = '';
+                                        if (!empty($storeInfo['wpsl_zip'][0])) {
+                                            $country = $storeInfo['wpsl_zip'][0];
+                                        }
+
+                                        $city = '';
+                                        if (!empty($storeInfo['wpsl_city'][0])) {
+                                            $city = $storeInfo['wpsl_city'][0];
+                                        }
+
+                                        $state = '';
+                                        if (!empty($storeInfo['wpsl_state'][0])) {
+                                            $state = $storeInfo['wpsl_state'][0];
+                                        }
+
+                                        $address = '';
+                                        if (!empty($storeInfo['wpsl_address'][0])) {
+                                            $address = $storeInfo['wpsl_address'][0];
+                                        }
+
+                                        $phone = '';
+                                        if (!empty($storeInfo['wpsl_phone'][0])) {
+                                            $phone = $storeInfo['wpsl_phone'][0];
+                                        }
+
+                                        $lat = '';
+                                        if (!empty($storeInfo['wpsl_lat'][0])) {
+                                            $lat = $storeInfo['wpsl_lat'][0];
+                                        }
+
+                                        $lng = '';
+                                        if (!empty($storeInfo['wpsl_lng'][0])) {
+                                            $lng = $storeInfo['wpsl_lng'][0];
+                                        }
+
+                                        $geo = '';
+                                        if (!empty($lat) && !empty($lng)) {
+                                            $geo = '
+                                                "geo": {
+                                                    "@type": "GeoCoordinates",
+                                                    "latitude": '.$lat.',
+                                                    "longitude": '.$lng.'
+                                                },
+                                            ';
+                                        }
+                                    ?>
+
+                                    <?php if (!empty($address)) : ?>
+                                        <?= $address ?>
                                     <?php endif; ?>
                                     <?php if (!empty($storeInfo['wpsl_address2'][0])) : ?>
                                         <br>
                                         <?= $storeInfo['wpsl_address2'][0] ?>
                                     <?php endif; ?>
-                                    <?php if (!empty($storeInfo['wpsl_zip'][0])) : ?>
+                                    <?php if (!empty($zip)) : ?>
                                         <br>
-                                        <?= $storeInfo['wpsl_zip'][0] ?>
+                                        <?= $zip ?>
                                     <?php endif; ?>
                                 </div>
                                 <div class="locator-info__col">
@@ -59,6 +113,9 @@
                                 </div>
                             </div>
                         </div>
+                        <?php
+                            $schemaWork = '"openingHoursSpecification": [';
+                        ?>
                         <?php if (!empty($work)) : ?>
                         <div class="locator-info__group">
                             <div class="locator-info__ttl">Store Hours</div>
@@ -75,9 +132,31 @@
                                     <div class="">Sat: <?= $work['saturday'] ?></div>
                                     <div class="">Sun: <?= $work['sunday'] ?></div>
                                 </div>
+
+                                <?php
+                                    foreach ($work as $day => $time) {
+                                        if ($day != 'today') {
+                                            $scheduled = explode(',', $time);
+                                            if (isset($scheduled[0]) && isset($scheduled[1])){
+                                                $schemaWork .= '
+                                                {
+                                                "@type": "OpeningHoursSpecification",
+                                                "dayOfWeek": "'.ucfirst($day).'",
+                                                "opens": "'.$scheduled[0].'",
+                                                "closes": "'.$scheduled[1].'"
+                                                },';
+                                            }
+                                        }
+                                    }
+                                    $schemaWork = substr($schemaWork, 0, -1);
+                                ?>
+
                             </div>
                         </div>
                         <?php endif; ?>
+                        <?php
+                            $schemaWork .= ']';
+                        ?>
                     </div>
                 </div>
             </div>
@@ -89,7 +168,39 @@
 <div class="locator-reviews">
     <div class="carousel-wrap cursor">
         <div class="carousel-slider">
-            <?php foreach ($testimonials as $testimonial) : ?>
+            <?php $schemaTestimonials = '
+            
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": "5",
+                        "reviewCount": "5"
+                    },
+                    "review": [
+            
+            ';
+            $count = count($testimonials) - 1;
+            ?>
+            <?php foreach ($testimonials as $key => $testimonial) : ?>
+            <?php
+
+                if (empty($testimonial['testimonial_name'])) {
+                    $testimonial['testimonial_name'] = 'Author';
+                }
+
+                $schemaTestimonials .= '
+                {
+                    "@type": "Review",
+                    "author": "'.$testimonial['testimonial_name'].'",
+                    "reviewBody" : "'.$testimonial['testimonial_content'].'"
+                }
+                ';
+
+            ?>
+            <?php
+                if ($count != $key) {
+                    $schemaTestimonials .= ',';
+                }
+            ?>
             <div class="slide">
                 <div class="slide-wrap">
                     <div class="slide-icon ic2-icon-quote"></div>
@@ -97,6 +208,7 @@
                 </div>
             </div>
             <?php endforeach; ?>
+            <?php $schemaTestimonials .= '],'; ?>
         </div>
         <div class="carousel-nav">
             <button type="button" class="btn btn-prev ic-nav-prev"></button>
@@ -132,6 +244,48 @@
             echo template_part('story', $story);
         }
     }
-
 ?>
+
+<?php
+$logo = get_field('logo', 'option');
+?>
+<script type="application/ld+json">
+
+    {
+        "@context": {
+            "@vocab": "http://schema.org/"
+        },
+        "@graph": [
+            {
+                "@id": "http://www.your-domain.co.uk",
+                "@type": "Organization",
+                "name": "<?= get_bloginfo() ?>",
+                "url" : "<?= get_option( 'home' ); ?>",
+                "logo" : "<?= $logo['dark']['url'] ?>",
+            },
+            {
+                "@type": "LocalBusiness",
+                "priceRange":"NZD",
+                "image": [
+                    "<?= $image[0] ?>"
+                ],
+                "@id": "<?= get_permalink($post->ID) ?>",
+                "name": "<?= $post->post_title ?>",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "<?= $address ?>",
+                    "addressLocality": "<?= $city ?>",
+                    "addressRegion": "<?= $state ?>",
+                    "postalCode": "<?= $zip ?>",
+                    "addressCountry": "<?= $country ?>"
+                },
+                <?= $geo; ?>
+                "url": "<?= get_permalink($post->ID) ?>",
+                "telephone": "<?= $phone ?>",
+                <?= $schemaTestimonials; ?>
+                <?= $schemaWork; ?>
+            }
+        ]
+    }
+</script>
 <?php get_footer(); ?>

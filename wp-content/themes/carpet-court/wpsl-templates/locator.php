@@ -55,6 +55,7 @@
                 <div class="row">
                     <div class="s-content col-md-7">
                         <div class="locator-accordion">
+                            <?= $schemeLocalBusiness = ' '; ?>
                             <?php foreach ($categories as $key => $category) : ?>
                             <div id="group-<?= $key ?>" class="acc-group">
                                 <h2 class="acc-title"><?= $category->name ?></h2>
@@ -97,6 +98,85 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
+                                                        <?php
+                                                        $image[0] = '';
+                                                        if (has_post_thumbnail( $post->ID ) ) {
+                                                            $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+                                                        }
+                                                        $country = '';
+                                                        if (!empty($storeInfo[$story->ID]['wpsl_country_iso'][0])) {
+                                                            $country = $storeInfo[$story->ID]['wpsl_country_iso'][0];
+                                                        }
+
+                                                        $zip = '';
+                                                        if (!empty($storeInfo[$story->ID]['wpsl_zip'][0])) {
+                                                            $country = $storeInfo[$story->ID]['wpsl_zip'][0];
+                                                        }
+
+                                                        $city = '';
+                                                        if (!empty($storeInfo[$story->ID]['wpsl_city'][0])) {
+                                                            $city = $storeInfo[$story->ID]['wpsl_city'][0];
+                                                        }
+
+                                                        $state = '';
+                                                        if (!empty($storeInfo[$story->ID]['wpsl_state'][0])) {
+                                                            $state = $storeInfo[$story->ID]['wpsl_state'][0];
+                                                        }
+
+                                                        $address = '';
+                                                        if (!empty($storeInfo[$story->ID]['wpsl_address'][0])) {
+                                                            $address = $storeInfo[$story->ID]['wpsl_address'][0];
+                                                        }
+
+                                                        $phone = '';
+                                                        if (!empty($storeInfo[$story->ID]['wpsl_phone'][0])) {
+                                                            $phone = $storeInfo[$story->ID]['wpsl_phone'][0];
+                                                        }
+
+                                                        $lat = '';
+                                                        if (!empty($storeInfo[$story->ID]['wpsl_lat'][0])) {
+                                                            $lat = $storeInfo[$story->ID]['wpsl_lat'][0];
+                                                        }
+
+                                                        $lng = '';
+                                                        if (!empty($storeInfo[$story->ID]['wpsl_lng'][0])) {
+                                                            $lng = $storeInfo[$story->ID]['wpsl_lng'][0];
+                                                        }
+
+                                                        $geo = '';
+                                                        if (!empty($lat) && !empty($lng)) {
+                                                            $geo = '
+                                                                   "geo": {
+                                                                    "@type": "GeoCoordinates",
+                                                                    "latitude": '.$lat.',
+                                                                    "longitude": '.$lng.'
+                                                                },
+                                                            ';
+                                                        }
+
+                                                        $schemeLocalBusiness .= '{
+                                                                "@type": "LocalBusiness",
+                                                                "priceRange":"NZD",
+                                                                "image": [
+                                                                    "'.$image[0].'"
+                                                                ],
+                                                                "@id": "'.get_permalink($story->ID).'",
+                                                                "name": "'.$story->post_title.'",
+                                                                "address": {
+                                                                    "@type": "PostalAddress",
+                                                                    "streetAddress": "'.$address.'",
+                                                                    "addressLocality": "'.$city.'",
+                                                                    "addressRegion": "'.$state.'",
+                                                                    "postalCode": "'.$zip.'",
+                                                                    "addressCountry": "'.$country.'"
+                                                                },
+                                                                '.$geo.'
+                                                                "url": "'.get_permalink($story->ID).'",
+                                                                "telephone": "'.$phone.'"
+                                                            },';
+                                                        ?>
+
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
                                             </div>
@@ -106,6 +186,7 @@
                                 <?php endforeach; ?>
                             </div>
                             <?php endforeach; ?>
+                            <?php $schemeLocalBusiness = substr($schemeLocalBusiness, 0, -1); ?>
                         </div>
                     </div>
                     <div class="s-sidebar col-md-5">
@@ -142,4 +223,25 @@
             }
         }
     ?>
+<?php
+$logo = get_field('logo', 'option');
+?>
+    <script type="application/ld+json">
+
+        {
+            "@context": {
+                "@vocab": "http://schema.org/"
+            },
+            "@graph": [
+                {
+                    "@id": "http://www.your-domain.co.uk",
+                    "@type": "Organization",
+                    "name": "<?= get_bloginfo() ?>",
+                    "url" : "<?= get_option( 'home' ); ?>",
+                    "logo" : "<?= $logo['dark']['url'] ?>"
+                },
+                <?= $schemeLocalBusiness; ?>
+            ]
+        }
+    </script>
 <?php get_footer();
