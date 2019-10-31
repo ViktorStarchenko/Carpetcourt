@@ -191,7 +191,7 @@
                 {
                     "@type": "Review",
                     "author": "'.$testimonial['testimonial_name'].'",
-                    "reviewBody" : "'.$testimonial['testimonial_content'].'"
+                    "reviewBody" : "'.strip_tags($testimonial['testimonial_content']).'"
                 }
                 ';
 
