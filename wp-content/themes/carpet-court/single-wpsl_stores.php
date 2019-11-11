@@ -121,16 +121,16 @@
                             <div class="locator-info__ttl">Store Hours</div>
                             <div class="locator-info__row">
                                 <div class="locator-info__col">
-                                    <div class="">Today: <?= $work['today'] ?></div>
-                                    <div class="">Mon: <?= $work['monday'] ?></div>
-                                    <div class="">Tue: <?= $work['tuesday'] ?></div>
-                                    <div class="">Wed: <?= $work['wednesday'] ?></div>
+                                    <div class="_custom-today">Today: <span><?= $work['today'] ?></span></div>
+                                    <div class="">Mon: <span><?= $work['monday'] ?></span></div>
+                                    <div class="">Tue: <span><?= $work['tuesday'] ?></span></div>
+                                    <div class="">Wed: <span><?= $work['wednesday'] ?></span></div>
                                 </div>
                                 <div class="locator-info__col">
-                                    <div class="">Thu: <?= $work['thursday'] ?></div>
-                                    <div class="">Fri: <?= $work['friday'] ?></div>
-                                    <div class="">Sat: <?= $work['saturday'] ?></div>
-                                    <div class="">Sun: <?= $work['sunday'] ?></div>
+                                    <div class="">Thu: <span><?= $work['thursday'] ?></span></div>
+                                    <div class="">Fri: <span><?= $work['friday'] ?></span></div>
+                                    <div class="">Sat: <span><?= $work['saturday'] ?></span></div>
+                                    <div class="">Sun: <span><?= $work['sunday'] ?></span></div>
                                 </div>
 
                                 <?php

@@ -33,6 +33,13 @@ ob_start();
         display: block;
         text-decoration: none;
     }
+    ._custom-today, ._custom-today span{
+        font-weight: bold;
+    }
+    .locator-info__col div{
+        display: flex;
+        justify-content: space-between;
+    }
 </style>
 <script>
     isStore = <?= $ID ?>;
@@ -182,7 +189,7 @@ ob_start();
                                 <div class="locator-info__ttl">Store Hours</div>
                                 <div class="locator-info__row">
                                     <div class="locator-info__col">
-                                        <div class="">Today: <span class="today"></span></div>
+                                        <div class="_custom-today">Today: <span class="today"></span></div>
                                         <div class="">Mon: <span class="mon"></span></div>
                                         <div class="">Tue: <span class="tue"></span></div>
                                         <div class="">Wed: <span class="wed"></span></div>
