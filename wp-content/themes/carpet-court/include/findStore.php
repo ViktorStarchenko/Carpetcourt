@@ -117,14 +117,14 @@ function scheduled($ajaxpostInfo) {
     $work = unserialize($ajaxpostInfo['wpsl_hours'][0]);
 
     $ajaxResult = [
-        'today' => 'Close',
-        'monday' => 'Close',
-        'tuesday' => 'Close',
-        'wednesday' => 'Close',
-        'thursday' => 'Close',
-        'friday' => 'Close',
-        'saturday' => 'Close',
-        'sunday' => 'Close'
+        'today' => 'Closed',
+        'monday' => 'Closed',
+        'tuesday' => 'Closed',
+        'wednesday' => 'Closed',
+        'thursday' => 'Closed',
+        'friday' => 'Closed',
+        'saturday' => 'Closed',
+        'sunday' => 'Closed'
     ];
 
     $week = [
@@ -140,35 +140,35 @@ function scheduled($ajaxpostInfo) {
     $date = new DateTime();
     $weekNumber = $date->format("N");
     if (!empty($work[$week[$weekNumber]][0])) {
-        $ajaxResult['today'] = $work[$week[$weekNumber]][0];
+        $ajaxResult['today'] = str_replace(',', ' — ', $work[$week[$weekNumber]][0]);
     }
 
     if (!empty($work['monday'][0])) {
-        $ajaxResult['monday'] = $work['monday'][0];
+        $ajaxResult['monday'] =  str_replace(',', ' — ', $work['monday'][0]);
     }
 
     if (!empty($work['tuesday'][0])) {
-        $ajaxResult['tuesday'] = $work['tuesday'][0];
+        $ajaxResult['tuesday'] =  str_replace(',', ' — ', $work['tuesday'][0]);
     }
 
     if (!empty($work['wednesday'][0])) {
-        $ajaxResult['wednesday'] = $work['wednesday'][0];
+        $ajaxResult['wednesday'] =  str_replace(',', ' — ', $work['wednesday'][0]);
     }
 
     if (!empty($work['thursday'][0])) {
-        $ajaxResult['thursday'] = $work['thursday'][0];
+        $ajaxResult['thursday'] =  str_replace(',', ' — ', $work['thursday'][0]);
     }
 
     if (!empty($work['friday'][0])) {
-        $ajaxResult['friday'] = $work['friday'][0];
+        $ajaxResult['friday'] =  str_replace(',', ' — ', $work['friday'][0]);
     }
 
     if (!empty($work['saturday'][0])) {
-        $ajaxResult['saturday'] = $work['saturday'][0];
+        $ajaxResult['saturday'] =  str_replace(',', ' — ', $work['saturday'][0]);
     }
 
     if (!empty($work['sunday'][0])) {
-        $ajaxResult['sunday'] = $work['sunday'][0];
+        $ajaxResult['sunday'] =  str_replace(',', ' — ', $work['sunday'][0]);
     }
 
     return $ajaxResult;
