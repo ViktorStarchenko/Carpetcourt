@@ -72,7 +72,6 @@
                                                             <div class="locator-info__row">
                                                                 <div class="locator-info__col">
                                                                     <?php if (!empty($storeInfo[$story->ID]['wpsl_address'][0])) : ?>
-                                                                        <br>
                                                                         <?= $storeInfo[$story->ID]['wpsl_address'][0] ?>
                                                                     <?php endif; ?>
                                                                     <?php if (!empty($storeInfo[$story->ID]['wpsl_address2'][0])) : ?>
