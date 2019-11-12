@@ -58,7 +58,7 @@
                             <?= $schemeLocalBusiness = ' '; ?>
                             <?php foreach ($categories as $key => $category) : ?>
                             <div id="group-<?= $key ?>" class="acc-group">
-                                <h2 class="acc-title"><?= $category->name ?></h2>
+                                <h2 class="acc-title"><a href="/store-category/<?= $category->slug ?>" ><?= $category->name ?></a></h2>
                                 <?php foreach ($cities[$key] as $key2 => $city) : ?>
                                 <div class="acc-panel">
                                     <div class="acc-head"><a data-toggle="collapse" href="#panel-<?= $key ?>-<?= $key2 ?>" class="acc-link collapsed"><?= $city ?></a></div>
@@ -71,17 +71,17 @@
                                                             <div class="locator-info__ttl"><?= $story->post_title ?></div>
                                                             <div class="locator-info__row">
                                                                 <div class="locator-info__col">
-                                                                    <?php if (!empty($storeInfo['wpsl_address'][0])) : ?>
+                                                                    <?php if (!empty($storeInfo[$story->ID]['wpsl_address'][0])) : ?>
                                                                         <br>
-                                                                        <?= $storeInfo['wpsl_address'][0] ?>
+                                                                        <?= $storeInfo[$story->ID]['wpsl_address'][0] ?>
                                                                     <?php endif; ?>
-                                                                    <?php if (!empty($storeInfo['wpsl_address2'][0])) : ?>
+                                                                    <?php if (!empty($storeInfo[$story->ID]['wpsl_address2'][0])) : ?>
                                                                         <br>
-                                                                        <?= $storeInfo['wpsl_address2'][0] ?>
+                                                                        <?= $storeInfo[$story->ID]['wpsl_address2'][0] ?>
                                                                     <?php endif; ?>
-                                                                    <?php if (!empty($storeInfo['wpsl_zip'][0])) : ?>
+                                                                    <?php if (!empty($storeInfo[$story->ID]['wpsl_zip'][0])) : ?>
                                                                         <br>
-                                                                        <?= $storeInfo['wpsl_zip'][0] ?>
+                                                                        <?= $storeInfo[$story->ID]['wpsl_zip'][0] ?>
                                                                     <?php endif; ?>
                                                                     <a href="<?= get_permalink($story->ID) ?>">View more</a>
                                                                 </div>
