@@ -43,6 +43,7 @@ ob_start();
     .locator-hero .s-locator .body-form select{
         position: relative;
         z-index: 2;
+        background: transparent;
     }
     h2.acc-title a{
         text-decoration: none;
