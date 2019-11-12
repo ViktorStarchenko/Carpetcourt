@@ -48,6 +48,27 @@ ob_start();
     h2.acc-title a{
         text-decoration: none;
     }
+    @media (max-width: 1025px) {
+        .locator-hero .s-map:before{
+            position: absolute;
+        }
+        #wpsl-gmap{
+            height: 500px;
+        }
+        .section-badges .list-item{
+            display: block;
+        }
+    }
+    @media (max-width: 768px){
+        .locator-info__row{
+            flex-direction: column;
+        }
+        .locator-info__row .locator-info__col{
+            width: 100%;
+            flex: 1;
+            max-width: 100%;
+        }
+    }
 </style>
 <script>
     isStore = <?= $ID ?>;
@@ -201,7 +222,6 @@ ob_start();
                                         <div class="">Mon: <span class="mon"></span></div>
                                         <div class="">Tue: <span class="tue"></span></div>
                                         <div class="">Wed: <span class="wed"></span></div>
-                                        <a href="#" class="url">View more</a>
                                     </div>
                                     <div class="locator-info__col">
                                         <div class="">Thu: <span class="thu"></span></div>
@@ -210,6 +230,7 @@ ob_start();
                                         <div class="">Sun: <span class="sun"></span></div>
                                     </div>
                                 </div>
+                                <a href="#" class="url">View more</a>
                             </div>
                         </div>
                     </div>

@@ -47,10 +47,9 @@
                             <div class="locator-info__row">
                                 <div class="locator-info__col">
                                     <?php if (!empty($storeInfo['wpsl_address'][0])) : ?>
-                                        <?= $storeInfo['wpsl_address'][0] ?>
+                                        <?= $storeInfo['wpsl_address'][0] ?><br>
                                     <?php endif; ?>
                                     <?php if (!empty($storeInfo['wpsl_address2'][0])) : ?>
-                                        <br>
                                         <?= $storeInfo['wpsl_address2'][0] ?>
                                     <?php endif; ?>
                                     <?php if (!empty($storeInfo['wpsl_zip'][0])) : ?>
