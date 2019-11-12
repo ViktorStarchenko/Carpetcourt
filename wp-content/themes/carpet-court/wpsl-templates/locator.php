@@ -71,17 +71,17 @@
                                                             <div class="locator-info__ttl"><?= $story->post_title ?></div>
                                                             <div class="locator-info__row">
                                                                 <div class="locator-info__col">
-                                                                    <?php if (!empty($storeInfo['wpsl_address'][0])) : ?>
+                                                                    <?php if (!empty($storeInfo[$story->ID]['wpsl_address'][0])) : ?>
                                                                         <br>
-                                                                        <?= $storeInfo['wpsl_address'][0] ?>
+                                                                        <?= $storeInfo[$story->ID]['wpsl_address'][0] ?>
                                                                     <?php endif; ?>
-                                                                    <?php if (!empty($storeInfo['wpsl_address2'][0])) : ?>
+                                                                    <?php if (!empty($storeInfo[$story->ID]['wpsl_address2'][0])) : ?>
                                                                         <br>
-                                                                        <?= $storeInfo['wpsl_address2'][0] ?>
+                                                                        <?= $storeInfo[$story->ID]['wpsl_address2'][0] ?>
                                                                     <?php endif; ?>
-                                                                    <?php if (!empty($storeInfo['wpsl_zip'][0])) : ?>
+                                                                    <?php if (!empty($storeInfo[$story->ID]['wpsl_zip'][0])) : ?>
                                                                         <br>
-                                                                        <?= $storeInfo['wpsl_zip'][0] ?>
+                                                                        <?= $storeInfo[$story->ID]['wpsl_zip'][0] ?>
                                                                     <?php endif; ?>
                                                                     <a href="<?= get_permalink($story->ID) ?>">View more</a>
                                                                 </div>

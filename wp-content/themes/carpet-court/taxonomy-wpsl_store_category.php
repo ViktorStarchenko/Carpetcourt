@@ -59,14 +59,15 @@
                                     <?php endif; ?>
                                     <br><a href="<?= get_permalink($store->ID) ?>">View more</a>
                                 </div>
-                                <div class="locator-info__col">                                                                    <?php if (!empty($storeInfo[$story->ID]['wpsl_phone'][0])) : ?>
-                                        Phone: <a href="tel:<?= str_replace(' ', '', $storeInfo[$story->ID]['wpsl_phone'][0]) ?>" >
-                                            <?= $storeInfo[$story->ID]['wpsl_phone'][0] ?>
+                                <div class="locator-info__col">
+                                    <?php if (!empty($storeInfo['wpsl_phone'][0])) : ?>
+                                        Phone: <a href="tel:<?= str_replace(' ', '', $storeInfo['wpsl_phone'][0]) ?>" >
+                                            <?= $storeInfo['wpsl_phone'][0] ?>
                                         </a>
                                     <?php endif; ?>
-                                    <?php if (!empty($storeInfo[$story->ID]['wpsl_email'][0])) : ?>
+                                    <?php if (!empty($storeInfo['wpsl_email'][0])) : ?>
                                         <br>
-                                        <a href="mailto:<?= $storeInfo[$story->ID]['wpsl_email'][0] ?>">Email this store</a>
+                                        <a href="mailto:<?= $storeInfo['wpsl_email'][0] ?>">Email this store</a>
                                     <?php endif; ?>
                                 </div>
                             </div>

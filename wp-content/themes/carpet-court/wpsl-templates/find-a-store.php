@@ -40,6 +40,10 @@ ob_start();
         display: flex;
         justify-content: space-between;
     }
+    .locator-hero .s-locator .body-form select{
+        position: relative;
+        z-index: 2;
+    }
 </style>
 <script>
     isStore = <?= $ID ?>;
