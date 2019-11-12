@@ -44,6 +44,9 @@ ob_start();
         position: relative;
         z-index: 2;
     }
+    h2.acc-title a{
+        text-decoration: none;
+    }
 </style>
 <script>
     isStore = <?= $ID ?>;

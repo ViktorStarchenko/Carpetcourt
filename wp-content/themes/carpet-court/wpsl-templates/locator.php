@@ -58,7 +58,7 @@
                             <?= $schemeLocalBusiness = ' '; ?>
                             <?php foreach ($categories as $key => $category) : ?>
                             <div id="group-<?= $key ?>" class="acc-group">
-                                <h2 class="acc-title"><?= $category->name ?></h2>
+                                <h2 class="acc-title"><a href="/store-category/<?= $category->slug ?>" ><?= $category->name ?></a></h2>
                                 <?php foreach ($cities[$key] as $key2 => $city) : ?>
                                 <div class="acc-panel">
                                     <div class="acc-head"><a data-toggle="collapse" href="#panel-<?= $key ?>-<?= $key2 ?>" class="acc-link collapsed"><?= $city ?></a></div>
