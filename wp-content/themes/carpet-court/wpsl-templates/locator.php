@@ -83,6 +83,7 @@
                                                                         <br>
                                                                         <?= $storeInfo[$story->ID]['wpsl_zip'][0] ?>
                                                                     <?php endif; ?>
+                                                                    <br>
                                                                     <a href="<?= get_permalink($story->ID) ?>">View more</a>
                                                                 </div>
                                                                 <div class="locator-info__col">
