@@ -23,8 +23,6 @@
     }
 
     foreach ($categories as $key => $category) {
-        echo 'text '.$category->term_id;
-
         $args = [
             'post_type' => 'wpsl_stores',
             'post_status' => 'publish',
