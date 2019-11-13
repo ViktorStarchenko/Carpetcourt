@@ -31,7 +31,7 @@ jQuery(document).on('ready', function() {
 	(function($){
 
 		var geocoder, map, directionsDisplay, directionsService, autoCompleteLatLng,
-			activeWindowMarkerId, infoWindow, markerClusterer, startMarkerData, startAddress,
+			activeWindowMarkerId, infoWindow, markerClusterer, startMarkerData, startAddress, userPosition,
 			openInfoWindow = [],
 			markersArray = [],
 			mapsArray = [],
@@ -211,15 +211,12 @@ jQuery(document).on('ready', function() {
 					$( "#wpsl-search-input" ).focus();
 				}
 
-				console.log(settings);
-				console.log(wpslSettings);
-
 				// Bind store search button.
 				searchLocationBtn( infoWindow );
 
-				searchCategory( infoWindow );
+				searchCategory( infoWindow, settings);
 
-				searchStory( infoWindow );
+				searchStory( infoWindow, settings);
 
 				// Add the 'reload' and 'find location' icon to the map.
 				mapControlIcons( settings, map, infoWindow );
@@ -361,6 +358,7 @@ jQuery(document).on('ready', function() {
 			}
 
 			mapSettings.startLatLng = getStartLatlng( mapIndex );
+			userPosition = mapSettings.startLatLng;
 
 			return mapSettings;
 		}
@@ -398,8 +396,6 @@ jQuery(document).on('ready', function() {
 			} else {
 				startLatLng = new google.maps.LatLng( 0,0 );
 			}
-
-			console.log("Geo location start");
 
 			return startLatLng;
 		}
@@ -463,7 +459,7 @@ jQuery(document).on('ready', function() {
 				settings.alternateMarkerUrl = markerProps.alternateMarkerUrl;
 			} else {
 				settings.url = wpslSettings.url + "img/markers/";
-                settings.url = '/wp-content/themes/carpet-court/wpsl-templates/markers/';
+				settings.url = '/wp-content/themes/carpet-court/wpsl-templates/markers/';
 			}
 
 			for ( var key in markerProps ) {
@@ -716,9 +712,6 @@ jQuery(document).on('ready', function() {
                      * or if autocomplete is enabled and we already
                      * have the latlng values.
                      */
-					console.log("searchLocationBtn");
-					console.log(wpslSettings.autoComplete);
-					console.log(autoCompleteLatLng);
 					if ( wpslSettings.autoComplete == 1 && typeof autoCompleteLatLng !== "undefined" ) {
 						prepareStoreSearch( autoCompleteLatLng, infoWindow );
 					} else {
@@ -730,37 +723,31 @@ jQuery(document).on('ready', function() {
 			});
 		}
 
-		function searchCategory( infoWindow ) {
+		function searchCategory( infoWindow, settings ) {
 			$("#regions").on('change', function () {
 				regions = $(this).val();
 				stories = 0;
 				if ( regions === 0 ) {
 					$("#stories").val(0);
 				}
-				resetSearchResults();
-				console.log("searchCategory");
-				console.log(wpslSettings.autoComplete);
-				console.log(autoCompleteLatLng);
+				resetSearchResults(false);
 				if ( wpslSettings.autoComplete == 1 && typeof autoCompleteLatLng !== "undefined" ) {
 					prepareStoreSearch( autoCompleteLatLng, infoWindow );
 				} else {
-					codeAddress( infoWindow );
+					codeAddress( infoWindow, userPosition );
 				}
 			});
 		}
 
-		function searchStory( infoWindow ) {
+		function searchStory( infoWindow, settings ) {
 			$("#stories").on('change', function () {
 				regions = $("#regions").val();
 				stories = $(this).val();
-				resetSearchResults();
-				console.log("searchStory");
-				console.log(wpslSettings.autoComplete);
-				console.log(autoCompleteLatLng);
+				resetSearchResults(false);
 				if ( wpslSettings.autoComplete == 1 && typeof autoCompleteLatLng !== "undefined" ) {
 					prepareStoreSearch( autoCompleteLatLng, infoWindow );
 				} else {
-					codeAddress( infoWindow );
+					codeAddress( infoWindow, userPosition );
 				}
 			});
 		}
@@ -1180,7 +1167,7 @@ jQuery(document).on('ready', function() {
 		 * @param	{object} infoWindow The infoWindow object
 		 * @returns {void}
 		 */
-		function codeAddress( infoWindow ) {
+		function codeAddress( infoWindow, LatLng ) {
 			var latLng, request = {};
 
 			// Check if we need to set the geocode component restrictions.
@@ -1195,8 +1182,17 @@ jQuery(document).on('ready', function() {
 			} else {
 				request.address = $( "#wpsl-search-input" ).val();
 			}
-			console.log("get google locate");
-			geocoder.geocode( request, function( response, status ) {
+
+			if (request.address === '' || request.address === 'undefined'){
+				request.address = LatLng;
+			}
+
+			var str = LatLng.lat() + ',' + LatLng.lng();
+			request = {
+				address : str
+			}
+
+			geocoder.geocode( request , function( response, status ) {
 				if ( status == google.maps.GeocoderStatus.OK ) {
 
 					if ( statistics.enabled ) {
@@ -1204,7 +1200,6 @@ jQuery(document).on('ready', function() {
 					}
 
 					latLng = response[0].geometry.location;
-
 					prepareStoreSearch( latLng, infoWindow );
 				} else {
 					geocodeErrors( status );
@@ -1222,10 +1217,6 @@ jQuery(document).on('ready', function() {
 		 */
 		function prepareStoreSearch( latLng, infoWindow ) {
 			var autoLoad = false;
-			console.log(autoCompleteLatLng);
-			if (autoCompleteLatLng === "undefined") {
-
-			}
 			// Add a new start marker.
 			addMarker( latLng, 0, '', true, infoWindow );
 
@@ -1537,9 +1528,6 @@ jQuery(document).on('ready', function() {
 				$( ".wpsl-preloader" ).remove();
 
 				if ( response.length > 0 && typeof response.addon == "undefined" ) {
-
-					console.log("response");
-					console.log(response);
 					headerInfo.removeClass("hide");
 					headerInfo.find(".url").attr("href", response[0].permalink);
 					headerInfo.find(".store-title").html(response[0].store);
@@ -1975,6 +1963,7 @@ jQuery(document).on('ready', function() {
 					deleteOverlays( keepStartMarker );
 					map.setCenter( event.latLng );
 					reverseGeocode( event.latLng );
+					userPosition = event.latLng;
 					findStoreLocations( event.latLng, resetMap, autoLoad = false, infoWindow );
 				});
 			}
@@ -2768,7 +2757,7 @@ jQuery(document).on('ready', function() {
 		 * @since 2.2.20
 		 * @returns {void}
 		 */
-		function resetSearchResults() {
+		function resetSearchResults(resetMarker = true) {
 			var keepStartMarker = false;
 
 			$( "#wpsl-result-list ul" ).empty();
@@ -2782,6 +2771,10 @@ jQuery(document).on('ready', function() {
 			closeInfoBoxWindow();
 
 			deleteOverlays( keepStartMarker );
+			if (resetMarker) {
+				deleteStartMarker();
+			}
+
 			deleteStartMarker();
 		}
 
