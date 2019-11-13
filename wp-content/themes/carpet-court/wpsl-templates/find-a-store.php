@@ -78,7 +78,7 @@ ob_start();
         const regionSelect = jQuery("#regions");
         const storeSelect = jQuery("#stories");
         const footerInfo = jQuery(".s-locator__footer");
-        const headerInfo = jQuery(".header-box");
+        //const headerInfo = jQuery(".header-box");
 
         getStories(regionSelect.val());
         regionSelect.on('change', function () {
@@ -86,14 +86,14 @@ ob_start();
             isStore = 0;
             console.log(isStore);
             footerInfo.addClass("hide");
-            headerInfo.addClass("hide");
+            //headerInfo.addClass("hide");
             getStories(category);
         });
 
         storeSelect.on('change', function () {
             var store = jQuery(this).val();
             footerInfo.addClass("hide");
-            headerInfo.addClass("hide");
+            //headerInfo.addClass("hide");
             isStore = 0;
             getStore(store);
         });
@@ -145,8 +145,6 @@ ob_start();
                         jQuery(".email").attr("href", "mailto:"+response.email);
                         jQuery(".address").html(response.address);
                         jQuery(".address2").html(response.address2);
-                        jQuery(".url").attr("href", response.url);
-                        jQuery(".store-title").html(response.store);
 
                         jQuery(".mon").html(response.work.monday);
                         jQuery(".tue").html(response.work.tuesday);
@@ -158,7 +156,7 @@ ob_start();
                         jQuery(".today").html(response.work.today);
 
                         footerInfo.removeClass("hide");
-                        headerInfo.removeClass("hide");
+                        //headerInfo.removeClass("hide");
                     }
                 }
             });

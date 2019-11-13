@@ -211,6 +211,9 @@ jQuery(document).on('ready', function() {
 					$( "#wpsl-search-input" ).focus();
 				}
 
+				console.log(settings);
+				console.log(wpslSettings);
+
 				// Bind store search button.
 				searchLocationBtn( infoWindow );
 
@@ -395,6 +398,8 @@ jQuery(document).on('ready', function() {
 			} else {
 				startLatLng = new google.maps.LatLng( 0,0 );
 			}
+
+			console.log("Geo location start");
 
 			return startLatLng;
 		}
@@ -711,6 +716,9 @@ jQuery(document).on('ready', function() {
                      * or if autocomplete is enabled and we already
                      * have the latlng values.
                      */
+					console.log("searchLocationBtn");
+					console.log(wpslSettings.autoComplete);
+					console.log(autoCompleteLatLng);
 					if ( wpslSettings.autoComplete == 1 && typeof autoCompleteLatLng !== "undefined" ) {
 						prepareStoreSearch( autoCompleteLatLng, infoWindow );
 					} else {
@@ -730,7 +738,9 @@ jQuery(document).on('ready', function() {
 					$("#stories").val(0);
 				}
 				resetSearchResults();
-
+				console.log("searchCategory");
+				console.log(wpslSettings.autoComplete);
+				console.log(autoCompleteLatLng);
 				if ( wpslSettings.autoComplete == 1 && typeof autoCompleteLatLng !== "undefined" ) {
 					prepareStoreSearch( autoCompleteLatLng, infoWindow );
 				} else {
@@ -744,7 +754,9 @@ jQuery(document).on('ready', function() {
 				regions = $("#regions").val();
 				stories = $(this).val();
 				resetSearchResults();
-
+				console.log("searchStory");
+				console.log(wpslSettings.autoComplete);
+				console.log(autoCompleteLatLng);
 				if ( wpslSettings.autoComplete == 1 && typeof autoCompleteLatLng !== "undefined" ) {
 					prepareStoreSearch( autoCompleteLatLng, infoWindow );
 				} else {
@@ -1183,7 +1195,7 @@ jQuery(document).on('ready', function() {
 			} else {
 				request.address = $( "#wpsl-search-input" ).val();
 			}
-
+			console.log("get google locate");
 			geocoder.geocode( request, function( response, status ) {
 				if ( status == google.maps.GeocoderStatus.OK ) {
 
@@ -1210,7 +1222,10 @@ jQuery(document).on('ready', function() {
 		 */
 		function prepareStoreSearch( latLng, infoWindow ) {
 			var autoLoad = false;
+			console.log(autoCompleteLatLng);
+			if (autoCompleteLatLng === "undefined") {
 
+			}
 			// Add a new start marker.
 			addMarker( latLng, 0, '', true, infoWindow );
 
@@ -1514,13 +1529,20 @@ jQuery(document).on('ready', function() {
 			$storeList.empty().append( "<li class='wpsl-preloader'><img src='" + preloader + "'/>" + wpslLabels.preloader + "</li>" );
 
 			$( "#wpsl-wrap" ).removeClass( "wpsl-no-results" );
-
+			var headerInfo = $(".header-box");
+			headerInfo.addClass("hide");
 			$.get( wpslSettings.ajaxurl, ajaxData, function( response ) {
 
 				// Remove the preloaders and no results msg.
 				$( ".wpsl-preloader" ).remove();
 
 				if ( response.length > 0 && typeof response.addon == "undefined" ) {
+
+					console.log("response");
+					console.log(response);
+					headerInfo.removeClass("hide");
+					headerInfo.find(".url").attr("href", response[0].permalink);
+					headerInfo.find(".store-title").html(response[0].store);
 
 					// Loop over the returned locations.
 					$.each( response, function( index ) {
