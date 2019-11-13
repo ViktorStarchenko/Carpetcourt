@@ -1,4 +1,4 @@
-!function() {
+!function($) {
     
     function Reviews(section) {
         var self = this;
@@ -55,4 +55,4 @@
     $window.on('load', function() {
         reviews.init();
     });
-}();
+}(jQuery);

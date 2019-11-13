@@ -1,0 +1,147 @@
+/* g-mm.scss */
+
+// variables **********************************************************************************************************
+
+// mixins *************************************************************************************************************
+
+// styles *************************************************************************************************************
+
+.mm-opened {
+  overflow: hidden;
+}
+
+
+.g-mm {
+  position: fixed;
+  z-index: -1;
+  visibility: hidden;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  background: $body-bg;
+  pointer-events: none;
+  will-change: opacity;
+  overflow: hidden;
+  transform: translateX(-100%);
+
+  @media (max-width: $screen-md-max) {
+    transition: visibility 0.4s ease, opacity 0.4s ease, z-index 0.4s ease, transform 0.4s ease;
+  }
+
+  &.opened {
+    z-index: 999;
+    visibility: visible;
+    pointer-events: all;
+    opacity: 1;
+    transform: translateX(0);
+
+    @media (max-width: $screen-md-max) {
+      transition: visibility 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .swipe-menu {
+      .item-drop {
+        transition: transform 0.4s ease;
+      }
+    }
+  }
+
+
+  .mm-wrap {
+    flex: 1;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+
+// swipe menu
+.swipe-menu {
+
+  .menu-item {
+    border-bottom: 1px solid rgba($color-border-default, 0.5);
+    padding: 0 ($grid-gutter-width / 2);
+
+    &.opened {
+      > .item-drop {
+        transform: translateX(0);
+      }
+    }
+
+    a {
+      @include ff-medium;
+      position: relative;
+      display: block;
+      text-decoration: none;
+      font-size: rem(16px);
+      line-height: rem(20px);
+      padding: 15px 0;
+
+      &.lnk-next {
+        @include ic(menu-arrow);
+
+        &:before {
+          display: block;
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translateY(-50%);
+          font-size: rem(12px);
+        }
+      }
+    }
+  }
+
+
+  .item-drop {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: calc(100% + 1px);
+    height: 100%;
+    background: $body-bg;
+    border-left: 1px solid $color-border-default;
+    transform: translateX(110%);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+
+  .drop-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba($color-border-default, 0.5);
+    padding: ($grid-gutter-width / 2);
+
+
+    .drop-nav__ttl {
+      @include ff-medium;
+      opacity: 0.5;
+    }
+
+    .drop-nav__btn {
+
+      .btn {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+    }
+  }
+
+
+  .drop-menu {
+
+  }
+}
