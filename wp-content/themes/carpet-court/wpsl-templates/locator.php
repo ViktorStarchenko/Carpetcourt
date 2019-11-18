@@ -11,21 +11,29 @@
         'hide_empty' => false
     ]);
 
-    //dump($categories);
+    $order = get_field('order', 5728);
+    $region_order = get_field('region_order', 5728);
 
     $storeInfo = [];
     $cities = [];
     $stories = [];
+    $categories = [];
+    foreach ($region_order as $regionID) {
+        $categories[] = get_term($regionID, 'wpsl_store_category');
+    }
+
     foreach ($categories as $key => $category) {
         $args = [
             'post_type' => 'wpsl_stores',
             'post_status' => 'publish',
             'numberposts' => -1,
+            'include' => $order,
+            'orderby' => 'post__in',
             'tax_query' => array(
                 array(
                     'taxonomy' => 'wpsl_store_category',
                     'field' => 'id',
-                    'terms' => $category->cat_ID,
+                    'terms' => $category->term_id,
                     'include_children' => false
                 )
             )
@@ -36,9 +44,8 @@
             $cities[$key][] = $storeInfo[$store->ID]['wpsl_city'][0];
         }
         $cities[$key] = array_unique($cities[$key]);
-        sort($cities[$key]);
+        //sort($cities[$key]);
     }
-
 ?>
     <div class="breadcrumbs">
         <div class="container container--fluid">
@@ -57,8 +64,9 @@
                         <div class="locator-accordion">
                             <?= $schemeLocalBusiness = ' '; ?>
                             <?php foreach ($categories as $key => $category) : ?>
-                            <div id="group-<?= $key ?>" class="acc-group">
+                                    <div id="group-<?= $key ?>" class="acc-group">
                                 <h2 class="acc-title"><a href="/store-category/<?= $category->slug ?>" ><?= $category->name ?></a></h2>
+                                <?php if (!empty($cities[$key])) : ?>
                                 <?php foreach ($cities[$key] as $key2 => $city) : ?>
                                 <div class="acc-panel">
                                     <div class="acc-head"><a data-toggle="collapse" href="#panel-<?= $key ?>-<?= $key2 ?>" class="acc-link collapsed"><?= $city ?></a></div>
@@ -176,7 +184,6 @@
                                                                 "telephone": "'.$phone.'"
                                                             },';
                                                         ?>
-
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
                                             </div>
@@ -184,6 +191,7 @@
                                     </div>
                                 </div>
                                 <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
                             <?php endforeach; ?>
                             <?php $schemeLocalBusiness = substr($schemeLocalBusiness, 0, -1); ?>
