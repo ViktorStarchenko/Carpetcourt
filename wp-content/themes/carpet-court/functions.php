@@ -4,6 +4,7 @@ show_admin_bar(false);
 define('FS_METHOD', 'direct');
 define('ALLOW_UNFILTERED_UPLOADS', true);
 
+include "include/findStore.php";
 include "include/acfAdminPanel.php";
 
 if ( ! function_exists( 'carpet_court_setup' ) ) :
@@ -74,7 +75,7 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
 
  function carpet_court_scripts() {
      wp_enqueue_style('hm_custom_css', get_site_url(null, '/index.php').'?hm_custom_css_draft=1', array(), time());
-     if(!is_front_page()){
+     if(!newDesign()){
          /*bootstrap.min.css included in vertical.min.css*/
          // wp_enqueue_style( 'carpet-court-vertical-css', get_template_directory_uri().'/assets/css/vertical.min.css' );
          wp_enqueue_style( 'cc-plugin-style', get_template_directory_uri().'/assets/css/cpm-plugins.css' );
@@ -140,14 +141,16 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
          if(!is_admin()) {
             // new design
             enqueue_versioned_style('theme-styles', '/static/public/css/app.min.css');
-            wp_deregister_script( 'jquery' );
-            enqueue_versioned_script( 'jquery',  '/static/public/js/libs/jquery-3.2.1.min.js', false, false);
-            wp_enqueue_script( 'jquery' );
+            //wp_deregister_script( 'jquery' );
+            //enqueue_versioned_script( 'jquery',  '/static/public/js/libs/jquery-3.2.1.min.js', false, false);
+            //wp_enqueue_script( 'jquery' );
             enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
             enqueue_versioned_script( 'bootstrap-js',  '/static/public/js/bootstrap.min.js', array('jquery'), true);
             enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
          }
      }
+
+     enqueue_versioned_style('theme-store-locator', '/assets/css/store-locator-custom.css');
 }
 add_action( 'wp_enqueue_scripts', 'carpet_court_scripts' );
 
@@ -2273,4 +2276,31 @@ function dump($data, $exit = false){
     if($exit){
         exit();
     }
+}
+
+add_filter( 'wpseo_breadcrumb_output', 'custom_wpseo_breadcrumb_output' );
+function custom_wpseo_breadcrumb_output( $output ){
+
+    $output = str_replace("<span><span>", "", $output);
+    $output = str_replace("</span></span>", "", $output);
+
+    return $output;
+}
+
+function newDesign() {
+    $post = get_post();
+
+    $flag = false;
+    if (!empty($post)) {
+        if ($post->post_type == 'wpsl_stores') {
+            $flag = true;
+        }
+    }
+
+    if (is_front_page() || $flag) {
+        return true;
+    } else {
+        return false;
+    }
+
 }

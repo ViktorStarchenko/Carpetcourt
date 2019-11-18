@@ -1,0 +1,216 @@
+/* section-content.scss */
+
+// variables **********************************************************************************************************
+
+// mixins *************************************************************************************************************
+
+// styles *************************************************************************************************************
+
+.section-content {
+  padding: 80px 0;
+
+  @media (max-width: $screen-xs-max) {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  + .section-come {
+    border-top: 1px solid rgba($color-border-default, 0.5);
+  }
+
+
+  .s-wrap {
+    margin: 0 auto;
+    max-width: $page-content-width;
+  }
+
+
+  .s-content {
+
+  }
+
+
+  .s-title {
+    @media (max-width: $screen-sm-max) {
+      text-align: center;
+    }
+  }
+
+
+  .s-image {
+    display: block;
+    max-width: 100%;
+  }
+
+
+  .locator-accordion {
+    @media (max-width: $screen-mob-max) {
+      margin-left: -($grid-gutter-width / 2);
+      margin-right: -($grid-gutter-width / 2);
+    }
+
+
+    .acc-group {
+
+      + .acc-group {
+        margin-top: 60px;
+
+        @media (max-width: $screen-xs-max) {
+          margin-top: 50px;
+        }
+      }
+    }
+
+    .acc-title {
+      margin-bottom: 20px;
+
+      @media (min-width: $screen-md-min) {
+        font-size: rem(40px);
+        line-height: rem(44px);
+      }
+      @media (max-width: $screen-sm-max) {
+        text-align: center;
+      }
+      @media (max-width: $screen-mob-max) {
+        padding-left: ($grid-gutter-width / 2);
+        padding-right: ($grid-gutter-width / 2);
+      }
+    }
+
+    .acc-panel {
+      border-top: 1px solid rgba($color-border-default , 0.5);
+      border-bottom: 1px solid rgba($color-border-default , 0.5);
+
+      @media (max-width: $screen-mob-max) {
+        padding-left: ($grid-gutter-width / 2);
+        padding-right: ($grid-gutter-width / 2);
+      }
+
+      + .acc-panel {
+        border-top: none;
+      }
+    }
+
+    .acc-head {
+
+    }
+
+    .acc-link {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      @include ff-medium;
+      font-size: rem(24px);
+      line-height: rem(28px);
+      letter-spacing: 0.2px;
+      padding: 16px 0;
+      @include ic(drop-arrow);
+
+      @media (max-width: $screen-sm-max) {
+        font-size: rem(16px);
+        line-height: rem(20px);
+        padding: 15px 0;
+      }
+
+      &:before {
+        display: block;
+        position: absolute;
+        font-size: rem(8px);
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%) rotate(0);
+        transition: transform 0.3s ease;
+
+        @media (max-width: $screen-sm-max) {
+          font-size: rem(6px);
+        }
+      }
+
+      &:not(.collapsed) {
+        &:before {
+          transform: translateY(-50%) rotate(-180deg);
+        }
+      }
+    }
+
+    .acc-body {
+      padding: 20px 0 50px;
+    }
+  }
+
+
+  .s-sidebar {
+    @media (min-width: $screen-lg-min) {
+      padding-left: 100px;
+    }
+    @media (max-width: $screen-sm-max) {
+      margin-top: 50px;
+    }
+  }
+
+
+  .assistance-box {
+    background-color: #f5f6f6;
+    padding: 50px;
+
+    @media (max-width: $screen-mob-max) {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+
+    .assistance-box__title {
+      @include ff-medium;
+      font-size: rem(18px);
+      line-height: rem(24px);
+      margin-bottom: 8px;
+    }
+
+    .assistance-box__text {
+
+    }
+
+    .assistance-box__list {
+      margin-top: 20px;
+
+      .list-item {
+
+        + .list-item {
+          margin-top: 12px;
+        }
+
+        > a {
+          position: relative;
+          display: inline-flex;
+          vertical-align: top;
+          align-items: center;
+          text-decoration: none;
+          padding-left: 25px;
+
+          &:hover {
+            &:before {
+              opacity: 1;
+            }
+          }
+
+          &.ic-help-email {
+            &:before {
+              font-size: rem(10px);
+            }
+          }
+
+          &:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            font-size: rem(13px);
+            opacity: 0.7;
+            margin-right: 10px;
+            transition: opacity 0.2s ease;
+          }
+        }
+      }
+    }
+  }
+}

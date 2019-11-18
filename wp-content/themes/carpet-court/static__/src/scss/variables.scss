@@ -1,0 +1,187 @@
+// Colors
+//
+
+$color-main-red:                         #f13e4b;
+$color-main-grey:                        #434a4f;
+$color-border-default:                   #dbdbdb;
+
+// Body
+
+$body-bg:                                #fff;
+$body-color:                             $color-main-grey;
+
+
+// Links
+
+$link-color:                             $body-color;
+$link-decoration:                        underline;
+$link-hover-color:                       #00a0de;
+$link-hover-decoration:                  underline;
+
+
+// Grid
+//
+
+// Grid columns
+
+$grid-columns:                           12;
+$grid-gutter-width:                      30px;
+
+// Grid breakpoints
+
+$screen-xs:                              580px;
+$screen-sm:                              768px;
+$screen-md:                              1024px;
+$screen-lg:                              1280px;
+$screen-xl:                              1440px;
+
+$screen-mob-max:                         $screen-xs - 1;
+$screen-xs-min:                          $screen-xs;
+$screen-xs-max:                          $screen-sm - 1;
+$screen-sm-min:                          $screen-sm;
+$screen-sm-max:                          $screen-md - 1;
+$screen-md-min:                          $screen-md;
+$screen-md-max:                          $screen-lg - 1;
+$screen-lg-min:                          $screen-lg;
+$screen-lg-max:                          $screen-xl - 1;
+$screen-xl-min:                          $screen-xl;
+
+$grid-breakpoints: (
+  xs:                                    $screen-xs,
+  sm:                                    $screen-sm,
+  md:                                    $screen-md,
+  lg:                                    $screen-lg,
+  xl:                                    $screen-xl
+);
+
+
+// Grid containers
+
+$container-max-widths: (
+  xs:                                    580px,
+  sm:                                    740px,
+  md:                                    990px,
+  lg:                                    1250px,
+  xl:                                    1410px
+);
+
+
+// Typography
+//
+
+$font-regular:                           Omnes-Regular;
+$font-medium:                            Omnes-Medium;
+$font-semibold:                          Omnes-SemiBold;
+$font-semibold-italic:                   Omnes-SemiBold-Italic;
+
+$font-family-base:                       $font-regular, $font-family-sans-serif;
+$font-size-root:                         16px;
+$font-size-base:                         15px;
+
+$font-weight-light:                      300;
+$font-weight-normal:                     400;
+$font-weight-medium:                     500;
+$font-weight-bold:                       700;
+
+$font-weight-base:                       $font-weight-normal;
+$line-height-base:                       22px;
+$letter-spacing-base:                    0.15px;
+
+$h1-font-size:                           36px;
+$h1-font-size-small:                     28px;
+$h2-font-size:                           26px;
+$h2-font-size-small:                     20px;
+$h3-font-size:                           22px;
+$h4-font-size:                           20px;
+$h5-font-size:                           18px;
+$h6-font-size:                           16px;
+
+$h1-line-height:                         44px;
+$h1-line-height-small:                   36px;
+$h2-line-height:                         30px;
+$h2-line-height-small:                   22px;
+$h3-line-height:                         30px;
+$h4-line-height:                         28px;
+$h5-line-height:                         26px;
+$h6-line-height:                         24px;
+
+$headings-font-size:                     26px;
+$headings-line-height:                   30px;
+$headings-font-size-small:               20px;
+$headings-line-height-small:             22px;
+
+$headings-margin-bottom:                 20px;
+$headings-font-family:                   $font-semibold-italic, $font-family-sans-serif;
+$headings-font-weight:                   $font-weight-normal;
+$headings-transform:                     none;
+$headings-color:                         $body-color;
+$headings-letter-spacing:                $letter-spacing-base;
+
+$paragraph-margin-bottom:                22px;
+
+$lead-font-size:                         18px;
+$lead-line-height:                       26px;
+
+$small-font-size:                        14px;
+$small-line-height:                      18px;
+
+$hr-margin-y:                            40px;
+$hr-border-color:                        rgba($color-border-default, 0.5);
+$hr-border-width:                        1px;
+
+
+// Page
+//
+
+$header_bar-height:                      36px;
+$header_wrap-height-desk:                78px;
+$header_wrap-height-mob:                 50px;
+
+$page-gutter-width:                      60px;
+$page-content-width:                     1180px;
+
+
+// Buttons
+//
+
+$btn-height:                             50px;
+$btn-default-bg:                         $color-main-red;
+$btn-default-bg-hover:                   $color-main-grey;
+$btn-default-color:                      #fff;
+$btn-font-family:                        $font-medium, $font-family-sans-serif;
+$btn-font-size:                          15px;
+$btn-line-height:                        18px;
+$btn-letter-spacing:                     $letter-spacing-base;
+$btn-border-width:                       1px;
+$btn-border-radius:                      4px;
+$btn-text-transform:                     none;
+
+$btn-padding-top-different:              0;
+$btn-padding-bottom-different:           0;
+$btn-padding-top:                        ceil(($btn-height - $btn-line-height - ($btn-border-width * 2)) / 2) + $btn-padding-top-different - $btn-padding-bottom-different;
+$btn-padding-bottom:                     floor(($btn-height - $btn-line-height - ($btn-border-width * 2)) / 2) - $btn-padding-top-different + $btn-padding-bottom-different;
+$btn-padding-x:                          20px;
+
+
+// Forms
+//
+
+$input-height:                           50px;
+$input-default-bg:                       $body-bg;
+$input-default-color:                    $body-color;
+$input-border-color:                     #DDDFE1;
+$input-placeholder-color:                rgba(#9B9B9B, 0.76);
+$input-font-size:                        15px;
+$input-line-height:                      18px;
+$input-border-width:                     1px;
+$input-border-radius:                    $input-height / 2;
+$input-text-transform:                   none;
+$input-font-family:                      $font-family-base;
+$input-font-weight:                      $font-weight-normal;
+$input-letter-spacing:                   $letter-spacing-base;
+
+$input-padding-top-different:            0;
+$input-padding-bottom-different:         0;
+$input-padding-top:                      ceil(($input-height - $input-line-height - ($input-border-width * 2)) / 2) + $input-padding-top-different - $input-padding-bottom-different;
+$input-padding-bottom:                   floor(($input-height - $input-line-height - ($input-border-width * 2)) / 2) - $input-padding-top-different + $input-padding-bottom-different;
+$input-padding-x:                        30px;
