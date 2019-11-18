@@ -29,7 +29,7 @@
                 </div>
                 <div class="s-sidebar col-md-6">
                     <h2 class="s-title hidden-sm-max"><?= $post->post_title ?></h2>
-                    <?= $post->post_content ?>
+                    <p><?= $post->post_content ?></p>
                     <div class="locator-info">
                         <div class="locator-info__group">
                             <div class="locator-info__ttl">Address</div>
