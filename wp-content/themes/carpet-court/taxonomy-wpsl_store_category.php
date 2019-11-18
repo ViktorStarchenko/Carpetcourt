@@ -14,11 +14,15 @@
 </div>
 <?= do_shortcode('[wpsl]'); ?>
 <?php
+    $order = get_field('order', 5728);
+    $region_order = get_field('region_order', 5728);
     $term = get_term(get_queried_object()->term_id);
     $args = [
         'post_type' => 'wpsl_stores',
         'post_status' => 'publish',
         'numberposts' => -1,
+        'include' => $order,
+        'orderby' => 'post__in',
         'tax_query' => array(
             array(
                 'taxonomy' => 'wpsl_store_category',

@@ -155,6 +155,8 @@ ob_start();
                         jQuery(".sun").html(response.work.sunday);
                         jQuery(".today").html(response.work.today);
 
+                        jQuery(".filter-url").attr("href",response.url);
+
                         footerInfo.removeClass("hide");
                         //headerInfo.removeClass("hide");
                     }
@@ -228,7 +230,7 @@ ob_start();
                                         <div class="">Sun: <span class="sun"></span></div>
                                     </div>
                                 </div>
-                                <a href="#" class="url">View more</a>
+                                <a href="#" class="filter-url">View more</a>
                             </div>
                         </div>
                     </div>
