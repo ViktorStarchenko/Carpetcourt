@@ -97,6 +97,26 @@ ob_start();
             isStore = 0;
             getStore(store);
         });
+
+        /*
+        $("#wpsl-stores").on('click', '.js-show-store-details', function () {
+            var $self   = $(this);
+            var storeId = $self.closest('li').data("store-id");
+            showModalTwist($self);
+            // Find the correct marker to bounce based on the storeId.
+            for (i = 0, len = markersArray.length; i < len; i++) {
+                if (markersArray[i].storeId == storeId) {
+                    marker     = markersArray[i];
+                    var bounds = new google.maps.LatLngBounds();
+                    bounds.extend(marker.getPosition());
+                    map.fitBounds(bounds);
+                    detailsBounds = bounds;
+                    offsetCenter(240)
+                    break;
+                }
+            }
+         */
+
         function getStories(category = 0) {
             storeSelect.attr("disabled", true);
             if (category > 0) {
