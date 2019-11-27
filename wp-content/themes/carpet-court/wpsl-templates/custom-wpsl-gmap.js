@@ -398,10 +398,10 @@ jQuery(document).on('ready', function() {
 				latLng		= wpslSettings.startLatlng.split( "," );
 				startLatLng = new google.maps.LatLng( 0,0 );
 				console.log("wpslSettings location");
-				notGeoLocation = 0;
+				notGeoLocation = 1;
 			} else {
 				startLatLng = new google.maps.LatLng( 0,0 );
-				notGeoLocation = 0;
+				notGeoLocation = 1;
 			}
 
 			return startLatLng;
