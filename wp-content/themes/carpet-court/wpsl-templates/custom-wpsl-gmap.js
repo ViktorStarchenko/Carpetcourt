@@ -359,6 +359,7 @@ jQuery(document).on('ready', function() {
 			}
 
 			mapSettings.startLatLng = getStartLatlng( mapIndex );
+			console.log(mapSettings.startLatLng);
 			userPosition = mapSettings.startLatLng;
 
 			return mapSettings;
@@ -397,10 +398,10 @@ jQuery(document).on('ready', function() {
 				latLng		= wpslSettings.startLatlng.split( "," );
 				startLatLng = new google.maps.LatLng( latLng[0], latLng[1] );
 				console.log("wpslSettings location");
-				notGeoLocation = 1;
+				notGeoLocation = 0;
 			} else {
 				startLatLng = new google.maps.LatLng( 0,0 );
-				notGeoLocation = 1;
+				notGeoLocation = 0;
 			}
 
 			return startLatLng;
