@@ -31,8 +31,9 @@ jQuery(document).on('ready', function() {
 	(function($){
 
 		var geocoder, map, directionsDisplay, directionsService, autoCompleteLatLng,
-			activeWindowMarkerId, infoWindow, markerClusterer, startMarkerData, startAddress, userPosition,
+			activeWindowMarkerId, infoWindow, markerClusterer, startMarkerData, startAddress, userPosition, notGeoLocation,
 			openInfoWindow = [],
+			storiesListData = [],
 			markersArray = [],
 			mapsArray = [],
 			markerSettings = {},
@@ -390,11 +391,16 @@ jQuery(document).on('ready', function() {
              */
 			if ( ( typeof firstLocation !== "undefined" && typeof firstLocation.lat !== "undefined" ) && ( typeof firstLocation.lng !== "undefined" ) ) {
 				startLatLng = new google.maps.LatLng( firstLocation.lat, firstLocation.lng );
+				console.log("firstLocation" + firstLocation);
+				notGeoLocation = 0;
 			} else if ( wpslSettings.startLatlng !== "" ) {
 				latLng		= wpslSettings.startLatlng.split( "," );
 				startLatLng = new google.maps.LatLng( latLng[0], latLng[1] );
+				console.log("wpslSettings location");
+				notGeoLocation = 1;
 			} else {
 				startLatLng = new google.maps.LatLng( 0,0 );
+				notGeoLocation = 1;
 			}
 
 			return startLatLng;
@@ -1528,9 +1534,14 @@ jQuery(document).on('ready', function() {
 				$( ".wpsl-preloader" ).remove();
 
 				if ( response.length > 0 && typeof response.addon == "undefined" ) {
-					headerInfo.removeClass("hide");
-					headerInfo.find(".url").attr("href", response[0].permalink);
-					headerInfo.find(".store-title").html(response[0].store);
+					console.log("notGeoLocation = " + notGeoLocation);
+					if (notGeoLocation === 0) {
+						headerInfo.removeClass("hide");
+						headerInfo.find(".url").attr("href", response[0].permalink);
+						headerInfo.find(".store-title").html(response[0].store);
+					}
+
+					storiesListData = response;
 
 					// Loop over the returned locations.
 					$.each( response, function( index ) {
@@ -1896,76 +1907,81 @@ jQuery(document).on('ready', function() {
 			var url, mapIcon, marker,
 				keepStartMarker = true;
 
-			if ( storeId === 0 ) {
-				infoWindowData = {
-					store: wpslLabels.startPoint
-				};
+			if (storeId === 0 && notGeoLocation === 1) {
 
-				url = markerSettings.url + wpslSettings.startMarker;
-			} else if ( typeof infoWindowData.alternateMarkerUrl !== "undefined" && infoWindowData.alternateMarkerUrl ) {
-				url = infoWindowData.alternateMarkerUrl;
-			} else if ( typeof infoWindowData.categoryMarkerUrl !== "undefined" && infoWindowData.categoryMarkerUrl ) {
-				url = infoWindowData.categoryMarkerUrl;
 			} else {
-				url = markerSettings.url + wpslSettings.storeMarker;
-			}
+				if ( storeId === 0 ) {
+					infoWindowData = {
+						store: wpslLabels.startPoint
+					};
 
-			mapIcon = {
-				url: url,
-				scaledSize: new google.maps.Size( Number( markerSettings.scaledSize[0] ), Number( markerSettings.scaledSize[1] ) ), //retina format
-				origin: new google.maps.Point( Number( markerSettings.origin[0] ), Number( markerSettings.origin[1] ) ),
-				anchor: new google.maps.Point( Number( markerSettings.anchor[0] ), Number( markerSettings.anchor[1] ) )
-			};
+					url = markerSettings.url + wpslSettings.startMarker;
 
-			marker = new google.maps.Marker({
-				position: latLng,
-				map: map,
-				optimized: false, //fixes markers flashing while bouncing
-				title: decodeHtmlEntity( infoWindowData.store ),
-				draggable: draggable,
-				storeId: storeId,
-				icon: mapIcon
-			});
+				} else if ( typeof infoWindowData.alternateMarkerUrl !== "undefined" && infoWindowData.alternateMarkerUrl ) {
+					url = infoWindowData.alternateMarkerUrl;
+				} else if ( typeof infoWindowData.categoryMarkerUrl !== "undefined" && infoWindowData.categoryMarkerUrl ) {
+					url = infoWindowData.categoryMarkerUrl;
+				} else {
+					url = markerSettings.url + wpslSettings.storeMarker;
+				}
 
-			// Store the marker for later use.
-			markersArray.push( marker );
-
-			google.maps.event.addListener( marker, "click",( function( currentMap ) {
-				return function() {
-
-					// The start marker will have a store id of 0, all others won't.
-					if ( storeId != 0 ) {
-
-						// Check if streetview is available at the clicked location.
-						if ( typeof wpslSettings.markerStreetView !== "undefined" && wpslSettings.markerStreetView == 1 ) {
-							checkStreetViewStatus( latLng, function() {
-								setInfoWindowContent( marker, createInfoWindowHtml( infoWindowData ), infoWindow, currentMap );
-							});
-						} else {
-							setInfoWindowContent( marker, createInfoWindowHtml( infoWindowData ), infoWindow, currentMap );
-						}
-					} else {
-						setInfoWindowContent( marker, wpslLabels.startPoint, infoWindow, currentMap );
-					}
-
-					google.maps.event.clearListeners( infoWindow, "domready" );
-
-					google.maps.event.addListener( infoWindow, "domready", function() {
-						infoWindowClickActions( marker, currentMap );
-						checkMaxZoomLevel();
-					});
+				mapIcon = {
+					url: url,
+					scaledSize: new google.maps.Size( Number( markerSettings.scaledSize[0] ), Number( markerSettings.scaledSize[1] ) ), //retina format
+					origin: new google.maps.Point( Number( markerSettings.origin[0] ), Number( markerSettings.origin[1] ) ),
+					anchor: new google.maps.Point( Number( markerSettings.anchor[0] ), Number( markerSettings.anchor[1] ) )
 				};
-			}( map ) ) );
 
-			// Only the start marker will be draggable.
-			if ( draggable ) {
-				google.maps.event.addListener( marker, "dragend", function( event ) {
-					deleteOverlays( keepStartMarker );
-					map.setCenter( event.latLng );
-					reverseGeocode( event.latLng );
-					userPosition = event.latLng;
-					findStoreLocations( event.latLng, resetMap, autoLoad = false, infoWindow );
+				marker = new google.maps.Marker({
+					position: latLng,
+					map: map,
+					optimized: false, //fixes markers flashing while bouncing
+					title: decodeHtmlEntity( infoWindowData.store ),
+					draggable: draggable,
+					storeId: storeId,
+					icon: mapIcon
 				});
+
+				// Store the marker for later use.
+				markersArray.push( marker );
+
+				google.maps.event.addListener( marker, "click",( function( currentMap ) {
+					return function() {
+
+						// The start marker will have a store id of 0, all others won't.
+						if ( storeId != 0 ) {
+
+							// Check if streetview is available at the clicked location.
+							if ( typeof wpslSettings.markerStreetView !== "undefined" && wpslSettings.markerStreetView == 1 ) {
+								checkStreetViewStatus( latLng, function() {
+									setInfoWindowContent( marker, createInfoWindowHtml( infoWindowData ), infoWindow, currentMap );
+								});
+							} else {
+								setInfoWindowContent( marker, createInfoWindowHtml( infoWindowData ), infoWindow, currentMap );
+							}
+						} else {
+							setInfoWindowContent( marker, wpslLabels.startPoint, infoWindow, currentMap );
+						}
+
+						google.maps.event.clearListeners( infoWindow, "domready" );
+
+						google.maps.event.addListener( infoWindow, "domready", function() {
+							infoWindowClickActions( marker, currentMap );
+							checkMaxZoomLevel();
+						});
+					};
+				}( map ) ) );
+
+				// Only the start marker will be draggable.
+				if ( draggable ) {
+					google.maps.event.addListener( marker, "dragend", function( event ) {
+						deleteOverlays( keepStartMarker );
+						map.setCenter( event.latLng );
+						reverseGeocode( event.latLng );
+						userPosition = event.latLng;
+						findStoreLocations( event.latLng, resetMap, autoLoad = false, infoWindow );
+					});
+				}
 			}
 		}
 
@@ -2294,7 +2310,27 @@ jQuery(document).on('ready', function() {
 
 					// If the id exists the user clicked on a marker we get the direction url from the search results.
 					if ( typeof id !== "undefined" ) {
-						url.src = $( "[data-store-id=" + id + "] .wpsl-directions" ).attr( "href" );
+						if (storiesListData.length > 0) {
+							for (var i = 0; i < storiesListData.length; i++){
+								var storeID = storiesListData[i].id * 1;
+								var id = id * 1;
+								if (storeID === id) {
+									console.log(storiesListData[i]);
+									// Only add a , after the zip if the zip value exists.
+									if ( storiesListData[i].zip ) {
+										zip = storiesListData[i].zip + ", ";
+									} else {
+										zip = "";
+									}
+
+									destinationAddress = storiesListData[i].address + ", " + storiesListData[i].city + ", " + zip + storiesListData[i].country;
+
+									url.src = "https://www.google.com/maps/dir/?api=1&origin=" + templateHelpers.rfc3986EncodeURIComponent( startAddress ) + "&destination=" + templateHelpers.rfc3986EncodeURIComponent( destinationAddress ) + "&travelmode=" + wpslSettings.directionsTravelMode.toLowerCase() + "";
+									break;
+								}
+							}
+						}
+
 					} else {
 
 						// Only add a , after the zip if the zip value exists.
@@ -2330,9 +2366,11 @@ jQuery(document).on('ready', function() {
 			 */
 			rfc3986EncodeURIComponent: function( str ) {
 				return encodeURIComponent( str ).replace( /[!'()*]/g, escape );
+			},
+			getDirectionUrl: function(id) {
+				console.log(id);
 			}
 		};
-
 		/**
 		 * Create the HTML template used in the info windows on the map.
 		 *
