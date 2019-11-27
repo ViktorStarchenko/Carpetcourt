@@ -588,7 +588,8 @@ jQuery(document).on('ready', function() {
 				navigator.geolocation.getCurrentPosition( function( position ) {
 						geolocationFinished( geolocationInProgress );
 						clearTimeout( locationTimeout );
-
+						console.log("notGeoLocation = " + notGeoLocation);
+						notGeoLocation = 0;
 						/*
                          * If the timeout is triggerd and the user later decides to enable
                          * the geolocation detection again, it gets messy with multiple start markers.
