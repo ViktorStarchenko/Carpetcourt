@@ -396,7 +396,7 @@ jQuery(document).on('ready', function() {
 				notGeoLocation = 0;
 			} else if ( wpslSettings.startLatlng !== "" ) {
 				latLng		= wpslSettings.startLatlng.split( "," );
-				startLatLng = new google.maps.LatLng( 0,0 );
+				startLatLng = new google.maps.LatLng( latLng[0], latLng[1] );
 				console.log("wpslSettings location");
 				notGeoLocation = 1;
 			} else {
