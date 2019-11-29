@@ -2327,7 +2327,14 @@ jQuery(document).on('ready', function() {
 
 									destinationAddress = storiesListData[i].address + ", " + storiesListData[i].city + ", " + zip + storiesListData[i].country;
 
-									url.src = "https://www.google.com/maps/dir/?api=1&origin=" + templateHelpers.rfc3986EncodeURIComponent( startAddress ) + "&destination=" + templateHelpers.rfc3986EncodeURIComponent( destinationAddress ) + "&travelmode=" + wpslSettings.directionsTravelMode.toLowerCase() + "";
+									var strAddress = "";
+									console.log(notGeoLocation);
+									if (notGeoLocation === 0) {
+										console.log(startAddress);
+										strAddress = templateHelpers.rfc3986EncodeURIComponent( startAddress );
+									}
+
+									url.src = "https://www.google.com/maps/dir/?api=1&origin=" + strAddress + "&destination=" + templateHelpers.rfc3986EncodeURIComponent( destinationAddress ) + "&travelmode=" + wpslSettings.directionsTravelMode.toLowerCase() + "";
 									break;
 								}
 							}
