@@ -359,7 +359,7 @@ jQuery(document).on('ready', function() {
 			}
 
 			mapSettings.startLatLng = getStartLatlng( mapIndex );
-			console.log(mapSettings.startLatLng);
+			//console.log(mapSettings.startLatLng);
 			userPosition = mapSettings.startLatLng;
 
 			return mapSettings;
@@ -392,12 +392,12 @@ jQuery(document).on('ready', function() {
              */
 			if ( ( typeof firstLocation !== "undefined" && typeof firstLocation.lat !== "undefined" ) && ( typeof firstLocation.lng !== "undefined" ) ) {
 				startLatLng = new google.maps.LatLng( firstLocation.lat, firstLocation.lng );
-				console.log("firstLocation" + firstLocation);
+				//console.log("firstLocation" + firstLocation);
 				notGeoLocation = 0;
 			} else if ( wpslSettings.startLatlng !== "" ) {
 				latLng		= wpslSettings.startLatlng.split( "," );
 				startLatLng = new google.maps.LatLng( latLng[0], latLng[1] );
-				console.log("wpslSettings location");
+				//console.log("wpslSettings location");
 				notGeoLocation = 1;
 			} else {
 				startLatLng = new google.maps.LatLng( 0,0 );
@@ -588,7 +588,7 @@ jQuery(document).on('ready', function() {
 				navigator.geolocation.getCurrentPosition( function( position ) {
 						geolocationFinished( geolocationInProgress );
 						clearTimeout( locationTimeout );
-						console.log("notGeoLocation = " + notGeoLocation);
+						//console.log("notGeoLocation = " + notGeoLocation);
 						notGeoLocation = 0;
 						/*
                          * If the timeout is triggerd and the user later decides to enable
@@ -1536,7 +1536,7 @@ jQuery(document).on('ready', function() {
 				$( ".wpsl-preloader" ).remove();
 
 				if ( response.length > 0 && typeof response.addon == "undefined" ) {
-					console.log("notGeoLocation = " + notGeoLocation);
+					//console.log("notGeoLocation = " + notGeoLocation);
 					if (notGeoLocation === 0) {
 						headerInfo.removeClass("hide");
 						headerInfo.find(".url").attr("href", response[0].permalink);
@@ -1970,6 +1970,7 @@ jQuery(document).on('ready', function() {
 						google.maps.event.addListener( infoWindow, "domready", function() {
 							infoWindowClickActions( marker, currentMap );
 							checkMaxZoomLevel();
+							$(".gm-ui-hover-effect").attr('title', '');
 						});
 					};
 				}( map ) ) );
@@ -2317,7 +2318,7 @@ jQuery(document).on('ready', function() {
 								var storeID = storiesListData[i].id * 1;
 								var id = id * 1;
 								if (storeID === id) {
-									console.log(storiesListData[i]);
+									//console.log(storiesListData[i]);
 									// Only add a , after the zip if the zip value exists.
 									if ( storiesListData[i].zip ) {
 										zip = storiesListData[i].zip + ", ";
@@ -2328,9 +2329,9 @@ jQuery(document).on('ready', function() {
 									destinationAddress = storiesListData[i].address + ", " + storiesListData[i].city + ", " + zip + storiesListData[i].country;
 
 									var strAddress = "";
-									console.log(notGeoLocation);
+									//console.log(notGeoLocation);
 									if (notGeoLocation === 0) {
-										console.log(startAddress);
+										//console.log(startAddress);
 										strAddress = templateHelpers.rfc3986EncodeURIComponent( startAddress );
 									}
 
@@ -2377,7 +2378,7 @@ jQuery(document).on('ready', function() {
 				return encodeURIComponent( str ).replace( /[!'()*]/g, escape );
 			},
 			getDirectionUrl: function(id) {
-				console.log(id);
+				//console.log(id);
 			}
 		};
 		/**
