@@ -467,6 +467,13 @@ jQuery(document).ready(function ($) {
 				scrollTop : $('.cpm-filter-results').offset().top
 			}, 500);
 		}
+
+		var url = document.location.toString();
+		var cleanUrl =  url.split('page/');
+		var searchParams = new URLSearchParams(param);
+		if (searchParams.has("paged")){
+			window.history.pushState('page', 'title', cleanUrl[0] + 'page/'+ searchParams.get("paged"));
+		}
 	});
 	$('body').on('click', '.tabs', function (e) {
 		e.preventDefault();
@@ -587,6 +594,19 @@ jQuery(document).ready(function ($) {
 	}
 	function generate_products(param) {
 
+		var url = document.location.toString();
+		var cleanUrl =  url.split('page/');
+
+		var urlPage;
+
+		if(urlPage = parseInt(cleanUrl[1])){
+			var searchParams = new URLSearchParams(param);
+			if (!searchParams.has("paged")){
+				param = param + '&paged=' + urlPage;
+			}
+
+		}
+
 		var inter;
 		$.ajax({
 			url : progressbar.ajax_url + '?action=filter_product',
@@ -667,7 +687,7 @@ jQuery(document).ready(function ($) {
 			if(window.location.hash) {
 			  param += '&pa_filter-colour-term=' + window.location.hash.split('#')[1];
 			}
-			
+
 			generate_filter_queries(param);
 			generate_products(param);
 		}
