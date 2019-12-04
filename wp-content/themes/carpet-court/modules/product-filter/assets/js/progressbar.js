@@ -468,12 +468,14 @@ jQuery(document).ready(function ($) {
 			}, 500);
 		}
 
+		//set proper pagination url
 		var url = document.location.toString();
 		var cleanUrl =  url.split('page/');
 		var searchParams = new URLSearchParams(param);
 		if (searchParams.has("paged")){
 			window.history.pushState('page', 'title', cleanUrl[0] + 'page/'+ searchParams.get("paged"));
 		}
+
 	});
 	$('body').on('click', '.tabs', function (e) {
 		e.preventDefault();
@@ -572,7 +574,7 @@ jQuery(document).ready(function ($) {
 		}*/
 	}
 	function generate_filter_queries(param) {
-		
+
 		var inter;
 		$.ajax({
 			url : progressbar.ajax_url + '?action=generate_filter_queries',
@@ -594,6 +596,7 @@ jQuery(document).ready(function ($) {
 	}
 	function generate_products(param) {
 
+		//proper page output (sending page number from url to js param)
 		var url = document.location.toString();
 		var cleanUrl =  url.split('page/');
 
@@ -604,8 +607,14 @@ jQuery(document).ready(function ($) {
 			if (!searchParams.has("paged")){
 				param = param + '&paged=' + urlPage;
 			}
-
 		}
+
+		//change canonical link to proper
+		var canonicalLink;
+		if (canonicalLink = document.querySelector("link[rel='canonical']")){
+			canonicalLink.setAttribute("href", cleanUrl[0]);
+		}
+
 
 		var inter;
 		$.ajax({
@@ -624,6 +633,17 @@ jQuery(document).ready(function ($) {
 				}
 			},
 			success : function (response) {
+
+				//set proper category page title
+				var urlNew = document.location.toString();
+				var cleanUrlNew =  urlNew.split('page/');
+				var catTitle = cleanUrlNew[0].split('/');
+				catTitle = catTitle[catTitle.length - 2];
+				catTitle = catTitle.split('-')
+					.map(w => w[0].toUpperCase() + w.substr(1).toLowerCase())
+					.join(' ');
+				var title = catTitle + ' - Carpet Court';
+				document.title = title;
 
 				$('#msform').prev('.container').hide();
 				$('section#home-content-wrap').removeClass('cpm-margin-no-slider');
@@ -664,7 +684,6 @@ jQuery(document).ready(function ($) {
 				$('.list-color-available ul li').each(function () {
 					$(this).find('img').cceasyZoom();
 				});
-
 			}
 		});
 
