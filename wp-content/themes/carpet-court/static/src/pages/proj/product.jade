@@ -1,0 +1,51 @@
+extends ../tpl/layout
+include ../../components/prefooter/index
+
+include ../../components/pages/product/product-features/index
+include ../../components/pages/product/product-selector/index
+include ../../components/pages/product/product-info/index
+
+block vars
+	- var bodyClass = ''
+	- var pageTitle = 'Product'
+	- var DIR = ''
+block content
+	// SVG Sprite
+	+svg-icon()
+
+	.packaging-product
+		.crumps
+			ul.crumps-list
+				li.crumps-list__item
+					a(href="") home
+				li.crumps-list__item
+					a(href="") category
+				li.crumps-list__item
+					span product page
+		.product-grid
+			.product-grid__media
+				h2.product-slider-title Rhino EverCore Herringbone
+				include ../../components/pages/product/product-slider/index
+				+product-features
+
+			.product-grid__description
+				.product-description
+					h2 Rhino EverCore Herringbone
+					p The sophisticated herringbone look is now easy to achieve without the hefty price tag. This easy-to install material is available in a range of on-trend finishes with the power to transform any blank space into a stylish masterpiece.
+				+product-selector
+				.producr-button-row
+					a(href="#").button Book measure and quote
+
+					button.wish-button
+						// toggle .is-active class
+						span.wish-button__icon
+							svg.hear-icon(xmlns='http://www.w3.org/2000/svg', width='23', height='21', viewBox='0 0 23 21')
+								path.hear-icon-border(fill='currentColor', d='M22.151 6.333a6.161 6.161 0 0 1-1.424 3.939l-8.901 9.962a.738.738 0 0 1-1.1 0l-1.392-1.556-3.06-3.423c-2.814-3.149-4.405-4.93-4.468-5.005A6.15 6.15 0 0 1 .4 6.324C.442 2.837 3.302.042 6.779.08a6.415 6.415 0 0 1 4.497 1.818A6.406 6.406 0 0 1 15.762.08a6.32 6.32 0 0 1 6.39 6.244zM10.694 3.456a4.944 4.944 0 0 0-3.921-1.9 4.843 4.843 0 0 0-4.897 4.778 4.662 4.662 0 0 0 1.06 2.968c.044.05 1.774 1.988 4.436 4.966l.002.003 3.06 3.423.841.94 8.332-9.324a4.67 4.67 0 0 0 1.068-2.972 4.847 4.847 0 0 0-4.908-4.782 4.939 4.939 0 0 0-3.91 1.9.738.738 0 0 1-1.163 0z')
+								path.hear-icon-bg(fill='currentColor', d='M15.762.08a6.32 6.32 0 0 1 6.39 6.244v.009a6.161 6.161 0 0 1-1.425 3.939l-8.901 9.962a.738.738 0 0 1-1.1 0l-1.392-1.556-3.06-3.423c-2.814-3.149-4.405-4.93-4.468-5.005A6.15 6.15 0 0 1 .4 6.324C.442 2.837 3.302.042 6.779.08a6.415 6.415 0 0 1 4.497 1.818A6.406 6.406 0 0 1 15.762.08z')
+						span.wish-button__text Add to Wishlist
+				+product-info
+			
+		h2 Ratings & Reviews
+		//- +review
+
+	+prefooter

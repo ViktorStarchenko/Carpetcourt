@@ -1,0 +1,22 @@
+.product-slider {
+    margin-bottom: 75px;
+  
+    @include r(900) {
+      margin-bottom: 15px;
+    }
+  
+  
+    img {
+      display: inline-block;
+      max-width: 100%;
+    }
+  }
+  
+  .product-slider-title {
+    margin-bottom: 10px;
+    text-align: center;
+  
+    @include rm(901) {
+      display: none;
+    }
+  }

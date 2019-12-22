@@ -1,0 +1,5 @@
+mixin vantage-item(prop= {})
+    dl.vantage-item
+        dt.vantage-item__logo
+            img(src=`/img/vantage/${prop.icon}.svg`, alt=`${prop.icon}`)
+        dd.vantage-item__text!= prop.text

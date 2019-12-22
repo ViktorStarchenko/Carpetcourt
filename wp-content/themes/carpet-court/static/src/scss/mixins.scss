@@ -71,3 +71,23 @@
     color: $color;
   }
 }
+
+// less than X
+@mixin r($width){
+	@media only screen and (max-width: $width+ "px"){
+    @content;
+  }
+}
+
+// more than X
+@mixin rm($width){
+	@media only screen and (min-width: $width+ "px"){
+    @content;
+  }
+}
+
+@mixin notouch{
+	@media not all and (-moz-touch-enabled:1), not all and (pointer:coarse), not all and (-ms-high-contrast:none) and (max-width:1024px){
+    @content;
+  }
+}
