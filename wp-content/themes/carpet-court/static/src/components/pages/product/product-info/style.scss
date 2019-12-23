@@ -15,11 +15,15 @@
       padding-bottom: 15px;
       margin: 0;
       color: $text-color;
-      font-family: $ff;
+      font-family: $font-medium;
       font-size: 24px;
       font-weight: 500;
       letter-spacing: 0.2px;
-      line-height: 24px;
+      line-height: 1.1;
+      @include r(768){
+        font-size: 16px;
+      }
+
   
       &__icon {
         display: block;
@@ -55,10 +59,13 @@
       dl {
         display: flex;
         flex-flow: row wrap;
-        font-family: $ff;
+        font-family: $font-family-base;
   
         &:not(:last-child) {
           margin-bottom: 50px;
+          @include r(768){
+            margin-bottom: 16px;
+          }
         }
       }
   
@@ -69,6 +76,7 @@
         font-size: 18px;
         line-height: calc(24/18);
         font-weight: 500;
+        font-family: $font-medium;
         letter-spacing: 0.15px;
       }
   
@@ -78,16 +86,18 @@
         font-size: 15px;
         line-height: calc(22/15);
         font-weight: 400;
+        font-family: $font-regular;
         letter-spacing: 0.17px;
       }
   
       a {
         font-size: 15px;
         line-height: calc(22/15);
+        font-family: $font-regular;
         font-weight: 400;
         letter-spacing: 0.17px;
         text-decoration: underline;
-        font-family: $ff;
+        font-family: $font-regular;
         color: $text-color;
       }
     }
@@ -98,3 +108,36 @@
       }
     }
   }
+
+.product-description{
+  margin-bottom: 45px;
+  @include r(900) {
+    text-align: center;
+  }
+  &__title{
+    margin-bottom: 15px;
+    @include r(900) {
+      display: none;
+    }
+  }
+}
+
+.producr-button-row{
+  display: flex;
+  flex-flow: row wrap;
+  @include r(768) {
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .button{
+      min-width: 246px;
+      @include rm(769) {
+        margin-right: 8%;
+      }
+  }
+  .button,.wish-button{
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+}

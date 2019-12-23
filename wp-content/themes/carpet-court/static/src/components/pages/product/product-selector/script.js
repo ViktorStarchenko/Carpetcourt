@@ -1,7 +1,9 @@
 function toggleColorProduct() {
     
 	var productPhotoParent = document.querySelectorAll('.js-product-parent');
-		
+
+	if(!productPhotoParent) return false;
+	
 	productPhotoParent.forEach(function(parent) {
 		var productTriggerPhoto = parent.querySelectorAll('.js-product-trigger');
 		var productTargetPhoto = parent.querySelectorAll('.js-product-target');

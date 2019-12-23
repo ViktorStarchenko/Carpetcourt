@@ -6,16 +6,16 @@
       flex-flow: row wrap;
       font-size: 18px;
       font-weight: 500;
+      font-family: $font-medium;
       letter-spacing: 0.15px;
       line-height: 24px;
-      font-family: $ff;
       margin-bottom: 10px;
   
       &-select {
         margin-left: 20px;
         font-size: 16px;
         font-weight: 100;
-        font-family: $ff;
+        font-family: $font-regular;
       }
     }
   }

@@ -4,6 +4,8 @@ include ../../components/prefooter/index
 include ../../components/pages/product/product-features/index
 include ../../components/pages/product/product-selector/index
 include ../../components/pages/product/product-info/index
+include ../../components/pages/product/review/index
+include ../../components/pages/product/product-slider/index
 
 block vars
 	- var bodyClass = ''
@@ -25,12 +27,12 @@ block content
 		.product-grid
 			.product-grid__media
 				h2.product-slider-title Rhino EverCore Herringbone
-				include ../../components/pages/product/product-slider/index
+				+product-slider
 				+product-features
 
 			.product-grid__description
 				.product-description
-					h2 Rhino EverCore Herringbone
+					h2.product-description__title Rhino EverCore Herringbone
 					p The sophisticated herringbone look is now easy to achieve without the hefty price tag. This easy-to install material is available in a range of on-trend finishes with the power to transform any blank space into a stylish masterpiece.
 				+product-selector
 				.producr-button-row
@@ -46,6 +48,8 @@ block content
 				+product-info
 			
 		h2 Ratings & Reviews
-		//- +review
+		.review-wrap
+			+review('five')
+			+review('three')
 
 	+prefooter

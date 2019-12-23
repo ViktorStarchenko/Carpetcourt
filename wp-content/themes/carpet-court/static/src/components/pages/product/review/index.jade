@@ -1,16 +1,34 @@
-mixin review()
+mixin review(raiting)
     .review
         .review-user
             .review-user-logo
-            .review-user-nail
-        .review-user-content
-            .review-user
-        .review-user-btns
-            .like-button
+                .review-user-logo__abr NL
+                .review-user-logo__icon
+            .review-user-info
+                .review-user-info__name NATHAN L.
+                .review-user-info__location New York, NY
+        .review-content
+            .review-content-raiting
+                // add class star-rating--${raiting}{number:string} for show rating
+                // for example star-rating--five or star-rating--three
+                .star-rating(class=`star-rating--${raiting}`)
+                    svg(xmlns='http://www.w3.org/2000/svg', width='74', height='11', viewBox='0 0 74 11')
+                        path(fill='transparent', stroke='#00b262', d='M2.432 11.01a.405.405 0 0 1-.386-.532L3.221 6.85.128 4.601a.405.405 0 0 1 .238-.735h3.825L5.368.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L5.754 8.69 2.67 10.93a.406.406 0 0 1-.238.079')
+                        path(fill='transparent', stroke='#00b262', d='M17.872 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L20.808.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L21.194 8.69l-3.084 2.24a.406.406 0 0 1-.238.079')
+                        path(fill='transparent', stroke='#00b262', d='M33.302 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L36.238.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L36.624 8.69l-3.084 2.24a.406.406 0 0 1-.238.079')
+                        path(fill='transparent', stroke='#00b262', d='M48.732 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L51.668.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L52.054 8.69l-3.084 2.24a.406.406 0 0 1-.238.079')
+                        path(fill='transparent', stroke='#00b262', d='M64.162 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L67.098.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L67.484 8.69 64.4 10.93a.406.406 0 0 1-.238.079')
+
+            .review-content__title Love it!
+            .review-content__text
+                p Lorem ipsum dolor sit amet, lacinia a ut ut in justo, ut vel aliquam elit morbi aliquam justo, cursus eu fusce viverra, duis nostra leo. At dui et pede malesuada omnis.
+        .review-btns
+            // toggle class is-active on button for change color
+            button.like-button
                 .like-button__icon
                     +icon('finger-up')
                 .like-button__count 0
-            .dislike-button
+            button.dislike-button
                 .dislike-button__icon
                     +icon('finger-down')
                 .dislike-button__count 0

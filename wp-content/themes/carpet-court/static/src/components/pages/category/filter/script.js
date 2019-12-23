@@ -3,6 +3,8 @@ function accordeon() {
 	// var contents = $('.js-accordeon-content');
 	var titles = $('.js-accordeon-title');
 
+	if(!titles.length) return false;
+
 	var contents_all = $('.js-accordeon-content');
 
 	if(contents_all.is(':visible')) {
@@ -39,6 +41,8 @@ function accordeon() {
 function toggleColorProduct() {
     
 	var productPhotoParent = document.querySelectorAll('.js-product-parent');
+
+	if(!productPhotoParent.length) return false;
 		
 	productPhotoParent.forEach(function(parent) {
 		var productTriggerPhoto = parent.querySelectorAll('.js-product-trigger');
