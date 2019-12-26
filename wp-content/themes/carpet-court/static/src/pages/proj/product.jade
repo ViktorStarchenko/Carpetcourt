@@ -5,7 +5,9 @@ include ../../components/pages/product/product-features/index
 include ../../components/pages/product/product-selector/index
 include ../../components/pages/product/product-info/index
 include ../../components/pages/product/review/index
+include ../../components/pages/product/review-form/index
 include ../../components/pages/product/product-slider/index
+include ../../components/pages/product/swatch-gallery/index
 
 block vars
 	- var bodyClass = ''
@@ -47,7 +49,9 @@ block content
 						span.wish-button__text Add to Wishlist
 				+product-info
 			
-		h2 Ratings & Reviews
+		+review-form
+	.review-form-success Thank you! Your review has been sent
+	.packaging-product
 		.review-wrap
 			+review('five')
 			+review('three')

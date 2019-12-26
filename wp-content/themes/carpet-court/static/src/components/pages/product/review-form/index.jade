@@ -1,0 +1,40 @@
+mixin review-form()
+    h2.review-form__title Ratings & Reviews
+    .review-form
+        span.review-form__btn.js-accordeon-title Write a review
+            span.review-form__btn-icon
+                +icon('drop_arrow')
+        form.review-form__form.js-accordeon-content
+            p.review-form__subtitle Your email address will not be published. Required fields are marked *
+            .review-form__row
+                .review-form__item
+                    input(type="text", name="", placeholder="Your name*", required)
+                .review-form__item
+                    input(type="mail", name="", placeholder="Email *", required)
+            .review-form__row
+                .review-form__item
+                    textarea(name="", placeholder="Your review *", required)
+                .review-form__item
+                    .raiting-stars-wrap
+                        p Your review-form
+                        .raiting-stars
+                            input#raiting-radio1(type='radio', name='raiting-radio', value='1')
+                            label(for='raiting-radio1')
+                                +icon('star')
+                            input#raiting-radio2(type='radio', name='raiting-radio', value='2')
+                            label(for='raiting-radio2')
+                                +icon('star')
+                            input#raiting-radio3(type='radio', name='raiting-radio', value='3')
+                            label(for='raiting-radio3')
+                                +icon('star')
+                            input#raiting-radio4(type='radio', name='raiting-radio', value='4')
+                            label(for='raiting-radio4')
+                                +icon('star')
+                            input#raiting-radio5(type='radio', name='raiting-radio', value='5')
+                            label(for='raiting-radio5')
+                                +icon('star')
+                    .review-agree
+                        input.review-agree__check#review-agree(type="checkbox", name="review-agree", required)
+                        label.review-agree__label(for="review-agree")
+                            span.review-agree__text I review-agree with terms and conditions*
+                    button(type="submit").button Submit

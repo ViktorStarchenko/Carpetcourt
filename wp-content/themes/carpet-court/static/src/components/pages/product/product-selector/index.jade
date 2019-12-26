@@ -1,33 +1,40 @@
 mixin product-selector
-    .product-selector
+    .product-selector.js-product-parent 
         .product-selector__title Selected Colour:
-            .product-selector__title-select.js-select-color Honey Parquet
-        .product-selector-inner.js-product-parent 
-            .product-selector-preview
-                .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
-                .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
-                .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
-                .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
-                .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
+            .product-selector__title-select.js-select-color
+        .product-selector-inner
+            a(href="#").product-selector-preview.js-show-swatch
                 .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
 
+                .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
+
+                .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
+
+                .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
+
+                .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
+
+                .product-selector-preview__item.js-product-target(style="background-image:url('images/product-preview/product-preview.png');")
+                .product-selector-preview__button
+                    span Open Swatch Gallery
+
             ul.product-selector-thumbs
-                li.product-selector-thumbs__item.js-product-trigger
+                li.product-selector-thumbs__item.js-product-trigger(data-naming="Honey Parquet 0")
                     .product-selector-thumbs__img
                         img(src="images/colors/color-1.png", alt="color")
-                li.product-selector-thumbs__item.js-product-trigger
+                li.product-selector-thumbs__item.js-product-trigger(data-naming="Honey Parquet 1")
                     .product-selector-thumbs__img
                         img(src="images/colors/color-2.png", alt="color")
-                li.product-selector-thumbs__item.js-product-trigger
+                li.product-selector-thumbs__item.js-product-trigger(data-naming="Honey Parquet 2")
                     .product-selector-thumbs__img
                         img(src="images/colors/color-3.png", alt="color")
-                li.product-selector-thumbs__item.js-product-trigger
+                li.product-selector-thumbs__item.js-product-trigger(data-naming="Honey Parquet 3")
                     .product-selector-thumbs__img
                         img(src="images/colors/color-4.png", alt="color")
-                li.product-selector-thumbs__item.js-product-trigger
+                li.product-selector-thumbs__item.js-product-trigger(data-naming="Honey Parquet 4")
                     .product-selector-thumbs__img
                         img(src="images/colors/color-5.png", alt="color")
-                li.product-selector-thumbs__item.js-product-trigger
+                li.product-selector-thumbs__item.js-product-trigger(data-naming="Honey Parquet 5")
                     .product-selector-thumbs__img
                         img(src="images/colors/color-6.png", alt="color")
             

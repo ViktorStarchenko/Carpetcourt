@@ -91,3 +91,16 @@
     @content;
   }
 }
+
+@mixin vertical{
+  text-align: center;
+  font-size: 0;
+
+  &:before{
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    height: 100%
+  };
+}

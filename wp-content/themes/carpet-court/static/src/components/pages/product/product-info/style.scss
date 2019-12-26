@@ -1,9 +1,12 @@
 .product-info {
-    padding-top: 15px;
-    border-top: 1px solid #eaebed;
-  
+  border-top: 1px solid #eaebed;
+  @include rm(901){
     &:not(:last-child) {
-      margin-bottom: 30px;
+      @include rm(901){
+        padding-top: 15px;
+        margin-bottom: 30px;
+        }
+      }
     }
   
     &-title {
@@ -125,6 +128,9 @@
 .producr-button-row{
   display: flex;
   flex-flow: row wrap;
+  @include r(900) {
+    margin-bottom: 30px;
+  }
   @include r(768) {
     flex-flow: column nowrap;
     align-items: center;
