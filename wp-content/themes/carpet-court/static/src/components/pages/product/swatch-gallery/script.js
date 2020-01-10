@@ -1,0 +1,28 @@
+function toggleSwatch(){
+    var swatchButton = document.querySelectorAll('.js-show-swatch');
+
+    if(!swatchButton.length) return false;
+
+    console.log(swatchButton)
+
+    var swatchParent = document.querySelector('.js-swatch-parent');
+
+    swatchButton.forEach(function(sw_button){
+        console.log(sw_button)
+        sw_button.addEventListener('click', function(e){
+            e.preventDefault();
+            console.log('ffdfdf')
+            if(swatchParent.classList.contains('is-visible')){
+                swatchParent.classList.remove('is-visible');
+            } else {
+                swatchParent.classList.add('is-visible');
+            }
+        });
+    })
+
+
+}
+
+window.addEventListener('load', function() {
+    toggleSwatch();
+});

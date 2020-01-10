@@ -1,0 +1,147 @@
+.review{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e1e2e5;
+    @include r(768){
+        flex-flow: column nowrap;
+    }
+    & + &{
+        margin-top: 30px;
+    }
+    &-user{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        @include rm(769){
+            width: 20%;
+            padding-right: 20px;
+        }
+        @include r(768){
+            margin-bottom: 15px;
+        }
+        &-logo{
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            border: 1px solid #dee0e3;
+            padding: 5px;
+            margin-right: 20px;
+            position: relative;
+            @include r(768){
+                margin-right: 30px;
+            }
+            &__abr{
+                color: $text-color;
+                font-family: $font-semibold;
+                font-size: 18px;
+                line-height: calc(26/18);
+                font-weight: 600;
+                letter-spacing: 0.17px;
+                text-transform: uppercase;
+            }
+            &__icon{
+                display: block;
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                background: #f13e4b;
+                position: absolute;
+                z-index: 1;
+                right: -7px;
+                top: -7px;
+                &::after {
+                    content: "";
+                    display: inline-block;
+                    border-style: solid;
+                    border-width: 0 2px 2px 0;
+                    padding: 4px 2px;
+                    border-color: #fff;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: rotate(30deg) translate(-92%, -40%);
+                    z-index: 1;
+                  }
+            }
+        }
+        &-info{
+            &__name{
+                color: #808487;;
+                font-family: $font-regular;
+                font-size: 12px;
+                line-height: calc(15/13);
+                font-weight: 400;
+                letter-spacing: 0.15px;
+                text-transform: uppercase;
+            }
+            &__location{
+                color: $text-color;
+                font-family: $font-regular;
+                font-size: 13px;
+                line-height: calc(17/13);
+                font-weight: 400;
+                letter-spacing: 0.18px;
+                color: $text-color;
+            }
+        }
+    }
+    &-content{
+        width: 100%;
+        @include rm(769){
+            width: 60%;
+        }
+        @include r(768){
+            margin-bottom: 10px;
+        }
+        &__title{
+            color: $text-color;
+            font-family: $font-medium;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.16px;
+            line-height: calc(22/15);
+        }
+        &__text{
+            font-family: $font-regular;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.17px;
+            line-height: calc(22/15);
+            p{
+                margin: 0;
+                font-family: $font-regular;
+                font-size: 15px;
+                font-weight: 400;
+                letter-spacing: 0.17px;
+                line-height: calc(22/15);
+            }
+            p + p{
+                margin-top: 10px;
+            }
+        }
+        &-raiting{
+            margin-bottom: 10px;
+            @include r(768){
+                margin-bottom: 15px;
+            }
+        }
+    }
+    &-btns{
+        width: 100%;
+        @include rm(769){
+            width: 20%;
+            min-width: 150px;
+            display: flex;
+            align-self: center;
+            justify-content: flex-end;
+        }
+        .like-button{}
+        .dislike-button{}
+    }
+
+}
