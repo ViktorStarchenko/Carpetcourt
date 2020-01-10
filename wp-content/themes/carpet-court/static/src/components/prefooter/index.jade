@@ -1,0 +1,48 @@
+mixin vantage-item(prop= {})
+	dl.vantage-item
+		dt.vantage-item__logo
+			img(src=`images/vantage/${prop.icon}.svg`, alt=`${prop.icon}`)
+		dd.vantage-item__text!= prop.text
+	
+mixin prefooter
+	.come-to-us
+		.packaging
+			.category-content.category-content--center
+				h2 Come to us, or we can come to you
+				p Quis Aristidem non mortuum diligit? Primum divisit ineleganter; Sed utrum hortandus es nobis, Luci, inquit, an etiam tua sponte propensus es? Sed haec omittamus.
+			.come-to-us__bttns
+				a.button(href="") book an in-home consultation
+				a.button(href="") find a store near you
+	.packaging
+		-
+			var vantages = [
+				{
+					icon: 'stores',
+					text: '57 stores nationwide',
+				},
+				{
+					icon: 'quote',
+					text: 'free measure & quote',
+				},
+				{
+					icon: 'finance',
+					text: 'finance options available',
+				},
+				{
+					icon: 'commercial',
+					text: 'expertise in all commercial sectors',
+				},
+				{
+					icon: 'quality',
+					text: '2019 Reader’s Digest Quality service award ',
+				},
+			]
+		.vantage
+			each vantage in vantages
+				+vantage-item(vantage)
+	.carpet-story
+		.packaging
+			h5.carpet-story__title the carpet court story
+			.carpet-story__text
+				p Carpet Court was founded in the 1960’s by a small group of like-minded flooring retailers looking to establish a better experience and provide greater value for our customers. Today our flourishing business has 57 stores nationwide with a reputation reflecting our longstanding presence in the market and the thousands of homes we have installed carpet and hardflooring into over the decades. 
+				p We are New Zealand’s most trusted and preferred flooring retailer and work hard to ensure our customers enjoy the process of purchasing flooring which can often be a confusing and stressful experience. Our Customer Service focus has been recognised by winning Gold (for the second year in a row) for flooring stores in the Reader’s Digest Quality Service Awards - an area we continually strive to improve upon. 

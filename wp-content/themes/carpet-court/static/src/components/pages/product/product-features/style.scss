@@ -1,0 +1,21 @@
+.product-features {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 -25px;
+  
+    @include r(1024) {
+      margin: 0 -15px;
+    }
+  
+    @include r(900) {
+      display: none;
+    }
+
+    &__item {
+      margin: 0 25px 40px 25px;
+  
+      @include r(1024) {
+        margin: 0 15px 20px 15px;
+      }
+    }
+  }
