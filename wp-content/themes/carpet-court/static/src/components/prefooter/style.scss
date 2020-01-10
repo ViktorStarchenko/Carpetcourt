@@ -1,0 +1,44 @@
+.vantage-item {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  
+    @include r(900) {
+      flex-flow: row nowrap;
+  
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+  
+  
+    &__logo {
+      display: block;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+  
+      img {
+        display: inline-block;
+        max-width: 100%;
+        max-height: 100%;
+      }
+  
+      @include r(900) {
+        margin-bottom: 0;
+        margin-right: 17px;
+        width: 30px;
+        height: 30px;
+      }
+    }
+  
+    &__text {
+      display: block;
+      text-align: center;
+  
+      @include rm(901) {
+        padding: 0 10px;
+      }
+    }
+  }

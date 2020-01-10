@@ -1,0 +1,11 @@
+mixin filter(prop = {})
+    .filter
+        p.filter-title.js-accordeon-title!= prop.name
+            span.filter-title__icon
+                +icon('drop_arrow')
+        .js-accordeon-content
+            .filter-content
+                each item, index in prop.items
+                    .filter-item
+                        input.filter-item__input(type="radio", name=`${prop.name}`, id=`${prop.name+index}`)
+                        label.filter-item__label(for=`${prop.name+index}`)!= item

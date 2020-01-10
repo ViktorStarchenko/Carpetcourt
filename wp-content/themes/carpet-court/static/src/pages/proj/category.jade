@@ -1,0 +1,81 @@
+extends ../tpl/layout
+include ../../components/pages/category/product-card/index
+include ../../components/pages/category/filter/index
+include ../../components/prefooter/index
+
+block vars
+	- var bodyClass = ''
+	- var pageTitle = 'Category'
+	- var DIR = ''
+block content
+	// SVG Sprite
+	+svg-icon()
+	-
+		var filters = [
+			{
+				name: 'Type',
+				items: ['Carpet', 'Tiles', 'Vinyl Planks', 'Laminate', 'Vinyl', 'Woods', ]
+			},
+			{
+				name: 'Fibre',
+				items: ['Fibre 1', 'Fibre 2', 'Fibre 3', 'Fibre 4', ]
+			},
+			{
+				name: 'Colours',
+				items: ['Colours 1', 'Colours 2', 'Colours 3', 'Colours 4', ]
+			},
+			{
+				name: 'Features',
+				items: ['Features 1', 'Features 2', 'Features 3', 'Features 4']
+			},
+		];
+		var vantages = [
+			{
+				icon: 'stores',
+				text: '57 stores nationwide',
+			},
+			{
+				icon: 'quote',
+				text: 'free measure & quote',
+			},
+			{
+				icon: 'finance',
+				text: 'finance options available',
+			},
+			{
+				icon: 'commercial',
+				text: 'expertise in all commercial sectors',
+			},
+			{
+				icon: 'quality',
+				text: '2019 Reader’s Digest Quality service award ',
+			},
+		]
+
+	.category-head
+		h1 Carpet
+	.packaging
+		.category-grid
+			.category-grid__sidebar.js-accordeon-wrap
+				button.js-accordeon-title.filters-wrap-btn Filter By
+				form.filters-wrap.js-accordeon-content.js-accordeon-wrap
+					each filter in filters
+						+filter(filter)
+			.category-grid__main
+				+product-card
+				+product-card
+				+product-card
+		.pagination-wrap
+			.pagination
+				a(href="#").pagination-item <
+				a(href="#").pagination-item 1
+				a(href="#").pagination-item 2
+				a(href="#").pagination-item 3
+				a(href="#").pagination-item 4
+				a(href="#").pagination-item >
+
+		.category-content.category-content--align_r
+			h2 Carpet
+			p Elegant, comfortable and beautifully tactile, carpet remains a timeless option for any home whether your look is classic or more fashion forward. Renowned for superior noise reducing and insulating qualities, today’s carpet lets you create a space that's practical without compromising on style.
+
+	+prefooter
