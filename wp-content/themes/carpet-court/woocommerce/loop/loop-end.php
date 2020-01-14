@@ -112,50 +112,7 @@ if (is_array($pages)) {
         </div>
     </div>
 </div>
-
-<div class="swatch-gallery-wrap js-swatch-parent">
-    <div class="swatch-gallery js-product-parent">
-        <button aria-label="close modal" class="swatch-gallery__close js-show-swatch">
-            <svg class="icon close">
-                <use xlink:href="#close"></use>
-            </svg>
-        </button>
-        <div class="swatch-gallery__title">Swatch Gallery</div>
-        <div class="swatch-gallery-inner">
-            <ul class="swatch-gallery-thumbs">
-                <li data-naming="Honey Parquet 0" class="swatch-gallery-thumbs__item js-product-trigger">
-                    <div class="swatch-gallery-thumbs__img"><img src="<?= get_template_directory_uri() ?>/static/public/images/colors/color-1.png" alt="color"></div>
-                </li>
-                <li data-naming="Honey Parquet 1" class="swatch-gallery-thumbs__item js-product-trigger">
-                    <div class="swatch-gallery-thumbs__img"><img src="<?= get_template_directory_uri() ?>/static/public/images/colors/color-2.png" alt="color"></div>
-                </li>
-                <li data-naming="Honey Parquet 2" class="swatch-gallery-thumbs__item js-product-trigger">
-                    <div class="swatch-gallery-thumbs__img"><img src="<?= get_template_directory_uri() ?>/static/public/images/colors/color-3.png" alt="color"></div>
-                </li>
-                <li data-naming="Honey Parquet 3" class="swatch-gallery-thumbs__item js-product-trigger">
-                    <div class="swatch-gallery-thumbs__img"><img src="<?= get_template_directory_uri() ?>/static/public/images/colors/color-4.png" alt="color"></div>
-                </li>
-                <li data-naming="Honey Parquet 4" class="swatch-gallery-thumbs__item js-product-trigger">
-                    <div class="swatch-gallery-thumbs__img"><img src="<?= get_template_directory_uri() ?>/static/public/images/colors/color-5.png" alt="color"></div>
-                </li>
-                <li data-naming="Honey Parquet 5" class="swatch-gallery-thumbs__item js-product-trigger">
-                    <div class="swatch-gallery-thumbs__img"><img src="<?= get_template_directory_uri() ?>/static/public/images/colors/color-6.png" alt="color"></div>
-                </li>
-            </ul>
-            <div class="swatch-gallery__select js-select-color"></div>
-            <div class="swatch-gallery-preview">
-                <div style="background-image:url('<?= get_template_directory_uri() ?>/static/public/images/product-preview/product-preview.png');" class="swatch-gallery-preview__item js-product-target"></div>
-                <div style="background-image:url('<?= get_template_directory_uri() ?>/static/public/images/product-preview/product-preview.png');" class="swatch-gallery-preview__item js-product-target"></div>
-                <div style="background-image:url('<?= get_template_directory_uri() ?>/static/public/images/product-preview/product-preview.png');" class="swatch-gallery-preview__item js-product-target"></div>
-                <div style="background-image:url('<?= get_template_directory_uri() ?>/static/public/images/product-preview/product-preview.png');" class="swatch-gallery-preview__item js-product-target"></div>
-                <div style="background-image:url('<?= get_template_directory_uri() ?>/static/public/images/product-preview/product-preview.png');" class="swatch-gallery-preview__item js-product-target"></div>
-                <div style="background-image:url('<?= get_template_directory_uri() ?>/static/public/images/product-preview/product-preview.png');" data-trig-index="5" class="swatch-gallery-preview__item js-product-target"></div>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="<?= get_template_directory_uri() ?>/static/public/js/libs/jquery-3.2.1.min.js"></script>
 <script src="<?= get_template_directory_uri() ?>/static/public/js/libs/slick.min.js"></script>
 <script src="<?= get_template_directory_uri() ?>/static/public/js/libs/magnific-popup.min.js"></script>
 <script src="<?= get_template_directory_uri() ?>/static/public/js/bootstrap.min.js"></script>
-<script src="<?= get_template_directory_uri() ?>/static/public/js/app.min.js"></script>
