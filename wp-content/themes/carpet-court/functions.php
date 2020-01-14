@@ -2175,7 +2175,7 @@ add_filter('the_content', 'add_atom_data');
 
 
 add_filter('query_vars', 'custom_query_vars_bdokimakis', 10, 1 );
-add_action('init', 'custom_rewrite_rules_bdokimakis', 10, 1 );
+//add_action('init', 'custom_rewrite_rules_bdokimakis', 10, 1 );
 
 function custom_query_vars_bdokimakis($vars){
   $vars[] = 'cat_slug';
