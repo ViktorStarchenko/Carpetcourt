@@ -57,6 +57,9 @@ if ( post_password_required() ) {
     .wish-button.custom-addtowishlist-btn:hover{
         color: red;
     }
+    .review-form-success{
+        display: none;
+    }
 </style>
 
 
@@ -200,6 +203,8 @@ if ( post_password_required() ) {
                     </div>
                 </div>
             </div>
+
+
             <h2 class="review-form__title">Ratings & Reviews</h2>
             <div class="review-form"><span class="review-form__btn js-accordeon-title">Write a review<span class="review-form__btn-icon">
 								<svg class="icon drop_arrow">
@@ -207,19 +212,38 @@ if ( post_password_required() ) {
 								</svg></span></span>
                 <form class="review-form__form js-accordeon-content">
                     <p class="review-form__subtitle">Your email address will not be published. Required fields are marked *</p>
-                    <div class="review-form__row">
-                        <div class="review-form__item">
-                            <input type="text" name="" placeholder="Your name*" required="required"/>
+
+                    <?php
+                    $commenter = wp_get_current_commenter();
+
+                    $comment_form = array(
+                        'title_reply'          => '',
+                        'comment_notes_before' => '',
+                        'title_reply_before'   => '<span id="reply-title" class="comment-reply-title">',
+                        'title_reply_after'    => '</span>',
+                        'comment_notes_after'  => '',
+                        'fields'               => array(
+                            'author' => '<div class="review-form__row"><div class="review-form__item"><input type="text" name="" placeholder="Your name*" required="required" value="' . esc_attr( $commenter['comment_author'] ) . '"/></div>',
+                            'email'  => '<div class="review-form__item"><input type="email" name="" placeholder="Email *" required="required" value="' . esc_attr( $commenter['comment_author_email'] ) . '"/></div></div>',
+                        ),
+                        'label_submit'  => __( 'Submit', 'woocommerce' ),
+                        'logged_in_as'  => '',
+                        'submit_button' => '<br><input type="submit" name="%1$s" id="%2$s" class="%3$s button" value="%4$s" />
                         </div>
-                        <div class="review-form__item">
-                            <input type="mail" name="" placeholder="Email *" required="required"/>
-                        </div>
-                    </div>
-                    <div class="review-form__row">
+                    </div>',
+                    );
+
+                    if ( $account_page_url = wc_get_page_permalink( 'myaccount' ) ) {
+                        $comment_form['must_log_in'] = '<p class="must-log-in">' . sprintf( __( 'You must be <a href="%s">logged in</a> to post a review.', 'woocommerce' ), esc_url( $account_page_url ) ) . '</p>';
+                    }
+
+                    $comment_form['comment_field'] = '<div class="review-form__row">
                         <div class="review-form__item">
                             <textarea name="" placeholder="Your review *" required="required"></textarea>
-                        </div>
-                        <div class="review-form__item">
+                        </div>';
+
+                    if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' ) {
+                        $comment_form['comment_field'] .= '<div class="review-form__item">
                             <div class="raiting-stars-wrap">
                                 <p>Your review-form</p>
                                 <div class="raiting-stars">
@@ -254,120 +278,100 @@ if ( post_password_required() ) {
                                         </svg>
                                     </label>
                                 </div>
-                            </div>
+                            </div>';
+                        $comment_form['comment_field'] .= '
                             <div class="review-agree">
                                 <input id="review-agree" type="checkbox" name="review-agree" required="required" class="review-agree__check"/>
                                 <label for="review-agree" class="review-agree__label"><span class="review-agree__text">I review-agree with terms and conditions*</span></label>
-                            </div>
-                            <button type="submit" class="button">Submit</button>
-                        </div>
-                    </div>
+                            </div>';
+                    }
+
+                    comment_form( apply_filters( 'woocommerce_product_review_comment_form_args', $comment_form ) );
+                    ?>
+
+
+
                 </form>
             </div>
         </div>
-        <div class="review-form-success">Thank you! Your review has been sent</div>
-        <div class="packaging-product">
+        <div class="review-form-success" <?php if($_GET['review-agree']) echo 'style="display: block"'; ?>>Thank you! Your review has been sent</div>
+
+
+    <!-- Reviews output -->
+    <div class="packaging-product">
             <div class="review-wrap">
-                <div class="review">
-                    <div class="review-user">
-                        <div class="review-user-logo">
-                            <div class="review-user-logo__abr">NL</div>
-                            <div class="review-user-logo__icon"></div>
-                        </div>
-                        <div class="review-user-info">
-                            <div class="review-user-info__name">NATHAN L.</div>
-                            <div class="review-user-info__location">New York, NY</div>
-                        </div>
-                    </div>
-                    <div class="review-content">
-                        <div class="review-content-raiting">
-                            <!-- add class star-rating--${raiting}{number:string} for show rating-->
-                            <!-- for example star-rating--five or star-rating--three-->
-                            <div class="star-rating star-rating--five">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="74" height="11" viewBox="0 0 74 11">
-                                    <path fill="transparent" stroke="#00b262" d="M2.432 11.01a.405.405 0 0 1-.386-.532L3.221 6.85.128 4.601a.405.405 0 0 1 .238-.735h3.825L5.368.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L5.754 8.69 2.67 10.93a.406.406 0 0 1-.238.079"></path>
-                                    <path fill="transparent" stroke="#00b262" d="M17.872 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L20.808.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L21.194 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
-                                    <path fill="transparent" stroke="#00b262" d="M33.302 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L36.238.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L36.624 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
-                                    <path fill="transparent" stroke="#00b262" d="M48.732 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L51.668.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L52.054 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
-                                    <path fill="transparent" stroke="#00b262" d="M64.162 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L67.098.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L67.484 8.69 64.4 10.93a.406.406 0 0 1-.238.079"></path>
-                                </svg>
+                <?php
+                $comments = get_comments(['post_id' => $post->ID, 'status' => 'approve']);
+                if( $comments )
+                    foreach ($comments as $comment) {
+                        $words = explode(" ", $comment->comment_author);
+                        $acronym = "";
+                        foreach ($words as $w) {
+                            $acronym .= $w[0];
+                        }
+                        $rating = get_comment_meta($comment->comment_ID, 'rating', true);
+                        ?>
+                        <div class="review">
+                            <div class="review-user">
+                                <div class="review-user-logo">
+                                    <div class="review-user-logo__abr"><?= $acronym ?></div>
+                                    <div class="review-user-logo__icon"></div>
+                                </div>
+                                <div class="review-user-info">
+                                    <div class="review-user-info__name"><?= $comment->comment_author ?></div>
+                                    <div class="review-user-info__location" style="display: none">New York, NY</div>
+                                </div>
+                            </div>
+                            <div class="review-content">
+                                <div class="review-content-raiting">
+                                    <!-- add class star-rating--${raiting}{number:string} for show rating-->
+                                    <!-- for example star-rating--five or star-rating--three-->
+                                    <div class="star-rating star-rating--five">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="74" height="11" viewBox="0 0 74 11">
+                                            <?php for($i=1; $i<2; $i++){ ?>
+                                               <?php if($rating < 1)break; ?>
+                                            <path fill="transparent" stroke="#00b262" d="M2.432 11.01a.405.405 0 0 1-.386-.532L3.221 6.85.128 4.601a.405.405 0 0 1 .238-.735h3.825L5.368.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L5.754 8.69 2.67 10.93a.406.406 0 0 1-.238.079"></path>
+                                               <?php if($rating < 2)break; ?>
+                                            <path fill="transparent" stroke="#00b262" d="M17.872 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L20.808.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L21.194 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
+                                               <?php if($rating < 3)break; ?>
+                                            <path fill="transparent" stroke="#00b262" d="M33.302 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L36.238.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L36.624 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
+                                               <?php if($rating < 4)break; ?>
+                                            <path fill="transparent" stroke="#00b262" d="M48.732 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L51.668.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L52.054 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
+                                               <?php if($rating < 5)break; ?>
+                                            <path fill="transparent" stroke="#00b262" d="M64.162 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L67.098.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L67.484 8.69 64.4 10.93a.406.406 0 0 1-.238.079"></path>
+                                            <?php } ?>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="review-content__title" style="display: none">Love it!</div>
+                                <div class="review-content__text">
+                                    <p><?= $comment->comment_content ?></p>
+                                </div>
+                            </div>
+                            <div class="review-btns" style="display: none">
+                                <!-- toggle class is-active on button for change color-->
+                                <button class="like-button">
+                                    <div class="like-button__icon">
+                                        <svg class="icon finger-up">
+                                            <use xlink:href="#finger-up"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="like-button__count">0</div>
+                                </button>
+                                <button class="dislike-button">
+                                    <div class="dislike-button__icon">
+                                        <svg class="icon finger-down">
+                                            <use xlink:href="#finger-down"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="dislike-button__count">0</div>
+                                </button>
                             </div>
                         </div>
-                        <div class="review-content__title">Love it!</div>
-                        <div class="review-content__text">
-                            <p>Lorem ipsum dolor sit amet, lacinia a ut ut in justo, ut vel aliquam elit morbi aliquam justo, cursus eu fusce viverra, duis nostra leo. At dui et pede malesuada omnis.</p>
-                        </div>
-                    </div>
-                    <div class="review-btns">
-                        <!-- toggle class is-active on button for change color-->
-                        <button class="like-button">
-                            <div class="like-button__icon">
-                                <svg class="icon finger-up">
-                                    <use xlink:href="#finger-up"></use>
-                                </svg>
-                            </div>
-                            <div class="like-button__count">0</div>
-                        </button>
-                        <button class="dislike-button">
-                            <div class="dislike-button__icon">
-                                <svg class="icon finger-down">
-                                    <use xlink:href="#finger-down"></use>
-                                </svg>
-                            </div>
-                            <div class="dislike-button__count">0</div>
-                        </button>
-                    </div>
-                </div>
-                <div class="review">
-                    <div class="review-user">
-                        <div class="review-user-logo">
-                            <div class="review-user-logo__abr">NL</div>
-                            <div class="review-user-logo__icon"></div>
-                        </div>
-                        <div class="review-user-info">
-                            <div class="review-user-info__name">NATHAN L.</div>
-                            <div class="review-user-info__location">New York, NY</div>
-                        </div>
-                    </div>
-                    <div class="review-content">
-                        <div class="review-content-raiting">
-                            <!-- add class star-rating--${raiting}{number:string} for show rating-->
-                            <!-- for example star-rating--five or star-rating--three-->
-                            <div class="star-rating star-rating--three">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="74" height="11" viewBox="0 0 74 11">
-                                    <path fill="transparent" stroke="#00b262" d="M2.432 11.01a.405.405 0 0 1-.386-.532L3.221 6.85.128 4.601a.405.405 0 0 1 .238-.735h3.825L5.368.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L5.754 8.69 2.67 10.93a.406.406 0 0 1-.238.079"></path>
-                                    <path fill="transparent" stroke="#00b262" d="M17.872 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L20.808.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L21.194 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
-                                    <path fill="transparent" stroke="#00b262" d="M33.302 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L36.238.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L36.624 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
-                                    <path fill="transparent" stroke="#00b262" d="M48.732 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L51.668.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L52.054 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
-                                    <path fill="transparent" stroke="#00b262" d="M64.162 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L67.098.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L67.484 8.69 64.4 10.93a.406.406 0 0 1-.238.079"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="review-content__title">Love it!</div>
-                        <div class="review-content__text">
-                            <p>Lorem ipsum dolor sit amet, lacinia a ut ut in justo, ut vel aliquam elit morbi aliquam justo, cursus eu fusce viverra, duis nostra leo. At dui et pede malesuada omnis.</p>
-                        </div>
-                    </div>
-                    <div class="review-btns">
-                        <!-- toggle class is-active on button for change color-->
-                        <button class="like-button">
-                            <div class="like-button__icon">
-                                <svg class="icon finger-up">
-                                    <use xlink:href="#finger-up"></use>
-                                </svg>
-                            </div>
-                            <div class="like-button__count">0</div>
-                        </button>
-                        <button class="dislike-button">
-                            <div class="dislike-button__icon">
-                                <svg class="icon finger-down">
-                                    <use xlink:href="#finger-down"></use>
-                                </svg>
-                            </div>
-                            <div class="dislike-button__count">0</div>
-                        </button>
-                    </div>
-                </div>
+                   <?php
+                    }
+                ?>
+
             </div>
         </div>
         <div class="come-to-us">
@@ -413,6 +417,7 @@ if ( post_password_required() ) {
             </div>
         </div>
 </main>
+
 
     <div class="g-search">
         <button type="button" class="btn search-opener ic-icon-cross"></button>
