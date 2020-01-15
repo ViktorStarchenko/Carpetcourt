@@ -60,6 +60,12 @@ if ( post_password_required() ) {
     .review-form-success{
         display: none;
     }
+    .fas.fa-thumbs-up:hover{
+        color: green;
+    }
+    .fas.fa-thumbs-down:hover{
+        color: red;
+    }
 </style>
 
 
@@ -185,10 +191,15 @@ if ( post_password_required() ) {
                                     <dt>Best For:</dt>
                                     <dd><?= get_field('best_for') ?></dd>
                                 </dl>
-                                <dl>
-                                    <dt>Material:</dt>
-                                    <dd><?= $cat->name ?></dd>
-                                </dl>
+                                <?php if ($material = get_the_terms( $product->id, 'pa_materials' )){
+                                    ?>
+                                    <dl>
+                                        <dt>Material:</dt>
+                                        <dd><?= $material[0]->name ?></dd>
+                                    </dl>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -348,26 +359,114 @@ if ( post_password_required() ) {
                                     <p><?= $comment->comment_content ?></p>
                                 </div>
                             </div>
-                            <div class="review-btns" style="display: none">
-                                <!-- toggle class is-active on button for change color-->
-                                <button class="like-button">
-                                    <div class="like-button__icon">
-                                        <svg class="icon finger-up">
-                                            <use xlink:href="#finger-up"></use>
-                                        </svg>
-                                    </div>
-                                    <div class="like-button__count">0</div>
-                                </button>
-                                <button class="dislike-button">
-                                    <div class="dislike-button__icon">
-                                        <svg class="icon finger-down">
-                                            <use xlink:href="#finger-down"></use>
-                                        </svg>
-                                    </div>
-                                    <div class="dislike-button__count">0</div>
-                                </button>
+                            <div class="review-btns">
+                                <?php
+                                $comment_id = $comment->comment_ID;
+                                $like_count = get_comment_meta( $comment_id, 'cld_like_count', true );
+                                $dislike_count = get_comment_meta( $comment_id, 'cld_dislike_count', true );
+                                $post_id = get_the_ID();
+                                $cld_settings = get_option( 'cld_settings' );
+                                /**
+                                 * Filters like count
+                                 *
+                                 * @param type int $like_count
+                                 * @param type int $comment_id
+                                 *
+                                 * @since 1.0.0
+                                 */
+                                $like_count = apply_filters( 'cld_like_count', $like_count, $comment_id );
+
+                                /**
+                                 * Filters dislike count
+                                 *
+                                 * @param type int $dislike_count
+                                 * @param type int $comment_id
+                                 *
+                                 * @since 1.0.0
+                                 */
+                                $dislike_count = apply_filters( 'cld_dislike_count', $dislike_count, $comment_id );
+                                if ( $cld_settings['basic_settings']['status'] != 1 ) {
+                                    // if comments like dislike is disabled from backend
+                                    return;
+                                }
+                                $liked_ips = get_comment_meta( $comment_id, 'cld_ips', true );
+
+                                //get user ip
+                                if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+
+                                    $ip = $_SERVER['HTTP_CLIENT_IP'];
+                                } elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+
+                                    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                                } else {
+                                    $ip = $_SERVER['REMOTE_ADDR'];
+                                }
+                                $user_ip = apply_filters( 'wpb_get_ip', $ip );
+
+                                
+                                if ( empty( $liked_ips ) ) {
+                                    $liked_ips = array();
+                                }
+                                if ( is_user_logged_in() ) {
+                                    $liked_users = get_comment_meta( $comment_id, 'cld_users', true );
+                                    $liked_users = (empty( $liked_users )) ? array() : $liked_users;
+                                    $current_user_id = get_current_user_id();
+                                    if ( in_array( $current_user_id, $liked_users ) ) {
+                                        $user_check = 1;
+                                        $already_liked = 1;
+                                    } else {
+                                        $user_check = 0;
+                                    }
+                                } else {
+                                    $user_check = 1;
+                                    $already_liked = 0;
+                                }
+
+                                if ( $cld_settings['basic_settings']['like_dislike_resistriction'] == 'user' && !empty( $cld_settings['basic_settings']['login_link'] ) && $user_check == 1 && $already_liked == 0 ) {
+                                    $href = $cld_settings['basic_settings']['login_link'];
+                                } else {
+                                    $href = 'javascript:void(0)';
+                                }
+
+
+                                // $this->print_array($liked_ips);
+                                $user_ip_check = (in_array( $user_ip, $liked_ips )) ? 1 : 0;
+                                $like_title = isset( $cld_settings['basic_settings']['like_hover_text'] ) ? esc_attr( $cld_settings['basic_settings']['like_hover_text'] ) : __( 'Like', CLD_TD );
+                                $dislike_title = isset( $cld_settings['basic_settings']['dislike_hover_text'] ) ? esc_attr( $cld_settings['basic_settings']['dislike_hover_text'] ) : __( 'Dislike', CLD_TD );
+
+                                //$this->print_array( $cld_settings );
+                                ?>
+                                <div class="cld-like-dislike-wrap cld-<?php echo esc_attr( $cld_settings['design_settings']['template'] ); ?>">
+                                    <?php
+                                    /**
+                                     * Like Dislike Order
+                                     */
+                                    if ( $cld_settings['basic_settings']['display_order'] == 'like-dislike' ) {
+                                        if ( $cld_settings['basic_settings']['like_dislike_display'] != 'dislike_only' ) {
+                                            include(CLD_PATH . 'inc/views/frontend/like.php');
+                                        }
+                                        if ( $cld_settings['basic_settings']['like_dislike_display'] != 'like_only' ) {
+                                            include(CLD_PATH . 'inc/views/frontend/dislike.php');
+                                        }
+                                    } else {
+                                        /**
+                                         * Dislike Like Order
+                                         */
+                                        if ( $cld_settings['basic_settings']['like_dislike_display'] != 'like_only' ) {
+                                            include(CLD_PATH . 'inc/views/frontend/dislike.php');
+                                        }
+                                        if ( $cld_settings['basic_settings']['like_dislike_display'] != 'dislike_only' ) {
+                                            include(CLD_PATH . 'inc/views/frontend/like.php');
+                                        }
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
+
+
+
+
                    <?php
                     }
                 ?>
