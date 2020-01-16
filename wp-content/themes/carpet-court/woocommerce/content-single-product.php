@@ -167,7 +167,10 @@ if ( post_password_required() ) {
                             </ul>
                         </div>
                     </div>
-                    <div class="producr-button-row"><a href="<?= home_url()?>/measure-and-quote" class="button">Book measure and quote</a>
+                    <div class="product producr-button-row"><a href="<?= home_url()?>/measure-and-quote" class="button">Book measure and quote</a>
+                        <div class="user-wishlist pull-right clearfix">
+                            <?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
+                        </div>
                         <a href="#" class="wish-button custom-addtowishlist-btn">
                             <!-- toggle .is-active class--><span class="wish-button__icon">
 										<svg xmlns="http://www.w3.org/2000/svg" width="23" height="21" viewBox="0 0 23 21" class="hear-icon">
@@ -569,12 +572,6 @@ if ( post_password_required() ) {
     </div>
 </div>
 </div>
-<script src="<?= get_template_directory_uri() ?>/static/public/js/libs/jquery-3.2.1.min.js"></script>
-<script src="<?= get_template_directory_uri() ?>/static/public/js/libs/slick.min.js"></script>
-<script src="<?= get_template_directory_uri() ?>/static/public/js/libs/magnific-popup.min.js"></script>
-<script src="<?= get_template_directory_uri() ?>/static/public/js/bootstrap.min.js"></script>
-
-
 
 
 
