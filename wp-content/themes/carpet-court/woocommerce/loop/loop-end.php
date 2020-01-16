@@ -61,10 +61,14 @@ if (is_array($pages)) {
 ?>
 
 <div class="category-content category-content--align_r">
-    <h2><?php single_cat_title(); ?></h2>
+    <?php
+
+    ?>
+    <h2 id="h2"></h2>
     <p><?php
-        $term_id = get_queried_object_id();
-        $prod_term = get_term($term_id,'product_cat');
+        $url = get_permalink();
+        $cat_slug = explode('/', $url)[4];
+        $prod_term = get_term_by( 'slug', $cat_slug, 'product_cat' );
         echo $prod_term->description;
         ?>
     </p>
@@ -116,3 +120,6 @@ if (is_array($pages)) {
 <script src="<?= get_template_directory_uri() ?>/static/public/js/libs/slick.min.js"></script>
 <script src="<?= get_template_directory_uri() ?>/static/public/js/libs/magnific-popup.min.js"></script>
 <script src="<?= get_template_directory_uri() ?>/static/public/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('h2').innerText = document.getElementsByTagName('h1')[0].innerText;
+</script>

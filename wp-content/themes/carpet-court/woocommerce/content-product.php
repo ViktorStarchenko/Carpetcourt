@@ -68,6 +68,9 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	//do_action( 'woocommerce_after_shop_loop_item' );
 
 	?>
+
+
+
 <div class="product-card js-show-photo-parent">
     <div class="product-card-info">
         <!--<div class="product-card__subtitle"><?= get_the_terms($post->ID, 'product_brand')[0]->name ?></div>-->
@@ -126,3 +129,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
         </div>
     </div>
 </div>
+
+<?php
+
+?>
