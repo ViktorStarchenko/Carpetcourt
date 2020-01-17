@@ -598,7 +598,7 @@ table{
 }
 }
 @media screen and (min-width: 768px){
- 
+
     .pad0lr-sm{
         padding-right: 0 !important;
         padding-left: 0 !important;
@@ -7378,7 +7378,7 @@ body.page-template-template-keep ul.thumbs-step li.media:last-child a{
     #collapse-product_feature .panel-col.col-two li{
         width: 33.333%;
     }
-.navbar-brand 
+.navbar-brand
     .cc-padding-col > .vc_column-inner{
         padding: 20px 30px 0 !important;
     }
@@ -8274,4 +8274,37 @@ a.custom-addtowishlist-btn img{
     width: 100%;
     left: 0;
     top: 12px;
+}
+
+.button{
+    display:-ms-inline-flexbox !important;
+    display:inline-flex !important;
+    -ms-flex-align:center !important;
+    align-items:center !important;
+    -ms-flex-pack:center !important;
+    justify-content:center !important;
+    position:relative !important;
+    padding:17px 18px !important;
+    cursor:pointer !important;
+    text-align:center !important;
+    border-radius:4px !important;
+    font-weight:500 !important;
+    line-height:calc(16/15) !important;
+    font-size:15px !important;
+    text-decoration:none !important;
+    white-space:nowrap !important;
+    box-sizing:border-box !important;
+    transition:all .3s !important;
+    pointer-events:auto !important;
+    letter-spacing:.17px !important;
+    background:#f13e4b !important;
+    color:#fff !important;
+    transition:all .2s  !important;
+}
+
+.button:hover{
+    background:#434a4f !important;
+    text-decoration:none !important;
+    color:#fff !important;
+    transition:all .2s  !important;
 }

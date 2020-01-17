@@ -66,6 +66,7 @@ class WC_Frontend_Scripts {
 	 */
 	public static function get_styles() {
 		return apply_filters( 'woocommerce_enqueue_styles', array(
+		    /*
 			'woocommerce-layout' => array(
 				'src'     => self::get_asset_url( 'assets/css/woocommerce-layout.css' ),
 				'deps'    => '',
@@ -73,6 +74,7 @@ class WC_Frontend_Scripts {
 				'media'   => 'all',
 				'has_rtl' => true,
 			),
+		    */
 			'woocommerce-smallscreen' => array(
 				'src'     => self::get_asset_url( 'assets/css/woocommerce-smallscreen.css' ),
 				'deps'    => 'woocommerce-layout',
