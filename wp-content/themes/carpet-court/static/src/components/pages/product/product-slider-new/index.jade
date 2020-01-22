@@ -1,0 +1,36 @@
+mixin product-slider-new
+	.product-slider-wrap
+		.product-slider-main
+			.product-slider.zoom-wrap
+				span.slide
+					img.product-slider-img(id="zoom-trigger-1", data-target="zoom-target-1" src="images/product-slider/room.png", alt="room", data-large-img="images/product-slider/room@2x.png")
+				span.slide
+					img.product-slider-img(id="zoom-trigger-2", data-target="zoom-target-2" src="images/product-card/product-image.png", alt="room", data-large-img="images/product-card/product-image.png")
+				span.slide
+					img.product-slider-img(id="zoom-trigger-3", data-target="zoom-target-3" src="images/product-slider/room.png", alt="room", data-large-img="images/product-slider/room@2x.png")
+				span.slide
+					img.product-slider-img(id="zoom-trigger-4", data-target="zoom-target-4" src="images/product-card/product-image.png", alt="room", data-large-img="images/product-card/product-image.png")
+			.product-slider-nav
+				button.btn.btn-prev.btn-prev-main.ic-nav-prev(type='button')
+				button.btn.btn-next.btn-next-main.ic-nav-next(type='button')
+			.product-slider-dots
+			.product-slider-zoom
+				// this count = img count
+				// this id = img data-target
+				.img-zoom-result#zoom-target-1
+				.img-zoom-result#zoom-target-2
+				.img-zoom-result#zoom-target-3
+				.img-zoom-result#zoom-target-4
+		.product-slider-thumnbs-wrap
+			.product-slider-thumnbs
+				.thumnbs-slide
+					img(data-lazy="images/product-slider/room.png", alt="room")
+				.thumnbs-slide
+					img(data-lazy="images/product-card/product-image.png", alt="room")
+				.thumnbs-slide
+					img(data-lazy="images/product-slider/room.png", alt="room")
+				.thumnbs-slide
+					img(data-lazy="images/product-card/product-image.png", alt="room")
+			.product-slider-nav
+				button.btn.btn-prev.btn-prev-thumbs.ic-nav-prev(type='button')
+				button.btn.btn-next.btn-next-thumbs.ic-nav-next(type='button')

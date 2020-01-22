@@ -1,4 +1,5 @@
 .product-slider {
+  position: relative;
   &-wrap{
     max-width: 605px;
     margin-bottom: 75px;
@@ -13,11 +14,12 @@
     .product-slider-img {
       display: inline-block;
       max-width: 100%;
+      display: none;
+      cursor: pointer;
     }
   }
   &-nav{
     position: absolute;
-    z-index: 1;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
@@ -26,9 +28,11 @@
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
+    pointer-events: none;
     .btn-prev,
     .btn-next {
       position: relative;
+      z-index: 5;
       background-color: #fff;
       color: $color-main-grey;
       padding: 0;
@@ -38,6 +42,7 @@
       font-size: rem(10px);
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
       border-color: $color-border-default;
+      pointer-events: all;
   
       &:not(:disabled):not(.disabled):hover {
         border-color: $color-main-grey;
@@ -89,6 +94,9 @@
   &-main{
     position: relative;
     margin-bottom: 40px;
+    &.changed{
+      pointer-events: none;
+    }
     .slide{
       display: block;
       width: 100%;
@@ -97,11 +105,20 @@
     }
   }
   &-thumnbs{
-    @include r(900) {
-      display: none;
+    padding: 0 50px;
+    margin: 0 0 0 -50px;
+    &-wrap{
+      position: relative;
+      overflow: hidden;
+      @include r(900) {
+        display: none;
+      }
+    }
+    .slick-list{
+      overflow: visible;
     }
     .slick-slide{
-      width: 33%;
+      // width: 33%;
       height: 130px !important;
       margin: 0 10px;
       overflow: visible;
@@ -151,64 +168,15 @@
   }
 }
 
-
-.magnifier-thumb-wrapper {
-  position: relative;
-  display: block;
-  top: 0;
-  left: 0
-}
-
-.magnifier-lens {
-  position: absolute;
-  // border: solid 1px #ccc;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  border: 1px solid #f13e4b;
-  &::before{
-    content: '';
-    background-color: rgba(255, 255, 255, 0.51);
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-  @include r(900){
-    display: none;
-  }
-}
-
-.magnifier-loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: solid 1px #ccc;
-  color: #fff;
-  text-align: center;
+.product-slider-zoom{
   background: transparent;
-  background: rgba(50, 50, 50, 0.5);
-  z-index: 1000;
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F323232,endColorstr=#7F323232)";
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F323232,endColorstr=#7F323232)
-}
-
-.magnifier-loader-text {
-  font: 13px Arial;
-  margin-top: 10px
-}
-
-.magnifier-large {
-  position: absolute;
-  z-index: 100
-}
-
-.magnifier-preview {
+  z-index: 3;
   padding: 0;
   position: relative;
   overflow: hidden;
-  width: calc(100% - 15px);
+  width: calc(95% - 15px);
   height: 100%;
+  // max-height: 450px;
   position: absolute;
   top: 0;
   left: 100%;
@@ -219,25 +187,38 @@
   }
 }
 
-.magnifier-preview img {
+.img-zoom-lens {
   position: absolute;
-  top: 0;
-  left: 0
+  border: 1px solid #f13e4b;
+  background: rgba(#ffffff, .51);
+  /*set the size of the lens:*/
+  width: 250px;
+  height: 200px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s;
 }
 
-.opaque {
-  opacity: 1;
+.zoom-wrap{
+  &:hover{
+    .slick-slide[aria-hidden="false"] .img-zoom-lens{
+      opacity: 1;
+    }
+  }
 }
 
-.hidden {
-  display: none
-}
-
-.product-slider-zoom{
-  position: absolute;
-  left: 100%;
+.img-zoom-result {
+  border: 1px solid #d4d4d4;
+  /*set the size of the result div:*/
+  width: 100%;
   height: 100%;
-  width: 400px;
-  z-index: 3;
+  position: absolute;
   top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity .3s;
+  &.on-hover{
+    z-index: 4;
+    opacity: 1;
+  }
 }
