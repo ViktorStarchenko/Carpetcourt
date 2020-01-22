@@ -149,7 +149,6 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
             enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
          }
      }
-
      enqueue_versioned_style('theme-store-locator', '/assets/css/store-locator-custom.css');
 }
 add_action( 'wp_enqueue_scripts', 'carpet_court_scripts' );
