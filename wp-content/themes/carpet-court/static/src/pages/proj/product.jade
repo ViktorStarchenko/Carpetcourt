@@ -6,7 +6,8 @@ include ../../components/pages/product/product-selector/index
 include ../../components/pages/product/product-info/index
 include ../../components/pages/product/review/index
 include ../../components/pages/product/review-form/index
-include ../../components/pages/product/product-slider/index
+//- include ../../components/pages/product/product-slider/index
+include ../../components/pages/product/product-slider-new/index
 include ../../components/pages/product/swatch-gallery/index
 
 block vars
@@ -29,7 +30,7 @@ block content
 		.product-grid
 			.product-grid__media
 				h2.product-slider-title Rhino EverCore Herringbone
-				+product-slider
+				+product-slider-new
 				+product-features
 
 			.product-grid__description
@@ -38,7 +39,7 @@ block content
 					p The sophisticated herringbone look is now easy to achieve without the hefty price tag. This easy-to install material is available in a range of on-trend finishes with the power to transform any blank space into a stylish masterpiece.
 				+product-selector
 				.producr-button-row
-					a(href="#").button Book measure and quote
+					a(href="#").measure-button Book measure and quote
 
 					button.wish-button
 						// toggle .is-active class
