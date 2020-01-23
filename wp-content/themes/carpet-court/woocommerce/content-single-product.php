@@ -88,30 +88,44 @@ if ( post_password_required() ) {
 
                 <div class="product-slider-wrap">
                     <div class="product-slider-main">
-                        <div class="product-slider">
-                            <a href="<?= get_field('featured_image') ?>" class="slide"><img src="<?= get_field('featured_image') ?>" alt="product image" data-large-img-url="<?= get_field('featured_image') ?>" class="product-slider-img"/></a>
+                        <div class="product-slider zoom-wrap">
+                            <span class="slide"><img id="zoom-trigger-1" data-target="zoom-target-1" src="<?= get_field('featured_image') ?>" alt="product image" data-large-img="<?= get_field('featured_image') ?>" class="product-slider-img"/></span>
                             <?php $gallery_images = get_field('gallery_images');
                             foreach ($gallery_images as $gallery_image){ ?>
-                                <a href="<?= $gallery_image['gallery_images_url'] ?>" class="slide"><img src="<?= $gallery_image['gallery_images_url'] ?>" alt="product image" data-large-img-url="<?= $gallery_image['gallery_images_url'] ?>" class="product-slider-img"/></a>
+                                <span class="slide"><img id="zoom-trigger-2" data-target="zoom-target-2" src="<?= $gallery_image['gallery_images_url'] ?>" alt="product image" data-large-img="<?= $gallery_image['gallery_images_url'] ?>" class="product-slider-img"/></span>
                             <?php }
                             ?>
                         </div>
-                            <div class="product-slider-nav">
-                                <button type="button" class="btn btn-prev ic-nav-prev" ></button>
-                                <button type="button" class="btn btn-next ic-nav-next" style="min-width: 0;"></button>
-                            </div>
-                            <div class="product-slider-dots"></div>
-                            <div id="js-product-slider-zoom" class="magnifier-preview"></div>
+                        <div class="product-slider-nav">
+                            <button type="button" class="btn btn-prev btn-prev-main ic-nav-prev"></button>
+                            <button type="button" class="btn btn-next btn-next-main ic-nav-next" style="min-width: 0;"></button>
                         </div>
+                        <div class="product-slider-dots"></div>
+                        <div class="product-slider-zoom">
+                            <!-- this count = img count-->
+                            <!-- this id = img data-target-->
+                            <div id="zoom-target-1" class="img-zoom-result"></div>
+                            <div id="zoom-target-2" class="img-zoom-result"></div>
+                            <div id="zoom-target-3" class="img-zoom-result"></div>
+                            <div id="zoom-target-4" class="img-zoom-result"></div>
+                        </div>
+                    </div>
+                    <div class="product-slider-thumnbs-wrap">
                         <div class="product-slider-thumnbs">
-                            <div class="thumnbs-slide"><img src="<?= get_field('featured_image') ?>" alt="product image"/></div>
+                            <div class="thumnbs-slide"><img data-lazy="<?= get_field('featured_image') ?>" alt="room"/></div>
                             <?php
                             foreach ($gallery_images as $gallery_image){ ?>
-                                <div class="thumnbs-slide"><img src="<?= $gallery_image['gallery_images_url'] ?>" alt="product image"/></div>
+                                <div class="thumnbs-slide"><img data-lazy="<?= $gallery_image['gallery_images_url'] ?>" alt="product image"/></div>
                             <?php }
                             ?>
                         </div>
+                        <div class="product-slider-nav">
+                            <button type="button" class="btn btn-prev btn-prev-thumbs ic-nav-prev"></button>
+                            <button type="button" class="btn btn-next btn-next-thumbs ic-nav-next" style="min-width: 0;"></button>
                         </div>
+                    </div>
+                </div>
+
                     <div class="product-features">
                         <?php
                         $features = get_the_terms($post->ID, 'product_feature');
@@ -259,44 +273,39 @@ if ( post_password_required() ) {
                     if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' ) {
                         $comment_form['comment_field'] .= '<div class="review-form__item">
                             <div class="raiting-stars-wrap">
-                                <p>Your review-form</p>
-                                <div class="raiting-stars">
-                                    <input id="raiting-radio1" type="radio" name="raiting-radio" value="1"/>
-                                    <label for="raiting-radio1">
-                                        <svg class="icon star">
-                                            <use xlink:href="#star"></use>
-                                        </svg>
-                                    </label>
-                                    <input id="raiting-radio2" type="radio" name="raiting-radio" value="2"/>
-                                    <label for="raiting-radio2">
-                                        <svg class="icon star">
-                                            <use xlink:href="#star"></use>
-                                        </svg>
-                                    </label>
-                                    <input id="raiting-radio3" type="radio" name="raiting-radio" value="3"/>
-                                    <label for="raiting-radio3">
-                                        <svg class="icon star">
-                                            <use xlink:href="#star"></use>
-                                        </svg>
-                                    </label>
-                                    <input id="raiting-radio4" type="radio" name="raiting-radio" value="4"/>
-                                    <label for="raiting-radio4">
-                                        <svg class="icon star">
-                                            <use xlink:href="#star"></use>
-                                        </svg>
-                                    </label>
-                                    <input id="raiting-radio5" type="radio" name="raiting-radio" value="5"/>
-                                    <label for="raiting-radio5">
-                                        <svg class="icon star">
-                                            <use xlink:href="#star"></use>
-                                        </svg>
-                                    </label>
-                                </div>
-                            </div>';
-                        $comment_form['comment_field'] .= '
-                            <div class="review-agree">
-                                <input id="review-agree" type="checkbox" name="review-agree" required="required" class="review-agree__check"/>
-                                <label for="review-agree" class="review-agree__label"><span class="review-agree__text">I review-agree with terms and conditions*</span></label>
+										<p>Your Rating</p>
+										<div class="raiting-stars">
+											<input id="raiting-radio5" type="radio" name="raiting-radio" value="5"/>
+											<label for="raiting-radio5">
+												<svg class="icon star">
+													<use xlink:href="#star"></use>
+												</svg>
+											</label>
+											<input id="raiting-radio4" type="radio" name="raiting-radio" value="4"/>
+											<label for="raiting-radio4">
+												<svg class="icon star">
+													<use xlink:href="#star"></use>
+												</svg>
+											</label>
+											<input id="raiting-radio3" type="radio" name="raiting-radio" value="3"/>
+											<label for="raiting-radio3">
+												<svg class="icon star">
+													<use xlink:href="#star"></use>
+												</svg>
+											</label>
+											<input id="raiting-radio2" type="radio" name="raiting-radio" value="2"/>
+											<label for="raiting-radio2">
+												<svg class="icon star">
+													<use xlink:href="#star"></use>
+												</svg>
+											</label>
+											<input id="raiting-radio1" type="radio" name="raiting-radio" value="1"/>
+											<label for="raiting-radio1">
+												<svg class="icon star">
+													<use xlink:href="#star"></use>
+												</svg>
+											</label>
+										</div>
                             </div>';
                     }
 
