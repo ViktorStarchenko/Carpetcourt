@@ -19,16 +19,17 @@ function accordeon() {
 		var t_content = t_title.next('.js-accordeon-content'); 
 
 		if (!t_content.is(':visible')) {
-			if(contents.is(':visible')) {
-				contents.filter(':visible').slideUp( function() {
-					$(this).prev('.js-accordeon-title').removeClass('is-opened');
+			// if(contents.is(':visible')) {
+			// 	contents.filter(':visible').slideUp( function() {
+			// 		$(this).prev('.js-accordeon-title').removeClass('is-opened');
+			// 		t_title.addClass('is-opened');
+			// 		t_content.slideDown();
+			// 	});
+			// } else {
+				t_content.slideDown(function() {
 					t_title.addClass('is-opened');
-					t_content.slideDown();
 				});
-			} else {
-				t_title.addClass('is-opened');
-				t_content.slideDown();
-			}
+			// }
 		} else {
 			t_content.slideUp(function() {
 				t_title.removeClass('is-opened');

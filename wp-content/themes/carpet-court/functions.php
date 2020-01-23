@@ -2303,3 +2303,18 @@ function newDesign() {
     }
 
 }
+
+function strWordCut($string,$length,$link,$end='... ')
+{
+    $string = strip_tags($string);
+
+    if (strlen($string) > $length) {
+
+        // truncate string
+        $stringCut = substr($string, 0, $length);
+
+        // make sure it ends in a word so assassinate doesn't become ass...
+        $string = substr($stringCut, 0, strrpos($stringCut, ' ')).$end.'<a href="'.$link.'" >see more</a>';
+    }
+    return $string;
+}

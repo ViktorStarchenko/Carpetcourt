@@ -47,6 +47,10 @@
             transform: rotate(0);
             transition: transform 0.3s;
         }
+        &:hover{
+            cursor: pointer;
+            text-decoration: none;
+        }
     }
     &__form{
         padding-bottom: 25px;
@@ -141,9 +145,9 @@
 
 .review-agree{
     position: relative;
-    margin: 30px 0;
+    margin-bottom: 30px;
     @include r(768){
-        margin: 20px 0;
+        margin-bottom: 20px;
     }
     &__check{
         position: absolute;
@@ -156,7 +160,7 @@
         &:checked + label{
             &::after {
                 opacity: 1;
-                transform: rotate(30deg) translateY(0);
+                transform: translateY(0);
               }
         }
     }
@@ -181,14 +185,13 @@
         &::after {
         content: "";
             display: inline-block;
-            border-style: solid;
-            border-width: 0 3px 3px 0;
-            padding: 7px 4px;
-            border-color: #f13e4b;
+            width: 19px;
+            height: 19px;
             position: absolute;
-            left: 8px;
-            top: 3px;
-            transform: rotate(30deg) translateY(-5px);
+            background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MCA1MCIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4Ij48cGF0aCBkPSJNNDEuOTM4IDguNjI1YTIgMiAwIDAwLTEuNjI2LjkzOEwyMS41IDM4LjM0MyA5LjMxMiAyNy44MTRhMS45OTIgMS45OTIgMCAwMC0yLjAzLS41MiAxLjk5OCAxLjk5OCAwIDAwLS41OTUgMy41MmwxMy45MzggMTIuMDYyYTIuMDA1IDIuMDA1IDAgMDAxLjU4Mi40NTMgMi4wMSAyLjAxIDAgMDAxLjM4Ny0uODlMNDMuNjg3IDExLjc1YTEuOTk3IDEuOTk3IDAgMDAtMS43NS0zLjEyNXoiIGZpbGw9IiNmMTNlNGIiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlPSIjZjEzZTRiIi8+PC9zdmc+") no-repeat;
+            left: 5px;
+            top: 4px;
+            transform: translateY(-3px);
             z-index: 1;
             opacity: 0;
             transition: opacity 0.2s, transform 0.2s;
@@ -203,6 +206,10 @@
     display: flex;
     flex-flow: row wrap;
     align-items: center;
+    margin-bottom: 30px;
+    @include r(768){
+        margin-bottom: 20px;
+    }
     p{
         margin-left: 0;
         margin-right: 10px;
@@ -214,9 +221,19 @@
     font-size: 0;
     width: 161px;
     flex-shrink: 0;
+    display: inline-flex;
+    flex-flow: row-reverse nowrap;
     &:hover{
         input:checked ~ input + label {
-            background: none;
+            color: $white;
+        }
+        input:checked ~ input:hover + label {
+            color: $red;
+        }
+        input:checked + label{
+            color: $white;
+        }
+        input:hover ~ input + label {
             color: $red;
         }
     }
@@ -227,18 +244,20 @@
         width: 1px;
         height: 1px;
         visibility: hidden;
-        &:checked ~ input + label {
-            background: none;
-            color: $white;
-        }
         &:hover + label {
-            color: $red !important;
+            color: $red;
+        }
+        &:checked + label {
+            color: $red ;
         }
         &:hover ~ input + label {
-            color: $white !important;
+            color: $red ;
         }
-        & + label {
-            color:$red;
+        &:checked ~ input + label {
+            color: $red ;
+        }
+        &:checked:hover + label {
+            color: $red ;
         }
     }
     label{
@@ -249,5 +268,6 @@
         transition: color .2s;
         margin: 0;
         padding: 0 5px;
+        cursor: pointer;
     }
 }
