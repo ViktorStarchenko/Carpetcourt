@@ -345,6 +345,40 @@ elseif(is_search()){ ?>
     </script>
 <?php }
 elseif($pagename == 'measure-and-quote'){ ?>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+// clientID value, i.e. let cid = $.cookie('cid');
+            let cid = '12345';
+
+// URL to redirect the customer to after submitting the form.
+// default is to return to the current form location
+            let returnURL = window.location.href;
+
+// CSS selector of the target element that will receive the form.
+            let formTarget = '#crmFormContainer';
+
+// The URL to get the form
+            let formURL = 'https://scoreboard.carpetcourt.nz/crm/lead-form/web/getLeadForm.php';
+
+        jQuery.get(formURL, {
+                cid: cid,
+                returnURL: returnURL
+            }, function (response) {
+            jQuery(formTarget).html(response);
+            });
+        });
+    </script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script>
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
