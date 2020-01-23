@@ -94,7 +94,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
                 ?>
             </ul>
         </div>
-        <p class="product-card__description"><?php $text = get_the_excerpt(); $text = strWordCut($text, 170, get_the_permalink()); echo $text; ?></p>
+        <p class="product-card__description"><?php $text = get_the_excerpt(); $text = strWordCut($text, 120, get_the_permalink()); echo $text; ?></p>
         <ul class="product-card-features" style="margin-left: 0">
             <?php
           //  print_r( get_terms());
