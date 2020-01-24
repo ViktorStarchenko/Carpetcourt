@@ -51,7 +51,11 @@ header("Access-Control-Allow-Credentials: true");
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=268676176963977&ev=PageView&noscript=1"/></noscript>
     <!-- DO NOT MODIFY -->
     <!-- End Facebook Pixel Code -->
-
+    <?php
+    $pagename = get_query_var('pagename');
+    if ($pagename == 'measure-and-quote') { ?>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <?php } ?>
     <?php wp_head(); ?>
 </head>
 <?php
@@ -398,8 +402,7 @@ elseif($pagename == 'measure-and-quote'){ ?>
         });
     </script>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script>
+   <script>
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             'pageType':'contactus'
