@@ -89,10 +89,11 @@ if ( post_password_required() ) {
                 <div class="product-slider-wrap">
                     <div class="product-slider-main">
                         <div class="product-slider zoom-wrap">
-                            <span class="slide"><img id="zoom-trigger-1" data-target="zoom-target-1" src="<?= get_field('featured_image') ?>" alt="product image" data-large-img="<?= get_field('featured_image') ?>" class="product-slider-img"/></span>
+                                <span class="slide"><img id="zoom-trigger-1" data-target="zoom-target-1" src="<?= get_field('featured_image') ?>" alt="product image" data-large-img="<?= get_field('featured_image') ?>" class="product-slider-img"/></span>
                             <?php $gallery_images = get_field('gallery_images');
-                            foreach ($gallery_images as $gallery_image){ ?>
-                                <span class="slide"><img id="zoom-trigger-2" data-target="zoom-target-2" src="<?= $gallery_image['gallery_images_url'] ?>" alt="product image" data-large-img="<?= $gallery_image['gallery_images_url'] ?>" class="product-slider-img"/></span>
+                            foreach ($gallery_images as $key => $gallery_image){ ?>
+                                <?php $i = $key + 2; ?>
+                                <span class="slide"><img id="zoom-trigger-<?= $i ?>" data-target="zoom-target-<?= $i ?>" src="<?= $gallery_image['gallery_images_url'] ?>" alt="product image" data-large-img="<?= $gallery_image['gallery_images_url'] ?>" class="product-slider-img"/></span>
                             <?php }
                             ?>
                         </div>
@@ -104,15 +105,20 @@ if ( post_password_required() ) {
                         <div class="product-slider-zoom">
                             <!-- this count = img count-->
                             <!-- this id = img data-target-->
-                            <div id="zoom-target-1" class="img-zoom-result"></div>
-                            <div id="zoom-target-2" class="img-zoom-result"></div>
-                            <div id="zoom-target-3" class="img-zoom-result"></div>
-                            <div id="zoom-target-4" class="img-zoom-result"></div>
+                            <?php
+                            $count = count($gallery_images) + 1;
+                            for ( $k = 1; $k <= $count; $k++ ) {
+                            ?>
+                                <div id="zoom-target-<?= $k ?>" class="img-zoom-result"></div>
+                            <?php
+                            }
+                            ?>
+
                         </div>
                     </div>
                     <div class="product-slider-thumnbs-wrap">
                         <div class="product-slider-thumnbs">
-                            <div class="thumnbs-slide"><img data-lazy="<?= get_field('featured_image') ?>" alt="room"/></div>
+                                <div class="thumnbs-slide"><img data-lazy="<?= get_field('featured_image') ?>" alt="product image"/></div>
                             <?php
                             foreach ($gallery_images as $gallery_image){ ?>
                                 <div class="thumnbs-slide"><img data-lazy="<?= $gallery_image['gallery_images_url'] ?>" alt="product image"/></div>
