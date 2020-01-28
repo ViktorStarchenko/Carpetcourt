@@ -21,6 +21,10 @@ header("Access-Control-Allow-Credentials: true");
     <meta name="format-detection" content="telephone=no">
     <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+    <?php
+    if(is_search()){
+    echo '<meta name="robots" content="noindex" />'; }
+    ?>
 
 
     <!-- Facebook Pixel Code -->
