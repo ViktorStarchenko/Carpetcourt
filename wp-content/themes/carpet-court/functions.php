@@ -135,7 +135,7 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
              // new design
              enqueue_versioned_style('theme-styles', '/static/public/css/app.min.css');
              enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
-             enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
+             enqueue_versioned_script( 'theme-js',  '/assets/js/app.min.js', array('jquery'), true);
          }
      } else {
          if(!is_admin()) {
@@ -149,7 +149,6 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
             enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
          }
      }
-
      enqueue_versioned_style('theme-store-locator', '/assets/css/store-locator-custom.css');
 }
 add_action( 'wp_enqueue_scripts', 'carpet_court_scripts' );
@@ -2175,7 +2174,7 @@ add_filter('the_content', 'add_atom_data');
 
 
 add_filter('query_vars', 'custom_query_vars_bdokimakis', 10, 1 );
-add_action('init', 'custom_rewrite_rules_bdokimakis', 10, 1 );
+//add_action('init', 'custom_rewrite_rules_bdokimakis', 10, 1 );
 
 function custom_query_vars_bdokimakis($vars){
   $vars[] = 'cat_slug';
@@ -2303,4 +2302,19 @@ function newDesign() {
         return false;
     }
 
+}
+
+function strWordCut($string,$length,$link,$end='... ')
+{
+    $string = strip_tags($string);
+
+    if (strlen($string) > $length) {
+
+        // truncate string
+        $stringCut = substr($string, 0, $length);
+
+        // make sure it ends in a word so assassinate doesn't become ass...
+        $string = substr($stringCut, 0, strrpos($stringCut, ' ')).$end.'<a href="'.$link.'" >see more</a>';
+    }
+    return $string;
 }

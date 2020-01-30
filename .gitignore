@@ -20,4 +20,6 @@ products/
 .tmb/
 .quarantine/
 wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
 /docker

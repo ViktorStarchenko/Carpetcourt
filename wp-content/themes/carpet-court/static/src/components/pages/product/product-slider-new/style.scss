@@ -1,0 +1,224 @@
+.product-slider {
+  position: relative;
+  &-wrap{
+    max-width: 605px;
+    margin-bottom: 75px;
+    // position: relative;
+    
+    @include r(900) {
+      margin-bottom: 15px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .product-slider-img {
+      display: inline-block;
+      max-width: 100%;
+      display: none;
+      cursor: pointer;
+    }
+  }
+  &-nav{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    pointer-events: none;
+    .btn-prev,
+    .btn-next {
+      position: relative;
+      z-index: 5;
+      background-color: #fff;
+      color: $color-main-grey;
+      padding: 0;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: rem(10px);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+      border-color: $color-border-default;
+      pointer-events: all;
+  
+      &:not(:disabled):not(.disabled):hover {
+        border-color: $color-main-grey;
+        background-color: $color-main-grey;
+        color: #fff;
+      }
+  
+      &:not(:disabled):not(.disabled):active {
+        border-color: $color-main-grey;
+        background-color: $color-main-grey;
+        color: #fff;
+      }
+  
+      &:before {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+  &-dots{
+    margin-top: 7px;
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+    width: 100%;
+    @include r(900) {
+      display: none;
+    }
+    ul {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      li {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(#000, 0.2);
+        margin: 0 6px;
+        cursor: pointer;
+        &.slick-active {
+          background: rgba(#000, 0.4);
+        }
+      }
+    }
+  }
+  &-main{
+    position: relative;
+    margin-bottom: 40px;
+    &.changed{
+      pointer-events: none;
+    }
+    .slide{
+      display: block;
+      width: 100%;
+      position: relative;
+
+    }
+  }
+  &-thumnbs{
+    padding: 0 50px;
+    margin: 0 0 0 -50px;
+    &-wrap{
+      position: relative;
+      overflow: hidden;
+      @include r(900) {
+        display: none;
+      }
+    }
+    .slick-list{
+      overflow: visible;
+    }
+    .slick-slide{
+      // width: 33%;
+      height: 130px !important;
+      margin: 0 10px;
+      overflow: visible;
+      position: relative;
+      &.slick-current{
+        .thumnbs-slide{
+          &:after{
+            content: '';
+            display: block;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            border: 1px solid #f13e4b;
+          }
+        }
+      }
+    }
+    .thumnbs-slide{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    .slick-track{
+      margin-left: -10px;
+      margin-right: -10px;
+      padding: 5px;
+    }
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+  
+.product-slider-title {
+  margin-bottom: 10px;
+  text-align: center;
+
+  @include rm(901) {
+    display: none;
+  }
+}
+
+.product-slider-zoom{
+  background: transparent;
+  z-index: 3;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  width: calc(95% - 15px);
+  height: 100%;
+  // max-height: 450px;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 15px;
+  pointer-events: none;
+  @include r(900){
+    display: none;
+  }
+}
+
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #f13e4b;
+  background: rgba(#ffffff, .51);
+  /*set the size of the lens:*/
+  width: 250px;
+  height: 200px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.zoom-wrap{
+  &:hover{
+    .slick-slide[aria-hidden="false"] .img-zoom-lens{
+      opacity: 1;
+    }
+  }
+}
+
+.img-zoom-result {
+  border: 1px solid #d4d4d4;
+  /*set the size of the result div:*/
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity .3s;
+  &.on-hover{
+    z-index: 4;
+    opacity: 1;
+  }
+}

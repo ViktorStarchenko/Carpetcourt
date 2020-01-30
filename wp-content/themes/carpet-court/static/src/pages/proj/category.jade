@@ -52,15 +52,15 @@ block content
 			},
 		]
 
-	.category-head
+	.category-head(style="background-image:url(images/product-card/product-image.png);")
 		h1 Carpet
 	.packaging
 		.category-grid
 			.category-grid__sidebar.js-accordeon-wrap
 				button.js-accordeon-title.filters-wrap-btn Filter By
 				form.filters-wrap.js-accordeon-content.js-accordeon-wrap
-					each filter in filters
-						+filter(filter)
+					each filter, index in filters
+						+filter(filter, index)
 			.category-grid__main
 				+product-card
 				+product-card
