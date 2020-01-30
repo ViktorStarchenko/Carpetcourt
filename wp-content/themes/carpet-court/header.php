@@ -22,8 +22,10 @@ header("Access-Control-Allow-Credentials: true");
     <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <?php
-    if(is_search()){
-    echo '<meta name="robots" content="noindex" />'; }
+    $hostUrl = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+    if(is_search() || strpos($hostUrl , 'search/?search') !== false){
+        echo '<meta name="robots" content="noindex" />' ;
+    }
     ?>
 
 
