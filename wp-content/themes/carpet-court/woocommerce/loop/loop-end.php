@@ -74,15 +74,24 @@ if (is_array($pages)) {
     </p>
 </div>
 </div>
-<div class="come-to-us">
-    <div class="packaging">
-        <div class="category-content category-content--center">
-            <h2>Come to us, or we can come to you</h2>
-            <p>Quis Aristidem non mortuum diligit? Primum divisit ineleganter; Sed utrum hortandus es nobis, Luci, inquit, an etiam tua sponte propensus es? Sed haec omittamus.</p>
-        </div>
-        <div class="come-to-us__bttns"><a href="<?= home_url()?>/measure-and-quote" class="button" style="margin: 10px">book an in-home consultation</a><a href="<?= home_url()?>/store-finder" class="button" style="margin: 10px">find a store near you</a></div>
-    </div>
-</div>
+
+
+<style>
+    .section-come{
+        background-color: rgb(245, 246, 246);
+        margin-top: 50px;
+    }
+</style>
+    <?php
+    // go to action section
+    $goToAction = get_field('go_to_action', 35060);
+    if (!empty($goToAction)) {
+        if (!empty($goToAction['enable'])) {
+            echo template_part('goToAction', $goToAction);
+        }
+    }
+    ?>
+
 <div class="packaging">
     <div class="vantage">
         <dl class="vantage-item">
