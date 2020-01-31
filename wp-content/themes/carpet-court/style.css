@@ -48,6 +48,13 @@ Tags:
 # Normalize
 --------------------------------------------------------------*/
 
+.n2-ss-align img{
+    width: 100%;
+}
+.n2-ss-align + div{
+    display:none;
+}
+
 @font-face {
   font-family: 'AugustaCancellarescaStd-Reg';
   src: url('assets/css/fonts/AugustaCancellarescaStd-Reg.eot?#iefix') format('embedded-opentype'),  url('../fonts/AugustaCancellarescaStd-Reg.otf')  format('opentype'),
