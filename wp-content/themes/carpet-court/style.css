@@ -48,6 +48,13 @@ Tags:
 # Normalize
 --------------------------------------------------------------*/
 
+.n2-ss-align img{
+    width: 100%;
+}
+.n2-ss-align + div{
+    display:none;
+}
+
 @font-face {
   font-family: 'AugustaCancellarescaStd-Reg';
   src: url('assets/css/fonts/AugustaCancellarescaStd-Reg.eot?#iefix') format('embedded-opentype'),  url('../fonts/AugustaCancellarescaStd-Reg.otf')  format('opentype'),
@@ -418,6 +425,7 @@ body{
 
 }
 @media (max-width: 767px){
+    .zoom-wrap:hover .slick-slide[aria-hidden=false] .img-zoom-lens { display: none;}
     .cpm-margin-no-slider{
         margin-bottom: 30px !important;
     }
@@ -6499,6 +6507,14 @@ html{
 
     .onepage-scroll .cc-our-looks .container-fluid{
         max-width: 758px;
+    }
+}
+
+@media (max-width: 900px){
+
+    .product-selector-thumbs__img img{
+        min-width: 50px !important;
+        min-height: 50px !important;
     }
 }
 
