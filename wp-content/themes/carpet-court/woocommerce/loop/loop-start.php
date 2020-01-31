@@ -124,6 +124,7 @@
                 </div>
             </div>
             <?php } ?>
+            <!--
             <div class="filter">
                 <?php
                 $colour_slugs = array();
@@ -150,6 +151,7 @@
                     </div>
                 </div>
             </div>
+            -->
             <div class="filter">
                 <?php
                 $feature_slugs = array();
@@ -225,6 +227,7 @@
             }
 
             //colours
+            /*
             checkboxes = document.getElementsByName('Colours');
             first = '';
             var colour = delimiter + 'colour=';
@@ -241,6 +244,7 @@
                 new_url += colour;
                 delimiter = '&';
             }
+            */
 
             //features
             checkboxes = document.getElementsByName('Features');
@@ -297,6 +301,7 @@ if ($_GET['fibre']){
     $add_attr['tax_query'][] = $feature_array;
 }
 
+/*
 if ($_GET['colour']){
     $feature_array = array(
         'taxonomy' => 'product_color',
@@ -305,6 +310,7 @@ if ($_GET['colour']){
     );
     $add_attr['tax_query'][] = $feature_array;
 }
+*/
 
 //features
 if ($_GET['feature']) {
