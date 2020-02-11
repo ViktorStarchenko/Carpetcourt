@@ -70,32 +70,73 @@
                     </div>
                 </div>
             </div>
-            <!--
-            <div class="filter">
-                <p class="filter-title js-accordeon-title">Lifestyle<span class="filter-title__icon">
-											<svg class="icon drop_arrow">
-												<use xlink:href="#drop_arrow"></use>
-											</svg></span></p>
-                <div class="js-accordeon-content" id="l">
-                    <div class="filter-content">
-                        <?php
-                        $lifestyles = explode(', ', 'Quiet Life, Affordable Life, Family Life, Busy Life, High Life, Holiday Life');
-                        $num = 0;
-                        $get_lifestyles = $_GET['lifestyle'];
-                        $checked_lifestyles = explode(' ', $get_lifestyles);
-                        foreach ($lifestyles as $lifestyle){ ?>
-                            <div class="filter-item" onchange="filter('l')">
-                                <input type="checkbox" name="Lifestyle" id="Features<?= $num ?>" class="filter-item__input" lifestyle="<?= str_replace(' ', '-', strtolower($lifestyle)) ?>" <?php if(in_array(str_replace(' ', '-', strtolower($lifestyle)), $checked_lifestyles)) echo 'checked'; ?>/>
-                                <label for="Features<?= $num ?>" class="filter-item__label"><?= $lifestyle ?></label>
-                            </div>
-                            <?php
-                            $num++;
-                        }
-                        ?>
+            <!-- Wood Shade -->
+                <?php
+                $field = get_field_object('wood_shade');
+                $all_shades = $field['choices'];
+                $shade_slugs = array();
+                $num = 0;
+                $get_shades = $_GET['shade'];
+                $checked_shades = explode(' ', $get_shades);
+                ?>
+
+            <?php if ($all_shades) :?>
+                <div class="filter">
+                    <p class="filter-title js-accordeon-title <?php if ($get_shades) echo 'is-opened'; ?>">Wood Shade<span class="filter-title__icon">
+                                                <svg class="icon drop_arrow">
+                                                    <use xlink:href="#drop_arrow"></use>
+                                                </svg></span></p>
+                    <div class="js-accordeon-content" id="s">
+                        <div class="filter-content">
+
+                                <?php foreach ($all_shades as $key => $c_shade){ ?>
+                                    <div class="filter-item" onchange="filter('s')">
+                                        <input type="checkbox" name="Shades" id="Shade<?= $num ?>" class="filter-item__input" Shade="<?= $key ?>" <?php if(in_array($key, $checked_shades)) echo 'checked'; ?>/>
+                                        <label for="Shade<?= $num ?>" class="filter-item__label"><?= $c_shade ?></label>
+                                    </div>
+                                    <?php
+                                    $num++;
+                                }
+                                ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            -->
+            <?php endif; ?>
+
+            <!-- Colour -->
+            <?php
+            $field = get_field_object('colour_filter');
+            $all_colours = $field['choices'];
+            $colour_slugs = array();
+            $num = 0;
+            $get_colours = $_GET['colour'];
+            $checked_colours = explode(' ', $get_colours);
+            $existingColorsChecked = array();
+            ?>
+
+            <?php if ($all_colours) :?>
+                <div class="filter">
+                    <p class="filter-title js-accordeon-title <?php if ($get_colours) echo 'is-opened'; ?>">Colour<span class="filter-title__icon">
+                                                <svg class="icon drop_arrow">
+                                                    <use xlink:href="#drop_arrow"></use>
+                                                </svg></span></p>
+                    <div class="js-accordeon-content" id="c">
+                        <div class="filter-content">
+
+                            <?php foreach ($all_colours as $key => $c_colour){ ?>
+                                <div class="filter-item" onchange="filter('c')">
+                                    <input type="checkbox" name="Colour" id="Colour<?= $num ?>" class="filter-item__input" Colour="<?= $key ?>" <?php if(in_array($key, $checked_colours)) {echo 'checked'; $existingColorsChecked[] = $key; } ?>/>
+                                    <label for="Colour<?= $num ?>" class="filter-item__label"><?= $c_colour ?></label>
+                                </div>
+                                <?php
+                                $num++;
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <?php if ($cur_cat_id == 7){ ?>
             <div class="filter">
                 <?php
@@ -124,6 +165,41 @@
                 </div>
             </div>
             <?php } ?>
+
+            <!-- Style -->
+            <?php
+            $field = get_field_object('style_filter');
+            $all_styles = $field['choices'];
+            $style_slugs = array();
+            $num = 0;
+            $get_styles = $_GET['style'];
+            $checked_styles = explode(' ', $get_styles);
+            $existingStylesChecked = array();
+            ?>
+
+            <?php if ($all_styles) :?>
+                <div class="filter">
+                    <p class="filter-title js-accordeon-title <?php if ($get_styles) echo 'is-opened'; ?>">Style<span class="filter-title__icon">
+                                                <svg class="icon drop_arrow">
+                                                    <use xlink:href="#drop_arrow"></use>
+                                                </svg></span></p>
+                    <div class="js-accordeon-content" id="st">
+                        <div class="filter-content">
+
+                            <?php foreach ($all_styles as $key => $c_style){ ?>
+                                <div class="filter-item" onchange="filter('st')">
+                                    <input type="checkbox" name="Style" id="Style<?= $num ?>" class="filter-item__input" style="<?= $key ?>" <?php if(in_array($key, $checked_styles)) {echo 'checked'; $existingStylesChecked[] = $key; } ?>/>
+                                    <label for="Style<?= $num ?>" class="filter-item__label"><?= $c_style ?></label>
+                                </div>
+                                <?php
+                                $num++;
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <!--
             <div class="filter">
                 <?php
@@ -188,6 +264,7 @@
             var url = cur_url.split('?');
             var new_url = '';// = '?a=' + field;
             var i;
+            var oldSlug = cur_url.split('/')[4];
 
             var radios = document.getElementsByName('Type');
             for (i = 0, length = radios.length; i < length; i++) {
@@ -206,6 +283,44 @@
             var first;
             var delimiter = '?';
 
+            //shades
+            if (slug != 'carpet' && slug!= 'tiles') {
+                checkboxes = document.getElementsByName('Shades');
+                first = '';
+                var shade = delimiter + 'shade=';
+                for (i = 0, length = checkboxes.length; i < length; i++) {
+                    if (checkboxes[i].checked) {
+                        curCheckboxId = checkboxes[i].id;
+                        curCheckboxItem = document.getElementById(curCheckboxId);
+                        shade += first;
+                        first = '+';
+                        shade += curCheckboxItem.getAttribute('shade');
+                    }
+                }
+                if (first == '+') {
+                    new_url += shade;
+                    delimiter = '&';
+                }
+            }
+
+            //colour
+            checkboxes = document.getElementsByName('Colour');
+            first = '';
+            var colour = delimiter + 'colour=';
+            for (i = 0, length = checkboxes.length; i < length; i++) {
+                if (checkboxes[i].checked) {
+                    curCheckboxId = checkboxes[i].id;
+                    curCheckboxItem = document.getElementById(curCheckboxId);
+                    colour += first;
+                    first = '+';
+                    colour += curCheckboxItem.getAttribute('colour');
+                }
+            }
+            if (first == '+') {
+                new_url += colour;
+                delimiter = '&';
+            }
+
             //fibre
             if (slug == 'carpet') {
                 checkboxes = document.getElementsByName('Fibre');
@@ -222,6 +337,26 @@
                 }
                 if (first == '+') {
                     new_url += fibre;
+                    delimiter = '&';
+                }
+            }
+
+            //style
+            if (oldSlug == slug) {
+                checkboxes = document.getElementsByName('Style');
+                first = '';
+                var style = delimiter + 'style=';
+                for (i = 0, length = checkboxes.length; i < length; i++) {
+                    if (checkboxes[i].checked) {
+                        curCheckboxId = checkboxes[i].id;
+                        curCheckboxItem = document.getElementById(curCheckboxId);
+                        style += first;
+                        first = '+';
+                        style += curCheckboxItem.getAttribute('style');
+                    }
+                }
+                if (first == '+') {
+                    new_url += style;
                     delimiter = '&';
                 }
             }
@@ -290,6 +425,31 @@ $add_attr = array(
     'relation' => 'AND',
 ),);
 
+//shade
+if ($_GET['shade']){
+    $shade_array = array('relation' => 'OR');
+    foreach( $checked_shades as $item ){
+        $shade_array[] = array(
+            'key'     => 'wood_shade',
+            'value'   => $item,
+            'compare' => 'LIKE',
+        );
+    }
+    $add_attr['meta_query'][] = $shade_array;
+}
+
+//colour
+if ($existingColorsChecked){
+    $colour_array = array('relation' => 'OR');
+    foreach( $existingColorsChecked as $item ){
+        $colour_array[] = array(
+            'key'     => 'colour_filter',
+            'value'   => $item,
+            'compare' => 'LIKE',
+        );
+    }
+    $add_attr['meta_query'][] = $colour_array;
+}
 
 //fibre
 if ($_GET['fibre']){
@@ -299,6 +459,19 @@ if ($_GET['fibre']){
         'terms' => $checked_fibre,
     );
     $add_attr['tax_query'][] = $feature_array;
+}
+
+//style
+if ($_GET['style']){
+    $style_array = array('relation' => 'OR');
+    foreach( $checked_styles as $item ){
+        $style_array[] = array(
+            'key'     => 'style_filter',
+            'value'   => $item,
+            'compare' => 'LIKE',
+        );
+    }
+    $add_attr['meta_query'][] = $style_array;
 }
 
 /*
