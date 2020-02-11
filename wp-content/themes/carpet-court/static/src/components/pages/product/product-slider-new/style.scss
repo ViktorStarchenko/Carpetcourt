@@ -197,6 +197,10 @@
   pointer-events: none;
   opacity: 0;
   transition: opacity .3s;
+  
+  @include r(900){
+    display: none !imporatnt;
+  }
 }
 
 .zoom-wrap{
@@ -220,5 +224,11 @@
   &.on-hover{
     z-index: 4;
     opacity: 1;
+  }
+}
+
+.product-selector-thumbs__img{
+  img{
+    width:100%;
   }
 }

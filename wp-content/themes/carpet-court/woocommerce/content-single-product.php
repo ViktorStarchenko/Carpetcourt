@@ -66,6 +66,10 @@ if ( post_password_required() ) {
     .fas.fa-thumbs-down:hover{
         color: red;
     }
+    .yith-wcwl-wishlistexistsbrowse.show, .yith-wcwl-wishlistaddedbrowse.show{
+        padding-top: 20px;
+        padding-left: 10px;
+    }
 </style>
 
 
@@ -244,7 +248,7 @@ if ( post_password_required() ) {
 								<svg class="icon drop_arrow">
 									<use xlink:href="#drop_arrow"></use>
 								</svg></span></span>
-                <form class="review-form__form js-accordeon-content">
+                <div class="review-form__form js-accordeon-content">
                     <p class="review-form__subtitle">Your email address will not be published. Required fields are marked *</p>
 
                     <?php
@@ -257,8 +261,8 @@ if ( post_password_required() ) {
                         'title_reply_after'    => '</span>',
                         'comment_notes_after'  => '',
                         'fields'               => array(
-                            'author' => '<div class="review-form__row"><div class="review-form__item"><input type="text" name="" placeholder="Your name*" required="required" value="' . esc_attr( $commenter['comment_author'] ) . '"/></div>',
-                            'email'  => '<div class="review-form__item"><input type="email" name="" placeholder="Email *" required="required" value="' . esc_attr( $commenter['comment_author_email'] ) . '"/></div></div>',
+                            'author' => '<div class="review-form__row"><div class="review-form__item"><input type="text" id="author" name="author" placeholder="Your name*" required="required" value="' . esc_attr( $commenter['comment_author'] ) . '"/></div>',
+                            'email'  => '<div class="review-form__item"><input type="email" id="email" name="email" placeholder="Email *" required="required" value="' . esc_attr( $commenter['comment_author_email'] ) . '"/></div></div>',
                         ),
                         'label_submit'  => __( 'Submit', 'woocommerce' ),
                         'logged_in_as'  => '',
@@ -273,39 +277,39 @@ if ( post_password_required() ) {
 
                     $comment_form['comment_field'] = '<div class="review-form__row">
                         <div class="review-form__item">
-                            <textarea name="" placeholder="Your review *" required="required"></textarea>
+                            <textarea id="comment" name="comment" placeholder="Your review *" required="required"></textarea>
                         </div>';
 
                     if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' ) {
                         $comment_form['comment_field'] .= '<div class="review-form__item">
                             <div class="raiting-stars-wrap">
 										<p>Your Rating</p>
-										<div class="raiting-stars">
-											<input id="raiting-radio5" type="radio" name="raiting-radio" value="5"/>
+										<div class="raiting-stars" na>
+											<input id="raiting-radio5" type="radio" name="rating" value="5"/>
 											<label for="raiting-radio5">
 												<svg class="icon star">
 													<use xlink:href="#star"></use>
 												</svg>
 											</label>
-											<input id="raiting-radio4" type="radio" name="raiting-radio" value="4"/>
+											<input id="raiting-radio4" type="radio" name="rating" value="4"/>
 											<label for="raiting-radio4">
 												<svg class="icon star">
 													<use xlink:href="#star"></use>
 												</svg>
 											</label>
-											<input id="raiting-radio3" type="radio" name="raiting-radio" value="3"/>
+											<input id="raiting-radio3" type="radio" name="rating" value="3"/>
 											<label for="raiting-radio3">
 												<svg class="icon star">
 													<use xlink:href="#star"></use>
 												</svg>
 											</label>
-											<input id="raiting-radio2" type="radio" name="raiting-radio" value="2"/>
+											<input id="raiting-radio2" type="radio" name="rating" value="2"/>
 											<label for="raiting-radio2">
 												<svg class="icon star">
 													<use xlink:href="#star"></use>
 												</svg>
 											</label>
-											<input id="raiting-radio1" type="radio" name="raiting-radio" value="1"/>
+											<input id="raiting-radio1" type="radio" name="rating" value="1"/>
 											<label for="raiting-radio1">
 												<svg class="icon star">
 													<use xlink:href="#star"></use>
@@ -320,10 +324,10 @@ if ( post_password_required() ) {
 
 
 
-                </form>
+                </div>
             </div>
         </div>
-        <div class="review-form-success" <?php if($_GET['review-agree']) echo 'style="display: block"'; ?>>Thank you! Your review has been sent</div>
+        <div class="review-form-success" <?php if(strpos($_SERVER['REQUEST_URI'], '/comment-page-')) echo 'style="display: block"'; ?>>Thank you! Your review has been sent</div>
 
 
     <!-- Reviews output -->
@@ -491,15 +495,21 @@ if ( post_password_required() ) {
 
             </div>
         </div>
-        <div class="come-to-us">
-            <div class="packaging">
-                <div class="category-content category-content--center">
-                    <h2>Come to us, or we can come to you</h2>
-                    <p>Quis Aristidem non mortuum diligit? Primum divisit ineleganter; Sed utrum hortandus es nobis, Luci, inquit, an etiam tua sponte propensus es? Sed haec omittamus.</p>
-                </div>
-                <div class="come-to-us__bttns"><a href="<?= home_url()?>/measure-and-quote" class="button" style="margin: 10px">book an in-home consultation</a><a href="<?= home_url()?>/store-finder" class="button" style="margin: 10px">find a store near you</a></div>
-            </div>
-        </div>
+    <style>
+        .section-come{
+            background-color: rgb(245, 246, 246);
+            margin-top: 50px;
+        }
+    </style>
+    <?php
+    // go to action section
+    $goToAction = get_field('go_to_action', 35060);
+    if (!empty($goToAction)) {
+        if (!empty($goToAction['enable'])) {
+            echo template_part('goToAction', $goToAction);
+        }
+    }
+    ?>
         <div class="packaging">
             <div class="vantage">
                 <dl class="vantage-item">
