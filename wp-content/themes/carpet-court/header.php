@@ -356,56 +356,40 @@ elseif(is_search()){ ?>
 <?php }
 elseif($pagename == 'measure-and-quote'){ ?>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        jQuery(document).ready(function() {
+    jQuery(document).ready(function() {
 
-// clientID value, i.e. let cid = $.cookie('cid');
-            let cid = '12345';
+        // clientID value, i.e. let cid = $.cookie('cid');
+        let cid = '12345';
 
-// URL to redirect the customer to after submitting the form.
-// default is to return to the current form location
-            let returnURL = window.location.href;
+        // URL to redirect the customer to after submitting the form.
+        // default is to return to the current form location
+        //let returnURL = window.location.href;
+        let returnURL = 'https://carpetcourt.staging.overdose.digital/measure-and-quote/';
 
-// CSS selector of the target element that will receive the form.
-            let formTarget = '#crmFormContainer';
+        // CSS selector of the target element that will receive the form.
+        let formTarget = '#crmFormContainer';
 
-// The URL to get the form
-            let formURL = 'https://scoreboard.carpetcourt.nz/crm/lead-form/web/getLeadForm.php';
+        // The URL to get the form
+        let formURL = 'https://scoreboard.carpetcourt.nz/crm/lead-form/web/getLeadForm.php';
 
         jQuery.ajax({
-                type:'GET',
-                url:formURL,
+            url: formURL,
+            data: {
                 cid: cid,
-                returnURL: returnURL,
-                contentType: 'text/plain',
-                xhrFields: {
-                    // The 'xhrFields' property sets additional fields on the XMLHttpRequest.
-                    // This can be used to set the 'withCredentials' property.
-                    // Set the value to 'true' if you'd like to pass cookies to the server.
-                    // If this is enabled, your server must respond with the header
-                    // 'Access-Control-Allow-Credentials: true'.
-                    withCredentials: false
-                },
-                headers: {
-                    // Set any custom headers here.
-                    // If you set any non-simple headers, your server must include these
-                    // headers in the 'Access-Control-Allow-Headers' response header.
-                },
-                success: function(response){
-                    jQuery(formTarget).html(response);
-                },
-                error: function(){
-
-                }
-            });
+                returnURL: returnURL
+            },
+            dataType: "html",
+            cache: false,
+            success: function (response) {
+                jQuery(formTarget).html(response);
+            }
         });
+    });
     </script>
 
    <script>
