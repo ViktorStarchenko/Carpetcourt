@@ -83,48 +83,32 @@ if (is_array($pages)) {
     }
 </style>
     <?php
+    $homePage = get_option( 'page_on_front' );
     // go to action section
-    $goToAction = get_field('go_to_action', 35060);
+    $goToAction = get_field('go_to_action', $homePage);
     if (!empty($goToAction)) {
         if (!empty($goToAction['enable'])) {
             echo template_part('goToAction', $goToAction);
         }
     }
+
+    // badges section
+    $badges = get_field('badges', $homePage);
+    if (!empty($badges)) {
+        if (!empty($badges['enable'])) {
+            echo template_part('badges', $badges);
+        }
+    }
+
+    // story section
+    $story = get_field('story', $homePage);
+    if (!empty($story)) {
+        if (!empty($story['enable'])) {
+            echo template_part('story', $story);
+        }
+    }
     ?>
 
-<div class="packaging">
-    <div class="vantage">
-        <dl class="vantage-item">
-            <dt class="vantage-item__logo"><img src="<?= get_template_directory_uri() ?>/static/public/images/vantage/stores.svg" alt="stores"/></dt>
-            <dd class="vantage-item__text">57 stores nationwide</dd>
-        </dl>
-        <dl class="vantage-item">
-            <dt class="vantage-item__logo"><img src="<?= get_template_directory_uri() ?>/static/public/images/vantage/quote.svg" alt="quote"/></dt>
-            <dd class="vantage-item__text">free measure & quote</dd>
-        </dl>
-        <dl class="vantage-item">
-            <dt class="vantage-item__logo"><img src="<?= get_template_directory_uri() ?>/static/public/images/vantage/finance.svg" alt="finance"/></dt>
-            <dd class="vantage-item__text">finance options available</dd>
-        </dl>
-        <dl class="vantage-item">
-            <dt class="vantage-item__logo"><img src="<?= get_template_directory_uri() ?>/static/public/images/vantage/commercial.svg" alt="commercial"/></dt>
-            <dd class="vantage-item__text">expertise in all commercial sectors</dd>
-        </dl>
-        <dl class="vantage-item">
-            <dt class="vantage-item__logo"><img src="<?= get_template_directory_uri() ?>/static/public/images/vantage/quality.svg" alt="quality"/></dt>
-            <dd class="vantage-item__text">2019 Reader’s Digest Quality service award </dd>
-        </dl>
-    </div>
-</div>
-<div class="carpet-story">
-    <div class="packaging">
-        <h5 class="carpet-story__title">the carpet court story</h5>
-        <div class="carpet-story__text">
-            <p>Carpet Court was founded in the 1960’s by a small group of like-minded flooring retailers looking to establish a better experience and provide greater value for our customers. Today our flourishing business has 57 stores nationwide with a reputation reflecting our longstanding presence in the market and the thousands of homes we have installed carpet and hardflooring into over the decades. </p>
-            <p>We are New Zealand’s most trusted and preferred flooring retailer and work hard to ensure our customers enjoy the process of purchasing flooring which can often be a confusing and stressful experience. Our Customer Service focus has been recognised by winning Gold (for the second year in a row) for flooring stores in the Reader’s Digest Quality Service Awards - an area we continually strive to improve upon. </p>
-        </div>
-    </div>
-</div>
 <script src="<?= get_template_directory_uri() ?>/static/public/js/libs/jquery-3.2.1.min.js"></script>
 <script src="<?= get_template_directory_uri() ?>/static/public/js/libs/slick.min.js"></script>
 <script src="<?= get_template_directory_uri() ?>/static/public/js/libs/magnific-popup.min.js"></script>
