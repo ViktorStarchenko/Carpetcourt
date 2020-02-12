@@ -33,6 +33,33 @@
             left: 0;
             top: 1px;
         }
+
+        .crumps-list {
+            margin-bottom: 0px;
+            margin-left: 0
+        }
+        @media (min-width: 468.1px) {
+            .crumps-list {
+                margin-left: 0;
+                padding: 15px 0px;
+            }
+           .packaging .category-grid {
+                border-top: 1px solid rgba(219, 219, 219, .5);
+            }
+        }
+        @media (max-width: 468px) {
+            .crumps-list {
+                text-align: center;
+                padding: 25px 0px 0px;
+                margin-left: 40%;
+            }
+        }
+        .crumps-list__item:not(:last-child)::after {
+            content:"/";
+        }
+        .crumps-list__item a {
+            text-transform:capitalize;
+        }
     </style>
 
     <main class="g-main">
@@ -42,7 +69,29 @@
     <div style="background-image:url(<?= get_field('category_banner', $term) ?>);" class="category-head">
         <h1><?php single_cat_title(); ?></h1>
     </div>
-    <div class="packaging">
+    <div class="packaging"> 
+        <div class="crumps">
+            <ul class="crumps-list" itemscope itemtype="http://schema.org/BreadcrumbList">
+                <li class="crumps-list__item" itemprop="itemListElement" itemscope
+                    itemtype="http://schema.org/ListItem">
+                    <a itemprop="item" href="<?= home_url() .'/product-filter' ?>">
+                         <span itemprop="name">
+                        Shop
+                         </span>
+                        <meta itemprop="position" content="1" />
+                    </a>
+                </li>
+                <li class="crumps-list__item" itemprop="itemListElement" itemscope
+                    itemtype="http://schema.org/ListItem">
+                    <a itemprop="item" href="<?= get_category_link($term->term_id); ?>">
+                         <span itemprop="name">
+                        <?= $term->name; ?>
+                         </span>
+                        <meta itemprop="position" content="2" />
+                    </a>
+                </li>
+            </ul>
+        </div>
     <div class="category-grid">
     <div class="category-grid__sidebar js-accordeon-wrap">
         <button class="js-accordeon-title filters-wrap-btn">Filter By</button>
