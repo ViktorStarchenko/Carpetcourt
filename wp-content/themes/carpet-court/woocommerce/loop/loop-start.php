@@ -200,34 +200,7 @@
                 </div>
             <?php endif; ?>
 
-            <!--
-            <div class="filter">
-                <?php
-                $colour_slugs = array();
-                $all_colours = get_terms(['taxonomy' => 'product_color']);
-                $num = 0;
-                $get_colours = $_GET['colour'];
-                $checked_colours = explode(' ', $get_colours);
-                ?>
-                <p class="filter-title js-accordeon-title <?php if ($get_colours) echo 'is-opened'; ?>">Colours<span class="filter-title__icon">
-											<svg class="icon drop_arrow">
-												<use xlink:href="#drop_arrow"></use>
-											</svg></span></p>
-                <div class="js-accordeon-content" id="c">
-                    <div class="filter-content">
-                        <?php foreach ($all_colours as $c_colour){ ?>
-                            <div class="filter-item" onchange="filter('c')">
-                                <input type="checkbox" name="Colours" id="Colours<?= $num ?>" class="filter-item__input" colour="<?= $c_colour->slug ?>" <?php if(in_array($c_colour->slug, $checked_colours)) echo 'checked'; ?>/>
-                                <label for="Colours<?= $num ?>" class="filter-item__label"><?= $c_colour->name ?></label>
-                            </div>
-                            <?php
-                            $num++;
-                        }
-                        ?>
-                    </div>
-                </div>
-            </div>
-            -->
+            <!-- Features -->
             <div class="filter">
                 <?php
                 $feature_slugs = array();
@@ -254,6 +227,40 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Brand -->
+            <?php
+            $all_brands = get_field('filter_brands', $term);
+            $brand_slugs = array();
+            $num = 0;
+            $get_brands = $_GET['brand'];
+            $checked_brands = explode(' ', $get_brands);
+            $existingBrandsChecked = array();
+            ?>
+
+            <?php if ($all_brands) :?>
+                <div class="filter">
+                    <p class="filter-title js-accordeon-title <?php if ($get_brands) echo 'is-opened'; ?>">Brand<span class="filter-title__icon">
+                                                <svg class="icon drop_arrow">
+                                                    <use xlink:href="#drop_arrow"></use>
+                                                </svg></span></p>
+                    <div class="js-accordeon-content" id="b">
+                        <div class="filter-content">
+
+                            <?php foreach ($all_brands as $key => $c_brand){ ?>
+                                <div class="filter-item" onchange="filter('b')">
+                                    <input type="checkbox" name="Brand" id="Brand<?= $num ?>" class="filter-item__input" brand="<?= $c_brand->slug ?>" <?php if(in_array($c_brand->slug, $checked_brands)) {echo 'checked'; $existingBrandsChecked[] = $c_brand->slug; } ?>/>
+                                    <label for="Brand<?= $num ?>" class="filter-item__label"><?= $c_brand->name ?></label>
+                                </div>
+                                <?php
+                                $num++;
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
         </form>
     </div>
     <div class="category-grid__main">
@@ -261,8 +268,7 @@
     <script>
         function filter(field) {
             var cur_url = window.location.href;
-            var url = cur_url.split('?');
-            var new_url = '';// = '?a=' + field;
+            var new_url = '';
             var i;
             var oldSlug = cur_url.split('/')[4];
 
@@ -361,26 +367,6 @@
                 }
             }
 
-            //colours
-            /*
-            checkboxes = document.getElementsByName('Colours');
-            first = '';
-            var colour = delimiter + 'colour=';
-            for (i = 0, length = checkboxes.length; i < length; i++) {
-                if (checkboxes[i].checked) {
-                    curCheckboxId = checkboxes[i].id;
-                    curCheckboxItem = document.getElementById(curCheckboxId);
-                    colour += first;
-                    first = '+';
-                    colour += curCheckboxItem.getAttribute('colour');
-                }
-            }
-            if (first == '+'){
-                new_url += colour;
-                delimiter = '&';
-            }
-            */
-
             //features
             checkboxes = document.getElementsByName('Features');
             first = '';
@@ -399,22 +385,28 @@
                 delimiter = '&';
             }
 
+            //brand
+            checkboxes = document.getElementsByName('Brand');
+            first = '';
+            var brand = delimiter + 'brand=';
+            for (i = 0, length = checkboxes.length; i < length; i++) {
+                if (checkboxes[i].checked) {
+                    curCheckboxId = checkboxes[i].id;
+                    curCheckboxItem = document.getElementById(curCheckboxId);
+                    brand += first;
+                    first = '+';
+                    brand += curCheckboxItem.getAttribute('brand');
+                }
+            }
+            if (first == '+'){
+                new_url += brand;
+                delimiter = '&';
+            }
+
+            //result
             window.location.replace("<?= home_url(); ?>/products/" + slug + new_url);
         }
 
-        /*
-        window.addEventListener("load", function(){
-            var url_string = window.location.href;
-            var url = new URL(url_string);
-            var a = url.searchParams.get("a");
-
-            switch (a){
-                case 'f': {document.getElementById('t').style.display = "none"; document.getElementById('f').style.display = "block"; break}
-                case 'fb': {document.getElementById('t').style.display = "none"; document.getElementById('fb').style.display = "block"; break}
-                case 'c': {document.getElementById('t').style.display = "none"; document.getElementById('c').style.display = "block"; break}
-            }
-        });
-         */
     </script>
 
 <?php
@@ -474,17 +466,6 @@ if ($_GET['style']){
     $add_attr['meta_query'][] = $style_array;
 }
 
-/*
-if ($_GET['colour']){
-    $feature_array = array(
-        'taxonomy' => 'product_color',
-        'field' => 'name',
-        'terms' => $checked_colours,
-    );
-    $add_attr['tax_query'][] = $feature_array;
-}
-*/
-
 //features
 if ($_GET['feature']) {
     $feature_array = array(
@@ -493,6 +474,16 @@ if ($_GET['feature']) {
         'terms' => $checked_features,
     );
     $add_attr['tax_query'][] = $feature_array;
+}
+
+//brand
+if ($existingBrandsChecked) {
+    $brands_array = array(
+        'taxonomy' => 'product_brand',
+        'field' => 'slug',
+        'terms' => $checked_brands,
+    );
+    $add_attr['tax_query'][] = $brands_array;
 }
 
 $args = array_merge( $wp_query->query_vars, $add_attr );
