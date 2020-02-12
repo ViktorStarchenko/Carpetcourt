@@ -96,7 +96,7 @@ if ( post_password_required() ) {
                 <li class="crumps-list__item" itemprop="itemListElement" itemscope
                     itemtype="http://schema.org/ListItem">
                     <a href="#" itemprop="item">
-                        <span itemprop="name">product page</span>
+                        <span itemprop="name"><?php the_title() ?></span>
                     </a>
                 </li>
             </ul>
