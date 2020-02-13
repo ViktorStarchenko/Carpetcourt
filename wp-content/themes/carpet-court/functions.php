@@ -2318,3 +2318,10 @@ function strWordCut($string,$length,$link,$end='... ')
     }
     return $string;
 }
+
+
+add_filter( 'site_transient_update_plugins', 'filter_plugin_updates' );
+function filter_plugin_updates( $value ) {
+    unset( $value->response['wp-store-locator/wp-store-locator.php'] );
+    return $value;
+}
