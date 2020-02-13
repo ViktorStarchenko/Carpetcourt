@@ -2361,7 +2361,7 @@ jQuery(document).on('ready', function() {
 					};
 				}
 
-				directionUrl = "<a class='wpsl-directions' " + url.target + " href='" + url.src + "'>" + wpslLabels.directions + "</a>";
+				directionUrl = "<a class='wpsl-directions' " + url.target + " href='" + url.src + "'>" + "Get " + wpslLabels.directions + "</a>";
 
 				return directionUrl;
 			},
