@@ -364,13 +364,12 @@ elseif($pagename == 'measure-and-quote'){ ?>
     jQuery(document).ready(function() {
 
         // clientID value, i.e. let cid = $.cookie('cid');
-        let cid = '12345';
+        let cid = '15700535';
 
         // URL to redirect the customer to after submitting the form.
         // default is to return to the current form location
-        //let returnURL = window.location.href;
-        let returnURL = 'https://carpetcourt.staging.overdose.digital/measure-and-quote/';
-
+        let returnURL = window.location.href;
+        
         // CSS selector of the target element that will receive the form.
         let formTarget = '#crmFormContainer';
 
