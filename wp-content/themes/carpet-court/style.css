@@ -48,6 +48,42 @@ Tags:
 # Normalize
 --------------------------------------------------------------*/
 
+.page-template-locator .wpsl-info-window{
+    min-width: 200px;
+    padding: 10px !important;
+}
+
+.page-template-locator .gm-style-iw{
+    border-radius: 4px !important;
+}
+
+.page-template-locator .gm-ui-hover-effect img{
+    width: 18px !important;
+    height: 18px !important;
+}
+
+.page-template-locator .gm-ui-hover-effect{
+    width: 40px !important;
+    height: 46px !important;
+}
+
+.page-template-locator .wpsl-info-window .star-rating{
+    display: none;
+}
+.page-template-locator .top-title a{
+    text-decoration: none;
+    pointer-events: none;
+}
+
+.page-template-locator .top-title{
+    margin-left: 0 !important;
+    margin-bottom: 10px !important;
+}
+
+.page-template-locator .wpsl-directions{
+    font-weight: 400 !important;
+}
+
 .n2-ss-align img{
     width: 100%;
 }
