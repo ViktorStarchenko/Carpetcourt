@@ -364,12 +364,12 @@ elseif($pagename == 'measure-and-quote'){ ?>
     jQuery(document).ready(function() {
 
         // clientID value, i.e. let cid = $.cookie('cid');
-        let cid = '15700535';
+        let cid =   '<?php echo preg_replace("/^.+\.(.+?\..+?)$/", "\\1", @$_COOKIE['_ga']) ?>';
 
         // URL to redirect the customer to after submitting the form.
         // default is to return to the current form location
         let returnURL = window.location.href;
-        
+
         // CSS selector of the target element that will receive the form.
         let formTarget = '#crmFormContainer';
 
