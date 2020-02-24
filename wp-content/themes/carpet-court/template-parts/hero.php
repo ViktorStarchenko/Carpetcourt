@@ -3,7 +3,13 @@
     <div class="carousel-wrap cursor">
         <div class="carousel-slider">
             <?php foreach ($data['items'] as $item) : ?>
-            <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" class="slide">
+<?php 
+ $slideUrl = $item['link']['url'];
+if(empty($slideUrl)) {
+$slideUrl = "/manufacturers-clearance-sale/";
+}
+?>
+            <a href="<?= $slideUrl ?>" target="<?= $item['link']['target'] ?>" class="slide">
                 <?php if (!empty($item['image'])) : ?>
                 <img src="<?= $item['image']['url'] ?>" class="slide-image hidden-xs-max">
                 <?php endif; ?>
