@@ -524,6 +524,7 @@ if ( post_password_required() ) {
             echo template_part('goToAction', $goToAction);
         }
     }
+
     ?>
         <div class="packaging">
             <div class="vantage">
