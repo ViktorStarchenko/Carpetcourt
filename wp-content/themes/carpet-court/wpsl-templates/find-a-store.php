@@ -126,6 +126,7 @@ ob_start();
                     dataType: "json",
                     data: { action : 'get_ajax_posts', category: category },
                     success: function( response ) {
+                        response.sort((a, b) => (a.post_title > b.post_title) ? 1 : -1);
                         let selected = '';
                         if ( isStore === 0 ){
                             selected = ' selected="selected" ';
