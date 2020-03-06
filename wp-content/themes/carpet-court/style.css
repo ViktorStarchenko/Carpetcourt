@@ -8395,6 +8395,10 @@ a.custom-addtowishlist-btn img{
     text-decoration: none;
 }
 
+.search-results{
+    margin-bottom: 60px;
+}
+
 h3.cc-s-header{
     margin: 70px 0px 15px;
 }
