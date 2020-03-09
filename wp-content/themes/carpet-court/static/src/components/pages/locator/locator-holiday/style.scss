@@ -1,0 +1,58 @@
+.locator-holiday{
+    border: 1px solid #e5e5e7;
+    border-radius: 3px;
+    padding: 11px 13px 11px 10px;
+    font-family: $font-medium;
+    margin-bottom: 1rem;
+    font-size: 13px;
+    &__row{
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        position: relative;
+        padding-left: 8px;
+        line-height: 1.1;
+        & + & {
+            margin-top: 8px;
+        }
+        &:before{
+            content: '';
+            display: block;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background-color: currentColor;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+    &__left{
+        padding-right: 10px;
+    }
+    &__right{
+        text-align: right;
+    }
+    &__close{
+        color: #f23d50;
+        position: relative;
+        display: inline-flex;
+        flex-flow: row wrap;
+        align-items: center;
+        line-height: 1;
+        padding-left: 12px;
+        &:before{
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: currentColor;
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+    }
+}

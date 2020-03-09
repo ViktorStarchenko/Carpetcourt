@@ -178,6 +178,10 @@ ob_start();
 
                         jQuery(".filter-url").attr("href",response.url);
 
+                        if (response.holidays) {
+                            jQuery(".locator-holiday-ajax").html(response.holidays);
+                        }
+
                         footerInfo.removeClass("hide");
                         //headerInfo.removeClass("hide");
                     }
@@ -237,6 +241,7 @@ ob_start();
                             </div>
                             <div class="locator-info__group">
                                 <div class="locator-info__ttl">Store Hours</div>
+                                <div class="locator-holiday-ajax"></div>
                                 <div class="locator-info__row">
                                     <div class="locator-info__col">
                                         <div class="_custom-today">Today: <span class="today"></span></div>
