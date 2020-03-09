@@ -97,16 +97,23 @@ get_header(); ?>
                         echo '<div class="search-results">';
                         $obj = get_post_type_object( $post_type );
 
-                        echo "<h3 class='cc-s-header'> Displaying ".count( $array_types )." ".$obj->labels->name." Results</h3>";
+                        $limit = 5;
+
+                        if (!empty($_REQUEST["posts_type"]) && $_REQUEST["posts_type"] == $post_type) {
+                            $limit = count( $array_types );
+                        }
+
+                        echo "<h3 class='cc-s-header'> Displaying ".count( $array_types )." ".$obj->labels->singular_name." Results</h3>";
                         echo '<ul class="results-list">';
                         foreach ($array_types as $post_key => $postID) {
-                            if ( $post_key < 5) {
+                            if ( $post_key < $limit) {
                                 $posts = get_post( $postID, ARRAY_A );
                                 include( get_template_directory().'/template-parts/custom-content-'.$post_type.'.php');
                             }
                         }
                         echo '</ul>';
-                        if ( count( $array_types ) > 5) {
+
+                        if ( count( $array_types ) > $limit) {
                             $get_permalink = home_url();
                             $search_url = add_query_arg( array( 's'=> $_REQUEST['s'], 'posts_type' => $post_type ), $get_permalink );
                             // $form_id = 'cc-cat-form-specials-'.$post_type;
