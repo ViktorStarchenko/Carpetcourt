@@ -5833,6 +5833,11 @@ html{
     transform: translateZ(0) !important;
 }
 
+body.onepage-scroll{
+    height: auto;
+    overflow: auto;
+}
+
 .onepage-scroll .content-area.container {
     width: 100%;
 }
