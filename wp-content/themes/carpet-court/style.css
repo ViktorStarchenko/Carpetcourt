@@ -6406,16 +6406,6 @@ html{
     height: 100%;
 }
 
-.onepage-scroll{
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-
-    -webkit-transform: translateZ(0) !important;
-    -ms-transform: translateZ(0) !important;
-    -o-transform: translateZ(0) !important;
-    transform: translateZ(0) !important;
-}
 
 .onepage-scroll .content-area.container {
     width: 100%;
@@ -8405,4 +8395,13 @@ h3.cc-s-header{
 
 ul.locator-holiday{
     margin-left: 0;
+}
+
+.search-opened {
+    overflow: hidden !important;
+    height: 100vh;
+}
+
+.section-hero .btn-next{
+    min-width:auto !important;
 }
