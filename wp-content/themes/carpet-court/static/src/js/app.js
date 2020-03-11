@@ -434,7 +434,7 @@ function getInternetExplorerVersion() {
             self.open = function() {
                 self.isOpened = true;
                 $body.addClass('search-opened');
-                
+
                 setTimeout(function () {
                     self.searchFocus();
                 }, 100);
