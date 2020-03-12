@@ -8360,3 +8360,49 @@ a.custom-addtowishlist-btn img{
     color:#fff !important;
     transition:all .2s  !important;
 }
+
+
+
+.search-results ul.results-list li.result {
+    border-top: 1px solid rgb(183, 184, 192);
+    padding: 20px 0 25px;
+}
+.search-results ul.results-list li.result .result-picture {
+    float: left;
+    width: 90px;
+    height: 90px;
+    margin-right: 20px;
+}
+
+.search-results ul.results-list li.result a {
+    color: rgb(0, 0, 0);
+}
+
+.search-results ul.results-list {
+    list-style: none;
+    border-bottom: 1px solid rgb(183, 184, 192);
+    padding: 10px 0 0 0 !important;
+    text-align: left;
+    overflow: hidden;
+    margin: 15px 0px;
+}
+.search-results ul.results-list .view-more {
+    color: rgb(139, 198, 196)   !important;
+}
+
+.search-results ul.results-list li.result .result-title a {
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.search-results{
+    margin-bottom: 60px;
+}
+
+h3.cc-s-header{
+    margin: 70px 0px 15px;
+}
+
+ul.locator-holiday{
+    margin-left: 0;
+}

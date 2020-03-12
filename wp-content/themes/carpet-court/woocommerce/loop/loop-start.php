@@ -16,10 +16,6 @@
  * @version     2.0.0
  */
 
-function compare_name($a, $b)
-{
-    return strnatcmp($a->name, $b->name);
-}
 ?>
 <style>
     .g-main{
