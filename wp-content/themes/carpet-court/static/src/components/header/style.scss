@@ -221,63 +221,69 @@
       display: none !important;
     }
   }
-
   .drop-menu {
     display: none;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: center;
     margin-left: -5px;
     margin-right: -5px;
+    &.active {
+      display: flex;
+    }
+    .menu-item {
+      padding: 0 5px;
+      flex: 0 0 12.5%;
+      max-width: 12.5%;
+    }
     &__nav{
       display: flex;
       flex-flow: row nowrap;
       width: 70%;
       max-width: 800px;
       padding-top: 35px;
+      .menu-item {
+        padding: 0 5px;
+        width: 25%;
+        flex: auto;
+        max-width: none;
+        &__title{
+          display: inline-block;
+          text-decoration: none;
+          font-size: 15px;
+          font-family: $font-medium;
+          letter-spacing: 0.17px;
+          line-height: 22px;
+          color: $color-main-grey;
+          margin-bottom: 10px;
+          &:hover{
+            color: $color-main-red;
+          }
+        }
+        &__list{
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+        &__unit{
+          margin-top: 8px;
+        }
+        &__link{
+          color: $color-main-grey;
+          font-family: $font-regular;
+          font-size: 15px;
+          letter-spacing: 0.17px;
+          line-height: 1.5;
+          text-decoration: none;
+          &:hover{
+            color: $color-main-red;
+          }
+        }
+      }
     }
     &__img{
       width: 30%;
       max-width: 390px;
-    }
-    &.active {
-      display: flex;
-    }
-
-    .menu-item {
-      padding: 0 5px;
-      width: 25%;
-      &__title{
-        display: inline-block;
-        text-decoration: none;
-        font-size: 15px;
-        font-family: $font-medium;
-        letter-spacing: 0.17px;
-        line-height: 22px;
-        color: $color-main-grey;
-        margin-bottom: 10px;
-        &:hover{
-          color: $color-main-red;
-        }
-      }
-      &__list{
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-      &__unit{
-        margin-top: 8px;
-      }
-      &__link{
-        color: $color-main-grey;
-        font-family: $font-regular;
-        font-size: 15px;
-        letter-spacing: 0.17px;
-        line-height: 1.5;
-        text-decoration: none;
-        &:hover{
-          color: $color-main-red;
-        }
-      }
+      margin-left: auto;
     }
     .menu-img-category{
       position: relative;
