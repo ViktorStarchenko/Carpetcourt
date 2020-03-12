@@ -119,6 +119,45 @@
                         <?php if (!empty($work)) : ?>
                         <div class="locator-info__group">
                             <div class="locator-info__ttl">Store Hours</div>
+                            <?php
+                                $holidaysByCarpet = get_field('carpet_holidays', 'option');
+                                $holidayByStore = get_field('store_holidays', $post->ID);
+
+                                $mainHolidays = [];
+                                if (!empty($holidaysByCarpet) && $holidaysByCarpet['enable']) {
+                                    $mainHolidays = $holidaysByCarpet['holiday'];
+                                }
+
+                                $storeHolidays = [];
+                                if (!empty($holidayByStore) && $holidayByStore['enable']) {
+                                    $storeHolidays = $holidayByStore['holiday'];
+                                }
+
+                                $holiday = array_merge($storeHolidays, $mainHolidays);
+                            ?>
+
+                            <?php if (!empty($holiday)) : ?>
+                            <ul class="locator-holiday">
+                                <?php foreach ($holiday as $item) : ?>
+                                    <?php if (!empty($item['title']) ) : ?>
+                                    <?php
+                                        $workingTime = 'Closed';
+                                        if (!empty($item['working_time'])) {
+                                            $workingTime = $item['working_time'];
+                                        }
+
+                                        if (mb_strtolower($workingTime) == 'closed') {
+                                            $workingTime = '<span class="locator-holiday__close">'.$workingTime.'</span>';
+                                        }
+                                    ?>
+                                    <li class="locator-holiday__row">
+                                        <div class="locator-holiday__left"><?= $item['title'] ?></div>
+                                        <div class="locator-holiday__right"><?= $workingTime ?></div>
+                                    </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
+                            <?php endif; ?>
                             <div class="locator-info__row">
                                 <div class="locator-info__col">
                                     <div class="_custom-today">Today: <span><?= $work['today'] ?></span></div>

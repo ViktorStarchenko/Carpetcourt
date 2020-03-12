@@ -70,6 +70,7 @@
     font-size: rem(12px);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     border-color: $color-border-default;
+    max-width:none !important;
 
     @media (max-width: $screen-xs-max) {
       width: 20px;

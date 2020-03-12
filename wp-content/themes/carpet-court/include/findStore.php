@@ -71,7 +71,44 @@ function get_ajax_post() {
     $ajaxpost = get_post( $ID );
     $ajaxpostInfo = get_post_meta($ID);
 
-    //dump($ajaxpostInfo);
+    $holidaysByCarpet = get_field('carpet_holidays', 'option');
+    $holidayByStore = get_field('store_holidays', $ID);
+
+    $mainHolidays = [];
+    if (!empty($holidaysByCarpet) && $holidaysByCarpet['enable']) {
+        $mainHolidays = $holidaysByCarpet['holiday'];
+    }
+
+    $storeHolidays = [];
+    if (!empty($holidayByStore) && $holidayByStore['enable']) {
+        $storeHolidays = $holidayByStore['holiday'];
+    }
+
+    $holidays = array_merge($storeHolidays, $mainHolidays);
+    $holidayHtml = "";
+
+    if (!empty($holidays)) {
+        $holidayHtml = '<ul class="locator-holiday">';
+        foreach ($holidays as $item) {
+            if (!empty($item['title'])) {
+                $workingTime = 'Closed';
+                if (!empty($item['working_time'])) {
+                    $workingTime = $item['working_time'];
+                }
+
+                if (mb_strtolower($workingTime) == 'closed') {
+                    $workingTime = '<span class="locator-holiday__close">'.$workingTime.'</span>';
+                }
+                $holidayHtml .= '
+                 <li class="locator-holiday__row">
+                    <div class="locator-holiday__left">'.$item['title'].'</div>
+                    <div class="locator-holiday__right">'.$workingTime.'</div>
+                 </li>';
+            }
+        }
+        $holidayHtml .= '</ul>';
+    }
+
     if (!empty($ajaxpost)) {
 
         $ajaxResult = [
@@ -81,6 +118,7 @@ function get_ajax_post() {
             'email' => '',
             'url' => get_permalink($ajaxpost->ID),
             'work' => '',
+            'holidays' => $holidayHtml,
             'store' => $ajaxpost->post_title,
             'store_status' => ''
         ];

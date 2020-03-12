@@ -36,15 +36,19 @@ header.g-header
 						img(src='#{DIR}images/logo-dark.png')
 				.h-nav
 					.nav-item
-						a.clickable(href='#', data-dropdown='#nav-1') product
+						a.clickable(href='#', data-dropdown='#nav-1') Carpet
 					.nav-item
-						a(href='#', data-dropdown='#nav-2') design
+						a(href='#', data-dropdown='#nav-2') Flooring
 					.nav-item
-						a(href='#', data-dropdown='#nav-3') advice
+						a(href='#') Rugs
 					.nav-item
-						a(href='#', data-dropdown='#nav-4') commercial
+						a(href='#') Curtains & Blinds
+					.nav-item
+						a(href='#', data-dropdown='#nav-3') Cleaning
+					.nav-item
+						a(href='#', data-dropdown='#nav-4') Advice
 					.nav-item.nav-item--promo
-						a(href='#') promotions
+						a(href='#') Promotions
 					.nav-item.nav-item--right
 						a.ic-nav-search.search-opener(href='#') search
 					.nav-item.nav-item--right
@@ -61,6 +65,51 @@ header.g-header
 			while n < 4
 				- n++
 				.drop-menu.js-card-wrapper(id='nav-#{n}')
-					each item in data
+					.drop-menu__nav
 						.menu-item
-							+card-small(item.image, item.title)
+							a(href="#").menu-item__title Colour
+							ul.menu-item__list
+								li.menu-item__unit
+									a.menu-item__link(href="#") Grey
+								li.menu-item__unit
+									a.menu-item__link(href="#") Brown
+								li.menu-item__unit
+									a.menu-item__link(href="#") Patterned
+								li.menu-item__unit
+									a.menu-item__link(href="#") More colours
+						.menu-item
+							a(href="#").menu-item__title Room
+							ul.menu-item__list
+								li.menu-item__unit
+									a.menu-item__link(href="#") Garage Carpet
+								li.menu-item__unit
+									a.menu-item__link(href="#") Bedroom Carpet
+								li.menu-item__unit
+									a.menu-item__link(href="#") Outdoor Carpet
+								li.menu-item__unit
+									a.menu-item__link(href="#") Hallway
+								li.menu-item__unit
+									a.menu-item__link(href="#") Living Room Carpet
+						.menu-item
+							a(href="#").menu-item__title Fibre
+							ul.menu-item__list
+								li.menu-item__unit
+									a.menu-item__link(href="#") Wool
+								li.menu-item__unit
+									a.menu-item__link(href="#") Nylon
+								li.menu-item__unit
+									a.menu-item__link(href="#") Rhino
+						.menu-item
+							a(href="#").menu-item__title Underlay
+							ul.menu-item__list
+								li.menu-item__unit
+									a.menu-item__link(href="#") 
+								li.menu-item__unit
+									a.menu-item__link(href="#") 
+								li.menu-item__unit
+									a.menu-item__link(href="#") 
+
+					.drop-menu__img
+						.menu-img-category
+							img(src='#{DIR}images/category/category-image-#{n}.jpg', alt="")
+							.menu-img-category__title Carpet
