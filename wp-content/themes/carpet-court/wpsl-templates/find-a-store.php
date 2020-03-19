@@ -197,7 +197,7 @@ ob_start();
             <div class="s-wrap">
                 <div class="s-locator">
                     <div class="s-locator__header">
-                        <h1 class="header-title">store locator</h1>
+                        <h2 class="header-title">store locator</h2>
                         <div class="header-box hide">
                             <div class="header-subtitle">Use my current location to find the nearest store:</div>
                             <div class="header-address"><span class="store-title"></span><a href="#" class="url">View store</a></div>

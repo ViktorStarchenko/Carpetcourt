@@ -8405,3 +8405,17 @@ ul.locator-holiday{
 .section-hero .btn-next{
     min-width:auto !important;
 }
+
+h1.h-logo{
+    margin: 0;
+}
+
+.h-logo span{
+    text-indent: -9999px;
+    position: absolute;
+}
+
+h2.header-title{
+    font-style: normal;
+    font-weight: normal;
+}

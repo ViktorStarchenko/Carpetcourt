@@ -176,7 +176,7 @@ if ( post_password_required() ) {
                 </div>
                 <div class="product-grid__description">
                     <div class="product-description">
-                        <h2 class="product-description__title"><?php the_title() ?></h2>
+                        <h1 class="product-description__title"><?php the_title() ?></h1>
                         <p><?php the_content(); ?></p>
                     </div>
                     <div class="product-selector js-product-parent">
