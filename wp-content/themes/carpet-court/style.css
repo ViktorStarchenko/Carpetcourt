@@ -48,6 +48,49 @@ Tags:
 # Normalize
 --------------------------------------------------------------*/
 
+.page-template-locator .wpsl-info-window{
+    min-width: 200px;
+    padding: 10px !important;
+}
+
+.page-template-locator .gm-style-iw{
+    border-radius: 4px !important;
+}
+
+.page-template-locator .gm-ui-hover-effect img{
+    width: 18px !important;
+    height: 18px !important;
+}
+
+.page-template-locator .gm-ui-hover-effect{
+    width: 40px !important;
+    height: 46px !important;
+}
+
+.page-template-locator .wpsl-info-window .star-rating{
+    display: none;
+}
+.page-template-locator .top-title a{
+    text-decoration: none;
+    pointer-events: none;
+}
+
+.page-template-locator .top-title{
+    margin-left: 0 !important;
+    margin-bottom: 10px !important;
+}
+
+.page-template-locator .wpsl-directions{
+    font-weight: 400 !important;
+}
+
+.n2-ss-align img{
+    width: 100%;
+}
+.n2-ss-align + div{
+    display:none;
+}
+
 @font-face {
   font-family: 'AugustaCancellarescaStd-Reg';
   src: url('assets/css/fonts/AugustaCancellarescaStd-Reg.eot?#iefix') format('embedded-opentype'),  url('../fonts/AugustaCancellarescaStd-Reg.otf')  format('opentype'),
@@ -418,6 +461,7 @@ body{
 
 }
 @media (max-width: 767px){
+    .zoom-wrap:hover .slick-slide[aria-hidden=false] .img-zoom-lens { display: none;}
     .cpm-margin-no-slider{
         margin-bottom: 30px !important;
     }
@@ -598,7 +642,7 @@ table{
 }
 }
 @media screen and (min-width: 768px){
- 
+
     .pad0lr-sm{
         padding-right: 0 !important;
         padding-left: 0 !important;
@@ -6502,6 +6546,14 @@ html{
     }
 }
 
+@media (max-width: 900px){
+
+    .product-selector-thumbs__img img{
+        min-width: 50px !important;
+        min-height: 50px !important;
+    }
+}
+
 @media (max-width: 767px){
 
     .onepage-scroll{
@@ -7378,7 +7430,7 @@ body.page-template-template-keep ul.thumbs-step li.media:last-child a{
     #collapse-product_feature .panel-col.col-two li{
         width: 33.333%;
     }
-.navbar-brand 
+.navbar-brand
     .cc-padding-col > .vc_column-inner{
         padding: 20px 30px 0 !important;
     }
@@ -8274,4 +8326,83 @@ a.custom-addtowishlist-btn img{
     width: 100%;
     left: 0;
     top: 12px;
+}
+
+.button{
+    display:-ms-inline-flexbox !important;
+    display:inline-flex !important;
+    -ms-flex-align:center !important;
+    align-items:center !important;
+    -ms-flex-pack:center !important;
+    justify-content:center !important;
+    position:relative !important;
+    padding:17px 18px !important;
+    cursor:pointer !important;
+    text-align:center !important;
+    border-radius:4px !important;
+    font-weight:500 !important;
+    line-height:calc(16/15) !important;
+    font-size:15px !important;
+    text-decoration:none !important;
+    white-space:nowrap !important;
+    box-sizing:border-box !important;
+    transition:all .3s !important;
+    pointer-events:auto !important;
+    letter-spacing:.17px !important;
+    background:#f13e4b !important;
+    color:#fff !important;
+    transition:all .2s  !important;
+}
+
+.button:hover{
+    background:#434a4f !important;
+    text-decoration:none !important;
+    color:#fff !important;
+    transition:all .2s  !important;
+}
+
+
+
+.search-results ul.results-list li.result {
+    border-top: 1px solid rgb(183, 184, 192);
+    padding: 20px 0 25px;
+}
+.search-results ul.results-list li.result .result-picture {
+    float: left;
+    width: 90px;
+    height: 90px;
+    margin-right: 20px;
+}
+
+.search-results ul.results-list li.result a {
+    color: rgb(0, 0, 0);
+}
+
+.search-results ul.results-list {
+    list-style: none;
+    border-bottom: 1px solid rgb(183, 184, 192);
+    padding: 10px 0 0 0 !important;
+    text-align: left;
+    overflow: hidden;
+    margin: 15px 0px;
+}
+.search-results ul.results-list .view-more {
+    color: rgb(139, 198, 196)   !important;
+}
+
+.search-results ul.results-list li.result .result-title a {
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.search-results{
+    margin-bottom: 60px;
+}
+
+h3.cc-s-header{
+    margin: 70px 0px 15px;
+}
+
+ul.locator-holiday{
+    margin-left: 0;
 }

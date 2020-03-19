@@ -74,11 +74,12 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
  add_action( 'widgets_init', 'carpet_court_widgets_init' );
 
  function carpet_court_scripts() {
+     wp_enqueue_style( 'cc-plugin-style', get_template_directory_uri().'/assets/css/cpm-plugins.css' );
+     wp_enqueue_style( 'theme-custom-css-style', get_template_directory_uri().'/style.css' );
      wp_enqueue_style('hm_custom_css', get_site_url(null, '/index.php').'?hm_custom_css_draft=1', array(), time());
      if(!newDesign()){
          /*bootstrap.min.css included in vertical.min.css*/
          // wp_enqueue_style( 'carpet-court-vertical-css', get_template_directory_uri().'/assets/css/vertical.min.css' );
-         wp_enqueue_style( 'cc-plugin-style', get_template_directory_uri().'/assets/css/cpm-plugins.css' );
          wp_enqueue_style( 'carpet-court-style', get_stylesheet_uri() );
          wp_enqueue_style( 'carpet-court-fonts', '//fonts.googleapis.com/css?family=Montserrat:400,700|Poppins:400,300,500,600,700' );
          wp_enqueue_style( 'carpet-court-vc-css', get_template_directory_uri().'/inc/vc-elements/assets/cc-vc-style.css' );
@@ -135,7 +136,7 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
              // new design
              enqueue_versioned_style('theme-styles', '/static/public/css/app.min.css');
              enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
-             enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
+             enqueue_versioned_script( 'theme-js',  '/assets/js/app.min.js', array('jquery'), true);
          }
      } else {
          if(!is_admin()) {
@@ -2174,7 +2175,7 @@ add_filter('the_content', 'add_atom_data');
 
 
 add_filter('query_vars', 'custom_query_vars_bdokimakis', 10, 1 );
-add_action('init', 'custom_rewrite_rules_bdokimakis', 10, 1 );
+//add_action('init', 'custom_rewrite_rules_bdokimakis', 10, 1 );
 
 function custom_query_vars_bdokimakis($vars){
   $vars[] = 'cat_slug';
@@ -2302,4 +2303,26 @@ function newDesign() {
         return false;
     }
 
+}
+
+function strWordCut($string,$length,$link,$end='... ')
+{
+    $string = strip_tags($string);
+
+    if (strlen($string) > $length) {
+
+        // truncate string
+        $stringCut = substr($string, 0, $length);
+
+        // make sure it ends in a word so assassinate doesn't become ass...
+        $string = substr($stringCut, 0, strrpos($stringCut, ' ')).$end.'<a href="'.$link.'" >see more</a>';
+    }
+    return $string;
+}
+
+
+add_filter( 'site_transient_update_plugins', 'filter_plugin_updates' );
+function filter_plugin_updates( $value ) {
+    unset( $value->response['wp-store-locator/wp-store-locator.php'] );
+    return $value;
 }

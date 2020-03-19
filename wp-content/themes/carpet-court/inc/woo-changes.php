@@ -157,7 +157,7 @@ function cc_product_info() {
                 echo '<div id="primary" class="content-area twentysixteen"><main id="main" class="site-main" role="main">';
                 break;
                 default :
-                echo '<div class="container" ><div id="content" class="row" role="main">';
+               // echo '<div class="container" ><div id="content" class="row" role="main">';
                 break;
             }
         }

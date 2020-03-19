@@ -75,7 +75,7 @@ if ( !class_exists( 'WPSL_Frontend' ) ) {
          * @return void
          */
         public function includes() {
-            require_once( WPSL_PLUGIN_DIR . 'frontend/underscore-functions.php' );
+            require_once( get_stylesheet_directory() . '/' . 'wpsl-templates/underscore-functions.php' );
         }
 
 

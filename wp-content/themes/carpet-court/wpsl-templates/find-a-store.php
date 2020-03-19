@@ -126,6 +126,7 @@ ob_start();
                     dataType: "json",
                     data: { action : 'get_ajax_posts', category: category },
                     success: function( response ) {
+                        response.sort((a, b) => (a.post_title > b.post_title) ? 1 : -1);
                         let selected = '';
                         if ( isStore === 0 ){
                             selected = ' selected="selected" ';
@@ -176,6 +177,10 @@ ob_start();
                         jQuery(".today").html(response.work.today);
 
                         jQuery(".filter-url").attr("href",response.url);
+
+                        if (response.holidays) {
+                            jQuery(".locator-holiday-ajax").html(response.holidays);
+                        }
 
                         footerInfo.removeClass("hide");
                         //headerInfo.removeClass("hide");
@@ -236,6 +241,7 @@ ob_start();
                             </div>
                             <div class="locator-info__group">
                                 <div class="locator-info__ttl">Store Hours</div>
+                                <div class="locator-holiday-ajax"></div>
                                 <div class="locator-info__row">
                                     <div class="locator-info__col">
                                         <div class="_custom-today">Today: <span class="today"></span></div>
