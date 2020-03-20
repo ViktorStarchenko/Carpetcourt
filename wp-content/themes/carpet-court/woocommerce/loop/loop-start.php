@@ -77,7 +77,7 @@
                     itemtype="http://schema.org/ListItem">
                     <a itemprop="item" href="<?= home_url() .'/product-filter' ?>">
                          <span itemprop="name">
-                        Shop
+                        Home
                          </span>
                         <meta itemprop="position" content="1" />
                     </a>
