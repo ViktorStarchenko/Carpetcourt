@@ -434,6 +434,11 @@ function getInternetExplorerVersion() {
             self.open = function() {
                 self.isOpened = true;
                 $body.addClass('search-opened');
+                
+                setTimeout(function () {
+                    self.searchFocus();
+                }, 100);
+
                 return self.isOpened;
             };
         
@@ -446,13 +451,17 @@ function getInternetExplorerVersion() {
             self.buttons = function() {
                 var buttons = $('.search-opener');
                 if (!buttons.length) return false;
-    
+
                 buttons.each(function() {
                     $(this).on('click', function(e) {
                         e.preventDefault();
                         self.isOpened ? self.close() : self.open();
                     });
                 });
+            };
+
+            self.searchFocus = function() {
+                $("form.search-form input").focus();
             };
         
             // constructor
