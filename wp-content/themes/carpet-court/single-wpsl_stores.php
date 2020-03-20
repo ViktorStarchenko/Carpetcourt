@@ -16,7 +16,7 @@
         <div class="s-wrap">
             <div class="row">
                 <div class="s-content col-md-6">
-                    <h2 class="s-title hidden-md-min"><?= $post->post_title ?></h2>
+                    <h1 class="s-title hidden-md-min"><?= $post->post_title ?></h1>
                     <?php
                         $image[0] = '';
                         if (has_post_thumbnail( $post->ID ) ) {
@@ -28,7 +28,7 @@
                     <?php endif; ?>
                 </div>
                 <div class="s-sidebar col-md-6">
-                    <h2 class="s-title hidden-sm-max"><?= $post->post_title ?></h2>
+                    <h1 class="s-title hidden-sm-max"><?= $post->post_title ?></h1>
                     <p><?= $post->post_content ?></p>
                     <div class="locator-info">
                         <div class="locator-info__group">

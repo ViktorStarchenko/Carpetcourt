@@ -111,11 +111,20 @@ function compare_name($a, $b)
                     </div>
                     <div class="h-search"><a href="#" class="ic-nav-search search-opener"></a></div>
                     <?php if (!empty($logo['dark'])) : ?>
-                    <div class="h-logo">
-                        <a href="<?= get_option( 'home' ); ?>">
+                        <?php
+                            $tag = 'div';
+                            if (is_front_page()) {
+                                $tag = 'h1';
+                            }
+                        ?>
+                    <<?= $tag ?> class="h-logo" itemscope itemtype="https://schema.org/Organization">
+                        <a href="<?= get_option( 'home' ); ?>" itemprop="url" >
                             <img src="<?= $logo['dark']['url'] ?>" alt="<?= get_option( 'blogname' ); ?>">
+                            <?php if (!empty($header['site_title'])) : ?>
+                                <span><?= $header['site_title'] ?></span>
+                            <?php endif; ?>
                         </a>
-                    </div>
+                    </<?= $tag ?>>
                     <?php endif; ?>
                     <div class="h-nav">
                         <?php if (!empty($header['navigation'])) : ?>
