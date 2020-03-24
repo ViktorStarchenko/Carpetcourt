@@ -8406,3 +8406,18 @@ h3.cc-s-header{
 ul.locator-holiday{
     margin-left: 0;
 }
+
+.menu-img-link{
+    display: block;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: Omnes-Medium;
+    letter-spacing: .17px;
+    line-height: 22px;
+    color: #434a4f;
+    margin-top: 10px;
+}
+
+.menu-img-link:hover{
+    color: #f13e4b;
+}
