@@ -233,6 +233,7 @@ function compare_name($a, $b)
 
                                                         </ul>
                                                     </div>
+                                                    <?php /*
                                                     <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Features</a>
                                                         <ul class="menu-item__list">
                                                             <?php
@@ -270,11 +271,16 @@ function compare_name($a, $b)
                                                             <?php endif; ?>
                                                         </ul>
                                                     </div>
+                                                    */ ?>
                                                 </div>
                                                 <div class="drop-menu__img">
                                                     <div class="menu-img-category"><img src="<?= $item['menu_image']['url'] ?>" alt="<?= $item['menu_image']['alt'] ?>">
-                                                        <div class="menu-img-category__title">Carpet</div>
+                                                        <?php /*<div class="menu-img-category__title">Carpet</div> */ ?>
                                                     </div>
+
+                                                    <?php if (!empty($item['image_link'])) : ?>
+                                                        <a href="<?= $item['image_link']['url'] ?>" class="menu-img-link"><?= $item['image_link']['title'] ?></a>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                             <?php } ?>
@@ -315,7 +321,7 @@ function compare_name($a, $b)
                                         </div>
                                         <div class="drop-menu__img">
                                             <div class="menu-img-category"><img src="<?= $item['menu_image']['url'] ?>" alt="<?= $item['menu_image']['alt'] ?>">
-                                                <div class="menu-img-category__title">Flooring</div>
+                                                <?php /*<div class="menu-img-category__title">Flooring</div> */ ?>
                                             </div>
                                         </div>
                                     </div>
