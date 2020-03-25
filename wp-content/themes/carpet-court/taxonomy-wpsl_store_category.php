@@ -33,6 +33,10 @@
         )
     ];
     $stories = get_posts($args);
+    $mainSiteEmail = get_field("mainEmail", "option");
+    if (empty($mainSiteEmail)) {
+        $mainSiteEmail = "marketing@carpetcourt.nz";
+    }
 ?>
 <div class="section-content">
     <div class="container">
@@ -70,7 +74,7 @@
                                     <?php endif; ?>
                                     <?php if (!empty($storeInfo['wpsl_email'][0])) : ?>
                                         <br>
-                                        <a href="mailto:<?= $storeInfo['wpsl_email'][0] ?>">Email this store</a>
+                                        <a href="mailto:<?= $storeInfo['wpsl_email'][0] ?>?bcc=<?= $mainSiteEmail ?>">Email this store</a>
                                     <?php endif; ?>
                                 </div>
                             </div>

@@ -17,6 +17,11 @@ $categories = get_categories([
     'taxonomy' => $taxonomy,
     'hide_empty' => false
 ]);
+
+$mainSiteEmail = get_field("mainEmail", "option");
+if (empty($mainSiteEmail)) {
+    $mainSiteEmail = "marketing@carpetcourt.nz";
+}
 ob_start();
 ?>
 <style>
@@ -163,7 +168,7 @@ ob_start();
                     if (response) {
 
                         jQuery(".phone").html(response.phone).attr("href", "tel:"+response.phone);
-                        jQuery(".email").attr("href", "mailto:"+response.email);
+                        jQuery(".email").attr("href", "mailto:"+response.email+"?bcc=<?= $mainSiteEmail ?>");
                         jQuery(".address").html(response.address);
                         jQuery(".address2").html(response.address2);
 

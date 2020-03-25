@@ -46,6 +46,11 @@
         $cities[$key] = array_unique($cities[$key]);
         //sort($cities[$key]);
     }
+
+    $mainSiteEmail = get_field("mainEmail", "option");
+    if (empty($mainSiteEmail)) {
+        $mainSiteEmail = "marketing@carpetcourt.nz";
+    }
 ?>
     <div class="breadcrumbs">
         <div class="container container--fluid">
@@ -101,7 +106,7 @@
                                                                     <?php endif; ?>
                                                                     <?php if (!empty($storeInfo[$story->ID]['wpsl_email'][0])) : ?>
                                                                     <br>
-                                                                    <a href="mailto:<?= $storeInfo[$story->ID]['wpsl_email'][0] ?>">Email this store</a>
+                                                                    <a href="mailto:<?= $storeInfo[$story->ID]['wpsl_email'][0] ?>?bcc=<?= $mainSiteEmail ?>">Email this store</a>
                                                                     <?php endif; ?>
                                                                 </div>
                                                             </div>
