@@ -171,13 +171,27 @@ function compare_name($a, $b)
                                         <div class="container">
                                             <div id="nav-0" class="drop-menu js-card-wrapper">
                                                 <div class="drop-menu__nav">
-                                                    <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Colour</a>
+                                                    <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Style</a>
                                                         <ul class="menu-item__list">
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=grey" class="menu-item__link">Grey</a></li>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=brown" class="menu-item__link">Brown</a></li>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=beige" class="menu-item__link">Beige</a></li>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=blue" class="menu-item__link">Blue</a></li>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=patterned" class="menu-item__link">Patterned</a></li>
+                                                            <?php
+                                                            $products = wc_get_products(array(
+                                                                'category' => array('carpet'),
+                                                            ));
+                                                            $prID = $products[0]->get_id();
+                                                            $field = get_field_object('style_filter', $prID);
+
+                                                            $all_styles = $field['choices'];
+                                                            $style_slugs = array();
+                                                            ?>
+
+                                                            <?php if ($all_styles) :
+                                                                asort($all_styles); ?>
+
+                                                                <?php foreach ($all_styles as $key => $c_style){ ?>
+                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
+                                                            <?php } ?>
+                                                            <?php endif; ?>
+
                                                         </ul>
                                                     </div>
                                                     <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Fibre</a>
@@ -197,27 +211,13 @@ function compare_name($a, $b)
                                                             <?php endif; ?>
                                                         </ul>
                                                     </div>
-                                                    <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Style</a>
+                                                    <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Colour</a>
                                                         <ul class="menu-item__list">
-                                                            <?php
-                                                            $products = wc_get_products(array(
-                                                                'category' => array('carpet'),
-                                                            ));
-                                                            $prID = $products[0]->get_id();
-                                                            $field = get_field_object('style_filter', $prID);
-
-                                                            $all_styles = $field['choices'];
-                                                            $style_slugs = array();
-                                                            ?>
-
-                                                            <?php if ($all_styles) :
-                                                                asort($all_styles); ?>
-
-                                                                            <?php foreach ($all_styles as $key => $c_style){ ?>
-                                                                              <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
-                                                                             <?php } ?>
-                                                            <?php endif; ?>
-
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=grey" class="menu-item__link">Grey</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=brown" class="menu-item__link">Brown</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=beige" class="menu-item__link">Beige</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=blue" class="menu-item__link">Blue</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=patterned" class="menu-item__link">Patterned</a></li>
                                                         </ul>
                                                     </div>
                                                     <?php /*
@@ -278,7 +278,7 @@ function compare_name($a, $b)
                                     <div id="nav-1" class="drop-menu js-card-wrapper">
                                         <div class="drop-menu__nav">
 
-                                            <?php $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => 7]);
+                                            <?php $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [7,25575]]);
                                             foreach ($all_categories as $menu_cat) :
                                             ?>
                                             <div class="menu-item"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>" class="menu-item__title"><?= $menu_cat->name ?></a>
@@ -295,11 +295,13 @@ function compare_name($a, $b)
                                                     ?>
 
                                                     <?php if ($all_styles) :
-                                                        asort($all_styles); ?>
+                                                        //asort($all_styles); ?>
 
-                                                        <?php foreach ($all_styles as $key => $c_style){ ?>
-                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
-                                                    <?php } ?>
+                                                        <?php if ($menu_cat->term_id != 8) : ?>
+                                                            <?php foreach ($all_styles as $key => $c_style){ ?>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
+                                                            <?php } ?>
+                                                        <?php endif; ?>
                                                     <?php endif; ?>
                                                 </ul>
                                             </div>
