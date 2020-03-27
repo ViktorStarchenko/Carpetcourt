@@ -270,6 +270,7 @@ function compare_name($a, $b)
                                                     <?php endif; ?>
                                                 </div>
                                             </div>
+                                        </div>
                             <?php } ?>
 
                             <!-- Flooring -->
