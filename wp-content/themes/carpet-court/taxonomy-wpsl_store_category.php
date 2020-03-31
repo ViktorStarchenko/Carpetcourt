@@ -39,7 +39,7 @@
         <div class="s-wrap">
             <div class="row">
                 <div class="s-content col-md-7">
-                    <h2 class="s-title">Stores in <?= $term->name ?></h2>
+                    <h1 class="s-title">Stores in <?= $term->name ?></h1>
                     <p><?= $term->description ?></p>
                     <?php if (!empty($stories)) : ?>
                     <div class="locator-info">
