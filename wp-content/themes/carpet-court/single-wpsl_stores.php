@@ -10,6 +10,10 @@
 <?php
     $storeInfo = get_post_meta($post->ID);
     $work = scheduled($storeInfo);
+    $mainSiteEmail = get_field("mainEmail", "option");
+    if (empty($mainSiteEmail)) {
+        $mainSiteEmail = "marketing@carpetcourt.nz";
+    }
 ?>
 <div class="section-content">
     <div class="container">
@@ -108,7 +112,7 @@
                                         <br>
                                     <?php endif; ?>
                                     <?php if (!empty($storeInfo['wpsl_email'][0])) : ?>
-                                        <a href="mailto:<?= $storeInfo['wpsl_email'][0] ?>">Email this store</a>
+                                        <a href="mailto:<?= $storeInfo['wpsl_email'][0] ?>?bcc=<?= $mainSiteEmail ?>">Email this store</a>
                                     <?php endif; ?>
                                 </div>
                             </div>
