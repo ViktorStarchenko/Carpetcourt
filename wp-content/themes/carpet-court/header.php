@@ -65,6 +65,12 @@ header("Access-Control-Allow-Credentials: true");
     $topBar = get_field('top_bar', 'option');
     $header = get_field('header', 'option');
 ?>
+<?php
+function compare_name($a, $b)
+{
+    return strnatcmp($a->name, $b->name);
+}
+?>
 <body <?php body_class(); ?>>
     <div class="g-wrap <?php if (newDesign()) : ?> js-check-padding <?php endif; ?>">
         <header class="g-header">
@@ -168,6 +174,163 @@ header("Access-Control-Allow-Credentials: true");
                     <?php foreach ($header['navigation'] as $key => $item) : ?>
                         <?php if (!empty($item['link'])) : ?>
                             <?php if (!empty($item['sub_items'])) : ?>
+
+                            <!-- Products -->
+                            <?php if($item['link']['title'] == "Carpet") : { ?>
+                                        <div class="container">
+                                            <div id="nav-0" class="drop-menu js-card-wrapper">
+                                                <div class="drop-menu__nav">
+                                                    <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Style</a>
+                                                        <ul class="menu-item__list">
+                                                            <?php
+                                                            $products = wc_get_products(array(
+                                                                'category' => array('carpet'),
+                                                            ));
+                                                            $prID = $products[0]->get_id();
+                                                            $field = get_field_object('style_filter', $prID);
+
+                                                            $all_styles = $field['choices'];
+                                                            $style_slugs = array();
+                                                            ?>
+
+                                                            <?php if ($all_styles) :
+                                                                asort($all_styles); ?>
+
+                                                                <?php foreach ($all_styles as $key => $c_style){ ?>
+                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
+                                                            <?php } ?>
+                                                            <?php endif; ?>
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Fibre</a>
+                                                        <ul class="menu-item__list">
+                                                            <?php
+                                                            $fibre_slugs = array();
+                                                            $all_fibre = get_terms(['taxonomy' => 'pa_fibres']);
+                                                            $get_fibre = $_GET['fibre'];
+                                                            $checked_fibre = explode(' ', $get_fibre);
+                                                            if ($all_fibre) :
+                                                                // sort alphabetically by name
+                                                                usort($all_fibre, 'compare_name');
+                                                                ?>
+                                                                <?php foreach ($all_fibre as $c_fibre){ ?>
+                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?fibre=<?= $c_fibre->slug ?>" class="menu-item__link"><?= $c_fibre->name ?></a></li>
+                                                                <?php } ?>
+                                                            <?php endif; ?>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Colour</a>
+                                                        <ul class="menu-item__list">
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=grey" class="menu-item__link">Grey</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=brown" class="menu-item__link">Brown</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=beige" class="menu-item__link">Beige</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=blue" class="menu-item__link">Blue</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=patterned" class="menu-item__link">Patterned</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <?php /*
+                                                    <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Features</a>
+                                                        <ul class="menu-item__list">
+                                                            <?php
+                                                            $feature_slugs = array();
+                                                            $all_features = get_terms(['taxonomy' => 'product_feature']);
+                                                            if ($all_features) :
+                                                                // sort alphabetically by name
+                                                                usort($all_features, 'compare_name');
+                                                                ?>
+                                                                            <?php foreach ($all_features as $c_feature){ ?>
+                                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?feature=<?= $c_feature->slug ?>" class="menu-item__link"><?= $c_feature->name ?></a></li>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                            <?php endif; ?>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Brand</a>
+                                                        <ul class="menu-item__list">
+                                                            <?php $term = get_term_by('slug', 'carpet', 'product_cat'); ?>
+                                                            <?php
+                                                            $all_brands = get_field('filter_brands', $term);
+                                                            $brand_slugs = array();
+                                                            ?>
+
+                                                            <?php if ($all_brands) :
+                                                                // sort alphabetically by name
+                                                                usort($all_brands, 'compare_name');
+                                                                ?>
+                                                                            <?php foreach ($all_brands as $key => $c_brand){ ?>
+                                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?brand=<?= $c_brand->slug ?>" class="menu-item__link"><?= $c_brand->name ?></a></li>
+                                                                                <?php
+                                                                            }
+                                                                            ?>
+                                                            <?php endif; ?>
+                                                        </ul>
+                                                    </div>
+                                                    */ ?>
+                                                </div>
+                                                <div class="drop-menu__img">
+                                                    <div class="menu-img-category"><img src="<?= $item['menu_image']['url'] ?>" alt="<?= $item['menu_image']['alt'] ?>">
+                                                        <?php /*<div class="menu-img-category__title">Carpet</div> */ ?>
+                                                    </div>
+
+                                                    <?php if (!empty($item['image_link'])) : ?>
+                                                        <a href="<?= $item['image_link']['url'] ?>" class="menu-img-link"><?= $item['image_link']['title'] ?></a>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                            <?php } ?>
+
+                            <!-- Flooring -->
+                            <?php elseif($item['link']['title'] == "Flooring") : { ?>
+                                <div class="container">
+                                    <div id="nav-1" class="drop-menu js-card-wrapper">
+                                        <div class="drop-menu__nav">
+
+                                            <?php $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [7,25575]]);
+                                            foreach ($all_categories as $menu_cat) :
+                                            ?>
+                                            <div class="menu-item"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>" class="menu-item__title"><?= $menu_cat->name ?></a>
+                                                <ul class="menu-item__list">
+                                                    <?php
+                                                    $products = wc_get_products(array(
+                                                        'category' => array($menu_cat->slug),
+                                                    ));
+                                                    $prID = $products[0]->get_id();
+                                                    $field = get_field_object('style_filter', $prID);
+
+                                                    $all_styles = $field['choices'];
+                                                    $style_slugs = array();
+                                                    ?>
+
+                                                    <?php if ($all_styles) :
+                                                        //asort($all_styles); ?>
+
+                                                        <?php if ($menu_cat->term_id != 8) : ?>
+                                                            <?php foreach ($all_styles as $key => $c_style){ ?>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
+                                                            <?php } ?>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                </ul>
+                                            </div>
+                                            <?php endforeach; ?>
+
+                                        </div>
+                                        <div class="drop-menu__img">
+                                            <div class="menu-img-category"><img src="<?= $item['menu_image']['url'] ?>" alt="<?= $item['menu_image']['alt'] ?>">
+                                                <?php /*<div class="menu-img-category__title">Flooring</div> */ ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            <?php } ?>
+
+                            <?php else : ?>
                             <div id="nav-<?= $key ?>" class="drop-menu js-card-wrapper">
                                 <?php foreach ($item['sub_items'] as $dropdown) : ?>
                                 <?php if (!empty($dropdown['sub_item'])) : ?>
@@ -187,6 +350,7 @@ header("Access-Control-Allow-Credentials: true");
                                 <?php endif; ?>
                                 <?php endforeach; ?>
                             </div>
+                            <?php endif; ?>
                             <?php endif; ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
