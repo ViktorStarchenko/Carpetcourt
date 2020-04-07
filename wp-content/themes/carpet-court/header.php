@@ -217,8 +217,9 @@ function compare_name($a, $b)
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=brown" class="menu-item__link">Brown</a></li>
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=beige" class="menu-item__link">Beige</a></li>
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=blue" class="menu-item__link">Blue</a></li>
+                                                            <?php /*
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=patterned" class="menu-item__link">Patterned</a></li>
-                                                        </ul>
+                                                            */ ?>                                                        </ul>
                                                     </div>
                                                     <?php /*
                                                     <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Features</a>
