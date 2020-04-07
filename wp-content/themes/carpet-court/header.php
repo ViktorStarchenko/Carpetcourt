@@ -189,7 +189,7 @@ function compare_name($a, $b)
                                                             }
                                                             ?>
                                                             <div class="menu-item">
-                                                                <?php if (!empty($image)) : ?>
+                                                                <?php if (empty($image)) : ?>
                                                                     <a href="#" class="menu-item__title" style="pointer-events: none;"><?= $dropdown['sub_item']['title'] ?></a>
                                                                 <?php else: ?>
                                                                     <div class="menu-item">
