@@ -283,7 +283,20 @@ function compare_name($a, $b)
                                             <?php $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [7,25575]]);
                                             foreach ($all_categories as $menu_cat) :
                                             ?>
-                                            <div class="menu-item"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>" class="menu-item__title"><?= $menu_cat->name ?></a>
+                                            <div class="menu-item">
+                                                <?php
+                                                    $image = get_field('image', $menu_cat);
+                                                ?>
+                                                <?php if (!empty($image)) : ?>
+                                                    <a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>" style="background-image: url(<?= $image['url'] ?>)" class="card card--small">
+                                                        <div class="card-label">
+                                                            <div class="card-title"><?= $menu_cat->name ?></div>
+                                                        </div>
+                                                    </a>
+                                                <?php else : ?>
+                                                    <a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>" class="menu-item__title"><?= $menu_cat->name ?></a>
+                                                <?php endif; ?>
+
                                                 <ul class="menu-item__list">
                                                     <?php
                                                     $products = wc_get_products(array(
