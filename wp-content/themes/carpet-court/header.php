@@ -163,7 +163,7 @@ function compare_name($a, $b)
             <div class="container">
                 <?php if (!empty($header['navigation'])) : ?>
                     <?php foreach ($header['navigation'] as $key => $item) : ?>
-                        <?php if (!empty($item['link'])) : ?>
+                        <?php if (!empty($item['link']) && !empty($item['enable_link'])) : ?>
                             <?php if (!empty($item['sub_items'])) : ?>
 
                             <!-- Products -->
@@ -313,6 +313,10 @@ function compare_name($a, $b)
                                             <div class="menu-img-category"><img src="<?= $item['menu_image']['url'] ?>" alt="<?= $item['menu_image']['alt'] ?>">
                                                 <?php /*<div class="menu-img-category__title">Flooring</div> */ ?>
                                             </div>
+
+                                            <?php if (!empty($item['image_link'])) : ?>
+                                                <a href="<?= $item['image_link']['url'] ?>" class="menu-img-link"><?= $item['image_link']['title'] ?></a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
 
