@@ -518,7 +518,7 @@
                 if ($_GET['fibre']){
                     $feature_array = array(
                         'taxonomy' => 'pa_fibres',
-                        'field' => 'name',
+                        'field' => 'slug',
                         'terms' => $checked_fibre,
                     );
                     $add_attr['tax_query'][] = $feature_array;
