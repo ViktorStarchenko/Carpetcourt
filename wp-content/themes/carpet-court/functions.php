@@ -7,6 +7,11 @@ define('ALLOW_UNFILTERED_UPLOADS', true);
 include "include/findStore.php";
 include "include/acfAdminPanel.php";
 
+add_filter( 'woocommerce_breadcrumb_home_url', 'carpet_woo_custom_breadrumb_home_url' );
+function carpet_woo_custom_breadrumb_home_url() {
+    return get_option( 'home' );
+}
+
 if ( ! function_exists( 'carpet_court_setup' ) ) :
   function carpet_court_setup() {
     add_image_size( 'category_image', 340, 260, true );
