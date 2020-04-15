@@ -75,7 +75,7 @@
             <ul class="crumps-list" itemscope itemtype="http://schema.org/BreadcrumbList">
                 <li class="crumps-list__item" itemprop="itemListElement" itemscope
                     itemtype="http://schema.org/ListItem">
-                    <a itemprop="item" href="<?= home_url() .'/product-filter' ?>">
+                    <a itemprop="item" href="<?= home_url(); ?>">
                          <span itemprop="name">
                         Home
                          </span>
