@@ -104,14 +104,35 @@
 											</svg></span></p>
                         <div class="js-accordeon-content" id="t">
                             <div class="filter-content">
-                                <?php $all_cats = get_categories(['taxonomy' => 'product_cat']);
+                                <?php $all_cats = get_categories(
+                                    [
+                                        'taxonomy' => 'product_cat',
+                                        'exclude' => CATEGORY_FLOORING_ID
+                                    ]
+                                );
                                 $cur_cat_id = get_queried_object_id();
+
+                                $flooringFlag = false;
                                 $num = 0;
                                 foreach ($all_cats as $category){
+                                    if ($cur_cat_id == CATEGORY_FLOORING_ID) {
+                                        $flooringFlag = true;
+                                    }
+                                    if ($flooringFlag && $category->term_id == CATEGORY_CARPET_ID || $flooringFlag && $category->term_id == CATEGORY_ALL_ID) {
+                                        $flooringFlag = false;
+                                    }
+
                                     ?>
                                     <div class="filter-item"  onchange="filter('t')">
-                                        <input type="radio" name="Type" id="Type<?= $num?>" class="filter-item__input" <?php if($category->term_id == $cur_cat_id) echo "checked"; ?> slug="<?= $category->slug ?>" />
-                                        <label for="Type<?= $num?>" class="filter-item__label"><?= $category->name ?></label>
+                                        <input
+                                                type="radio"
+                                                name="Type"
+                                                id="Type<?= $num?>"
+                                                class="filter-item__input"
+                                                <?php if($category->term_id == $cur_cat_id) echo "checked"; ?>
+                                                slug="<?= $category->slug ?>"
+                                        />
+                                        <label for="Type<?= $num?>" class="filter-item__label <?= $flooringFlag ? 'filter-item__label-visual-checked' : ''; ?> "><?= $category->name ?></label>
                                     </div>
                                     <?php
                                     $num++;
@@ -193,7 +214,7 @@
                     <?php endif; ?>
 
                     <!-- Fibre -->
-                    <?php if ($cur_cat_id == 7){ ?>
+                    <?php if ($cur_cat_id == CATEGORY_CARPET_ID){ ?>
                         <?php
                         $fibre_slugs = array();
                         $all_fibre = get_terms(['taxonomy' => 'pa_fibres']);

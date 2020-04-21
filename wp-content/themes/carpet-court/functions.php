@@ -3,6 +3,9 @@
 show_admin_bar(false);
 define('FS_METHOD', 'direct');
 define('ALLOW_UNFILTERED_UPLOADS', true);
+define('CATEGORY_FLOORING_ID', 25576);
+define('CATEGORY_ALL_ID', 25575);
+define('CATEGORY_CARPET_ID', 7);
 
 include "include/findStore.php";
 include "include/acfAdminPanel.php";
