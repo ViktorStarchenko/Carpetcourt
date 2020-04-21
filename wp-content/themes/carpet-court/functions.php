@@ -3,9 +3,17 @@
 show_admin_bar(false);
 define('FS_METHOD', 'direct');
 define('ALLOW_UNFILTERED_UPLOADS', true);
+define('CATEGORY_FLOORING_ID', 25576);
+define('CATEGORY_ALL_ID', 25575);
+define('CATEGORY_CARPET_ID', 7);
 
 include "include/findStore.php";
 include "include/acfAdminPanel.php";
+
+add_filter( 'woocommerce_breadcrumb_home_url', 'carpet_woo_custom_breadrumb_home_url' );
+function carpet_woo_custom_breadrumb_home_url() {
+    return get_option( 'home' );
+}
 
 if ( ! function_exists( 'carpet_court_setup' ) ) :
   function carpet_court_setup() {

@@ -8427,6 +8427,7 @@ ul.locator-holiday{
     color: #f13e4b;
 }
 
+<<<<<<< HEAD
 .section-hero .btn-next{
     min-width:auto !important;
 }
@@ -8444,3 +8445,10 @@ h2.header-title{
     font-style: normal;
     font-weight: normal;
 }
+=======
+label.filter-item__label-visual-checked::after {
+    opacity: 1;
+    transform: translateY(0);
+    transform: scale(1);
+}
+>>>>>>> car-28
