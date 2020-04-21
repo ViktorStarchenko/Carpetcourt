@@ -75,7 +75,7 @@
             <ul class="crumps-list" itemscope itemtype="http://schema.org/BreadcrumbList">
                 <li class="crumps-list__item" itemprop="itemListElement" itemscope
                     itemtype="http://schema.org/ListItem">
-                    <a itemprop="item" href="<?= home_url() .'/product-filter' ?>">
+                    <a itemprop="item" href="<?= home_url(); ?>">
                          <span itemprop="name">
                         Home
                          </span>
@@ -104,14 +104,35 @@
 											</svg></span></p>
                         <div class="js-accordeon-content" id="t">
                             <div class="filter-content">
-                                <?php $all_cats = get_categories(['taxonomy' => 'product_cat']);
+                                <?php $all_cats = get_categories(
+                                    [
+                                        'taxonomy' => 'product_cat',
+                                        'exclude' => CATEGORY_FLOORING_ID
+                                    ]
+                                );
                                 $cur_cat_id = get_queried_object_id();
+
+                                $flooringFlag = false;
                                 $num = 0;
                                 foreach ($all_cats as $category){
+                                    if ($cur_cat_id == CATEGORY_FLOORING_ID) {
+                                        $flooringFlag = true;
+                                    }
+                                    if ($flooringFlag && $category->term_id == CATEGORY_CARPET_ID || $flooringFlag && $category->term_id == CATEGORY_ALL_ID) {
+                                        $flooringFlag = false;
+                                    }
+
                                     ?>
                                     <div class="filter-item"  onchange="filter('t')">
-                                        <input type="radio" name="Type" id="Type<?= $num?>" class="filter-item__input" <?php if($category->term_id == $cur_cat_id) echo "checked"; ?> slug="<?= $category->slug ?>" />
-                                        <label for="Type<?= $num?>" class="filter-item__label"><?= $category->name ?></label>
+                                        <input
+                                                type="radio"
+                                                name="Type"
+                                                id="Type<?= $num?>"
+                                                class="filter-item__input"
+                                                <?php if($category->term_id == $cur_cat_id) echo "checked"; ?>
+                                                slug="<?= $category->slug ?>"
+                                        />
+                                        <label for="Type<?= $num?>" class="filter-item__label <?= $flooringFlag ? 'filter-item__label-visual-checked' : ''; ?> "><?= $category->name ?></label>
                                     </div>
                                     <?php
                                     $num++;
@@ -157,33 +178,31 @@
                         </div>
                     <?php endif; ?>
 
-                    <!-- Colour -->
+                    <!-- Style -->
                     <?php
-                    $field = get_field_object('colour_filter');
-                    $all_colours = $field['choices'];
-                    $colour_slugs = array();
+                    $field = get_field_object('style_filter');
+                    $all_styles = $field['choices'];
+                    $style_slugs = array();
                     $num = 0;
-                    $get_colours = $_GET['colour'];
-                    $checked_colours = explode(' ', $get_colours);
-                    $existingColorsChecked = array();
+                    $get_styles = $_GET['style'];
+                    $checked_styles = explode(' ', $get_styles);
+                    $existingStylesChecked = array();
+                    //asort($all_styles);
                     ?>
 
-                    <?php if ($all_colours) :
-                        // sort alphabetically by name
-                        asort($all_colours);
-                        ?>
+                    <?php if ($all_styles) : ?>
                         <div class="filter">
-                            <p class="filter-title js-accordeon-title <?php if ($get_colours) echo 'is-opened'; ?>">Colour<span class="filter-title__icon">
+                            <p class="filter-title js-accordeon-title <?php if ($get_styles) echo 'is-opened'; ?>">Style<span class="filter-title__icon">
                                                 <svg class="icon drop_arrow">
                                                     <use xlink:href="#drop_arrow"></use>
                                                 </svg></span></p>
-                            <div class="js-accordeon-content" id="c">
+                            <div class="js-accordeon-content" id="st">
                                 <div class="filter-content">
 
-                                    <?php foreach ($all_colours as $key => $c_colour){ ?>
-                                        <div class="filter-item" onchange="filter('c')">
-                                            <input type="checkbox" name="Colour" id="Colour<?= $num ?>" class="filter-item__input" Colour="<?= $key ?>" <?php if(in_array($key, $checked_colours)) {echo 'checked'; $existingColorsChecked[] = $key; } ?>/>
-                                            <label for="Colour<?= $num ?>" class="filter-item__label"><?= $c_colour ?></label>
+                                    <?php foreach ($all_styles as $key => $c_style){ ?>
+                                        <div class="filter-item" onchange="filter('st')">
+                                            <input type="checkbox" name="Style" id="Style<?= $num ?>" class="filter-item__input" style="<?= $key ?>" <?php if(in_array($key, $checked_styles)) {echo 'checked'; $existingStylesChecked[] = $key; } ?>/>
+                                            <label for="Style<?= $num ?>" class="filter-item__label"><?= $c_style ?></label>
                                         </div>
                                         <?php
                                         $num++;
@@ -195,7 +214,7 @@
                     <?php endif; ?>
 
                     <!-- Fibre -->
-                    <?php if ($cur_cat_id == 7){ ?>
+                    <?php if ($cur_cat_id == CATEGORY_CARPET_ID){ ?>
                         <?php
                         $fibre_slugs = array();
                         $all_fibre = get_terms(['taxonomy' => 'pa_fibres']);
@@ -229,31 +248,33 @@
                         <?php endif; ?>
                     <?php } ?>
 
-                    <!-- Style -->
+                    <!-- Colour -->
                     <?php
-                    $field = get_field_object('style_filter');
-                    $all_styles = $field['choices'];
-                    $style_slugs = array();
+                    $field = get_field_object('colour_filter');
+                    $all_colours = $field['choices'];
+                    $colour_slugs = array();
                     $num = 0;
-                    $get_styles = $_GET['style'];
-                    $checked_styles = explode(' ', $get_styles);
-                    $existingStylesChecked = array();
+                    $get_colours = $_GET['colour'];
+                    $checked_colours = explode(' ', $get_colours);
+                    $existingColorsChecked = array();
                     ?>
 
-                    <?php if ($all_styles) :
-                        asort($all_styles); ?>
+                    <?php if ($all_colours) :
+                        // sort alphabetically by name
+                        asort($all_colours);
+                        ?>
                         <div class="filter">
-                            <p class="filter-title js-accordeon-title <?php if ($get_styles) echo 'is-opened'; ?>">Style<span class="filter-title__icon">
+                            <p class="filter-title js-accordeon-title <?php if ($get_colours) echo 'is-opened'; ?>">Colour<span class="filter-title__icon">
                                                 <svg class="icon drop_arrow">
                                                     <use xlink:href="#drop_arrow"></use>
                                                 </svg></span></p>
-                            <div class="js-accordeon-content" id="st">
+                            <div class="js-accordeon-content" id="c">
                                 <div class="filter-content">
 
-                                    <?php foreach ($all_styles as $key => $c_style){ ?>
-                                        <div class="filter-item" onchange="filter('st')">
-                                            <input type="checkbox" name="Style" id="Style<?= $num ?>" class="filter-item__input" style="<?= $key ?>" <?php if(in_array($key, $checked_styles)) {echo 'checked'; $existingStylesChecked[] = $key; } ?>/>
-                                            <label for="Style<?= $num ?>" class="filter-item__label"><?= $c_style ?></label>
+                                    <?php foreach ($all_colours as $key => $c_colour){ ?>
+                                        <div class="filter-item" onchange="filter('c')">
+                                            <input type="checkbox" name="Colour" id="Colour<?= $num ?>" class="filter-item__input" Colour="<?= $key ?>" <?php if(in_array($key, $checked_colours)) {echo 'checked'; $existingColorsChecked[] = $key; } ?>/>
+                                            <label for="Colour<?= $num ?>" class="filter-item__label"><?= $c_colour ?></label>
                                         </div>
                                         <?php
                                         $num++;
@@ -518,7 +539,7 @@
                 if ($_GET['fibre']){
                     $feature_array = array(
                         'taxonomy' => 'pa_fibres',
-                        'field' => 'name',
+                        'field' => 'slug',
                         'terms' => $checked_fibre,
                     );
                     $add_attr['tax_query'][] = $feature_array;
