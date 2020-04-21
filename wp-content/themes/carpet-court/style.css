@@ -8444,3 +8444,9 @@ h2.header-title{
 .menu-img-link:hover{
     color: #f13e4b;
 }
+
+label.filter-item__label-visual-checked::after {
+    opacity: 1;
+    transform: translateY(0);
+    transform: scale(1);
+}
