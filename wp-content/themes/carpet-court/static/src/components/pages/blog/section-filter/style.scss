@@ -1,0 +1,75 @@
+.filter-plate {
+  background: rgb(255, 255, 255);
+  border-radius: 0px;
+  box-shadow: inset 1px 0px 0px 0px rgb(234, 235, 237), inset -1px 0px 0px 0px rgb(234, 235, 237), inset 0px -1px 0px 0px rgb(234, 235, 237);
+  height: 59px;
+  width: 20%;
+  float: left;
+  text-align: center;
+  line-height: 55px;
+}
+.filter-plate a {
+  text-decoration: none;
+}
+.filter-plate::before {
+  content: "●";
+  margin-right: 5px;
+}
+.filter-plate.all::before {
+  content: "";
+}
+.filter-plate.all.active {
+  border-bottom: 3px solid #808487;
+}
+.filter-plate.fl::before {
+  color: #f68720;
+}
+.filter-plate.hd::before {
+  color: #00a0de;
+}
+.filter-plate.st::before {
+  color: #f13e4b;
+}
+.filter-plate.dt::before {
+  color: #a3d038;
+}
+.filter-plate.fl.active {
+  border-bottom: 3px solid #f68720;
+}
+.filter-plate.hd.active {
+  border-bottom: 3px solid #00a0de;
+}
+.filter-plate.st.active {
+  border-bottom: 3px solid #f13e4b;
+}
+.filter-plate.dt.active {
+  border-bottom: 3px solid #a3d038;
+}
+.body-form__control select {
+  width: 200px !important;
+}
+.blog-sort {
+  width: 153px;
+  height: 40px;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(234, 235, 237);
+  border-radius: 4px;
+}
+.sort-wrap {
+  float: right;
+  margin-right: 16%;
+  margin-top: 20px;
+}
+.header-sort-wrap .counter, {
+  float: left;
+  margin-top: 20px;
+}
+ .footer-wrap .counter  {
+   margin-left: 13%;
+   float: left;
+   margin-top: 24px;
+}
+.dropdown-toggle {
+  width: 300px;
+  background: transparent;
+}

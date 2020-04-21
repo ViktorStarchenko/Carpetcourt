@@ -3,8 +3,22 @@
     $social = get_field('social', 'option');
     $footer = get_field('footer', 'option');
     $header = get_field('header', 'option');
+    $footer_badges = get_field('footer_logos', 'option');
 ?>
             </div>
+<div class="section-badges">
+    <div class="container">
+        <div class="s-list">
+            <?php foreach ($footer_badges as $icon) : ?>
+            <div class="list-item">
+                <div class="item-image"><img src="<?= $icon['image']['url']?>"></div>
+                <div class="item-text"><?= $icon['label']?></div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+</main>
             <footer class="g-footer">
                 <div class="f-wrap">
                     <div class="container">

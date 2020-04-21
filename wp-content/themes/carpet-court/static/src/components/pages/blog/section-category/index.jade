@@ -1,0 +1,35 @@
+-
+	var data = [
+		{image: DIR + 'images/category/category1.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category2.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category3.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category4.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category3.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category4.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category1.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category2.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category3.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category1.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category4.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]},
+		{image: DIR + 'images/category/category2.png', title: 'Summer inspiration', filterArray: [{text:'Be Floored'},{text: 'Be Styled'}]}
+	];
+
+.section-category
+	.container
+		.s-list.js-card-wrapper
+			each item in data
+				.list-item
+					+card-blog(item.image, item.title, item.filterArray)
+		.s-list-simple
+			each item in data
+				.list-item
+					a(href='#') #{item.title}
+	.counter Items 1-16 of 67
+	.pagination-wrap
+		.pagination
+			a(href="#").pagination-item <
+			a(href="#").pagination-item 1
+			a(href="#").pagination-item 2
+			a(href="#").pagination-item 3
+			a(href="#").pagination-item 4
+			a(href="#").pagination-item >
