@@ -1,0 +1,14 @@
+.section-hero
+	.carousel-wrap.cursor
+		.carousel-slider
+			- var n = 0
+			while n < 2
+				- n++
+				a.slide(href='#')
+					img.slide-image.hidden-xs-max(src='#{DIR}images/slide.png')
+					.hero-title Summer Inspiration
+					button.btn.btn--white(type='button') Read more
+		.carousel-nav
+			button.btn.btn-prev.ic-nav-prev(type='button')
+			button.btn.btn-next.ic-nav-next(type='button')
+		.carousel-dots

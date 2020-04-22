@@ -1060,3 +1060,13 @@ jQuery(document).ready(function ($) {
 //         e.preventDefault();
 //     }
 // });
+jQuery(document).ready(function(){
+    jQuery("[data-toggle='dropdown']").click(function(e) {
+        jQuery(this).parents(".f-sorter").toggleClass("open");  /*when you click on an element with attr data-toggle='dropdown' it toggle the class "open" on its parent with class "dropdown"*/
+        e.stopPropagation();
+    });
+
+    jQuery("html").click(function() {
+        jQuery(".open").removeClass("open");  /*when you click out of the dropdown-menu it remove the class "open"*/
+    });
+});

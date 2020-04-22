@@ -2334,3 +2334,15 @@ function filter_plugin_updates( $value ) {
     unset( $value->response['wp-store-locator/wp-store-locator.php'] );
     return $value;
 }
+add_filter( 'excerpt_length', function(){
+	return 9;
+} );
+
+add_filter('excerpt_more', function($more) {
+	return '...';
+});
+add_filter( 'excerpt_more', 'new_excerpt_more' );
+function new_excerpt_more( $more ){
+	global $post;
+	return '... <a href="'. get_permalink($post) . '">View more.</a>';
+}
