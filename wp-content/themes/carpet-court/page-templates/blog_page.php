@@ -52,13 +52,14 @@ $heroSlider = get_field('hero_slider');
 ?>
 	<main class="g-main">
 		<div class="section-hero">
-			<div class="carousel-wrap cursor">
-				<div class="carousel-slider">
+			<div class="carousel-wrap-blog cursor">
+				<div class="carousel-slider-blog">
                     <?php foreach ($heroSlider as $item) : ?>
-                    <div class="slide">
-                        <a href="#" >
-                            <img src="<?= $item['image']['url']?>" class="slide-image hidden-xs-max">
-                        </a>
+                    <div class="slide-blog" style="position: relative;" >
+                            <img src="<?= $item['image']['url']?>" class="">
+                            <div class="hero-title-blog">Blog - Be Inspired</div>
+                            <div class="hero-title">Summer Inspiration | Coastal Cool</div>
+                            <a href="" class="btn btn--white">Read more</a>
                     </div>
                     <?php endforeach; ?>
 				</div>
@@ -70,11 +71,11 @@ $heroSlider = get_field('hero_slider');
 			</div>
 		</div>
 		<div class="locator-hero-filter">
-            <div class="filter-plate all <?= $cat === 'blog' ? 'active' : '' ?>"><a href="?cat_id=blog">View all</a></div>
-            <div class="filter-plate fl <?= $cat === 'be-floored' ? 'active' : '' ?>"><a href="?cat_id=be-floored">Be Floored</a></div>
-            <div class="filter-plate hd <?= $cat === 'be-handy' ? 'active' : '' ?>"><a href="?cat_id=be-handy">Be Handy</a></div>
-            <div class="filter-plate st <?= $cat === 'be-styled' ? 'active' : '' ?>"><a href="?cat_id=be-styled">Be Styled</a></div>
-            <div class="filter-plate dt <?= $cat === 'be-up-to-date' ? 'active' : '' ?>"><a href="?cat_id=be-up-to-date">Be Up To Date</a></div>
+            <a href="?cat_id=blog"> <div class="filter-plate all <?= $cat === 'blog' ? 'active' : '' ?>">View all</div></a>
+            <a href="?cat_id=be-floored"><div class="filter-plate fl <?= $cat === 'be-floored' ? 'active' : '' ?>">Be Floored</div></a>
+            <a href="?cat_id=be-handy"><div class="filter-plate hd <?= $cat === 'be-handy' ? 'active' : '' ?>">Be Handy</div></a>
+            <a href="?cat_id=be-styled"><div class="filter-plate st <?= $cat === 'be-styled' ? 'active' : '' ?>">Be Styled</div></a>
+            <a href="?cat_id=be-up-to-date"><div class="filter-plate dt <?= $cat === 'be-up-to-date' ? 'active' : '' ?>">Be Up To Date</div></a>
 		</div>
         <div class="filter-mobile f-sorter">
             <button type="button" data-toggle="dropdown" aria-expanded="false" class="ic-down-arrow dropdown-toggle">Filter by: <div class="current-toggle"><?= $catLabel; ?>
@@ -213,5 +214,27 @@ $heroSlider = get_field('hero_slider');
 
 		</div>
 	</main>
+    <script>
+        jQuery(document).ready(function(){
+            jQuery('.carousel-slider-blog').slick({
+                height: '100%',
+                infinite: true,
+                arrows: true,
+                prevArrow: '<span class="btn-prev-hero ic-nav-prev"></span>',
+                nextArrow: '<span class="btn-next-hero ic-nav-next"></span>',
+                speed: 600,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                rows: 0,
+                dots: true,
+                dotsClass: 'list-unstyled',
+                customPaging: function() { return ''; },
+                adaptiveHeight: true,
+                autoplay: false,
+                autoplaySpeed: 5000,
+                pauseOnHover: false
+        });
+        });
+    </script>
 <?php
 get_footer();
