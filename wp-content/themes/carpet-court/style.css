@@ -6406,6 +6406,7 @@ html{
     height: 100%;
 }
 
+/*
 .onepage-scroll{
     height: 100%;
     overflow: hidden;
@@ -6416,6 +6417,7 @@ html{
     -o-transform: translateZ(0) !important;
     transform: translateZ(0) !important;
 }
+*/
 
 .onepage-scroll .content-area.container {
     width: 100%;
