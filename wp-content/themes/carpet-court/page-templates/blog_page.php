@@ -130,7 +130,8 @@ $heroSlider = get_field('hero_slider');
                             <div class="counter">Items <?= 1 + ($paged-1) * $posts_per_page; ?> - <?= $paged*$posts_per_page > $total_posts ? $total_posts : $paged*$posts_per_page; ?> of <?= $total_posts; ?></div>
                             <?php if (!empty($sort)) : ?>
                                 <div class="f-sorter display-pc">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" class="ic-down-arrow dropdown-toggle">Sort by: <div class="current-toggle"><?= $orderLabel ?>
+                                    <span class="sort-title">Sort by:</span>
+                                    <button type="button" data-toggle="dropdown" aria-expanded="false" class="ic-down-arrow dropdown-toggle"><div class="current-toggle"><?= $orderLabel ?>
                                             <div class="f-dropdown-menu">
 												<?php foreach ($sort as $item) : ?>
 													<?php
@@ -193,23 +194,24 @@ $heroSlider = get_field('hero_slider');
                         </div>
                               <?php endwhile; ?>
 				</div>
+                <div class="footer-wrap">
+                    <div class="counter hide-mobile">Items <?= 1 + ($paged-1) * $posts_per_page; ?> - <?= $paged*$posts_per_page > $total_posts ? $total_posts : $paged*$posts_per_page; ?> of <?= $total_posts; ?></div>
+                    <nav class="pagination-wrap">
+                        <div class="pagination" >
+							<?php
+							echo paginate_links( array(
+								'base'    => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+								'format'  => '?paged=%#%',
+								'current' => max( 1, get_query_var('paged') ),
+								'total'   => $custom_query->max_num_pages,
+								'prev_text'    => __('<'),
+								'next_text'    => __('>'),
+							) );?>
+                        </div>
+                    </nav>
+                </div>
 			</div>
-            <div class="footer-wrap">
-                <div class="counter hide-mobile">Items <?= 1 + ($paged-1) * $posts_per_page; ?> - <?= $paged*$posts_per_page > $total_posts ? $total_posts : $paged*$posts_per_page; ?> of <?= $total_posts; ?></div>
-                <nav class="pagination-wrap">
-                    <div class="pagination" >
-						<?php
-						echo paginate_links( array(
-							'base'    => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-							'format'  => '?paged=%#%',
-							'current' => max( 1, get_query_var('paged') ),
-							'total'   => $custom_query->max_num_pages,
-							'prev_text'    => __('<'),
-							'next_text'    => __('>'),
-						) );?>
-                    </div>
-                </nav>
-            </div>
+
 
 
 		</div>

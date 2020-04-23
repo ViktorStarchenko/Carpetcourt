@@ -64,7 +64,6 @@ get_header(); ?>
 					$my_query->the_post();
 					?>
                     <div class="list-item display-pc">  <a rel="external" href="<?php the_permalink()?>"><?php the_post_thumbnail('large'); ?><br />
-							<?php the_title(); ?>
                         </a>
                         <div class="card-filter-item-wrap">
 							<?php foreach (get_the_category(get_the_ID()) as $item) :
@@ -92,7 +91,7 @@ get_header(); ?>
                                 <div class="card-blog-title"><?php the_title(); ?></div>
                             </div>
                             <div class="card-label__part">
-                                <div class="card-link">Coastal inspired home..<a href="<?= get_permalink(); ?>" class="view-more">View more</a></div>
+                                <div class="card-link"><?= the_excerpt()?></div>
                             </div>
                         </div>
                     </div>
@@ -104,9 +103,8 @@ get_header(); ?>
 		while($my_query->have_posts()) :
 			$my_query->the_post();
 			?>
-            <div class="list-item display-pcl">  <a rel="external" href="<?php the_permalink()?>"><?php the_post_thumbnail('large'); ?><br />
-					<?php the_title(); ?>
-                </a>
+            <div class="list-item display-pcl">  <a rel="external" href="<?php the_permalink()?>"><?php the_post_thumbnail('large'); ?>
+                </a >
                 <div class="card-filter-item-wrap">
 					<?php foreach (get_the_category(get_the_ID()) as $item) :
 						switch ($item->slug) {
@@ -143,7 +141,6 @@ get_header(); ?>
     </div>
             <div class="more-wrap">
                 <a href="<?= get_site_url().'/blog'; ?>" class="view-more-articles btn">View More articles</a>
-            </div>
             </div>
 			<?php
 		}
