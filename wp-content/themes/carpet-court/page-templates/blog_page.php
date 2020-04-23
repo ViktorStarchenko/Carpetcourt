@@ -229,7 +229,7 @@ $heroSlider = get_field('hero_slider');
                 slidesToScroll: 1,
                 rows: 0,
                 dots: true,
-                dotsClass: 'list-unstyled',
+                dotsClass: 'my-dots',
                 customPaging: function() { return ''; },
                 adaptiveHeight: true,
                 autoplay: false,
