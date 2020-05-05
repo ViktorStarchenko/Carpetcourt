@@ -313,15 +313,7 @@ function compare_name($a, $b)
                                 <div class="container">
                                     <div id="nav-1" class="drop-menu js-card-wrapper">
                                         <div class="drop-menu__nav">
-
-<<<<<<< HEAD
-
                                             <?php $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID]]);
-
-                                            
-=======
-                                            <?php $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID]]);
->>>>>>> d3622ca62c051f1c544a9a86e95a6cfa997e4f3c
                                             foreach ($all_categories as $menu_cat) :
                                             ?>
                                             <div class="menu-item">

@@ -6406,14 +6406,7 @@ html{
     height: 100%;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 /*
-=======
->>>>>>> origin/dev-car-42
-=======
-
->>>>>>> d3622ca62c051f1c544a9a86e95a6cfa997e4f3c
 .onepage-scroll{
     height: 100%;
     overflow: hidden;
@@ -6424,14 +6417,7 @@ html{
     -o-transform: translateZ(0) !important;
     transform: translateZ(0) !important;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 */
-=======
->>>>>>> origin/dev-car-42
-=======
-
->>>>>>> d3622ca62c051f1c544a9a86e95a6cfa997e4f3c
 
 .onepage-scroll .content-area.container {
     width: 100%;
@@ -8458,7 +8444,6 @@ h1.h-logo{
 h2.header-title{
     font-style: normal;
     font-weight: normal;
-<<<<<<< HEAD
 }
 label.filter-item__label-visual-checked::after {
     opacity: 1;
@@ -8480,7 +8465,3 @@ label.filter-item__label-visual-checked::after {
 .menu-img-link:hover{
     color: #f13e4b;
 }
-=======
-}
-
->>>>>>> d3622ca62c051f1c544a9a86e95a6cfa997e4f3c
