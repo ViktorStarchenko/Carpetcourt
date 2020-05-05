@@ -2300,7 +2300,7 @@ function newDesign() {
 
     $flag = false;
     if (!empty($post)) {
-        if ($post->post_type == 'wpsl_stores') {
+        if ($post->post_type == 'wpsl_stores' || $post->post_type == 'post') {
             $flag = true;
         }
     }
@@ -2334,3 +2334,10 @@ function filter_plugin_updates( $value ) {
     unset( $value->response['wp-store-locator/wp-store-locator.php'] );
     return $value;
 }
+
+function short_code_content_media($atts) {
+    ob_start();
+    require get_stylesheet_directory() . '/template-parts/mediacontent.php';
+    return ob_get_clean();
+}
+add_shortcode('mediacontent' , 'short_code_content_media' );

@@ -899,7 +899,7 @@ input[type='submit']:active
 }
 .btn-previous,
 .btn-next{
-    min-width: 30px;
+    min-width: 250px;
 }
 input[type='text'],
 input[type='email'],
@@ -6406,7 +6406,7 @@ html{
     height: 100%;
 }
 
-/*
+
 .onepage-scroll{
     height: 100%;
     overflow: hidden;
@@ -6417,7 +6417,7 @@ html{
     -o-transform: translateZ(0) !important;
     transform: translateZ(0) !important;
 }
-*/
+
 
 .onepage-scroll .content-area.container {
     width: 100%;
@@ -8445,8 +8445,4 @@ h2.header-title{
     font-style: normal;
     font-weight: normal;
 }
-label.filter-item__label-visual-checked::after {
-    opacity: 1;
-    transform: translateY(0);
-    transform: scale(1);
-}
+

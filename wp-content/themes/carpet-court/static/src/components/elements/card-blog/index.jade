@@ -1,0 +1,20 @@
+mixin card-blog(image, title, filterArray)
+	a.card(href='#', style='background-image: url("#{image}")')
+	.card-filter-item-wrap
+		each item in filterArray
+			case item.text
+				when 'Be Floored'
+					.card-filter-item.fl #{item.text}
+				when 'Be Styled'
+					.card-filter-item.st #{item.text}
+	.card-label
+		.card-label__part
+			.card-blog-title #{title}
+		.card-label__part
+			.card-link Coastal inspired home..
+				a.view-more View more
+
+mixin card-small(image, title)
+	a.card.card--small(href='#', style='background-image: url("#{image}")')
+		.card-label
+			.card-title #{title}
