@@ -2297,7 +2297,7 @@ function newDesign() {
 
     $flag = false;
     if (!empty($post)) {
-        if ($post->post_type == 'wpsl_stores') {
+        if ($post->post_type == 'wpsl_stores' || $post->post_type == 'post') {
             $flag = true;
         }
     }
@@ -2331,15 +2331,10 @@ function filter_plugin_updates( $value ) {
     unset( $value->response['wp-store-locator/wp-store-locator.php'] );
     return $value;
 }
-add_filter( 'excerpt_length', function(){
-	return 9;
-} );
 
-add_filter('excerpt_more', function($more) {
-	return '...';
-});
-add_filter( 'excerpt_more', 'new_excerpt_more' );
-function new_excerpt_more( $more ){
-	global $post;
-	return '... <a href="'. get_permalink($post) . '">View more.</a>';
+function short_code_content_media($atts) {
+    ob_start();
+    require get_stylesheet_directory() . '/template-parts/mediacontent.php';
+    return ob_get_clean();
 }
+add_shortcode('mediacontent' , 'short_code_content_media' );

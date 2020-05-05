@@ -483,8 +483,48 @@ function getInternetExplorerVersion() {
             return self.instance || (self.instance = self.createInstance());
         }());
     }
-    
 
+    function relatedSlider() {
+        var slider = $('.mobile-related .js-card-wrapper');
+        slider.slick({
+            height: '100%',
+            infinite: true,
+            arrows: true,
+            prevArrow: '<span class="btn-prev-mobile ic-nav-prev"></span>',
+            nextArrow: '<span class="btn-next-mobile ic-nav-next"></span>',
+            speed: 600,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            rows: 0,
+            dots: false,
+            autoplay: false,
+            autoplaySpeed: 5000,
+            pauseOnHover: false
+        });
+
+        slider.on('init', function(slick){
+            slider.addClass("load");
+        });
+    }
+
+    function socialLinks() {
+        var popupSize = {
+            width : 780,
+            height: 550
+        };
+        $(document).on('click', '.social-share-link', function (e) {
+            var verticalPos = Math.floor(($(window).width() - popupSize.width) / 2);
+            var horisontalPos = Math.floor(($(window).height() - popupSize.height) / 2);
+            var popup = window.open($(this).prop('href'), 'social',
+                'width=' + popupSize.width + ',height=' + popupSize.height +
+                ',left=' + verticalPos + ',top=' + horisontalPos +
+                ',location=0,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1');
+            if (popup) {
+                popup.focus();
+                e.preventDefault();
+            }
+        });
+    }
     
     // Call functions
     $(function () {
@@ -499,6 +539,8 @@ function getInternetExplorerVersion() {
         initSearch();
         nav.init();
         checkModal.init();
+        relatedSlider();
+        socialLinks();
     });
 
     $window.on('load', function () {
