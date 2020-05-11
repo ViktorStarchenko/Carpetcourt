@@ -359,7 +359,32 @@ function getInternetExplorerVersion() {
         if (!mm.length) return false;
         mm.css('padding-top', header.outerHeight() - offset + 'px');
     }
-    
+
+    function catalogSwitcherType() {
+        var switcherItem = $(".category-type-switcher-item");
+        switcherItem.on("click", function () {
+            if ($(this).hasClass("active")) {
+
+            } else {
+                var data = $(this).data("type");
+                console.log(data);
+                document.cookie = "catalog-type=" + data + "; expires=Thu, 01 Jan 9999 00:00:01 GMT; path=/";
+                window.location.reload(true);
+            }
+        });
+    }
+
+    function catalogSorter() {
+        $("[data-toggle='dropdown']").on('click', function(e) {
+            $(this).parents(".category-type-sort-items").toggleClass("open");
+            e.stopPropagation();
+        });
+/*
+        jQuery("html").on('click', function() {
+            jQuery(".open").removeClass("open");
+        });
+        */
+    }
     
     // nav
     var nav = {
@@ -537,6 +562,8 @@ function getInternetExplorerVersion() {
         initOverlay();
         initMobileMenu();
         initSearch();
+        catalogSwitcherType();
+        catalogSorter();
         nav.init();
         checkModal.init();
         relatedSlider();

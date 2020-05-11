@@ -44,9 +44,6 @@
             margin-left: 0;
             padding: 15px 0px;
         }
-        .packaging .category-grid {
-            border-top: 1px solid rgba(219, 219, 219, .5);
-        }
     }
     @media (max-width: 468px) {
         .crumps-list {
@@ -92,6 +89,120 @@
                     </a>
                 </li>
             </ul>
+        </div>
+        <?php
+            $categoryDescription = get_field('category_description', $term);
+        ?>
+        <?php if (!empty($categoryDescription)) : ?>
+        <div class="category-description">
+            <?= $categoryDescription; ?>
+        </div>
+        <?php endif; ?>
+        <?php
+            $catalogSort = [
+                [
+                    'type' => 'ASC',
+                    'label' => 'Popularity highest',
+                    'sort' => 'popularity'
+                ],
+                [
+                    'type' => 'DESC',
+                    'label' => 'Popularity lowest',
+                    'sort' => 'popularity'
+                ],
+                [
+                    'type' => 'ASC',
+                    'label' => 'Relevance oldest',
+                    'sort' => 'relevance'
+                ],
+                [
+                    'type' => 'DESC',
+                    'label' => 'Relevance newest',
+                    'sort' => 'relevance'
+                ],
+                [
+                    'type' => 'ASC',
+                    'label' => 'Product Name A-Z',
+                    'sort' => 'name'
+                ],
+                [
+                    'type' => 'DESC',
+                    'label' => 'Product Name Z-A',
+                    'sort' => 'name'
+                ],
+                [
+                    'type' => 'ASC',
+                    'label' => 'Price lowest',
+                    'sort' => 'price'
+                ],
+                [
+                    'type' => 'DESC',
+                    'label' => 'Price highest',
+                    'sort' => 'price'
+                ],
+            ];
+
+            $selectedSort = 3;
+            if (!empty($_REQUEST['sort'])){
+                foreach ($catalogSort as $sortKey => $sortItem) {
+                    if ($sortItem['sort'] == $_REQUEST['sort'] && $sortItem['type'] == $_REQUEST['type']) {
+                        $selectedSort = $sortKey;
+                        break;
+                    }
+                }
+            }
+        ?>
+        <div class="category-grid-selector">
+            <div class="category-sorter">
+                <div class="item-label">Sort By:</div>
+                <div class="category-type-sort-items">
+                    <button type="button" data-toggle="dropdown" aria-expanded="false" class="ic-down-arrow dropdown-toggle">
+                        <div class="current-toggle">
+                            <?= $catalogSort[$selectedSort]['label'] ?>
+                            <div class="f-dropdown-menu">
+                                <?php foreach ($catalogSort as $sortKey => $item) : ?>
+                                    <?php if ($sortKey == $selectedSort) : ?>
+                                        <div class="drop-item">
+                                        <span>
+                                            <?= $item['label'] ?>
+                                        </span>
+                                        </div>
+                                    <?php else : ?>
+                                        <?php
+                                        $sorted_uri = esc_url(add_query_arg([
+                                                'sort' => $item["sort"],
+                                                'type' => $item["type"],
+                                            ]
+                                        ));
+                                        ?>
+                                        <div class="drop-item">
+                                            <a href="<?= $sorted_uri ?>">
+                                                <?= $item['label'] ?>
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <?php
+                $activeSwatchType = "active";
+                $activeRoomType = "";
+                if (CATEGORY_TYPE == "room") {
+                    $activeRoomType = "active";
+                    $activeSwatchType = "";
+                }
+            ?>
+            <div class="category-type-switcher">
+                <div class="item-label">View:</div>
+                <div class="category-type-switcher-items">
+                    <div class="category-type-switcher-item <?= $activeSwatchType ?>" data-type="swatch">Swatch</div>
+                    <span class="separator"></span>
+                    <div class="category-type-switcher-item <?= $activeRoomType ?>" data-type="room">Room</div>
+                </div>
+            </div>
         </div>
         <div class="category-grid">
             <div class="category-grid__sidebar js-accordeon-wrap">
@@ -355,7 +466,7 @@
 
                 </form>
             </div>
-            <div class="category-grid__main">
+            <div class="category-grid__main <?= CATEGORY_TYPE ?>">
 
                 <script>
                     function filter(field) {
@@ -579,6 +690,28 @@
                 }
 
                 $args = array_merge( $wp_query->query_vars, $add_attr );
+
+                switch ($catalogSort[$selectedSort]['sort']) {
+                    case 'name':
+                        $args['orderby'] = 'title';
+                        $args['order'] = $catalogSort[$selectedSort]['type'];
+                        break;
+                    case 'price':
+                        $args['orderby'] = 'meta_value';
+                        $args['order'] = $catalogSort[$selectedSort]['type'];
+                        $args['meta_query'][] = [
+                            'key'     => '_price'
+                        ];
+                        break;
+                    case 'relevance':
+                        $args['orderby'] = 'ID';
+                        $args['order'] = $catalogSort[$selectedSort]['type'];
+                        break;
+                    case 'popularity':
+                        $args['orderby'] = 'menu_order';
+                        $args['order'] = $catalogSort[$selectedSort]['type'];
+                        break;
+                }
 
                 query_posts( $args );
                 ?>

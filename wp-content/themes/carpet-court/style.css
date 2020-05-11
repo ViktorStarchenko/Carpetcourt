@@ -6406,7 +6406,6 @@ html{
     height: 100%;
 }
 
-/*
 .onepage-scroll{
     height: 100%;
     overflow: hidden;
@@ -6417,7 +6416,6 @@ html{
     -o-transform: translateZ(0) !important;
     transform: translateZ(0) !important;
 }
-*/
 
 .onepage-scroll .content-area.container {
     width: 100%;
@@ -8464,4 +8462,10 @@ label.filter-item__label-visual-checked::after {
 
 .menu-img-link:hover{
     color: #f13e4b;
+}
+
+label.filter-item__label-visual-checked::after {
+    opacity: 1;
+    transform: translateY(0);
+    transform: scale(1);
 }
