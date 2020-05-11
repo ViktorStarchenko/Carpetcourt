@@ -253,43 +253,45 @@ svg {
 }
 
 .category-grid {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-between;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
   padding-top: 60px;
   margin-bottom: 20px;
-  
-	@include r(900) {
-		padding-top: 20px;
-	}
-  
-  
-	&__sidebar {
-		position: relative;
-		width: 100%;
-  
-		@include rm(1201) {
-			width: 25%;
-			max-width: 400px;
-			padding-right: 20px;
-		}
-	}
-  
-	&__main {
-		flex-grow: 1;
-  
-		@include rm(1201) {
-			width: 70%;
-			max-width: 980px;
-		}
-  
-  
-		@include r(900) {
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: space-between;
-		}
-	}
+  @include r(900) {
+      padding-top: 20px;
+  }
+
+  &__sidebar {
+      position: relative;
+      width: 100%;
+
+      @include rm(1201) {
+          width: 25%;
+          max-width: 400px;
+          padding-right: 20px;
+      }
+  }
+
+  &__main {
+    flex-grow: 1;
+
+    @include rm(1201) {
+        width: 70%;
+        max-width: 980px;
+    }
+
+    @include r(900) {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+
+    &.swatch{
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
 }
 
 .product-grid {
@@ -316,6 +318,144 @@ svg {
       max-width: 460px;
       margin-left: auto;
       padding-left: 20px;
+    }
+  }
+}
+.item-label{
+  margin-right: 10px;
+}
+.category-type-sort-items{
+  &.display-pc{
+    max-width: 210px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    @media (max-width: $screen-xs-max) {
+      display: none;
+    }
+  }
+  &.open{
+    .f-dropdown-menu{
+      display: block;
+    }
+  }
+  .drop-item{
+    a{
+      text-decoration: none;
+    }
+    span{
+      color: $red;
+    }
+  }
+  .f-dropdown-menu {
+    display: none;
+    position:absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    padding: 0 15px;
+    z-index: 3;
+    width: 100%;
+  }
+  .dropdown-toggle {
+    width: 100%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 0;
+    .filter-label {
+      color: #808487;
+    }
+    .current-toggle {
+      margin-left: 10px;
+      max-width: 150px;
+      width: 100%;
+      padding: 0 15px;
+    }
+  }
+}
+.category-type-switcher {
+  display: flex;
+  align-items: center;
+  .category-type-switcher-items{
+    display: flex;
+    align-items: center;
+    .separator {
+      height: 30px;
+      width: 1px;
+      margin: 0 5px;
+      background: rgba(219,219,219,.5);
+    }
+    .category-type-switcher-item{
+      cursor: pointer;
+      &.active{
+        font-weight: bold;
+      }
+    }
+  }
+}
+.category-description {
+  margin: 0 auto 40px auto;
+  text-align: center;
+  max-width: 820px;
+  letter-spacing: 0.77px;
+  padding: 0 15px;
+  p {
+    margin: 5px 0;
+  }
+}
+.product-card {
+  &.swatch{
+    border: 0;
+    flex: 0 0 100%;
+    padding: 15px;
+    @include rm(560) {
+      flex: 0 0 50%;
+    }
+    @include rm(991) {
+      flex: 0 0 33.3%;
+    }
+    .product-card-inner{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .product-card-image{
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50%;
+        min-height: 390px;
+        height: 100%;
+        display: block;
+        position: relative;
+        text-decoration: none;
+        overflow: hidden;
+        &:hover{
+          span{
+            bottom: 0;
+          }
+        }
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          bottom: -60px;
+          left: 0;
+          right: 0;
+          padding: 15px;
+          background: rgba(100,100,100,0.5);
+          transition: all .5s;
+          color: white;
+        }
+      }
+      .product-card-footer{
+        display: flex;
+        justify-content: space-between;
+        margin: 7px 0;
+      }
     }
   }
 }
