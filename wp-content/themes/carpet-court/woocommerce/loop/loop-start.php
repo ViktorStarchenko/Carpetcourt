@@ -44,9 +44,6 @@
             margin-left: 0;
             padding: 15px 0px;
         }
-        .packaging .category-grid {
-            border-top: 1px solid rgba(219, 219, 219, .5);
-        }
     }
     @media (max-width: 468px) {
         .crumps-list {

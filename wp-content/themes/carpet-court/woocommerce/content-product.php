@@ -82,9 +82,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
                 <span>Explore more</span>
             </a>
             <div class="product-card-footer">
-                <div class="">
-                    <h5 class="product-card__title"><?php the_title() ?></h5>
-                </div>
+                <h5 class="product-card__title"><?php the_title() ?></h5>
                 <div class="whishlist">
                     <div class="ic-bar-heart"></div>
                     <?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>

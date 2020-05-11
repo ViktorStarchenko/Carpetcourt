@@ -360,7 +360,6 @@ function getInternetExplorerVersion() {
         mm.css('padding-top', header.outerHeight() - offset + 'px');
     }
 
-
     function catalogSwitcherType() {
         var switcherItem = $(".category-type-switcher-item");
         switcherItem.on("click", function () {
@@ -373,6 +372,18 @@ function getInternetExplorerVersion() {
                 window.location.reload(true);
             }
         });
+    }
+
+    function catalogSorter() {
+        $("[data-toggle='dropdown']").on('click', function(e) {
+            $(this).parents(".category-type-sort-items").toggleClass("open");
+            e.stopPropagation();
+        });
+/*
+        jQuery("html").on('click', function() {
+            jQuery(".open").removeClass("open");
+        });
+        */
     }
     
     // nav
@@ -512,6 +523,7 @@ function getInternetExplorerVersion() {
         initMobileMenu();
         initSearch();
         catalogSwitcherType();
+        catalogSorter();
         nav.init();
         checkModal.init();
     });
