@@ -71,7 +71,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 <?php switch (CATEGORY_TYPE): ?>
 <?php case "swatch": ?>
     <?php
-        $image = get_field('diagnostic_filter_image', $post->ID);
+        $image = get_field('swatch_image', $post->ID);
         if (empty($image)) {
             $image['url'] = get_field('featured_image');
         }
