@@ -482,6 +482,30 @@ svg {
         }
       }
     }
+    .whishlist{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .yith-wcwl-add-to-wishlist{
+      margin: 0;
+      #cpm_wishlist_popup {
+        display: block !important;
+        padding: 0 !important;
+        background: none !important;
+        color: $red !important;
+        width: 18px;
+        height: 16px;
+        overflow: hidden;
+      }
+    }
+  }
+  .modal.show{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    top: 0 !important;
   }
 }
 
