@@ -369,7 +369,18 @@ function getInternetExplorerVersion() {
                 var data = $(this).data("type");
                 console.log(data);
                 document.cookie = "catalog-type=" + data + "; expires=Thu, 01 Jan 9999 00:00:01 GMT; path=/";
-                window.location.reload(true);
+
+                $(".category-type-switcher-item").removeClass("active");
+                $(this).addClass("active");
+
+                $(".product-card-image").each(function () {
+                    console.log($(this));
+                    var style =  $(this).data(data);
+                    console.log(style);
+                    $(this).attr("style", style);
+                });
+
+                //window.location.reload(true);
             }
         });
     }
