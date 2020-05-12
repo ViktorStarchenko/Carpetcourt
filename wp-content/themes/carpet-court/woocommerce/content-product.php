@@ -68,30 +68,45 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	//do_action( 'woocommerce_after_shop_loop_item' );
 
 	?>
+
+<?php
+    $imgSwatch = get_field('swatch_image', $post->ID);
+    $imgRoom = get_field('featured_image');
+?>
 <?php switch (CATEGORY_TYPE): ?>
 <?php case "swatch": ?>
     <?php
-        $image = get_field('swatch_image', $post->ID);
-        if (empty($image)) {
-            $image['url'] = get_field('featured_image');
+        if (!empty($imgSwatch['url'])) {
+            $image = $imgSwatch['url'];
         }
     ?>
-    <div class="product-card <?= CATEGORY_TYPE ?>">
-        <div class="product-card-inner">
-            <a href="<?= get_the_permalink(); ?>" class="product-card-image" style="background-image: url(<?= $image['url'] ?>)" >
-                <span>Explore more</span>
-            </a>
-            <div class="product-card-footer">
-                <h5 class="product-card__title"><?php the_title() ?></h5>
-                <div class="whishlist">
-                    <div class="ic-bar-heart"></div>
-                    <?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
-                </div>
+<?php break; ?>
+<?php case "room": ?>
+    <?php
+        $image = $imgRoom;
+    ?>
+<?php break; ?>
+<?php endswitch ?>
+
+<div class="product-card <?= CATEGORY_TYPE ?>">
+    <div class="product-card-inner">
+        <a href="<?= get_the_permalink(); ?>" class="product-card-image" data-swatch="background-image: url(<?= $imgSwatch ?>)" data-room="background-image: url(<?= $imgRoom ?>)" style="background-image: url(<?= $image ?>)" >
+            <span>Explore more</span>
+        </a>
+        <div class="product-card-footer">
+            <h5 class="product-card__title"><?php the_title() ?></h5>
+            <div class="whishlist">
+                <div class="ic-bar-heart"></div>
+                <?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
             </div>
         </div>
     </div>
-<?php break; ?>
-<?php case "room": ?>
+</div>
+
+<?php
+/*
+  *
+  *
     <div class="product-card js-show-photo-parent <?= CATEGORY_TYPE ?>">
         <div class="product-card-info">
             <!--<div class="product-card__subtitle"><?= get_the_terms($post->ID, 'product_brand')[0]->name ?></div>-->
@@ -150,5 +165,5 @@ if ( empty( $product ) || ! $product->is_visible() ) {
             </div>
         </div>
     </div>
-<?php break; ?>
-<?php endswitch ?>
+  *
+  */
