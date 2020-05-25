@@ -91,6 +91,9 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 <div class="product-card <?= CATEGORY_TYPE ?>">
     <div class="product-card-inner">
         <a href="<?= get_the_permalink(); ?>" class="product-card-image" data-swatch="background-image: url(<?= $imgSwatch ?>)" data-room="background-image: url(<?= $imgRoom ?>)" style="background-image: url(<?= $image ?>)" >
+            <?php if (!empty($imgRoom)) : ?>
+            <div class="product-card-image-hover" style="background-image: url(<?= $imgRoom ?>)"></div>
+            <?php endif; ?>
             <span>Explore more</span>
         </a>
         <div class="product-card-footer">

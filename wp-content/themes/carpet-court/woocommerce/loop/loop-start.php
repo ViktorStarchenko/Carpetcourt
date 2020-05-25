@@ -195,6 +195,7 @@
                     $activeSwatchType = "";
                 }
             ?>
+            <?php /*
             <div class="category-type-switcher">
                 <div class="item-label">View:</div>
                 <div class="category-type-switcher-items">
@@ -202,7 +203,7 @@
                     <span class="separator"></span>
                     <div class="category-type-switcher-item <?= $activeRoomType ?>" data-type="room">Room</div>
                 </div>
-            </div>
+            </div> */ ?>
         </div>
         <div class="category-grid">
             <div class="category-grid__sidebar js-accordeon-wrap">

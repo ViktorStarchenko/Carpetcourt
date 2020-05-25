@@ -69,7 +69,7 @@ if (is_array($pages)) {
         $url = get_permalink();
         $cat_slug = explode('/', $url)[4];
         $prod_term = get_term_by( 'slug', $cat_slug, 'product_cat' );
-        echo $prod_term->description;
+        echo apply_filters('the_content', $prod_term->description);
         ?>
     </p>
 </div>
