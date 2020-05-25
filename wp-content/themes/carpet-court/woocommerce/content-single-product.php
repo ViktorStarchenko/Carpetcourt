@@ -72,7 +72,11 @@ if ( post_password_required() ) {
     }
 </style>
 
-
+<?php
+    $primary = new WPSEO_Primary_Term('taxonomy', get_the_ID());
+    $primary = $primary->get_primary_term();
+    $primary = get_term_by('term_taxonomy_id', $primary);
+?>
 <?php $cat = get_the_terms( $post->ID, 'product_cat' )[0]; ?>
 <div class="js-check-padding">
 <main class="g-main">
@@ -216,49 +220,64 @@ if ( post_password_required() ) {
                             <?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
                         </div>
                         <a href="#" class="wish-button custom-addtowishlist-btn">
-                            <!-- toggle .is-active class--><span class="wish-button__icon">
-										<svg xmlns="http://www.w3.org/2000/svg" width="23" height="21" viewBox="0 0 23 21" class="hear-icon">
-											<path fill="currentColor" d="M22.151 6.333a6.161 6.161 0 0 1-1.424 3.939l-8.901 9.962a.738.738 0 0 1-1.1 0l-1.392-1.556-3.06-3.423c-2.814-3.149-4.405-4.93-4.468-5.005A6.15 6.15 0 0 1 .4 6.324C.442 2.837 3.302.042 6.779.08a6.415 6.415 0 0 1 4.497 1.818A6.406 6.406 0 0 1 15.762.08a6.32 6.32 0 0 1 6.39 6.244zM10.694 3.456a4.944 4.944 0 0 0-3.921-1.9 4.843 4.843 0 0 0-4.897 4.778 4.662 4.662 0 0 0 1.06 2.968c.044.05 1.774 1.988 4.436 4.966l.002.003 3.06 3.423.841.94 8.332-9.324a4.67 4.67 0 0 0 1.068-2.972 4.847 4.847 0 0 0-4.908-4.782 4.939 4.939 0 0 0-3.91 1.9.738.738 0 0 1-1.163 0z" class="hear-icon-border"></path>
-											<path fill="currentColor" d="M15.762.08a6.32 6.32 0 0 1 6.39 6.244v.009a6.161 6.161 0 0 1-1.425 3.939l-8.901 9.962a.738.738 0 0 1-1.1 0l-1.392-1.556-3.06-3.423c-2.814-3.149-4.405-4.93-4.468-5.005A6.15 6.15 0 0 1 .4 6.324C.442 2.837 3.302.042 6.779.08a6.415 6.415 0 0 1 4.497 1.818A6.406 6.406 0 0 1 15.762.08z" class="hear-icon-bg"></path>
-										</svg></span><span class="wish-button__text">Add to Wishlist</span>
+                            <!-- toggle .is-active class-->
+                            <span class="wish-button__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="21" viewBox="0 0 23 21" class="hear-icon">
+                                    <path fill="currentColor" d="M22.151 6.333a6.161 6.161 0 0 1-1.424 3.939l-8.901 9.962a.738.738 0 0 1-1.1 0l-1.392-1.556-3.06-3.423c-2.814-3.149-4.405-4.93-4.468-5.005A6.15 6.15 0 0 1 .4 6.324C.442 2.837 3.302.042 6.779.08a6.415 6.415 0 0 1 4.497 1.818A6.406 6.406 0 0 1 15.762.08a6.32 6.32 0 0 1 6.39 6.244zM10.694 3.456a4.944 4.944 0 0 0-3.921-1.9 4.843 4.843 0 0 0-4.897 4.778 4.662 4.662 0 0 0 1.06 2.968c.044.05 1.774 1.988 4.436 4.966l.002.003 3.06 3.423.841.94 8.332-9.324a4.67 4.67 0 0 0 1.068-2.972 4.847 4.847 0 0 0-4.908-4.782 4.939 4.939 0 0 0-3.91 1.9.738.738 0 0 1-1.163 0z" class="hear-icon-border"></path>
+                                    <path fill="currentColor" d="M15.762.08a6.32 6.32 0 0 1 6.39 6.244v.009a6.161 6.161 0 0 1-1.425 3.939l-8.901 9.962a.738.738 0 0 1-1.1 0l-1.392-1.556-3.06-3.423c-2.814-3.149-4.405-4.93-4.468-5.005A6.15 6.15 0 0 1 .4 6.324C.442 2.837 3.302.042 6.779.08a6.415 6.415 0 0 1 4.497 1.818A6.406 6.406 0 0 1 15.762.08z" class="hear-icon-bg"></path>
+                                </svg>
+                            </span><span class="wish-button__text">Add to Wishlist</span>
                         </a>
                     </div>
+                    <?php if (!empty(get_field('details_enable'))) : ?>
                     <div class="product-info">
-                        <p class="product-info-title js-accordeon-title">Product Info<span class="product-info-title__icon">
-										<svg class="icon drop_arrow">
-											<use xlink:href="#drop_arrow"></use>
-										</svg></span></p>
+                        <p class="product-info-title js-accordeon-title">
+                            Product Info
+                            <span class="product-info-title__icon">
+                                <svg class="icon drop_arrow">
+                                    <use xlink:href="#drop_arrow"></use>
+                                </svg>
+                            </span>
+                        </p>
                         <div class="js-accordeon-content">
                             <div class="product-info-content">
+                                <?php /*
                                 <dl>
                                     <dt>Category:</dt>
-                                    <dd><?= $cat->name ?></dd>
+                                    <dd><?= $primary->name ?></dd>
                                 </dl>
+                                */ ?>
+                                <?php if (!empty(get_field('best_for'))) : ?>
                                 <dl>
                                     <dt>Best For:</dt>
                                     <dd><?= get_field('best_for') ?></dd>
                                 </dl>
-                                <?php if ($material = get_the_terms( $product->id, 'pa_materials' )){
-                                    ?>
+                                <?php endif; ?>
+                                <?php if ($material = get_the_terms( $product->id, 'pa_materials' )) : ?>
                                     <dl>
                                         <dt>Material:</dt>
                                         <dd><?= $material[0]->name ?></dd>
                                     </dl>
-                                    <?php
-                                }
-                                ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                     <div class="product-info">
-                        <p class="product-info-title js-accordeon-title">Finance Options<span class="product-info-title__icon">
-										<svg class="icon drop_arrow">
-											<use xlink:href="#drop_arrow"></use>
-										</svg></span></p>
+                        <p class="product-info-title js-accordeon-title">
+                            Finance Options
+                            <span class="product-info-title__icon">
+                                <svg class="icon drop_arrow">
+                                    <use xlink:href="#drop_arrow"></use>
+                                </svg>
+                            </span>
+                        </p>
                         <div class="js-accordeon-content">
-                            <div class="product-info-content"><a href="<?= home_url() ?>/q-card">Find out more</a></div>
+                            <div class="product-info-content">
+                                <a href="<?= home_url() ?>/q-card">Find out more</a>
+                            </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
