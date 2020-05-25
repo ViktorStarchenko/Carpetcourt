@@ -8481,8 +8481,8 @@ label.filter-item__label-visual-checked::after {
     transition: all .5s;
 }
 
-.product-card.room .product-card-inner .product-card-image:hover, .product-card.swatch .product-card-inner .product-card-image:hover{
-    .product-card-image-hover{
+.product-card.room .product-card-inner .product-card-image:hover .product-card-image-hover,
+.product-card.swatch .product-card-inner .product-card-image:hover .product-card-image-hover
+{
         opacity: 1;
-    }
 }
