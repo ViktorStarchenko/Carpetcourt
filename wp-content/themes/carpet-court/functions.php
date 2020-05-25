@@ -2316,11 +2316,14 @@ function newDesign() {
 getCatalogType();
 
 function getCatalogType() {
+    /*
     if (!empty($_COOKIE['catalog-type']) && $_COOKIE['catalog-type'] == 'room') {
         define('CATEGORY_TYPE', 'room');
     } else {
         define('CATEGORY_TYPE', 'swatch');
     }
+    */
+    define('CATEGORY_TYPE', 'swatch');
 }
 
 function strWordCut($string,$length,$link,$end='... ')
