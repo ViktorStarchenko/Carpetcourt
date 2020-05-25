@@ -111,19 +111,14 @@
                                     if (!empty($item['isPromotions'])) {
                                         $isPromotions = ' nav-item--promo ';
                                     }
-                                    
-                                    $toPage = false;
-                                    if (!empty($item['toPage'])) {
-                                        $toPage = true;
-                                    }
 
                                     $cssClass = "lnk-next";
-                                    if (!empty($toPage) || !empty($isPromotions)) {
+                                    if (!empty($item['toPage']) || !empty($isPromotions)) {
                                         $cssClass = "";
                                     }
                                 ?>
                                 <div class="menu-item <?= $isPromotions ?>">
-                                    <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" class="<?= $cssClass ?> " ><?= $item['link']['title'] ?></a>
+                                    <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" class="<?= $cssClass ?> to-page-<?= $item['toPage'] ?>" ><?= $item['link']['title'] ?></a>
                                     <?php if (!empty($item['sub_items'])) : ?>
                                     <div class="item-dropdown">
                                         <div class="dropdown-nav">
