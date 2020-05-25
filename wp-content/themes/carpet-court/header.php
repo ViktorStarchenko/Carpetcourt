@@ -136,8 +136,12 @@ function compare_name($a, $b)
                                         if (!empty($item['isPromotions'])) {
                                             $isPromotions = ' nav-item--promo ';
                                         }
+
+                                        if (!empty($item['toPage'])) {
+                                            $item['link']['url'] = "#";
+                                        }
                                     ?>
-                                    <div class="nav-item <?= $isPromotions ?>">
+                                    <div class="nav-item <?= $isPromotions ?> to-page-<?= $item['toPage'] ?>">
                                         <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" <?= $dropdown ?> ><?= $item['link']['title'] ?></a>
                                     </div>
                                 <?php endif; ?>
