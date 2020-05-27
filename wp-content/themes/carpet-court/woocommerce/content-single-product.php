@@ -216,6 +216,7 @@ if ( post_password_required() ) {
                         </div>
                     </div>
                     <div class="product producr-button-row"><a href="<?= home_url()?>/measure-and-quote" class="button">Book measure and quote</a>
+                        <?php /*
                         <div class="user-wishlist pull-right clearfix">
                             <?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
                         </div>
@@ -228,6 +229,7 @@ if ( post_password_required() ) {
                                 </svg>
                             </span><span class="wish-button__text">Add to Wishlist</span>
                         </a>
+ */ ?>
                     </div>
                     <?php if (!empty(get_field('details_enable'))) : ?>
                     <div class="product-info">

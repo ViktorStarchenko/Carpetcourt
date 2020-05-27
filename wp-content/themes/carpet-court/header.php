@@ -87,6 +87,7 @@ function compare_name($a, $b)
                     </div>
                     <?php endif; ?>
                     <div class="bar-menu">
+                        <?php /*
                         <?php if (is_user_logged_in()) : ?>
                             <?php if (!empty($topBar['wishlist_logened'])) : ?>
                                 <div class="menu-item"><a href="<?= $topBar['wishlist_logened']['url'] ?>" class="ic-bar-heart"><?= $topBar['wishlist_logened']['title'] ?></a></div>
@@ -96,6 +97,7 @@ function compare_name($a, $b)
                                 <div class="menu-item"><a href="<?= $topBar['wishlist_guest']['url'] ?>" class="ic-bar-heart"><?= $topBar['wishlist_guest']['title'] ?></a></div>
                             <?php endif; ?>
                         <?php endif; ?>
+                        */ ?>
                         <?php if (!empty($topBar['phone'])) : ?>
                         <div class="menu-item"><a href="<?= $topBar['phone']['url'] ?>" class="ic-bar-phone"><?= $topBar['phone']['title'] ?></a></div>
                         <?php endif; ?>
