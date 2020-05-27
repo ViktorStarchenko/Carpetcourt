@@ -207,6 +207,7 @@ if ( post_password_required() ) {
                         </div>
                     </div>
                     <div class="product producr-button-row"><a href="<?= home_url()?>/measure-and-quote" class="button">Book measure and quote</a>
+                        <?php /*
                         <div class="user-wishlist pull-right clearfix">
                             <?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
                         </div>
@@ -217,6 +218,7 @@ if ( post_password_required() ) {
 											<path fill="currentColor" d="M15.762.08a6.32 6.32 0 0 1 6.39 6.244v.009a6.161 6.161 0 0 1-1.425 3.939l-8.901 9.962a.738.738 0 0 1-1.1 0l-1.392-1.556-3.06-3.423c-2.814-3.149-4.405-4.93-4.468-5.005A6.15 6.15 0 0 1 .4 6.324C.442 2.837 3.302.042 6.779.08a6.415 6.415 0 0 1 4.497 1.818A6.406 6.406 0 0 1 15.762.08z" class="hear-icon-bg"></path>
 										</svg></span><span class="wish-button__text">Add to Wishlist</span>
                         </a>
+ */ ?>
                     </div>
                     <div class="product-info">
                         <p class="product-info-title js-accordeon-title">Product Info<span class="product-info-title__icon">
