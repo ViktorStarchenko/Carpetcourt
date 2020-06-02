@@ -261,6 +261,36 @@ if ( post_password_required() ) {
                                         <dd><?= $material[0]->name ?></dd>
                                     </dl>
                                 <?php endif; ?>
+                                <?php if ($width = get_field('width' )) : ?>
+                                    <dl>
+                                        <dt>Width:</dt>
+                                        <dd><?= $width ?></dd>
+                                    </dl>
+                                <?php endif; ?>
+                                <?php if ($width = get_field('width' )) : ?>
+                                    <dl>
+                                        <dt>Width:</dt>
+                                        <dd><?= $width ?></dd>
+                                    </dl>
+                                <?php endif; ?>
+                                <?php if ($length = get_field('length' )) : ?>
+                                    <dl>
+                                        <dt>Length:</dt>
+                                        <dd><?= $length ?></dd>
+                                    </dl>
+                                <?php endif; ?>
+                                <?php if ($thickness = get_field('thickness' )) : ?>
+                                    <dl>
+                                        <dt>Thickness:</dt>
+                                        <dd><?= $thickness ?></dd>
+                                    </dl>
+                                <?php endif; ?>
+                                <?php if ($width_oz = get_field('width_oz' )) : ?>
+                                    <dl>
+                                        <dt>Width & Oz:</dt>
+                                        <dd><?= $width_oz ?></dd>
+                                    </dl>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
