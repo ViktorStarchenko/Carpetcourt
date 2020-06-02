@@ -72,7 +72,11 @@ if ( post_password_required() ) {
     }
 </style>
 
-
+<?php
+$primary = new WPSEO_Primary_Term('taxonomy', get_the_ID());
+$primary = $primary->get_primary_term();
+$primary = get_term_by('term_taxonomy_id', $primary);
+?>
 <?php $cat = get_the_terms( $post->ID, 'product_cat' )[0]; ?>
 <div class="js-check-padding">
 <main class="g-main">
@@ -89,8 +93,8 @@ if ( post_password_required() ) {
                 </li>
                 <li class="crumps-list__item" itemprop="itemListElement" itemscope
                     itemtype="http://schema.org/ListItem" >
-                    <a itemprop="item" href="<?= get_category_link($cat->term_id); ?>" style="text-transform: lowercase">
-                        <span itemprop="name"><?= $cat->name; ?></span>
+                    <a itemprop="item" href="<?= get_category_link($primary->term_id); ?>" style="text-transform: lowercase">
+                        <span itemprop="name"><?= $primary->name; ?></span>
                     </a>
                 </li>
                 <li class="crumps-list__item" itemprop="itemListElement" itemscope
