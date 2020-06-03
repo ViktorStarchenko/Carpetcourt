@@ -73,7 +73,7 @@ if ( post_password_required() ) {
 </style>
 
 <?php
-    $primary = new WPSEO_Primary_Term('taxonomy', get_the_ID());
+    $primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
     $primary = $primary->get_primary_term();
     $primary = get_term_by('term_taxonomy_id', $primary);
 ?>
@@ -243,12 +243,40 @@ if ( post_password_required() ) {
                         </p>
                         <div class="js-accordeon-content">
                             <div class="product-info-content">
-                                <?php /*
+                                <?php
+                                $brands = get_the_terms( $product->id, 'product_brand' );
+                                if (!empty($brands)) {
+                                    $list = [];
+                                    foreach ($brands as $key => $brand) {
+                                        $list[] = $brand->name;
+                                    }
+                                }
+                                ?>
+                                <?php if (!empty($list)) : ?>
+                                    <dl>
+                                        <dt>Brand:</dt>
+                                        <dd><?= implode(', ', $list); ?></dd>
+                                    </dl>
+                                <?php endif; ?>
                                 <dl>
                                     <dt>Category:</dt>
                                     <dd><?= $primary->name ?></dd>
                                 </dl>
-                                */ ?>
+                                <?php
+                                    $fibres = get_the_terms( $product->id, 'pa_fibres' );
+                                    if (!empty($fibres)) {
+                                        $list = [];
+                                        foreach ($fibres as $key => $fibre) {
+                                            $list[] = $fibre->name;
+                                        }
+                                    }
+                                ?>
+                                <?php if (!empty($list)) : ?>
+                                    <dl>
+                                        <dt>Fibre:</dt>
+                                        <dd><?= implode(', ', $list); ?></dd>
+                                    </dl>
+                                <?php endif; ?>
                                 <?php if (!empty(get_field('best_for'))) : ?>
                                 <dl>
                                     <dt>Best For:</dt>
@@ -259,12 +287,6 @@ if ( post_password_required() ) {
                                     <dl>
                                         <dt>Material:</dt>
                                         <dd><?= $material[0]->name ?></dd>
-                                    </dl>
-                                <?php endif; ?>
-                                <?php if ($width = get_field('width' )) : ?>
-                                    <dl>
-                                        <dt>Width:</dt>
-                                        <dd><?= $width ?></dd>
                                     </dl>
                                 <?php endif; ?>
                                 <?php if ($width = get_field('width' )) : ?>
@@ -287,7 +309,7 @@ if ( post_password_required() ) {
                                 <?php endif; ?>
                                 <?php if ($width_oz = get_field('width_oz' )) : ?>
                                     <dl>
-                                        <dt>Width & Oz:</dt>
+                                        <dt>Carpet Weight:</dt>
                                         <dd><?= $width_oz ?></dd>
                                     </dl>
                                 <?php endif; ?>
