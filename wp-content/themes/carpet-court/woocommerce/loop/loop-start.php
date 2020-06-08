@@ -101,11 +101,11 @@
         <?php
             $catalogSort = [
                 [
-                    'type' => 'ASC',
-                    'label' => 'Popularity highest',
-                    'sort' => 'popularity'
+                    'type'  => 'ASC',
+                    'label' => 'Popularity',
+                    'sort'  => 'popularity'
                 ],
-                [
+                /*[
                     'type' => 'DESC',
                     'label' => 'Popularity lowest',
                     'sort' => 'popularity'
@@ -114,35 +114,35 @@
                     'type' => 'ASC',
                     'label' => 'Relevance oldest',
                     'sort' => 'relevance'
+                ],*/
+                [
+                    'type'  => 'DESC',
+                    'label' => 'Relevance',
+                    'sort'  => 'relevance'
                 ],
                 [
-                    'type' => 'DESC',
-                    'label' => 'Relevance newest',
-                    'sort' => 'relevance'
-                ],
-                [
-                    'type' => 'ASC',
+                    'type'  => 'ASC',
                     'label' => 'Product Name A-Z',
-                    'sort' => 'name'
+                    'sort'  => 'name'
                 ],
                 [
-                    'type' => 'DESC',
+                    'type'  => 'DESC',
                     'label' => 'Product Name Z-A',
-                    'sort' => 'name'
+                    'sort'  => 'name'
                 ],
                 [
-                    'type' => 'ASC',
-                    'label' => 'Price lowest',
-                    'sort' => 'price'
+                    'type'  => 'DESC',
+                    'label' => 'Price (Highest)',
+                    'sort'  => 'price'
                 ],
                 [
-                    'type' => 'DESC',
-                    'label' => 'Price highest',
-                    'sort' => 'price'
+                    'type'  => 'ASC',
+                    'label' => 'Price (Lowest)',
+                    'sort'  => 'price'
                 ],
             ];
 
-            $selectedSort = 3;
+            $selectedSort = 1;
             if (!empty($_REQUEST['sort'])){
                 foreach ($catalogSort as $sortKey => $sortItem) {
                     if ($sortItem['sort'] == $_REQUEST['sort'] && $sortItem['type'] == $_REQUEST['type']) {
