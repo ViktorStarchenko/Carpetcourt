@@ -65,11 +65,11 @@ if (is_array($pages)) {
 
     ?>
     <h2 id="h2"></h2>
-    <p><?php
-        $url = get_permalink();
-        $cat_slug = explode('/', $url)[4];
-        $prod_term = get_term_by( 'slug', $cat_slug, 'product_cat' );
-        echo apply_filters('the_content', $prod_term->description);
+    <p>
+        <?php
+            $objID = get_queried_object_id();
+            $obj = get_term($objID);
+            echo apply_filters('the_content', $obj->description);
         ?>
     </p>
 </div>
