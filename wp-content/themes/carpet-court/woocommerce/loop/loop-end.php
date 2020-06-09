@@ -24,12 +24,25 @@
     .woocommerce-pagination{
         display: none;
     }
+    .not-items{
+        width: 100%;
+        margin-top: 30px;
+        text-align: center;
+        color: #f13e4b;
+    }
 </style>
+<?php
+global $wp_query;
+if ($wp_query->max_num_pages == 0) {
+    echo '<div class="not-items">
+        Sorry, there are no results that match this search. Please try another filter
+    </div>';
+}
+?>
 </div>
 </div>
 
 <?php
-global $wp_query;
 $big = 999999999;
 $pages = paginate_links(array(
     'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
