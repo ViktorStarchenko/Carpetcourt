@@ -255,6 +255,8 @@
                     </div>
                     <!-- Wood Shade -->
                     <?php
+                    $objID = get_queried_object_id();
+
                     $field = get_field_object('wood_shade');
                     $all_shades = $field['choices'];
 
@@ -263,31 +265,32 @@
                     $get_shades = $_GET['shade'];
                     $checked_shades = explode(' ', $get_shades);
                     ?>
+                    <?php if ($objID != 10) : ?>
+                        <?php if ($all_shades) :
+                            // sort alphabetically by name
+                            asort($all_shades);
+                            ?>
+                            <div class="filter">
+                                <p class="filter-title js-accordeon-title <?php if ($get_shades) echo 'is-opened'; ?>">Wood Shade<span class="filter-title__icon">
+                                                    <svg class="icon drop_arrow">
+                                                        <use xlink:href="#drop_arrow"></use>
+                                                    </svg></span></p>
+                                <div class="js-accordeon-content" id="s">
+                                    <div class="filter-content">
 
-                    <?php if ($all_shades) :
-                        // sort alphabetically by name
-                        asort($all_shades);
-                        ?>
-                        <div class="filter">
-                            <p class="filter-title js-accordeon-title <?php if ($get_shades) echo 'is-opened'; ?>">Wood Shade<span class="filter-title__icon">
-                                                <svg class="icon drop_arrow">
-                                                    <use xlink:href="#drop_arrow"></use>
-                                                </svg></span></p>
-                            <div class="js-accordeon-content" id="s">
-                                <div class="filter-content">
-
-                                    <?php foreach ($all_shades as $key => $c_shade){ ?>
-                                        <div class="filter-item" onchange="filter('s')">
-                                            <input type="checkbox" name="Shades" id="Shade<?= $num ?>" class="filter-item__input" Shade="<?= $key ?>" <?php if(in_array($key, $checked_shades)) echo 'checked'; ?>/>
-                                            <label for="Shade<?= $num ?>" class="filter-item__label"><?= $c_shade ?></label>
-                                        </div>
-                                        <?php
-                                        $num++;
-                                    }
-                                    ?>
+                                        <?php foreach ($all_shades as $key => $c_shade){ ?>
+                                            <div class="filter-item" onchange="filter('s')">
+                                                <input type="checkbox" name="Shades" id="Shade<?= $num ?>" class="filter-item__input" Shade="<?= $key ?>" <?php if(in_array($key, $checked_shades)) echo 'checked'; ?>/>
+                                                <label for="Shade<?= $num ?>" class="filter-item__label"><?= $c_shade ?></label>
+                                            </div>
+                                            <?php
+                                            $num++;
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
                     <?php endif; ?>
 
                     <!-- Style -->
@@ -301,28 +304,29 @@
                     $existingStylesChecked = array();
                     //asort($all_styles);
                     ?>
-
-                    <?php if ($all_styles) : ?>
-                        <div class="filter">
-                            <p class="filter-title js-accordeon-title <?php if ($get_styles) echo 'is-opened'; ?>">Style<span class="filter-title__icon">
+                    <?php if ($objID != 9 && $objID != 11 && $objID != 12) : ?>
+                        <?php if ($all_styles) : ?>
+                            <div class="filter">
+                                <p class="filter-title js-accordeon-title <?php if ($get_styles) echo 'is-opened'; ?>">Style<span class="filter-title__icon">
                                                 <svg class="icon drop_arrow">
                                                     <use xlink:href="#drop_arrow"></use>
                                                 </svg></span></p>
-                            <div class="js-accordeon-content" id="st">
-                                <div class="filter-content">
+                                <div class="js-accordeon-content" id="st">
+                                    <div class="filter-content">
 
-                                    <?php foreach ($all_styles as $key => $c_style){ ?>
-                                        <div class="filter-item" onchange="filter('st')">
-                                            <input type="checkbox" name="Style" id="Style<?= $num ?>" class="filter-item__input" style="<?= $key ?>" <?php if(in_array($key, $checked_styles)) {echo 'checked'; $existingStylesChecked[] = $key; } ?>/>
-                                            <label for="Style<?= $num ?>" class="filter-item__label"><?= $c_style ?></label>
-                                        </div>
-                                        <?php
-                                        $num++;
-                                    }
-                                    ?>
+                                        <?php foreach ($all_styles as $key => $c_style){ ?>
+                                            <div class="filter-item" onchange="filter('st')">
+                                                <input type="checkbox" name="Style" id="Style<?= $num ?>" class="filter-item__input" style="<?= $key ?>" <?php if(in_array($key, $checked_styles)) {echo 'checked'; $existingStylesChecked[] = $key; } ?>/>
+                                                <label for="Style<?= $num ?>" class="filter-item__label"><?= $c_style ?></label>
+                                            </div>
+                                            <?php
+                                            $num++;
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
                     <?php endif; ?>
 
                     <!-- Fibre -->
