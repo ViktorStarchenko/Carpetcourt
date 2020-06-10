@@ -83,6 +83,7 @@ function compare_name($a, $b)
                     </div>
                     <?php endif; ?>
                     <div class="bar-menu">
+                         <div class="menu-item"><a href="https://clearance.carpetcourt.nz/" style="color: #f13e4b"><?= "shop clearance" ?></a></div>
                         <?php /*
                         <?php if (is_user_logged_in()) : ?>
                             <?php if (!empty($topBar['wishlist_logened'])) : ?>
