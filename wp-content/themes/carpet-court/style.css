@@ -8450,3 +8450,7 @@ label.filter-item__label-visual-checked::after {
     transform: translateY(0);
     transform: scale(1);
 }
+.g-search{
+    align-items : initial !important;
+    padding-top: 10px;
+}
