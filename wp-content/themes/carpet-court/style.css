@@ -8484,5 +8484,10 @@ label.filter-item__label-visual-checked::after {
 .product-card.room .product-card-inner .product-card-image:hover .product-card-image-hover,
 .product-card.swatch .product-card-inner .product-card-image:hover .product-card-image-hover
 {
-        opacity: 1;
+   
+     opacity: 1;
+}
+
+.product-info-content dl:not(:last-child){
+    margin: 0 !important;
 }
