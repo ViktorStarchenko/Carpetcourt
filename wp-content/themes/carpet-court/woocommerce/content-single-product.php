@@ -224,7 +224,7 @@ if ( post_password_required() ) {
                             </span><span class="wish-button__text">Add to Wishlist</span>
                         </a>
                     </div>
-                    <?php if (!empty(get_field('details_enable'))) : ?>
+
                     <div class="product-info">
                         <p class="product-info-title js-accordeon-title">
                             Product Info
@@ -256,11 +256,15 @@ if ( post_password_required() ) {
                                     <dd><?= $primary->name ?></dd>
                                 </dl>
                                 <?php
+                                    $list = [];
+                                    $ID = get_the_ID();
                                     $fibres = get_the_terms( $product->id, 'pa_fibres' );
-                                    if (!empty($fibres)) {
-                                        $list = [];
-                                        foreach ($fibres as $key => $fibre) {
-                                            $list[] = $fibre->name;
+                                    $attribute = get_post_meta($ID, '_product_attributes', true);
+                                    if (!empty($attribute['pa_fibres']) && $attribute['pa_fibres']['is_visible'] == 1) {
+                                        if (!empty($fibres)) {
+                                            foreach ($fibres as $key => $fibre) {
+                                                $list[] = $fibre->name;
+                                            }
                                         }
                                     }
                                 ?>
@@ -324,7 +328,7 @@ if ( post_password_required() ) {
                             </div>
                         </div>
                     </div>
-                    <?php endif; ?>
+
                 </div>
             </div>
 

@@ -8450,3 +8450,7 @@ label.filter-item__label-visual-checked::after {
     transform: translateY(0);
     transform: scale(1);
 }
+
+.product-info-content dl:not(:last-child){
+    margin: 0 !important;
+}
