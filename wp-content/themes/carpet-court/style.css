@@ -8412,20 +8412,6 @@ ul.locator-holiday{
     height: 100vh;
 }
 
-.menu-img-link{
-    display: block;
-    text-decoration: none;
-    font-size: 15px;
-    font-family: Omnes-Medium;
-    letter-spacing: .17px;
-    line-height: 22px;
-    color: #434a4f;
-    margin-top: 10px;
-}
-
-.menu-img-link:hover{
-    color: #f13e4b;
-}
 .section-hero .btn-next{
     min-width:auto !important;
 }
@@ -8443,11 +8429,6 @@ h2.header-title{
     font-style: normal;
     font-weight: normal;
 }
-label.filter-item__label-visual-checked::after {
-    opacity: 1;
-    transform: translateY(0);
-    transform: scale(1);
-}
 
 .menu-img-link{
     display: block;
@@ -8469,20 +8450,7 @@ label.filter-item__label-visual-checked::after {
     transform: translateY(0);
     transform: scale(1);
 }
-
-.product-card-image-hover{
-    position: absolute;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: all .5s;
-}
-
-.product-card.room .product-card-inner .product-card-image:hover .product-card-image-hover,
-.product-card.swatch .product-card-inner .product-card-image:hover .product-card-image-hover
-{
-        opacity: 1;
+.g-search{
+    align-items : initial !important;
+    padding-top: 450px;
 }
