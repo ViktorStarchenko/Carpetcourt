@@ -8450,13 +8450,10 @@ label.filter-item__label-visual-checked::after {
     transform: translateY(0);
     transform: scale(1);
 }
-<<<<<<< HEAD
 .g-search{
     align-items : initial !important;
     padding-top: 450px;
 }
-=======
-
 .product-card-image-hover{
     position: absolute;
     background-size: cover;
@@ -8478,4 +8475,3 @@ label.filter-item__label-visual-checked::after {
 .product-info-content dl:not(:last-child){
     margin: 0 !important;
 }
->>>>>>> 9bb2f14a80f754bec4b943a66d3dc02f7f94d170
