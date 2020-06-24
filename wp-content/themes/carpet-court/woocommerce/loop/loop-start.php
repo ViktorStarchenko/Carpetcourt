@@ -580,6 +580,10 @@
 
                 $args = array_merge( $wp_query->query_vars, $add_attr );
 
+                if (!empty($_REQUEST['show_all'])) {
+                    $args['posts_per_page'] = 9999999999999999999999999;
+                }
+
                 query_posts( $args );
                 ?>
 
