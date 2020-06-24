@@ -113,15 +113,28 @@ if ( post_password_required() ) {
         <div class="product-grid">
             <div class="product-grid__media">
                 <h2 class="product-slider-title"><?php the_title() ?></h2>
-
+                <?php
+                $feature_tag = get_field('feature_tag');
+                $gallery_tag = get_field('gallery_tag');
+                ?>
                 <div class="product-slider-wrap">
                     <div class="product-slider-main">
                         <div class="product-slider zoom-wrap">
-                                <span class="slide"><img id="zoom-trigger-1" data-target="zoom-target-1" src="<?= get_field('featured_image') ?>" alt="product image" data-large-img="<?= get_field('featured_image') ?>" class="product-slider-img"/></span>
+                                <span class="slide">
+                                    <img id="zoom-trigger-1" data-target="zoom-target-1" src="<?= get_field('featured_image') ?>" alt="product image" data-large-img="<?= get_field('featured_image') ?>" class="product-slider-img"/>
+                                    <?php if (!empty($feature_tag)) : ?>
+                                        <p class="thumnbs-tag"><?= $feature_tag ?></p>
+                                    <?php endif; ?>
+                                </span>
                             <?php $gallery_images = get_field('gallery_images');
                             foreach ($gallery_images as $key => $gallery_image){ ?>
                                 <?php $i = $key + 2; ?>
-                                <span class="slide"><img id="zoom-trigger-<?= $i ?>" data-target="zoom-target-<?= $i ?>" src="<?= $gallery_image['gallery_images_url'] ?>" alt="product image" data-large-img="<?= $gallery_image['gallery_images_url'] ?>" class="product-slider-img"/></span>
+                                <span class="slide">
+                                    <img id="zoom-trigger-<?= $i ?>" data-target="zoom-target-<?= $i ?>" src="<?= $gallery_image['gallery_images_url'] ?>" alt="product image" data-large-img="<?= $gallery_image['gallery_images_url'] ?>" class="product-slider-img"/>
+                                    <?php if (!empty($gallery_tag[$key]['gallery_images_tag'])) : ?>
+                                        <p class="thumnbs-tag"><?= $gallery_tag[$key]['gallery_images_tag'] ?></p>
+                                    <?php endif; ?>
+                                </span>
                             <?php }
                             ?>
                         </div>
@@ -146,12 +159,14 @@ if ( post_password_required() ) {
                     </div>
                     <div class="product-slider-thumnbs-wrap">
                         <div class="product-slider-thumnbs">
-                                <div class="thumnbs-slide"><img data-lazy="<?= get_field('featured_image') ?>" alt="product image"/></div>
-                            <?php
-                            foreach ($gallery_images as $gallery_image){ ?>
-                                <div class="thumnbs-slide"><img data-lazy="<?= $gallery_image['gallery_images_url'] ?>" alt="product image"/></div>
-                            <?php }
-                            ?>
+                                <div class="thumnbs-slide">
+                                    <img data-lazy="<?= get_field('featured_image') ?>" alt="product image"/>
+                                </div>
+                            <?php foreach ($gallery_images as $key => $gallery_image) : ?>
+                                <div class="thumnbs-slide">
+                                    <img data-lazy="<?= $gallery_image['gallery_images_url'] ?>" alt="product image"/>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                         <div class="product-slider-nav">
                             <button type="button" class="btn btn-prev btn-prev-thumbs ic-nav-prev"></button>
