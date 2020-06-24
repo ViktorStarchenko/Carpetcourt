@@ -44,35 +44,50 @@ if ($wp_query->max_num_pages == 0) {
 
 <?php
 $big = 999999999;
+$countPage = $wp_query->max_num_pages;
 $pages = paginate_links(array(
     'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
     'format' => '?page=%#%',
     'current' => max(1, get_query_var('paged')),
-    'total' => $wp_query->max_num_pages,
-    'prev_next' => false,
+    'total' => $countPage,
     'type' => 'array',
-    'prev_next' => TRUE,
+    'prev_next' => true,
     'prev_text' => '<',
     'next_text' => '>',
 ));
-if (is_array($pages)) {
-    $current_page = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');
-    echo '<div class="pagination-wrap"><div class="pagination">';
-    foreach ($pages as $i => $page) {
-        if ($current_page == 1 && $i == 0) {
-            echo "$page";
-        } else {
-            if ($current_page != 1 && $current_page == $i) {
-                echo "$page";
-            } else {
-                echo "$page";
-            }
-        }
-    }
-    echo '</div></div>';
-}
 ?>
+<div class="pagination-wrap">
+    <?php if (is_array($pages)) : ?>
+    <div class="pagination">
+        <?php
+            $current_page = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');
+            foreach ($pages as $i => $page) {
+                if ($current_page == 1 && $i == 0) {
+                    echo "$page";
+                } else {
+                    if ($current_page != 1 && $current_page == $i) {
+                        echo "$page";
+                    } else {
+                        echo "$page";
+                    }
+                }
+            }
+        ?>
+    </div>
+    <?php endif; ?>
+    <?php
 
+    ?>
+    <?php if (is_array($pages) && empty($_REQUEST['show_all'])) : ?>
+        <div class="switch-to-paginate-to-all">
+            <a href="?show_all=1" class="btn">Show all products</a>
+        </div>
+    <?php elseif (!empty($_REQUEST['show_all'])) : ?>
+        <div class="switch-to-paginate-to-all">
+            <a href="<?= get_category_link(get_queried_object_id()); ?>" class="btn">Show pagination</a>
+        </div>
+    <?php endif; ?>
+</div>
 <div class="category-content category-content--align_r">
     <?php
 

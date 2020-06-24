@@ -44,6 +44,9 @@
             margin-left: 0;
             padding: 15px 0px;
         }
+        .packaging .category-grid {
+            border-top: 1px solid rgba(219, 219, 219, .5);
+        }
     }
     @media (max-width: 468px) {
         .crumps-list {
@@ -716,6 +719,10 @@
                         $args['orderby'] = 'menu_order';
                         $args['order'] = $catalogSort[$selectedSort]['type'];
                         break;
+                }
+
+                if (!empty($_REQUEST['show_all'])) {
+                    $args['posts_per_page'] = 9999999999999999999999999;
                 }
 
                 query_posts( $args );
