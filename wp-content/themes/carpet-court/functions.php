@@ -9,6 +9,7 @@ define('CATEGORY_CARPET_ID', 7);
 
 include "include/findStore.php";
 include "include/acfAdminPanel.php";
+include "include/product_imposrt.php";
 
 add_filter( 'woocommerce_breadcrumb_home_url', 'carpet_woo_custom_breadrumb_home_url' );
 function carpet_woo_custom_breadrumb_home_url() {
