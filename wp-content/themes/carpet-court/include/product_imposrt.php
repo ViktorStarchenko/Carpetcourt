@@ -140,8 +140,8 @@ function import_ACF($id, $data, $slug) {
         if (!empty($object)) {
             $key = $object['key'];
             $data = explode('|', $data);
-            dump($id);
-            dump($object);
+            //dump($id);
+            //dump($object);
 
             foreach ($object['choices'] as $choice => $value) {
                 foreach ($data as $item) {
