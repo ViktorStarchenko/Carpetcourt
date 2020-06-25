@@ -74,15 +74,15 @@ remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_singl
 
 /* Show custom info of the product in product single page */
 add_action('woocommerce_single_product_summary', 'cc_product_info', 35);
-function cc_product_info() {
+function cc_product_info()
+{
 
     global $product;
 
-
+    if (get_field('details_enable', $product->id)) {
     $avoid_if = get_post_meta($product->id, 'avoid_if', true);
     $post_indent = get_post_meta($product->id, 'post_indent', true);
     $maintenance = get_post_meta($product->id, 'maintenance', true);
-
 
 
     if (!empty($avoid_if)) {
@@ -96,19 +96,18 @@ function cc_product_info() {
         printf(esc_html__('%sMaintenance:%s%s', 'carpet-court'), '<span>', '</span>', $maintenance);
         echo '</div>';
     }
-    if (!empty($post_indent) && $post_indent == 1 ) {
+    if (!empty($post_indent) && $post_indent == 1) {
         echo '<div class="product-detail-label desktop-view">';
-        printf('Please be aware this product will take approximately 8 - 12 weeks to arrive. If you need something sooner - check <a href="'.home_url().'/products/product-filter/">here</a>');
+        printf('Please be aware this product will take approximately 8 - 12 weeks to arrive. If you need something sooner - check <a href="' . home_url() . '/products/product-filter/">here</a>');
         echo '</div>';
     }
 
     // do_action('woocommerce_simple_add_to_cart');
     echo '<div class="cc-btn-wrap clearfix desktop-view">
-    <a href="#" class="custom-addtowishlist-btn"><img src="'.get_template_directory_uri().'/assets/images/imgpsh_fullsize1.jpeg"></a>
+    <a href="#" class="custom-addtowishlist-btn"><img src="' . get_template_directory_uri() . '/assets/images/imgpsh_fullsize1.jpeg"></a>
     <a href="#book-modal" data-toggle="modal" data-target="#book-modal" class="btn-cc btn-block btn-cc-red ">';
     _e('<span class="fa fa-angle-right"></span>  BOOK MEASURE AND QUOTE', 'carpet-court');
     echo '</a></div>';
-
 
 
     ?>
@@ -117,22 +116,23 @@ function cc_product_info() {
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"
                         id="book-modal"><?php _e('Book A Free Measure and Quote', 'carpet-court'); ?></h4>
-                    </div>
-                    <div class="modal-body clearfix">
-                        <div class="col-sm-12">
-                            <?php echo do_shortcode('[gravityform id=1 title=false description=false ajax=true]');
+                </div>
+                <div class="modal-body clearfix">
+                    <div class="col-sm-12">
+                        <?php echo do_shortcode('[gravityform id=1 title=false description=false ajax=true]');
                         // cpm_measuer_and_quote_form();
-                            ?>
-                        </div>
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
-        <?php
+    </div>
+    <?php
     }
+}
 
     if (!function_exists('woocommerce_output_content_wrapper')) {
         function woocommerce_output_content_wrapper() {
