@@ -359,7 +359,43 @@ function getInternetExplorerVersion() {
         if (!mm.length) return false;
         mm.css('padding-top', header.outerHeight() - offset + 'px');
     }
-    
+
+    function catalogSwitcherType() {
+        var switcherItem = $(".category-type-switcher-item");
+        switcherItem.on("click", function () {
+            if ($(this).hasClass("active")) {
+
+            } else {
+                var data = $(this).data("type");
+                console.log(data);
+                document.cookie = "catalog-type=" + data + "; expires=Thu, 01 Jan 9999 00:00:01 GMT; path=/";
+
+                $(".category-type-switcher-item").removeClass("active");
+                $(this).addClass("active");
+
+                $(".product-card-image").each(function () {
+                    console.log($(this));
+                    var style =  $(this).data(data);
+                    console.log(style);
+                    $(this).attr("style", style);
+                });
+
+                //window.location.reload(true);
+            }
+        });
+    }
+
+    function catalogSorter() {
+        $("[data-toggle='dropdown']").on('click', function(e) {
+            $(this).parents(".category-type-sort-items").toggleClass("open");
+            e.stopPropagation();
+        });
+/*
+        jQuery("html").on('click', function() {
+            jQuery(".open").removeClass("open");
+        });
+        */
+    }
     
     // nav
     var nav = {
@@ -497,6 +533,8 @@ function getInternetExplorerVersion() {
         initOverlay();
         initMobileMenu();
         initSearch();
+        catalogSwitcherType();
+        catalogSorter();
         nav.init();
         checkModal.init();
     });

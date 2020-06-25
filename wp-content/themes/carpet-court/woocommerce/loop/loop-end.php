@@ -24,52 +24,80 @@
     .woocommerce-pagination{
         display: none;
     }
+    .not-items{
+        width: 100%;
+        margin-top: 30px;
+        text-align: center;
+        color: #f13e4b;
+    }
 </style>
+<?php
+global $wp_query;
+if ($wp_query->max_num_pages == 0) {
+    echo '<div class="not-items">
+        Sorry, there are no results that match this search. Please try another filter
+    </div>';
+}
+?>
 </div>
 </div>
 
 <?php
-global $wp_query;
 $big = 999999999;
+$countPage = $wp_query->max_num_pages;
 $pages = paginate_links(array(
     'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
     'format' => '?page=%#%',
     'current' => max(1, get_query_var('paged')),
-    'total' => $wp_query->max_num_pages,
-    'prev_next' => false,
+    'total' => $countPage,
     'type' => 'array',
-    'prev_next' => TRUE,
+    'prev_next' => true,
     'prev_text' => '<',
     'next_text' => '>',
 ));
-if (is_array($pages)) {
-    $current_page = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');
-    echo '<div class="pagination-wrap"><div class="pagination">';
-    foreach ($pages as $i => $page) {
-        if ($current_page == 1 && $i == 0) {
-            echo "$page";
-        } else {
-            if ($current_page != 1 && $current_page == $i) {
-                echo "$page";
-            } else {
-                echo "$page";
-            }
-        }
-    }
-    echo '</div></div>';
-}
 ?>
+<div class="pagination-wrap">
+    <?php if (is_array($pages)) : ?>
+    <div class="pagination">
+        <?php
+            $current_page = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');
+            foreach ($pages as $i => $page) {
+                if ($current_page == 1 && $i == 0) {
+                    echo "$page";
+                } else {
+                    if ($current_page != 1 && $current_page == $i) {
+                        echo "$page";
+                    } else {
+                        echo "$page";
+                    }
+                }
+            }
+        ?>
+    </div>
+    <?php endif; ?>
+    <?php
 
+    ?>
+    <?php if (is_array($pages) && empty($_REQUEST['show_all'])) : ?>
+        <div class="switch-to-paginate-to-all">
+            <a href="?show_all=1" class="btn">Show all products</a>
+        </div>
+    <?php elseif (!empty($_REQUEST['show_all'])) : ?>
+        <div class="switch-to-paginate-to-all">
+            <a href="<?= get_category_link(get_queried_object_id()); ?>" class="btn">Show pagination</a>
+        </div>
+    <?php endif; ?>
+</div>
 <div class="category-content category-content--align_r">
     <?php
 
     ?>
     <h2 id="h2"></h2>
-    <p><?php
-        $url = get_permalink();
-        $cat_slug = explode('/', $url)[4];
-        $prod_term = get_term_by( 'slug', $cat_slug, 'product_cat' );
-        echo $prod_term->description;
+    <p>
+        <?php
+            $objID = get_queried_object_id();
+            $obj = get_term($objID);
+            echo apply_filters('the_content', $obj->description);
         ?>
     </p>
 </div>

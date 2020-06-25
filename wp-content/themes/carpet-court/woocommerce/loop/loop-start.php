@@ -93,6 +93,121 @@
                 </li>
             </ul>
         </div>
+        <?php
+            $categoryDescription = get_field('category_description', $term);
+        ?>
+        <?php if (!empty($categoryDescription)) : ?>
+        <div class="category-description">
+            <?= $categoryDescription; ?>
+        </div>
+        <?php endif; ?>
+        <?php
+            $catalogSort = [
+                [
+                    'type'  => 'ASC',
+                    'label' => 'Popularity',
+                    'sort'  => 'popularity'
+                ],
+                /*[
+                    'type' => 'DESC',
+                    'label' => 'Popularity lowest',
+                    'sort' => 'popularity'
+                ],
+                [
+                    'type' => 'ASC',
+                    'label' => 'Relevance oldest',
+                    'sort' => 'relevance'
+                ],*/
+                [
+                    'type'  => 'DESC',
+                    'label' => 'Relevance',
+                    'sort'  => 'relevance'
+                ],
+                [
+                    'type'  => 'ASC',
+                    'label' => 'Product Name A-Z',
+                    'sort'  => 'name'
+                ],
+                [
+                    'type'  => 'DESC',
+                    'label' => 'Product Name Z-A',
+                    'sort'  => 'name'
+                ],
+                [
+                    'type'  => 'DESC',
+                    'label' => 'Price (Highest)',
+                    'sort'  => 'price'
+                ],
+                [
+                    'type'  => 'ASC',
+                    'label' => 'Price (Lowest)',
+                    'sort'  => 'price'
+                ],
+            ];
+
+            $selectedSort = 1;
+            if (!empty($_REQUEST['sort'])){
+                foreach ($catalogSort as $sortKey => $sortItem) {
+                    if ($sortItem['sort'] == $_REQUEST['sort'] && $sortItem['type'] == $_REQUEST['type']) {
+                        $selectedSort = $sortKey;
+                        break;
+                    }
+                }
+            }
+        ?>
+        <div class="category-grid-selector">
+            <div class="category-sorter">
+                <div class="item-label">Sort By:</div>
+                <div class="category-type-sort-items">
+                    <button type="button" data-toggle="dropdown" aria-expanded="false" class="ic-down-arrow dropdown-toggle">
+                        <div class="current-toggle">
+                            <?= $catalogSort[$selectedSort]['label'] ?>
+                            <div class="f-dropdown-menu">
+                                <?php foreach ($catalogSort as $sortKey => $item) : ?>
+                                    <?php if ($sortKey == $selectedSort) : ?>
+                                        <div class="drop-item">
+                                        <span>
+                                            <?= $item['label'] ?>
+                                        </span>
+                                        </div>
+                                    <?php else : ?>
+                                        <?php
+                                        $sorted_uri = esc_url(add_query_arg([
+                                                'sort' => $item["sort"],
+                                                'type' => $item["type"],
+                                            ]
+                                        ));
+                                        ?>
+                                        <div class="drop-item">
+                                            <a href="<?= $sorted_uri ?>">
+                                                <?= $item['label'] ?>
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <?php
+                $activeSwatchType = "active";
+                $activeRoomType = "";
+                if (CATEGORY_TYPE == "room") {
+                    $activeRoomType = "active";
+                    $activeSwatchType = "";
+                }
+            ?>
+            <?php /*
+            <div class="category-type-switcher">
+                <div class="item-label">View:</div>
+                <div class="category-type-switcher-items">
+                    <div class="category-type-switcher-item <?= $activeSwatchType ?>" data-type="swatch">Swatch</div>
+                    <span class="separator"></span>
+                    <div class="category-type-switcher-item <?= $activeRoomType ?>" data-type="room">Room</div>
+                </div>
+            </div> */ ?>
+        </div>
         <div class="category-grid">
             <div class="category-grid__sidebar js-accordeon-wrap">
                 <button class="js-accordeon-title filters-wrap-btn">Filter By</button>
@@ -143,6 +258,8 @@
                     </div>
                     <!-- Wood Shade -->
                     <?php
+                    $objID = get_queried_object_id();
+
                     $field = get_field_object('wood_shade');
                     $all_shades = $field['choices'];
 
@@ -151,31 +268,32 @@
                     $get_shades = $_GET['shade'];
                     $checked_shades = explode(' ', $get_shades);
                     ?>
+                    <?php if ($objID != 10) : ?>
+                        <?php if ($all_shades) :
+                            // sort alphabetically by name
+                            asort($all_shades);
+                            ?>
+                            <div class="filter">
+                                <p class="filter-title js-accordeon-title <?php if ($get_shades) echo 'is-opened'; ?>">Wood Shade<span class="filter-title__icon">
+                                                    <svg class="icon drop_arrow">
+                                                        <use xlink:href="#drop_arrow"></use>
+                                                    </svg></span></p>
+                                <div class="js-accordeon-content" id="s">
+                                    <div class="filter-content">
 
-                    <?php if ($all_shades) :
-                        // sort alphabetically by name
-                        asort($all_shades);
-                        ?>
-                        <div class="filter">
-                            <p class="filter-title js-accordeon-title <?php if ($get_shades) echo 'is-opened'; ?>">Wood Shade<span class="filter-title__icon">
-                                                <svg class="icon drop_arrow">
-                                                    <use xlink:href="#drop_arrow"></use>
-                                                </svg></span></p>
-                            <div class="js-accordeon-content" id="s">
-                                <div class="filter-content">
-
-                                    <?php foreach ($all_shades as $key => $c_shade){ ?>
-                                        <div class="filter-item" onchange="filter('s')">
-                                            <input type="checkbox" name="Shades" id="Shade<?= $num ?>" class="filter-item__input" Shade="<?= $key ?>" <?php if(in_array($key, $checked_shades)) echo 'checked'; ?>/>
-                                            <label for="Shade<?= $num ?>" class="filter-item__label"><?= $c_shade ?></label>
-                                        </div>
-                                        <?php
-                                        $num++;
-                                    }
-                                    ?>
+                                        <?php foreach ($all_shades as $key => $c_shade){ ?>
+                                            <div class="filter-item" onchange="filter('s')">
+                                                <input type="checkbox" name="Shades" id="Shade<?= $num ?>" class="filter-item__input" Shade="<?= $key ?>" <?php if(in_array($key, $checked_shades)) echo 'checked'; ?>/>
+                                                <label for="Shade<?= $num ?>" class="filter-item__label"><?= $c_shade ?></label>
+                                            </div>
+                                            <?php
+                                            $num++;
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
                     <?php endif; ?>
 
                     <!-- Style -->
@@ -189,28 +307,29 @@
                     $existingStylesChecked = array();
                     //asort($all_styles);
                     ?>
-
-                    <?php if ($all_styles) : ?>
-                        <div class="filter">
-                            <p class="filter-title js-accordeon-title <?php if ($get_styles) echo 'is-opened'; ?>">Style<span class="filter-title__icon">
+                    <?php if ($objID != 9 && $objID != 11 && $objID != 12) : ?>
+                        <?php if ($all_styles) : ?>
+                            <div class="filter">
+                                <p class="filter-title js-accordeon-title <?php if ($get_styles) echo 'is-opened'; ?>">Style<span class="filter-title__icon">
                                                 <svg class="icon drop_arrow">
                                                     <use xlink:href="#drop_arrow"></use>
                                                 </svg></span></p>
-                            <div class="js-accordeon-content" id="st">
-                                <div class="filter-content">
+                                <div class="js-accordeon-content" id="st">
+                                    <div class="filter-content">
 
-                                    <?php foreach ($all_styles as $key => $c_style){ ?>
-                                        <div class="filter-item" onchange="filter('st')">
-                                            <input type="checkbox" name="Style" id="Style<?= $num ?>" class="filter-item__input" style="<?= $key ?>" <?php if(in_array($key, $checked_styles)) {echo 'checked'; $existingStylesChecked[] = $key; } ?>/>
-                                            <label for="Style<?= $num ?>" class="filter-item__label"><?= $c_style ?></label>
-                                        </div>
-                                        <?php
-                                        $num++;
-                                    }
-                                    ?>
+                                        <?php foreach ($all_styles as $key => $c_style){ ?>
+                                            <div class="filter-item" onchange="filter('st')">
+                                                <input type="checkbox" name="Style" id="Style<?= $num ?>" class="filter-item__input" style="<?= $key ?>" <?php if(in_array($key, $checked_styles)) {echo 'checked'; $existingStylesChecked[] = $key; } ?>/>
+                                                <label for="Style<?= $num ?>" class="filter-item__label"><?= $c_style ?></label>
+                                            </div>
+                                            <?php
+                                            $num++;
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
                     <?php endif; ?>
 
                     <!-- Fibre -->
@@ -355,7 +474,7 @@
 
                 </form>
             </div>
-            <div class="category-grid__main">
+            <div class="category-grid__main <?= CATEGORY_TYPE ?>">
 
                 <script>
                     function filter(field) {
@@ -580,6 +699,30 @@
 
                 $args = array_merge( $wp_query->query_vars, $add_attr );
 
+                switch ($catalogSort[$selectedSort]['sort']) {
+                    case 'name':
+                        $args['orderby'] = 'title';
+                        $args['order'] = $catalogSort[$selectedSort]['type'];
+                        break;
+                    case 'price':
+                        $args['orderby'] = 'meta_value';
+                        $args['order'] = $catalogSort[$selectedSort]['type'];
+                        $args['meta_query'][] = [
+                            'key'     => '_price'
+                        ];
+                        break;
+                    case 'relevance':
+                        $args['orderby'] = 'ID';
+                        $args['order'] = $catalogSort[$selectedSort]['type'];
+                        break;
+                    case 'popularity':
+                        $args['orderby'] = 'menu_order';
+                        $args['order'] = $catalogSort[$selectedSort]['type'];
+                        break;
+                }
+                if (!empty($_REQUEST['show_all'])) {
+                    $args['posts_per_page'] = 9999999999999999999999999;
+                }
                 query_posts( $args );
                 ?>
 

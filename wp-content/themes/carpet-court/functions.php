@@ -2300,7 +2300,7 @@ function newDesign() {
 
     $flag = false;
     if (!empty($post)) {
-        if ($post->post_type == 'wpsl_stores') {
+        if ($post->post_type == 'wpsl_stores' || $post->post_type == 'product') {
             $flag = true;
         }
     }
@@ -2311,6 +2311,19 @@ function newDesign() {
         return false;
     }
 
+}
+
+getCatalogType();
+
+function getCatalogType() {
+    /*
+    if (!empty($_COOKIE['catalog-type']) && $_COOKIE['catalog-type'] == 'room') {
+        define('CATEGORY_TYPE', 'room');
+    } else {
+        define('CATEGORY_TYPE', 'swatch');
+    }
+    */
+    define('CATEGORY_TYPE', 'swatch');
 }
 
 function strWordCut($string,$length,$link,$end='... ')
