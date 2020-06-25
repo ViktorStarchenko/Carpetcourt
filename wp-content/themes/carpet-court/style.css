@@ -8454,6 +8454,7 @@ label.filter-item__label-visual-checked::after {
     align-items : initial !important;
     padding-top: 450px;
 }
+
 .product-card-image-hover{
     position: absolute;
     background-size: cover;
@@ -8468,10 +8469,8 @@ label.filter-item__label-visual-checked::after {
 .product-card.room .product-card-inner .product-card-image:hover .product-card-image-hover,
 .product-card.swatch .product-card-inner .product-card-image:hover .product-card-image-hover
 {
-   
-     opacity: 1;
+        opacity: 1;
 }
-
 .product-info-content dl:not(:last-child){
     margin: 0 !important;
 }
