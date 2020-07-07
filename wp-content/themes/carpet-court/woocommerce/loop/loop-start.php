@@ -706,7 +706,7 @@
                         $args['order'] = $catalogSort[$selectedSort]['type'];
                         break;
                     case 'price':
-                        $args['orderby'] = 'meta_value';
+                        $args['orderby'] = 'meta_value_num';
                         $args['order'] = $catalogSort[$selectedSort]['type'];
                         $args['meta_query'][] = [
                             'key'     => '_price'
