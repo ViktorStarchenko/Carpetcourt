@@ -132,20 +132,21 @@
                     'type'  => 'DESC',
                     'label' => 'Product Name Z-A',
                     'sort'  => 'name'
-                ],
-                [
-                    'type'  => 'DESC',
-                    'label' => 'Price (Highest)',
-                    'sort'  => 'price'
-                ],
-                [
-                    'type'  => 'ASC',
-                    'label' => 'Price (Lowest)',
-                    'sort'  => 'price'
-                ],
+                ]
+                // ,
+                // [
+                //     'type'  => 'DESC',
+                //     'label' => 'Price (Highest)',
+                //     'sort'  => 'price'
+                // ],
+                // [
+                //     'type'  => 'ASC',
+                //     'label' => 'Price (Lowest)',
+                //     'sort'  => 'price'
+                // ],
             ];
 
-            $selectedSort = 1;
+            $selectedSort = 0;
             if (!empty($_REQUEST['sort'])){
                 foreach ($catalogSort as $sortKey => $sortItem) {
                     if ($sortItem['sort'] == $_REQUEST['sort'] && $sortItem['type'] == $_REQUEST['type']) {
