@@ -21,6 +21,12 @@ function export_product_init() {
 
 function export_products_to_file() {
 
+    set_time_limit(0);
+    ini_set('error_reporting', E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    ini_set("memory_limit","2G");
+
     $args = [
         'post_type'           => 'product',
         'post_status'         => 'publish',
@@ -40,6 +46,7 @@ function export_products_to_file() {
             'style'      => 'style',
             'wood'       => 'wood',
             'colourACF'  => 'colourACF',
+            'swatch_image' => 'swatch_image',
         ];
         foreach ($products as $product) {
             $id = $product->get_id();
@@ -47,6 +54,7 @@ function export_products_to_file() {
             $style = [];
             $wood = [];
             $colourACF = [];
+            $swatchImage = '';
 
             $fields = get_fields($id);
             if (!empty($fields['style_filter'])) {
@@ -59,6 +67,10 @@ function export_products_to_file() {
 
             if (!empty($fields['colour_filter'])) {
                 $colourACF = $fields['colour_filter'];
+            }
+
+            if (!empty($fields['swatch_image'])) {
+                $swatchImage = $fields['swatch_image']['url'];
             }
 
             $categoriesData = export_category($id, 'product_cat');
@@ -77,6 +89,7 @@ function export_products_to_file() {
                 'style'      => implode('|', $style),
                 'wood'       => implode('|', $wood),
                 'colourACF'  => implode('|', $colourACF),
+                'swatchImage'=> $swatchImage
             ];
         }
         $fileName = dirname(__FILE__).'/../../../uploads/wp_products_export.csv';
@@ -157,6 +170,82 @@ function import_ACF($id, $data, $slug) {
     return $import;
 }
 
+function importImages($postID, $file, $slug)
+{
+    global $debug;
+
+    if (!function_exists('media_handle_sideload')) {
+        require_once ABSPATH . 'wp-admin/includes/image.php';
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        require_once ABSPATH . 'wp-admin/includes/media.php';
+    }
+
+    $tmp = download_url($file);
+
+    $fileArray = [
+        'name'     => basename($file),
+        'tmp_name' => $tmp
+    ];
+
+    if (is_wp_error($tmp)) {
+        $fileArray['tmp_name'] = '';
+        if ($debug) {
+            echo 'Error temp file! <br/>';
+        }
+    }
+
+    if ($debug) {
+        echo 'File array: <br />';
+        var_dump($fileArray);
+        echo '<br /> Post id: ' . $postID . '<br />';
+    }
+
+    $attachment = wp_get_attachment_by_post_name($fileArray['name']);
+
+    if (!empty($attachment)) {
+        $id = $attachment->ID;
+    } else {
+        $id = media_handle_sideload($fileArray, $postID);
+
+        if (is_wp_error($id)) {
+            var_dump($id->get_error_messages());
+        }
+    }
+
+    @unlink($tmp);
+
+    if (!empty($id)) {
+        $object = get_field_object($slug, $postID);
+        if (!empty($object)) {
+            $key = $object['key'];
+            update_field($key, $id, $postID);
+        }
+    }
+
+    return $id;
+}
+
+if (!(function_exists('wp_get_attachment_by_post_name'))) {
+    function wp_get_attachment_by_post_name($post_name)
+    {
+        $title = preg_replace('/\.[^.]+$/', '', wp_basename($post_name));
+
+        $args = array(
+            'posts_per_page' => 1,
+            'post_type'      => 'attachment',
+            'name'           => trim($title),
+        );
+
+        $get_attachment = new WP_Query($args);
+
+        if (!$get_attachment || !isset($get_attachment->posts, $get_attachment->posts[0])) {
+            return false;
+        }
+
+        return $get_attachment->posts[0];
+    }
+}
+
 function import_product_init() {
     import_supplier_companies_from_file();
 
@@ -187,7 +276,12 @@ function import_supplier_companies_from_file() {
         } else {
             $data = array();
             $errors = array();
+
             set_time_limit(0);
+            ini_set('error_reporting', E_ALL);
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            ini_set("memory_limit","2G");
 
             // Require some Wordpress core files for processing images
             require_once(ABSPATH . 'wp-admin/includes/media.php');
@@ -208,6 +302,7 @@ function import_supplier_companies_from_file() {
                 'style'      => 6,
                 'wood'       => 7,
                 'colourACF'  => 8,
+                'swatchImage'=> 9,
             );
 
             $ext = pathinfo($csv['name'], PATHINFO_EXTENSION);
@@ -245,15 +340,21 @@ function import_supplier_companies_from_file() {
                             $product = get_page_by_title($row[$paramms['title']], OBJECT, 'product');
 
                             if (!empty($product->ID)) {
-                                $categoriesData = import_category($product->ID, 'product_cat', $row[$paramms['categories']]);
-                                $brandsData = import_category($product->ID, 'product_brand', $row[$paramms['brands']]);
-                                $featuresData = import_category($product->ID, 'product_feature', $row[$paramms['features']]);
-                                $deliveryData = import_category($product->ID, 'product_delivery', $row[$paramms['delivery']]);
-                                $colorsData = import_category($product->ID, 'product_color', $row[$paramms['colors']]);
-                                $styleData = import_ACF($product->ID, $row[$paramms['style']], 'style_filter');
-                                $woodData = import_ACF($product->ID, $row[$paramms['wood']], 'wood_shade');
-                                $colorsData = import_ACF($product->ID, $row[$paramms['colourACF']], 'colour_filter');
+                                //$categoriesData = import_category($product->ID, 'product_cat', $row[$paramms['categories']]);
+                                //$brandsData = import_category($product->ID, 'product_brand', $row[$paramms['brands']]);
+                                //$featuresData = import_category($product->ID, 'product_feature', $row[$paramms['features']]);
+                                //$deliveryData = import_category($product->ID, 'product_delivery', $row[$paramms['delivery']]);
+                                //$colorsData = import_category($product->ID, 'product_color', $row[$paramms['colors']]);
+                                //$styleData = import_ACF($product->ID, $row[$paramms['style']], 'style_filter');
+                                //$woodData = import_ACF($product->ID, $row[$paramms['wood']], 'wood_shade');
+                                //$colorsData = import_ACF($product->ID, $row[$paramms['colourACF']], 'colour_filter');
+                                $swatchImage = importImages($product->ID, $row[$paramms['swatchImage']], 'swatch_image');
                             }
+
+                            if ($y > 10) {
+                                break;
+                            }
+
                             $y++;
                         }
                         $i++;
