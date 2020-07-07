@@ -132,18 +132,17 @@
                     'type'  => 'DESC',
                     'label' => 'Product Name Z-A',
                     'sort'  => 'name'
-                ]
-                // ,
-                // [
-                //     'type'  => 'DESC',
-                //     'label' => 'Price (Highest)',
-                //     'sort'  => 'price'
-                // ],
-                // [
-                //     'type'  => 'ASC',
-                //     'label' => 'Price (Lowest)',
-                //     'sort'  => 'price'
-                // ],
+                ],
+                [
+                    'type'  => 'DESC',
+                    'label' => 'Price (Highest)',
+                    'sort'  => 'price'
+                ],
+                [
+                    'type'  => 'ASC',
+                    'label' => 'Price (Lowest)',
+                    'sort'  => 'price'
+                ],
             ];
 
             $selectedSort = 0;
