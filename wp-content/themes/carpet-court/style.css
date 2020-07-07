@@ -6408,7 +6408,6 @@ html{
 
 .onepage-scroll{
     height: 100%;
-    overflow: hidden;
     position: relative;
 
     /* -webkit-transform: translateZ(0) !important;
