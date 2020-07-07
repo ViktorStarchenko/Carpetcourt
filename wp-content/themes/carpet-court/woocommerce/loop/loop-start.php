@@ -145,7 +145,7 @@
                 ],
             ];
 
-            $selectedSort = 1;
+            $selectedSort = 0;
             if (!empty($_REQUEST['sort'])){
                 foreach ($catalogSort as $sortKey => $sortItem) {
                     if ($sortItem['sort'] == $_REQUEST['sort'] && $sortItem['type'] == $_REQUEST['type']) {
