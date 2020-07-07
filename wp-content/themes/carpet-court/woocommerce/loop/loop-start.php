@@ -723,9 +723,6 @@
                 if (!empty($_REQUEST['show_all'])) {
                     $args['posts_per_page'] = 9999999999999999999999999;
                 }
-
-                dump($args);
-
                 query_posts( $args );
                 ?>
 
