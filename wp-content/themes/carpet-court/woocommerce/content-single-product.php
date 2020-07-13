@@ -323,7 +323,7 @@ if ( post_password_required() ) {
                                 <?php endif; ?>
                                 <?php if ($width_oz = get_field('width_oz' )) : ?>
                                     <dl>
-                                        <dt>Carpet Weight:</dt>
+                                        <dt>Weight:</dt>
                                         <dd><?= $width_oz ?></dd>
                                     </dl>
                                 <?php endif; ?>
