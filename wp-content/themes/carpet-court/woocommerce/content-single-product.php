@@ -238,17 +238,19 @@ if ( post_password_required() ) {
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                         <?php foreach ($relatedProducts as $relatedProduct) : ?>
-                                            <?php
+                                            <?php if ($relatedProduct != $product->id) : ?>
+                                                <?php
                                                 $relatedProductColour = get_field('current_colour', $relatedProduct);
                                                 $color = get_term_by('term_taxonomy_id', $relatedProductColour);
-                                            ?>
-                                            <?php if (!empty($color) && !empty($relatedProductColour)) : ?>
-                                                <?php $color_image = get_term_meta($relatedProductColour, 'cpm_color_thumbnail', true ); ?>
-                                                <a href="<?= get_permalink($relatedProduct) ?>" data-naming="<?= $color->name ?>" class="product-selector-thumbs__item js-product-trigger">
-                                                    <div class="product-selector-thumbs__img">
-                                                        <img style="min-width: 34px; min-height: 34px;" src="<?= $color_image ?>" alt="<?= $color->name ?>"/>
-                                                    </div>
-                                                </a>
+                                                ?>
+                                                <?php if (!empty($color) && !empty($relatedProductColour)) : ?>
+                                                    <?php $color_image = get_term_meta($relatedProductColour, 'cpm_color_thumbnail', true ); ?>
+                                                    <a href="<?= get_permalink($relatedProduct) ?>" data-naming="<?= $color->name ?>" class="product-selector-thumbs__item js-product-trigger">
+                                                        <div class="product-selector-thumbs__img">
+                                                            <img style="min-width: 34px; min-height: 34px;" src="<?= $color_image ?>" alt="<?= $color->name ?>"/>
+                                                        </div>
+                                                    </a>
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
