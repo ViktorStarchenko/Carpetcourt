@@ -238,7 +238,9 @@ if ( post_password_required() ) {
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                         <?php foreach ($relatedProducts as $relatedProduct) : ?>
-                                            <?php if ($relatedProduct != $product->id) : ?>
+                                            <?php if ($relatedProduct != $post->ID) : ?>
+
+                                            <?php else : ?>
                                                 <?php
                                                 $relatedProductColour = get_field('current_colour', $relatedProduct);
                                                 $color = get_term_by('term_taxonomy_id', $relatedProductColour);
