@@ -207,9 +207,61 @@ if ( post_password_required() ) {
                         <div class="product-selector__title">Selected Colour:
                             <div class="product-selector__title-select js-select-color"></div>
                         </div>
+                        <?php
+                        $colors = get_the_terms( $product->id, 'pa_color' );
+                        $currentColour = get_field('current_colour', $post->ID);
+                        $relatedProducts = get_field('related_products', $post->ID);
+                        ?>
+                        <?php if (!empty($currentColour) && !empty($relatedProducts)) : ?>
+                            <div class="product-selector-inner">
+                                <a href="#" class="product-selector-preview">
+                                    <?php if (!empty($colors)) : ?>
+                                        <?php foreach ($colors as $color) : ?>
+                                            <?php if ($color->term_id == $currentColour) : ?>
+                                                <?php $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+                                                <div style="background-image:url('<?= $color_image ?>');" class="product-selector-preview__item js-product-target"></div>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                        <?php foreach ($colors as $color) : ?>
+                                            <?php if ($color->term_id != $currentColour) : ?>
+                                                <?php $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+                                                <div style="background-image:url('<?= $color_image ?>');" class="product-selector-preview__item js-product-target"></div>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </a>
+                                <ul class="product-selector-thumbs">
+                                    <?php if (!empty($colors)) : ?>
+                                        <?php foreach ($colors as $color) : ?>
+                                            <?php if ($color->term_id == $currentColour) : ?>
+                                                <?php $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+                                                <li data-naming="<?= $color->name ?>" class="product-selector-thumbs__item js-product-trigger">
+                                                    <div class="product-selector-thumbs__img">
+                                                        <img style="min-width: 34px; min-height: 34px;" src="<?= $color_image ?>" alt="<?= $color->name ?>"/>
+                                                    </div>
+                                                </li>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                        <?php foreach ($relatedProducts as $relatedProduct) : ?>
+                                            <?php
+                                                $relatedProductColour = get_field('current_colour', $relatedProduct);
+                                                $color = get_term_by('term_taxonomy_id', $relatedProductColour);
+                                            ?>
+                                            <?php if (!empty($color) && !empty($relatedProductColour)) : ?>
+                                                <?php $color_image = get_term_meta($relatedProductColour, 'cpm_color_thumbnail', true ); ?>
+                                                <a href="<?= get_permalink($relatedProduct) ?>" data-naming="<?= $color->name ?>" class="product-selector-thumbs__item js-product-trigger">
+                                                    <div class="product-selector-thumbs__img">
+                                                        <img style="min-width: 34px; min-height: 34px;" src="<?= $color_image ?>" alt="<?= $color->name ?>"/>
+                                                    </div>
+                                                </a>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
+                        <?php else : ?>
                         <div class="product-selector-inner"><a href="#" class="product-selector-preview js-show-swatch">
                                 <?php
-                                $colors = get_the_terms( $product->id, 'pa_color' );
                                 if (!empty($colors))
                                     foreach ($colors as $color){
                                         $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
@@ -229,6 +281,7 @@ if ( post_password_required() ) {
                                 ?>
                             </ul>
                         </div>
+                        <?php endif; ?>
                     </div>
                     <div class="product producr-button-row"><a href="<?= home_url()?>/measure-and-quote" class="button">Book measure and quote</a>
                         <?php /*
@@ -328,7 +381,7 @@ if ( post_password_required() ) {
                                 <?php endif; ?>
                                 <?php if ($width_oz = get_field('width_oz' )) : ?>
                                     <dl>
-                                        <dt>Carpet Weight:</dt>
+                                        <dt>Weight:</dt>
                                         <dd><?= $width_oz ?></dd>
                                     </dl>
                                 <?php endif; ?>
