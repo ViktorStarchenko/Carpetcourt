@@ -243,7 +243,7 @@ if ( post_password_required() ) {
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                         <?php foreach ($relatedProducts as $relatedProduct) : ?>
-                                            <?php if ($relatedProduct != $post->ID) : ?>
+                                            <?php if ($relatedProduct == $post->ID) : ?>
 
                                             <?php else : ?>
                                                 <?php
