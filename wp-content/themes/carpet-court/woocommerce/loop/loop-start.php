@@ -253,6 +253,21 @@
                                     $num++;
                                 }
                                 ?>
+                                <?php if ($cur_cat_id == CATEGORY_FLOORING_ID) : ?>
+                                    <?php
+                                    $flooringCat = get_term_by('term_taxonomy_id', CATEGORY_FLOORING_ID);
+                                    ?>
+                                    <div class="filter-item" style="position: absolute; z-index: -9999; opacity: 0;" onchange="filter('t')">
+                                        <input
+                                                type="radio"
+                                                name="Type"
+                                                id="Type<?= $num ?>"
+                                                class="filter-item__input"
+                                                checked="checked"
+                                                slug="<?= $flooringCat->slug ?>"
+                                        />
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
