@@ -707,11 +707,16 @@
                     case 'price':
                         $args['orderby'] = 'meta_value_num';
                         $args['order'] = $catalogSort[$selectedSort]['type'];
-                        $args['meta_query'][] = [
-                            'key'     => '_price'
-                        ];
-                        if (!isset($args['meta_query']['relation'])) {
-                            $args['meta_query']['relation'] = 'AND';
+                        if (!empty($args['meta_query'])) {
+                            foreach ($args['meta_query'] as $key => &$value) {
+                                $value[] = [
+                                    'key'     => '_price'
+                                ];
+                            }
+                        } else {
+                            $args['meta_query'][] = [
+                                'key'     => '_price'
+                            ];
                         }
                         break;
                     case 'relevance':
