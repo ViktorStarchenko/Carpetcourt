@@ -710,6 +710,9 @@
                         $args['meta_query'][] = [
                             'key'     => '_price'
                         ];
+                        if (!isset($args['meta_query']['relation'])) {
+                            $args['meta_query']['relation'] = 'AND';
+                        }
                         break;
                     case 'relevance':
                         $args['orderby'] = 'ID';
