@@ -41,5 +41,8 @@
     "jshint-stylish": "^2.2.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-paths": "^2.1.0"
+  },
+  "dependencies": {
+    "sticky-js": "^1.3.0"
   }
 }

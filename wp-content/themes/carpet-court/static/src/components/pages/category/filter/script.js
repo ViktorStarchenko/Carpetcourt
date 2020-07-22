@@ -75,7 +75,15 @@ function toggleColorProduct() {
 
 }
 
+function stickyElem() {
+	if(document.querySelectorAll('.js-sticky').length){
+		var sticky = new Sticky('.js-sticky');
+		sticky.update();
+	}
+}
+
 
 window.addEventListener('load', function() {
 	accordeon();
+	stickyElem();
 });
