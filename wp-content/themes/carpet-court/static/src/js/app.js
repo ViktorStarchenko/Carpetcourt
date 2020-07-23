@@ -404,6 +404,7 @@ function getInternetExplorerVersion() {
             window.overlay.disable();
             this.navigationItems.removeClass('active');
             this.dropdown.fadeOut(300);
+            console.log('nav reset')
         },
         
         resize: function() {
@@ -469,8 +470,10 @@ function getInternetExplorerVersion() {
         
             self.open = function() {
                 self.isOpened = true;
-                $body.addClass('search-opened');
-
+                // $body.addClass('search-opened');
+                window.overlay.enable();
+                $('.g-wrap').addClass('g-wrap--overlay qwee')
+                self.searchDrop(self.isOpened);
                 setTimeout(function () {
                     self.searchFocus();
                 }, 100);
@@ -480,7 +483,9 @@ function getInternetExplorerVersion() {
         
             self.close = function() {
                 self.isOpened = false;
-                $body.removeClass('search-opened');
+                window.overlay.disable();
+                // $body.removeClass('search-opened');
+                self.searchDrop(self.isOpened);
                 return self.isOpened;
             };
             
@@ -496,17 +501,27 @@ function getInternetExplorerVersion() {
                 });
             };
 
+            self.searchDrop = function(state){
+                var searchPanel = $('.drop-search');
+                if (!searchPanel.length) return false;
+                if(state){
+                    searchPanel.fadeIn(300);
+                } else {
+                    searchPanel.fadeOut(300);
+                }
+            }
+
             self.searchFocus = function() {
                 $("form.search-form input").focus();
             };
         
             // constructor
             self.createInstance = function() {
-                self.wrap = $('.g-search');
-                if (!self.wrap.length) return {
-                    open: function() { return false; },
-                    close: function() { return false; }
-                };
+                // self.wrap = $('.g-search');
+                // if (!self.wrap.length) return {
+                //     open: function() { return false; },
+                //     close: function() { return false; }
+                // };
     
                 self.buttons();
             
