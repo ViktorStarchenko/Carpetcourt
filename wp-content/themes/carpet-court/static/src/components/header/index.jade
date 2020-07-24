@@ -29,6 +29,7 @@ header.g-header
 				.h-burger
 					button.btn-burger.mm-opener(type='button', data-target='#mobileMenu')
 						span.icon
+					button.drop-search-burger-bttn.search-opener.ic-icon-cross(type='button')
 				.h-search
 					a.ic-nav-search.search-opener(href='#')
 				.h-logo
@@ -124,37 +125,41 @@ header.g-header
 								button.ic-nav-search(type='submit')
 						.drop-search-form__bttn
 							button.search-opener.ic-icon-cross(type='button') close
-					.drop-search-tile
-						- var n = 0
-						while n < 4
-							- n++
-							.search-result-card
-								.search-result-card__img
-									img(src="images/product-tool/swatch.jpg", alt="Evercore Herringbone")
-								.search-result-card__title
-									.search-result-card__name Rhino   Evercore Herringbone
-									.search-result-card__whish
-										i.ic-bar-heart
-								.search-result-card__subtitle
+					// скрываем эти блоки, если нет результатов
+					.search-result
+						.drop-search-tile
+							- var n = 0
+							while n < 4
+								- n++
+								a(href="#").search-result-card
+									.search-result-card__img
+										img(src="images/product-tool/swatch.jpg", alt="Evercore Herringbone")
+									.search-result-card__title
+										.search-result-card__name Rhino   Evercore Herringbone
+										.search-result-card__whish
+											i.ic-bar-heart
+									.search-result-card__subtitle Clare
 
-					.drop-search-total
-						.drop-search-total__value showing 4 of 6 results for ‘Rhino'
-					.drop-search-show
-						a.btn.btn-index.btn--grey(href="#") view all products
+						.drop-search-total
+							.drop-search-total__value showing 4 of 6 results for ‘Rhino'
+						.drop-search-show
+							a.drop-search-show__link.btn.btn-index.btn--grey(href="#") view all products
 				.drop-search-aside
-					.drop-search-category
-						.drop-search-category__title related categories
-						ul.drop-search-category__list
-							li
-								a(href="#") shop Carpet / Cut & Loop Pile
-							li
-								a(href="#") shop Carpet / Cut Pile
-							li
-								a(href="#") shop Carpet / Loop Pile
-					.drop-search-category
-						.drop-search-category__title related articles
-						ul.drop-search-category__list
-							li
-								a(href="#") trusted Brand Winner!
-							li
-								a(href="#") top Tips For Christmas Spills
+					// скрываем эти блоки, если нет результатов
+					.search-result
+						.drop-search-category
+							.drop-search-category__title related categories
+							ul.drop-search-category__list
+								li
+									a(href="#") shop Carpet / Cut & Loop Pile
+								li
+									a(href="#") shop Carpet / Cut Pile
+								li
+									a(href="#") shop Carpet / Loop Pile
+						.drop-search-category
+							.drop-search-category__title related articles
+							ul.drop-search-category__list
+								li
+									a(href="#") trusted Brand Winner!
+								li
+									a(href="#") top Tips For Christmas Spills
