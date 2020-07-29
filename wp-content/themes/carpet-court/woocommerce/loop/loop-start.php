@@ -209,7 +209,8 @@
             </div> */ ?>
         </div>
         <div class="category-grid">
-            <div class="category-grid__sidebar js-accordeon-wrap">
+            <div data-sticky-container class="category-grid__sidebar js-accordeon-wrap">
+                <div data-margin-top="150" data-sticky-for="1200" data-sticky-class="is-sticky" class="filters-sticky js-sticky">
                 <button class="js-accordeon-title filters-wrap-btn">Filter By</button>
                 <form class="filters-wrap js-accordeon-content js-accordeon-wrap">
                     <div class="filter">
@@ -488,6 +489,7 @@
                     <?php endif; ?>
 
                 </form>
+                </div>
             </div>
             <div class="category-grid__main <?= CATEGORY_TYPE ?>">
 
