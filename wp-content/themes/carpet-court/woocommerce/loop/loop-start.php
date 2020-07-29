@@ -209,7 +209,8 @@
             </div> */ ?>
         </div>
         <div class="category-grid">
-            <div class="category-grid__sidebar js-accordeon-wrap">
+            <div data-sticky-container class="category-grid__sidebar js-accordeon-wrap">
+                <div data-margin-top="150" data-sticky-for="1200" data-sticky-class="is-sticky" class="filters-sticky js-sticky">
                 <button class="js-accordeon-title filters-wrap-btn">Filter By</button>
                 <form class="filters-wrap js-accordeon-content js-accordeon-wrap">
                     <div class="filter">
@@ -253,6 +254,21 @@
                                     $num++;
                                 }
                                 ?>
+                                <?php if ($cur_cat_id == CATEGORY_FLOORING_ID) : ?>
+                                    <?php
+                                    $flooringCat = get_term_by('term_taxonomy_id', CATEGORY_FLOORING_ID);
+                                    ?>
+                                    <div class="filter-item" style="position: absolute; z-index: -9999; opacity: 0;" onchange="filter('t')">
+                                        <input
+                                                type="radio"
+                                                name="Type"
+                                                id="Type<?= $num ?>"
+                                                class="filter-item__input"
+                                                checked="checked"
+                                                slug="<?= $flooringCat->slug ?>"
+                                        />
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -473,6 +489,7 @@
                     <?php endif; ?>
 
                 </form>
+                </div>
             </div>
             <div class="category-grid__main <?= CATEGORY_TYPE ?>">
 
