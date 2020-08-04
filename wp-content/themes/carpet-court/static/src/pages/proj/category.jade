@@ -56,11 +56,12 @@ block content
 		h1 Carpet
 	.packaging
 		.category-grid
-			.category-grid__sidebar.js-accordeon-wrap
-				button.js-accordeon-title.filters-wrap-btn Filter By
-				form.filters-wrap.js-accordeon-content.js-accordeon-wrap
-					each filter, index in filters
-						+filter(filter, index)
+			.category-grid__sidebar.js-accordeon-wrap(data-sticky-container)
+				.filters-sticky.js-sticky(data-margin-top="150" data-sticky-for="1200" data-sticky-class="is-sticky")
+					button.js-accordeon-title.filters-wrap-btn Filter By
+					form.filters-wrap.js-accordeon-content.js-accordeon-wrap
+						each filter, index in filters
+							+filter(filter, index)
 			.category-grid__main
 				+product-card
 				+product-card
