@@ -94,66 +94,66 @@
             </ul>
         </div>
         <?php
-            $categoryDescription = get_field('category_description', $term);
+        $categoryDescription = get_field('category_description', $term);
         ?>
         <?php if (!empty($categoryDescription)) : ?>
-        <div class="category-description">
-            <?= $categoryDescription; ?>
-        </div>
+            <div class="category-description">
+                <?= $categoryDescription; ?>
+            </div>
         <?php endif; ?>
         <?php
-            $catalogSort = [
-                [
-                    'type'  => 'ASC',
-                    'label' => 'Popularity',
-                    'sort'  => 'popularity'
-                ],
-                /*[
-                    'type' => 'DESC',
-                    'label' => 'Popularity lowest',
-                    'sort' => 'popularity'
-                ],
-                [
-                    'type' => 'ASC',
-                    'label' => 'Relevance oldest',
-                    'sort' => 'relevance'
-                ],*/
-                [
-                    'type'  => 'DESC',
-                    'label' => 'Relevance',
-                    'sort'  => 'relevance'
-                ],
-                [
-                    'type'  => 'ASC',
-                    'label' => 'Product Name A-Z',
-                    'sort'  => 'name'
-                ],
-                [
-                    'type'  => 'DESC',
-                    'label' => 'Product Name Z-A',
-                    'sort'  => 'name'
-                ],
-                [
-                    'type'  => 'DESC',
-                    'label' => 'Price (Highest)',
-                    'sort'  => 'price'
-                ],
-                [
-                    'type'  => 'ASC',
-                    'label' => 'Price (Lowest)',
-                    'sort'  => 'price'
-                ],
-            ];
+        $catalogSort = [
+            [
+                'type'  => 'ASC',
+                'label' => 'Popularity',
+                'sort'  => 'popularity'
+            ],
+            /*[
+                'type' => 'DESC',
+                'label' => 'Popularity lowest',
+                'sort' => 'popularity'
+            ],
+            [
+                'type' => 'ASC',
+                'label' => 'Relevance oldest',
+                'sort' => 'relevance'
+            ],*/
+            [
+                'type'  => 'DESC',
+                'label' => 'Relevance',
+                'sort'  => 'relevance'
+            ],
+            [
+                'type'  => 'ASC',
+                'label' => 'Product Name A-Z',
+                'sort'  => 'name'
+            ],
+            [
+                'type'  => 'DESC',
+                'label' => 'Product Name Z-A',
+                'sort'  => 'name'
+            ],
+            [
+                'type'  => 'DESC',
+                'label' => 'Price (Highest)',
+                'sort'  => 'price'
+            ],
+            [
+                'type'  => 'ASC',
+                'label' => 'Price (Lowest)',
+                'sort'  => 'price'
+            ],
+        ];
 
-            $selectedSort = 0;
-            if (!empty($_REQUEST['sort'])){
-                foreach ($catalogSort as $sortKey => $sortItem) {
-                    if ($sortItem['sort'] == $_REQUEST['sort'] && $sortItem['type'] == $_REQUEST['type']) {
-                        $selectedSort = $sortKey;
-                        break;
-                    }
+        $selectedSort = 0;
+        if (!empty($_REQUEST['sort'])){
+            foreach ($catalogSort as $sortKey => $sortItem) {
+                if ($sortItem['sort'] == $_REQUEST['sort'] && $sortItem['type'] == $_REQUEST['type']) {
+                    $selectedSort = $sortKey;
+                    break;
                 }
             }
+        }
         ?>
         <div class="category-grid-selector">
             <div class="category-sorter">
@@ -191,12 +191,12 @@
                 </div>
             </div>
             <?php
-                $activeSwatchType = "active";
-                $activeRoomType = "";
-                if (CATEGORY_TYPE == "room") {
-                    $activeRoomType = "active";
-                    $activeSwatchType = "";
-                }
+            $activeSwatchType = "active";
+            $activeRoomType = "";
+            if (CATEGORY_TYPE == "room") {
+                $activeRoomType = "active";
+                $activeSwatchType = "";
+            }
             ?>
             <?php /*
             <div class="category-type-switcher">
@@ -211,284 +211,283 @@
         <div class="category-grid">
             <div data-sticky-container class="category-grid__sidebar js-accordeon-wrap">
                 <div data-margin-top="150" data-sticky-for="1200" data-sticky-class="is-sticky" class="filters-sticky js-sticky">
-                <button class="js-accordeon-title filters-wrap-btn">Filter By</button>
-                <form class="filters-wrap js-accordeon-content js-accordeon-wrap">
-                    <div class="filter">
-                        <p class="filter-title js-accordeon-title is-opened">Type<span class="filter-title__icon">
+                    <button class="js-accordeon-title filters-wrap-btn">Filter By</button>
+                    <form class="filters-wrap js-accordeon-content js-accordeon-wrap">
+                        <div class="filter">
+                            <p class="filter-title js-accordeon-title is-opened">Type<span class="filter-title__icon">
 											<svg class="icon drop_arrow">
 												<use xlink:href="#drop_arrow"></use>
 											</svg></span></p>
-                        <div class="js-accordeon-content" id="t">
-                            <div class="filter-content">
-                                <?php $all_cats = get_categories(
-                                    [
-                                        'taxonomy' => 'product_cat',
-                                        'exclude' => CATEGORY_FLOORING_ID
-                                    ]
-                                );
-                                $cur_cat_id = get_queried_object_id();
+                            <div class="js-accordeon-content" id="t">
+                                <div class="filter-content">
+                                    <?php $all_cats = get_categories(
+                                        [
+                                            'taxonomy' => 'product_cat',
+                                            'exclude' => CATEGORY_FLOORING_ID
+                                        ]
+                                    );
+                                    $cur_cat_id = get_queried_object_id();
 
-                                $flooringFlag = false;
-                                $num = 0;
-                                foreach ($all_cats as $category){
-                                    if ($cur_cat_id == CATEGORY_FLOORING_ID) {
-                                        $flooringFlag = true;
-                                    }
-                                    if ($flooringFlag && $category->term_id == CATEGORY_CARPET_ID || $flooringFlag && $category->term_id == CATEGORY_ALL_ID) {
-                                        $flooringFlag = false;
-                                    }
+                                    $flooringFlag = false;
+                                    $num = 0;
+                                    foreach ($all_cats as $category){
+                                        if ($cur_cat_id == CATEGORY_FLOORING_ID) {
+                                            $flooringFlag = true;
+                                        }
+                                        if ($flooringFlag && $category->term_id == CATEGORY_CARPET_ID || $flooringFlag && $category->term_id == CATEGORY_ALL_ID) {
+                                            $flooringFlag = false;
+                                        }
 
-                                    ?>
-                                    <div class="filter-item"  onchange="filter('t')">
-                                        <input
-                                                type="radio"
-                                                name="Type"
-                                                id="Type<?= $num?>"
-                                                class="filter-item__input"
+                                        ?>
+                                        <div class="filter-item"  onchange="filter('t')">
+                                            <input
+                                                    type="radio"
+                                                    name="Type"
+                                                    id="Type<?= $num?>"
+                                                    class="filter-item__input"
                                                 <?php if($category->term_id == $cur_cat_id) echo "checked"; ?>
-                                                slug="<?= $category->slug ?>"
-                                        />
-                                        <label for="Type<?= $num?>" class="filter-item__label <?= $flooringFlag ? 'filter-item__label-visual-checked' : ''; ?> "><?= $category->name ?></label>
-                                    </div>
-                                    <?php
-                                    $num++;
-                                }
-                                ?>
-                                <?php if ($cur_cat_id == CATEGORY_FLOORING_ID) : ?>
-                                    <?php
-                                    $flooringCat = get_term_by('term_taxonomy_id', CATEGORY_FLOORING_ID);
-                                    ?>
-                                    <div class="filter-item" style="position: absolute; z-index: -9999; opacity: 0;" onchange="filter('t')">
-                                        <input
-                                                type="radio"
-                                                name="Type"
-                                                id="Type<?= $num ?>"
-                                                class="filter-item__input"
-                                                checked="checked"
-                                                slug="<?= $flooringCat->slug ?>"
-                                        />
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Wood Shade -->
-                    <?php
-                    $objID = get_queried_object_id();
-
-                    $field = get_field_object('wood_shade');
-                    $all_shades = $field['choices'];
-
-                    $shade_slugs = array();
-                    $num = 0;
-                    $get_shades = $_GET['shade'];
-                    $checked_shades = explode(' ', $get_shades);
-                    ?>
-                    <?php if ($objID != 10) : ?>
-                        <?php if ($all_shades) :
-                            // sort alphabetically by name
-                            asort($all_shades);
-                            ?>
-                            <div class="filter">
-                                <p class="filter-title js-accordeon-title <?php if ($get_shades) echo 'is-opened'; ?>">Wood Shade<span class="filter-title__icon">
-                                                    <svg class="icon drop_arrow">
-                                                        <use xlink:href="#drop_arrow"></use>
-                                                    </svg></span></p>
-                                <div class="js-accordeon-content" id="s">
-                                    <div class="filter-content">
-
-                                        <?php foreach ($all_shades as $key => $c_shade){ ?>
-                                            <div class="filter-item" onchange="filter('s')">
-                                                <input type="checkbox" name="Shades" id="Shade<?= $num ?>" class="filter-item__input" Shade="<?= $key ?>" <?php if(in_array($key, $checked_shades)) echo 'checked'; ?>/>
-                                                <label for="Shade<?= $num ?>" class="filter-item__label"><?= $c_shade ?></label>
-                                            </div>
-                                            <?php
-                                            $num++;
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    <?php endif; ?>
-
-                    <!-- Style -->
-                    <?php
-                    $field = get_field_object('style_filter');
-                    $all_styles = $field['choices'];
-                    $style_slugs = array();
-                    $num = 0;
-                    $get_styles = $_GET['style'];
-                    $checked_styles = explode(' ', $get_styles);
-                    $existingStylesChecked = array();
-                    //asort($all_styles);
-                    ?>
-                    <?php if ($objID != 9 && $objID != 11 && $objID != 12) : ?>
-                        <?php if ($all_styles) : ?>
-                            <div class="filter">
-                                <p class="filter-title js-accordeon-title <?php if ($get_styles) echo 'is-opened'; ?>">Style<span class="filter-title__icon">
-                                                <svg class="icon drop_arrow">
-                                                    <use xlink:href="#drop_arrow"></use>
-                                                </svg></span></p>
-                                <div class="js-accordeon-content" id="st">
-                                    <div class="filter-content">
-
-                                        <?php foreach ($all_styles as $key => $c_style){ ?>
-                                            <div class="filter-item" onchange="filter('st')">
-                                                <input type="checkbox" name="Style" id="Style<?= $num ?>" class="filter-item__input" style="<?= $key ?>" <?php if(in_array($key, $checked_styles)) {echo 'checked'; $existingStylesChecked[] = $key; } ?>/>
-                                                <label for="Style<?= $num ?>" class="filter-item__label"><?= $c_style ?></label>
-                                            </div>
-                                            <?php
-                                            $num++;
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    <?php endif; ?>
-
-                    <!-- Fibre -->
-                    <?php if ($cur_cat_id == CATEGORY_CARPET_ID){ ?>
-                        <?php
-                        $fibre_slugs = array();
-                        $all_fibre = get_terms(['taxonomy' => 'pa_fibres']);
-
-                        $num = 0;
-                        $get_fibre = $_GET['fibre'];
-                        $checked_fibre = explode(' ', $get_fibre);
-                        if ($all_fibre) :
-                            // sort alphabetically by name
-                            usort($all_fibre, 'compare_name');
-                            ?>
-                            <div class="filter">
-                                <p class="filter-title js-accordeon-title <?php if ($get_fibre) echo 'is-opened'; ?>">Fibre<span class="filter-title__icon">
-                                                    <svg class="icon drop_arrow">
-                                                        <use xlink:href="#drop_arrow"></use>
-                                                    </svg></span></p>
-                                <div class="js-accordeon-content" id="fb">
-                                    <div class="filter-content">
-                                        <?php foreach ($all_fibre as $c_fibre){ ?>
-                                            <div class="filter-item" onchange="filter('fb')">
-                                                <input type="checkbox" name="Fibre" id="Fibre<?= $num ?>" class="filter-item__input" fibre="<?= $c_fibre->slug ?>" <?php if(in_array($c_fibre->slug, $checked_fibre)) echo 'checked'; ?>/>
-                                                <label for="Fibre<?= $num ?>" class="filter-item__label"><?= $c_fibre->name ?></label>
-                                            </div>
-                                            <?php
-                                            $num++;
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    <?php } ?>
-
-                    <!-- Colour -->
-                    <?php
-                    $field = get_field_object('colour_filter');
-                    $all_colours = $field['choices'];
-                    $colour_slugs = array();
-                    $num = 0;
-                    $get_colours = $_GET['colour'];
-                    $checked_colours = explode(' ', $get_colours);
-                    $existingColorsChecked = array();
-                    ?>
-
-                    <?php if ($all_colours) :
-                        // sort alphabetically by name
-                        asort($all_colours);
-                        ?>
-                        <div class="filter">
-                            <p class="filter-title js-accordeon-title <?php if ($get_colours) echo 'is-opened'; ?>">Colour<span class="filter-title__icon">
-                                                <svg class="icon drop_arrow">
-                                                    <use xlink:href="#drop_arrow"></use>
-                                                </svg></span></p>
-                            <div class="js-accordeon-content" id="c">
-                                <div class="filter-content">
-
-                                    <?php foreach ($all_colours as $key => $c_colour){ ?>
-                                        <div class="filter-item" onchange="filter('c')">
-                                            <input type="checkbox" name="Colour" id="Colour<?= $num ?>" class="filter-item__input" Colour="<?= $key ?>" <?php if(in_array($key, $checked_colours)) {echo 'checked'; $existingColorsChecked[] = $key; } ?>/>
-                                            <label for="Colour<?= $num ?>" class="filter-item__label"><?= $c_colour ?></label>
+                                                    slug="<?= $category->slug ?>"
+                                            />
+                                            <label for="Type<?= $num?>" class="filter-item__label <?= $flooringFlag ? 'filter-item__label-visual-checked' : ''; ?> "><?= $category->name ?></label>
                                         </div>
                                         <?php
                                         $num++;
                                     }
                                     ?>
+                                    <?php if ($cur_cat_id == CATEGORY_FLOORING_ID) : ?>
+                                        <?php
+                                        $flooringCat = get_term_by('term_taxonomy_id', CATEGORY_FLOORING_ID);
+                                        ?>
+                                        <div class="filter-item" style="position: absolute; z-index: -9999; opacity: 0;" onchange="filter('t')">
+                                            <input
+                                                    type="radio"
+                                                    name="Type"
+                                                    id="Type<?= $num ?>"
+                                                    class="filter-item__input"
+                                                    checked="checked"
+                                                    slug="<?= $flooringCat->slug ?>"
+                                            />
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
-                    <?php endif; ?>
+                        <!-- Wood Shade -->
+                        <?php
+                        $objID = get_queried_object_id();
 
-                    <!-- Features -->
-                    <?php
-                    $feature_slugs = array();
-                    $all_features = get_terms(['taxonomy' => 'product_feature']);
-                    $num = 0;
-                    $get_features = $_GET['feature'];
-                    $checked_features = explode(' ', $get_features);
-                    if ($all_features) :
-                        // sort alphabetically by name
-                        usort($all_features, 'compare_name');
+                        $field = get_field_object('wood_shade');
+                        $all_shades = $field['choices'];
+
+                        $shade_slugs = array();
+                        $num = 0;
+                        $get_shades = $_GET['shade'];
+                        $checked_shades = explode(' ', $get_shades);
                         ?>
-                        <div class="filter">
-                            <p class="filter-title js-accordeon-title <?php if ($get_features) echo 'is-opened'; ?>">Features<span class="filter-title__icon">
+                        <?php if ($objID != 10) : ?>
+                            <?php if ($all_shades) :
+                                // sort alphabetically by name
+                                asort($all_shades);
+                                ?>
+                                <div class="filter">
+                                    <p class="filter-title js-accordeon-title <?php if ($get_shades) echo 'is-opened'; ?>">Wood Shade<span class="filter-title__icon">
+                                                    <svg class="icon drop_arrow">
+                                                        <use xlink:href="#drop_arrow"></use>
+                                                    </svg></span></p>
+                                    <div class="js-accordeon-content" id="s">
+                                        <div class="filter-content">
+
+                                            <?php foreach ($all_shades as $key => $c_shade){ ?>
+                                                <div class="filter-item" onchange="filter('s')">
+                                                    <input type="checkbox" name="Shades" id="Shade<?= $num ?>" class="filter-item__input" Shade="<?= $key ?>" <?php if(in_array($key, $checked_shades)) echo 'checked'; ?>/>
+                                                    <label for="Shade<?= $num ?>" class="filter-item__label"><?= $c_shade ?></label>
+                                                </div>
+                                                <?php
+                                                $num++;
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+
+                        <!-- Style -->
+                        <?php
+                        $field = get_field_object('style_filter');
+                        $all_styles = $field['choices'];
+                        $style_slugs = array();
+                        $num = 0;
+                        $get_styles = $_GET['style'];
+                        $checked_styles = explode(' ', $get_styles);
+                        $existingStylesChecked = array();
+                        //asort($all_styles);
+                        ?>
+                        <?php if ($objID != 9 && $objID != 11 && $objID != 12) : ?>
+                            <?php if ($all_styles) : ?>
+                                <div class="filter">
+                                    <p class="filter-title js-accordeon-title <?php if ($get_styles) echo 'is-opened'; ?>">Style<span class="filter-title__icon">
+                                                <svg class="icon drop_arrow">
+                                                    <use xlink:href="#drop_arrow"></use>
+                                                </svg></span></p>
+                                    <div class="js-accordeon-content" id="st">
+                                        <div class="filter-content">
+
+                                            <?php foreach ($all_styles as $key => $c_style){ ?>
+                                                <div class="filter-item" onchange="filter('st')">
+                                                    <input type="checkbox" name="Style" id="Style<?= $num ?>" class="filter-item__input" style="<?= $key ?>" <?php if(in_array($key, $checked_styles)) {echo 'checked'; $existingStylesChecked[] = $key; } ?>/>
+                                                    <label for="Style<?= $num ?>" class="filter-item__label"><?= $c_style ?></label>
+                                                </div>
+                                                <?php
+                                                $num++;
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+
+                        <!-- Fibre -->
+                        <?php if ($cur_cat_id == CATEGORY_CARPET_ID){ ?>
+                            <?php
+                            $fibre_slugs = array();
+                            $all_fibre = get_terms(['taxonomy' => 'pa_fibres']);
+
+                            $num = 0;
+                            $get_fibre = $_GET['fibre'];
+                            $checked_fibre = explode(' ', $get_fibre);
+                            if ($all_fibre) :
+                                // sort alphabetically by name
+                                usort($all_fibre, 'compare_name');
+                                ?>
+                                <div class="filter">
+                                    <p class="filter-title js-accordeon-title <?php if ($get_fibre) echo 'is-opened'; ?>">Fibre<span class="filter-title__icon">
+                                                    <svg class="icon drop_arrow">
+                                                        <use xlink:href="#drop_arrow"></use>
+                                                    </svg></span></p>
+                                    <div class="js-accordeon-content" id="fb">
+                                        <div class="filter-content">
+                                            <?php foreach ($all_fibre as $c_fibre){ ?>
+                                                <div class="filter-item" onchange="filter('fb')">
+                                                    <input type="checkbox" name="Fibre" id="Fibre<?= $num ?>" class="filter-item__input" fibre="<?= $c_fibre->slug ?>" <?php if(in_array($c_fibre->slug, $checked_fibre)) echo 'checked'; ?>/>
+                                                    <label for="Fibre<?= $num ?>" class="filter-item__label"><?= $c_fibre->name ?></label>
+                                                </div>
+                                                <?php
+                                                $num++;
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php } ?>
+
+                        <!-- Colour -->
+                        <?php
+                        $field = get_field_object('colour_filter');
+                        $all_colours = $field['choices'];
+                        $colour_slugs = array();
+                        $num = 0;
+                        $get_colours = $_GET['colour'];
+                        $checked_colours = explode(' ', $get_colours);
+                        $existingColorsChecked = array();
+                        ?>
+
+                        <?php if ($all_colours) :
+                            // sort alphabetically by name
+                            asort($all_colours);
+                            ?>
+                            <div class="filter">
+                                <p class="filter-title js-accordeon-title <?php if ($get_colours) echo 'is-opened'; ?>">Colour<span class="filter-title__icon">
+                                                <svg class="icon drop_arrow">
+                                                    <use xlink:href="#drop_arrow"></use>
+                                                </svg></span></p>
+                                <div class="js-accordeon-content" id="c">
+                                    <div class="filter-content">
+
+                                        <?php foreach ($all_colours as $key => $c_colour){ ?>
+                                            <div class="filter-item" onchange="filter('c')">
+                                                <input type="checkbox" name="Colour" id="Colour<?= $num ?>" class="filter-item__input" Colour="<?= $key ?>" <?php if(in_array($key, $checked_colours)) {echo 'checked'; $existingColorsChecked[] = $key; } ?>/>
+                                                <label for="Colour<?= $num ?>" class="filter-item__label"><?= $c_colour ?></label>
+                                            </div>
+                                            <?php
+                                            $num++;
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- Features -->
+                        <?php
+                        $feature_slugs = array();
+                        $all_features = get_terms(['taxonomy' => 'product_feature']);
+                        $num = 0;
+                        $get_features = $_GET['feature'];
+                        $checked_features = explode(' ', $get_features);
+                        if ($all_features) :
+                            // sort alphabetically by name
+                            usort($all_features, 'compare_name');
+                            ?>
+                            <div class="filter">
+                                <p class="filter-title js-accordeon-title <?php if ($get_features) echo 'is-opened'; ?>">Features<span class="filter-title__icon">
 											<svg class="icon drop_arrow">
 												<use xlink:href="#drop_arrow"></use>
 											</svg></span></p>
-                            <div class="js-accordeon-content" id="f">
-                                <div class="filter-content">
-                                    <?php foreach ($all_features as $c_feature){ ?>
-                                        <div class="filter-item" onchange="filter('f')">
-                                            <input type="checkbox" name="Features" id="Features<?= $num ?>" class="filter-item__input" feature="<?= $c_feature->slug ?>" <?php if(in_array($c_feature->slug, $checked_features)) echo 'checked'; ?>/>
-                                            <label for="Features<?= $num ?>" class="filter-item__label"><?= $c_feature->name ?></label>
-                                        </div>
-                                        <?php
-                                        $num++;
-                                    }
-                                    ?>
+                                <div class="js-accordeon-content" id="f">
+                                    <div class="filter-content">
+                                        <?php foreach ($all_features as $c_feature){ ?>
+                                            <div class="filter-item" onchange="filter('f')">
+                                                <input type="checkbox" name="Features" id="Features<?= $num ?>" class="filter-item__input" feature="<?= $c_feature->slug ?>" <?php if(in_array($c_feature->slug, $checked_features)) echo 'checked'; ?>/>
+                                                <label for="Features<?= $num ?>" class="filter-item__label"><?= $c_feature->name ?></label>
+                                            </div>
+                                            <?php
+                                            $num++;
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endif; ?>
+                        <?php endif; ?>
 
-                    <!-- Brand -->
-                    <?php
-                    $all_brands = get_field('filter_brands', $term);
-                    $brand_slugs = array();
-                    $num = 0;
-                    $get_brands = $_GET['brand'];
-                    $checked_brands = explode(' ', $get_brands);
-                    $existingBrandsChecked = array();
-                    ?>
-
-                    <?php if ($all_brands) :
-                        // sort alphabetically by name
-                        usort($all_brands, 'compare_name');
+                        <!-- Brand -->
+                        <?php
+                        $all_brands = get_field('filter_brands', $term);
+                        $brand_slugs = array();
+                        $num = 0;
+                        $get_brands = $_GET['brand'];
+                        $checked_brands = explode(' ', $get_brands);
+                        $existingBrandsChecked = array();
                         ?>
-                        <div class="filter">
-                            <p class="filter-title js-accordeon-title <?php if ($get_brands) echo 'is-opened'; ?>">Brand<span class="filter-title__icon">
+
+                        <?php if ($all_brands) :
+                            // sort alphabetically by name
+                            usort($all_brands, 'compare_name');
+                            ?>
+                            <div class="filter">
+                                <p class="filter-title js-accordeon-title <?php if ($get_brands) echo 'is-opened'; ?>">Brand<span class="filter-title__icon">
                                                 <svg class="icon drop_arrow">
                                                     <use xlink:href="#drop_arrow"></use>
                                                 </svg></span></p>
-                            <div class="js-accordeon-content" id="b">
-                                <div class="filter-content">
+                                <div class="js-accordeon-content" id="b">
+                                    <div class="filter-content">
 
-                                    <?php foreach ($all_brands as $key => $c_brand){ ?>
-                                        <div class="filter-item" onchange="filter('b')">
-                                            <input type="checkbox" name="Brand" id="Brand<?= $num ?>" class="filter-item__input" brand="<?= $c_brand->slug ?>" <?php if(in_array($c_brand->slug, $checked_brands)) {echo 'checked'; $existingBrandsChecked[] = $c_brand->slug; } ?>/>
-                                            <label for="Brand<?= $num ?>" class="filter-item__label"><?= $c_brand->name ?></label>
-                                        </div>
-                                        <?php
-                                        $num++;
-                                    }
-                                    ?>
+                                        <?php foreach ($all_brands as $key => $c_brand){ ?>
+                                            <div class="filter-item" onchange="filter('b')">
+                                                <input type="checkbox" name="Brand" id="Brand<?= $num ?>" class="filter-item__input" brand="<?= $c_brand->slug ?>" <?php if(in_array($c_brand->slug, $checked_brands)) {echo 'checked'; $existingBrandsChecked[] = $c_brand->slug; } ?>/>
+                                                <label for="Brand<?= $num ?>" class="filter-item__label"><?= $c_brand->name ?></label>
+                                            </div>
+                                            <?php
+                                            $num++;
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endif; ?>
-
-                </form>
+                        <?php endif; ?>
+                    </form>
                 </div>
             </div>
             <div class="category-grid__main <?= CATEGORY_TYPE ?>">
@@ -641,9 +640,35 @@
                 global $wp_query;
 
                 $add_attr = array(
+                    'meta_query' => [
+                        'relation' => 'AND',
+                    ],
                     'tax_query' => array(
                         'relation' => 'AND',
                     ),);
+
+                switch ($catalogSort[$selectedSort]['sort']) {
+                    case 'price':
+                        $add_attr['orderby'] = 'meta_value_num';
+                        $add_attr['order'] = $catalogSort[$selectedSort]['type'];
+                        if (!empty($add_attr['meta_query'])) {
+                            /*
+                            foreach ($args['meta_query'] as $key => &$value) {
+                                $value[] = [
+                                    'key'     => '_price'
+                                ];
+                            }
+                            */
+                            $add_attr['meta_query'][] = [
+                                'key'     => '_price'
+                            ];
+                        } else {
+                            $add_attr['meta_query'][] = [
+                                'key'     => '_price'
+                            ];
+                        }
+                        break;
+                }
 
                 //shade
                 if ($_GET['shade']){
@@ -720,21 +745,6 @@
                     case 'name':
                         $args['orderby'] = 'title';
                         $args['order'] = $catalogSort[$selectedSort]['type'];
-                        break;
-                    case 'price':
-                        $args['orderby'] = 'meta_value_num';
-                        $args['order'] = $catalogSort[$selectedSort]['type'];
-                        if (!empty($args['meta_query'])) {
-                            foreach ($args['meta_query'] as $key => &$value) {
-                                $value[] = [
-                                    'key'     => '_price'
-                                ];
-                            }
-                        } else {
-                            $args['meta_query'][] = [
-                                'key'     => '_price'
-                            ];
-                        }
                         break;
                     case 'relevance':
                         $args['orderby'] = 'ID';

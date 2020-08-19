@@ -10,7 +10,7 @@ function toggleColorProduct() {
 		var productNamingEl = parent.querySelector('.js-select-color');
 		var productNaming = productTriggerPhoto[0].dataset.naming;
 
-		productTriggerPhoto[0].classList.add('is-active');
+		//productTriggerPhoto[0].classList.add('is-active');
 		productTargetPhoto[0].classList.add('is-visible');
 		productNamingEl.textContent = productNaming;
 
