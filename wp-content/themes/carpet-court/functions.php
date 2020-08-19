@@ -163,7 +163,7 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
      }
      enqueue_versioned_style('theme-store-locator', '/assets/css/store-locator-custom.css');
 
-     addRelatedProducts();
+     //addRelatedProducts();
 }
 add_action( 'wp_enqueue_scripts', 'carpet_court_scripts' );
 
