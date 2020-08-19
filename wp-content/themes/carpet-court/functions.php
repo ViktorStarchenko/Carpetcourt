@@ -162,6 +162,8 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
          }
      }
      enqueue_versioned_style('theme-store-locator', '/assets/css/store-locator-custom.css');
+
+     addRelatedProducts();
 }
 add_action( 'wp_enqueue_scripts', 'carpet_court_scripts' );
 
@@ -2349,4 +2351,89 @@ add_filter( 'site_transient_update_plugins', 'filter_plugin_updates' );
 function filter_plugin_updates( $value ) {
     unset( $value->response['wp-store-locator/wp-store-locator.php'] );
     return $value;
+}
+
+function addRelatedProducts() {
+    global $wpdb;
+
+    $args = [
+        'post_type'   => 'product',
+        'numberposts' => -1
+    ];
+
+    $products = get_posts($args);
+
+    $colorsData = get_terms([
+        'taxonomy' => 'pa_color'
+    ]);
+
+    $relatedData = [];
+
+    if (!empty($products)) {
+        foreach ($products as $prod) {
+            $baseName = '';
+            $mainProductColor = [];
+            $relatedProducts = [];
+            $product = wc_get_product($prod->ID);
+            $attrs = $product->get_attributes();
+            if (!empty($attrs)) {
+                foreach ($attrs as $key => $attr) {
+                    if ($key == 'pa_color') {
+                        $data = $attr->get_data();
+                        if (!empty($data['options'])) {
+                            foreach ($data['options'] as $optionID) {
+                                foreach ($colorsData as $color) {
+                                    if ($color->term_id == $optionID) {
+                                        $pos = strpos($prod->post_title, $color->name);
+                                        if ($pos !== false) {
+                                            $mainProductColor = $color;
+                                            $baseNameData = explode($color->name, $prod->post_title);
+                                            if (isset($baseNameData[1])) {
+                                                $baseName = trim($baseNameData[0]);
+                                            }
+
+                                            if (!empty($baseName)) {
+                                                $search_query = "SELECT ID FROM {$wpdb->prefix}posts
+                                                                         WHERE post_type = 'product' 
+                                                                         AND post_title LIKE %s";
+                                                $like = $baseName.'%';
+                                                $results = $wpdb->get_results($wpdb->prepare($search_query, $like), ARRAY_N);
+                                                foreach($results as $key => $array){
+                                                    $relatedProducts[] = $array[0];
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            $relatedData[$prod->ID] = [
+                'ID'              => $prod->ID,
+                'title'           => $prod->post_title,
+                'baseName'        => $baseName,
+                'mainColor'       => $mainProductColor,
+                'relatedProducts' => $relatedProducts
+            ];
+        }
+    }
+
+    if (!empty($relatedData)) {
+        foreach ($relatedData as $item) {
+            if (!empty($item['mainColor'])) {
+                $colorProductField = get_field_object('current_colour', $item['ID']);
+                if (!empty($colorProductField['key'])) {
+                    update_field($colorProductField['key'], $item['mainColor']->term_id, $item['ID']);
+                }
+            }
+            if (!empty($item['relatedProducts'])) {
+                $relatedProductsField = get_field_object('related_products', $item['ID']);
+                if (!empty($relatedProductsField['key'])) {
+                    update_field($relatedProductsField['key'], $item['relatedProducts'], $item['ID']);
+                }
+            }
+        }
+    }
 }
