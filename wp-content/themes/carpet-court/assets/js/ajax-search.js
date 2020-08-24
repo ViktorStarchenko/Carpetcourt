@@ -1,0 +1,41 @@
+jQuery(document).on( 'submit', 'form.search-form', function() {
+    var $form = jQuery(this);
+    var $input = $form.find('input[name="s"]');
+    var query = $input.val();
+    var $content = jQuery('.drop-search-main .search-result');
+    var $related = jQuery('.drop-search-aside .search-result');
+
+    jQuery.ajax({
+        type : 'post',
+        url : myAjax.ajaxurl,
+        data : {
+            action : 'load_search_results',
+            query : query
+        },
+        beforeSend: function() {
+            $input.prop('disabled', true);
+            $content.addClass('loading');
+        },
+        success : function( response ) {
+            $input.prop('disabled', false);
+            $content.removeClass('loading');
+            $content.html( response );
+        }
+    });
+
+    jQuery.ajax({
+        type : 'post',
+        url : myAjax.ajaxurl,
+        data : {
+            action : 'load_related_results',
+            query : query
+        },
+        success : function( response ) {
+            $related.html( response );
+        }
+    });
+    return false;
+})
+jQuery('.drop-search-main').on('click', '#full-search-load', function() {
+    document.getElementById('header-search-form').submit();
+})

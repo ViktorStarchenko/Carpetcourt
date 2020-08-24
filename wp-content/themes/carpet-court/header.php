@@ -403,12 +403,11 @@ function compare_name($a, $b)
     <div class="drop-search js-check-padding">
         <div class="container">
             <div class="drop-search-inner">
-                <?php echo do_shortcode( '[searchandfilter fields="search,category,post_tag,post_format,cc_design_cat,cc_trouble_cat,cc_idea_cat,product_cat,product_tag,product_shipping_class,wpsl_store_category,floor_taxonomy,fibre_taxonomy,top_five_taxonomy,additional_option,product_brand,product_feature,product_delivery,product_color"]' ); ?>
                 <div class="drop-search-main">
                     <div class="drop-search-form">
                         <div class="drop-search-form__field">
-                            <form class="search-form">
-                                <input type="text" placeholder="search for products, categories or advice...">
+                            <form class="search-form" id="header-search-form">
+                                <input type="text" name="s" placeholder="search for products, categories or advice...">
                                 <button type="submit" class="ic-nav-search"></button>
                             </form>
                         </div>
@@ -418,56 +417,14 @@ function compare_name($a, $b)
                     </div>
                     <!-- скрываем эти блоки, если нет результатов-->
                     <div class="search-result">
-                        <div class="drop-search-tile"><a href="#" class="search-result-card">
-                                <div class="search-result-card__img"><img src="images/product-tool/swatch.jpg" alt="Evercore Herringbone"></div>
-                                <div class="search-result-card__title">
-                                    <div class="search-result-card__name">Rhino   Evercore Herringbone</div>
-                                    <div class="search-result-card__whish"><i class="ic-bar-heart"></i></div>
-                                </div>
-                                <div class="search-result-card__subtitle">Clare</div></a><a href="#" class="search-result-card">
-                                <div class="search-result-card__img"><img src="images/product-tool/swatch.jpg" alt="Evercore Herringbone"></div>
-                                <div class="search-result-card__title">
-                                    <div class="search-result-card__name">Rhino   Evercore Herringbone</div>
-                                    <div class="search-result-card__whish"><i class="ic-bar-heart"></i></div>
-                                </div>
-                                <div class="search-result-card__subtitle">Clare</div></a><a href="#" class="search-result-card">
-                                <div class="search-result-card__img"><img src="images/product-tool/swatch.jpg" alt="Evercore Herringbone"></div>
-                                <div class="search-result-card__title">
-                                    <div class="search-result-card__name">Rhino   Evercore Herringbone</div>
-                                    <div class="search-result-card__whish"><i class="ic-bar-heart"></i></div>
-                                </div>
-                                <div class="search-result-card__subtitle">Clare</div></a><a href="#" class="search-result-card">
-                                <div class="search-result-card__img"><img src="images/product-tool/swatch.jpg" alt="Evercore Herringbone"></div>
-                                <div class="search-result-card__title">
-                                    <div class="search-result-card__name">Rhino   Evercore Herringbone</div>
-                                    <div class="search-result-card__whish"><i class="ic-bar-heart"></i></div>
-                                </div>
-                                <div class="search-result-card__subtitle">Clare</div></a>
-                        </div>
-                        <div class="drop-search-total">
-                            <div class="drop-search-total__value">showing 4 of 6 results for ‘Rhino'</div>
-                        </div>
-                        <div class="drop-search-show"><a href="#" class="drop-search-show__link btn btn-index btn--grey">view all products</a></div>
+
+
                     </div>
                 </div>
                 <div class="drop-search-aside">
                     <!-- скрываем эти блоки, если нет результатов-->
                     <div class="search-result">
-                        <div class="drop-search-category">
-                            <div class="drop-search-category__title">related categories</div>
-                            <ul class="drop-search-category__list">
-                                <li><a href="#">shop Carpet / Cut & Loop Pile</a></li>
-                                <li><a href="#">shop Carpet / Cut Pile</a></li>
-                                <li><a href="#">shop Carpet / Loop Pile</a></li>
-                            </ul>
-                        </div>
-                        <div class="drop-search-category">
-                            <div class="drop-search-category__title">related articles</div>
-                            <ul class="drop-search-category__list">
-                                <li><a href="#">trusted Brand Winner!</a></li>
-                                <li><a href="#">top Tips For Christmas Spills</a></li>
-                            </ul>
-                        </div>
+
                     </div>
                 </div>
             </div>
