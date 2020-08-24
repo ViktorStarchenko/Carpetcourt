@@ -406,7 +406,7 @@ function compare_name($a, $b)
                 <div class="drop-search-main">
                     <div class="drop-search-form">
                         <div class="drop-search-form__field">
-                            <form class="search-form" id="header-search-form">
+                            <form action = "<?= home_url() ?>" class="search-form" id="header-search-form">
                                 <input type="text" name="s" placeholder="search for products, categories or advice...">
                                 <button type="submit" class="ic-nav-search"></button>
                             </form>
