@@ -39,3 +39,38 @@ jQuery(document).on( 'submit', 'form.search-form', function() {
 jQuery('.drop-search-main').on('click', '#full-search-load', function() {
     document.getElementById('header-search-form').submit();
 })
+jQuery(document).on( 'keyup', 'input[name="s"]', function() {
+    var $input = jQuery(this);
+    var query = $input.val();
+    var $content = jQuery('.drop-search-main .search-result');
+    var $related = jQuery('.drop-search-aside .search-result');
+
+    jQuery.ajax({
+        type : 'post',
+        url : myAjax.ajaxurl,
+        data : {
+            action : 'load_search_results',
+            query : query
+        },
+        beforeSend: function() {
+
+        },
+        success : function( response ) {
+            $input.prop('disabled', false);
+            $content.removeClass('loading');
+            $content.html( response );
+        }
+    });
+
+    jQuery.ajax({
+        type : 'post',
+        url : myAjax.ajaxurl,
+        data : {
+            action : 'load_related_results',
+            query : query
+        },
+        success : function( response ) {
+            $related.html( response );
+        }
+    });
+})
