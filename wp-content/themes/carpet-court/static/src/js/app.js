@@ -397,6 +397,15 @@ function getInternetExplorerVersion() {
         */
     }
     
+    function hoverToColor() {
+        $('.js-product-trigger').hover(function () {
+            var data = $(this).stop(true, true).data('color');
+            console.log(data);
+            $('.js-sw-color').removeClass('is-visible');
+            $(".js-sw-color.color-" + data).addClass('is-visible');
+        });
+    }
+    
     // nav
     var nav = {
         
@@ -537,6 +546,7 @@ function getInternetExplorerVersion() {
         catalogSorter();
         nav.init();
         checkModal.init();
+        hoverToColor();
     });
 
     $window.on('load', function () {
