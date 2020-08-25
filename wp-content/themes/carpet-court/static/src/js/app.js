@@ -397,6 +397,15 @@ function getInternetExplorerVersion() {
         */
     }
     
+    function hoverToColor() {
+        $('.js-product-trigger').hover(function () {
+            var data = $(this).stop(true, true).data('color');
+            console.log(data);
+            $('.js-sw-color').removeClass('is-visible');
+            $(".js-sw-color.color-" + data).addClass('is-visible');
+        });
+    }
+    
     // nav
     var nav = {
         
@@ -519,6 +528,7 @@ function getInternetExplorerVersion() {
             return self.instance || (self.instance = self.createInstance());
         }());
     }
+    
 
     function relatedSlider() {
         var slider = $('.mobile-related .js-card-wrapper');
@@ -579,6 +589,7 @@ function getInternetExplorerVersion() {
         checkModal.init();
         relatedSlider();
         socialLinks();
+	hoverToColor();
     });
 
     $window.on('load', function () {

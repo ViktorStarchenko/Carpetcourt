@@ -2427,20 +2427,28 @@ function addRelatedProducts() {
         }
     }
 
+
     if (!empty($relatedData)) {
         foreach ($relatedData as $item) {
             if (!empty($item['mainColor'])) {
                 $colorProductField = get_field_object('current_colour', $item['ID']);
                 if (!empty($colorProductField['key'])) {
                     update_field($colorProductField['key'], $item['mainColor']->term_id, $item['ID']);
+                } else {
+                    update_field('field_5f101d24bd89a', $item['mainColor']->term_id, $item['ID']);
                 }
             }
             if (!empty($item['relatedProducts'])) {
                 $relatedProductsField = get_field_object('related_products', $item['ID']);
                 if (!empty($relatedProductsField['key'])) {
                     update_field($relatedProductsField['key'], $item['relatedProducts'], $item['ID']);
+                } else {
+                    update_field('field_5f101d6abd89b', $item['relatedProducts'], $item['ID']);
                 }
             }
         }
     }
+
+    dump($relatedData);
+    exit();
 }

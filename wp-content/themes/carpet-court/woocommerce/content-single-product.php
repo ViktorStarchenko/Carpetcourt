@@ -219,13 +219,21 @@ if ( post_password_required() ) {
                                         <?php foreach ($colors as $color) : ?>
                                             <?php if ($color->term_id == $currentColour) : ?>
                                                 <?php $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
-                                                <div style="background-image:url('<?= $color_image ?>');" class="product-selector-preview__item js-product-target color-<?= $color->slug ?>"></div>
+                                                <div style="background-image:url('<?= $color_image ?>');" class="product-selector-preview__item js-product-target js-sw-color color-<?= $color->slug ?>" data-color="<?= $color->slug ?>"></div>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
-                                        <?php foreach ($colors as $color) : ?>
-                                            <?php if ($color->term_id != $currentColour) : ?>
-                                                <?php $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
-                                                <div style="background-image:url('<?= $color_image ?>');" class="product-selector-preview__item js-product-target color-<?= $color->slug ?>"></div>
+
+                                        <?php foreach ($relatedProducts as $relatedProduct) : ?>
+                                            <?php if ($relatedProduct == $post->ID) : ?>
+                                            <?php else : ?>
+                                                <?php
+                                                $relatedProductColour = get_field('current_colour', $relatedProduct);
+                                                $color = get_term_by('term_taxonomy_id', $relatedProductColour);
+                                                ?>
+                                                <?php if (!empty($color) && !empty($relatedProductColour)) : ?>
+                                                    <?php $color_image = get_term_meta($relatedProductColour, 'cpm_color_thumbnail', true ); ?>
+                                                    <div style="background-image:url('<?= $color_image ?>');" class="product-selector-preview__item js-product-target js-sw-color color-<?= $color->slug ?>" data-color="<?= $color->slug ?>"></div>
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
@@ -245,14 +253,14 @@ if ( post_password_required() ) {
                                             ?>
                                             <?php if (!empty($color) && !empty($relatedProductColour)) : ?>
                                                 <?php if ($relatedProduct == $post->ID) : ?>
-                                                    <li data-naming="<?= $color->name ?>" class="product-selector-thumbs__item js-product-trigger is-active color-<?= $color->slug ?>">
+                                                    <li data-naming="<?= $color->name ?>" class="product-selector-thumbs__item js-product-trigger is-active color-<?= $color->slug ?>" data-color="<?= $color->slug ?>">
                                                         <div class="product-selector-thumbs__img">
                                                             <img style="min-width: 34px; min-height: 34px;" src="<?= $color_image ?>" alt="<?= $color->name ?>"/>
                                                         </div>
                                                     </li>
                                                 <?php else : ?>
                                                     <?php $color_image = get_term_meta($relatedProductColour, 'cpm_color_thumbnail', true ); ?>
-                                                    <li class="product-selector-thumbs__item js-product-trigger color-<?= $color->slug ?>">
+                                                    <li class="product-selector-thumbs__item js-product-trigger color-<?= $color->slug ?>" data-color="<?= $color->slug ?>">
                                                         <a href="<?= get_permalink($relatedProduct) ?>">
                                                             <div class="product-selector-thumbs__img">
                                                                 <img style="min-width: 34px; min-height: 34px;" src="<?= $color_image ?>" alt="<?= $color->name ?>"/>
