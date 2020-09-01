@@ -162,6 +162,9 @@ function import_from_file()
 										wp_set_post_categories($ID, $post_cats);
 									}
 
+									if (!empty($descriptionImages)) {
+										update_post_meta($ID, '_thumbnail_id', $descriptionImages[0]);
+									}
 									if (!empty($tags)) {
 										wp_set_post_tags($ID, $tags);
 									}
