@@ -409,28 +409,31 @@ function getInternetExplorerVersion() {
     
     // nav
     var nav = {
-        
+
         reset: function() {
             window.overlay.disable();
             this.navigationItems.removeClass('active');
             this.dropdown.fadeOut(300);
         },
-        
+
         resize: function() {
             this.windowWidth = window.innerWidth;
             if (this.windowWidth < 1280) {
                 this.reset();
             }
         },
-        
+
         listeners: function() {
             this.navigationLinks.each(function() {
                 var link = $(this);
                 var item = link.closest('.nav-item');
-                
+
                 link.on('mouseenter', function(e) {
                     var dropdown = $(link.attr("data-dropdown"));
                     if (!dropdown.length) return false;
+                    if($('body').hasClass('search-opened')){
+                        window.search.close();
+                    }
                     window.overlay.enable();
                     nav.dropdown.fadeIn(300);
                     nav.navigationItems.removeClass('active');
@@ -440,11 +443,13 @@ function getInternetExplorerVersion() {
                 });
 
                 $('body').on('click', function(e) {
-                    nav.reset();
+                    if(!$('body').hasClass('search-opened')){
+                        nav.reset();
+                    }
                 });
             });
         },
-        
+
         init: function() {
             this.header = $('.g-header');
             this.navigation = this.header.find('.h-nav');
@@ -461,39 +466,45 @@ function getInternetExplorerVersion() {
                 nav.resize();
             });
             $window.on('click', function() {
-                nav.reset();
+                if(!$('body').hasClass('search-opened')){
+                    nav.reset();
+                }
             });
             this.dropdown.on('click', function(e) {
                 e.stopPropagation();
             });
         }
     };
-    
-    
+
     // search
     function initSearch() {
         window.search = (function() {
             var self = {};
             self.instance = null;
             self.isOpened = false;
-        
+            self.isOpened = false;
+            self.searchPanel = $('.drop-search');
             self.open = function() {
-                self.isOpened = true;
+                nav.reset();
                 $body.addClass('search-opened');
-
+                window.overlay.enable();
                 setTimeout(function () {
                     self.searchFocus();
+                    self.isOpened = true;
+                    self.searchDrop(self.isOpened);
                 }, 100);
 
                 return self.isOpened;
             };
-        
+
             self.close = function() {
                 self.isOpened = false;
+                window.overlay.disable();
                 $body.removeClass('search-opened');
+                self.searchDrop(self.isOpened);
                 return self.isOpened;
             };
-            
+
             self.buttons = function() {
                 var buttons = $('.search-opener');
                 if (!buttons.length) return false;
@@ -506,30 +517,47 @@ function getInternetExplorerVersion() {
                 });
             };
 
+            self.searchDrop = function(state){
+                if (!self.searchPanel.length) return false;
+                if(state){
+                    self.searchPanel.fadeIn(300);
+                } else {
+                    self.searchPanel.fadeOut(300);
+                }
+            }
+
             self.searchFocus = function() {
                 $("form.search-form input").focus();
             };
-        
+
             // constructor
             self.createInstance = function() {
-                self.wrap = $('.g-search');
-                if (!self.wrap.length) return {
-                    open: function() { return false; },
-                    close: function() { return false; }
-                };
-    
+                // self.wrap = $('.g-search');
+                // if (!self.wrap.length) return {
+                //     open: function() { return false; },
+                //     close: function() { return false; }
+                // };
+                self.searchPanel.on('click', function(e) {
+                    e.stopPropagation();
+                });
+
+                $('body').on('click', function(e) {
+                    if(self.isOpened){
+                        self.close();
+                    }
+                });
+
                 self.buttons();
-            
+
                 return {
                     open: self.open,
                     close: self.close
                 };
             };
-        
+
             return self.instance || (self.instance = self.createInstance());
         }());
     }
-    
 
     function relatedSlider() {
         var slider = $('.mobile-related .js-card-wrapper');
@@ -573,6 +601,7 @@ function getInternetExplorerVersion() {
         });
     }
     
+
     // Call functions
     $(function () {
         isTouch();

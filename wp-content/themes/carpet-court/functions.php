@@ -10,6 +10,7 @@ define('CATEGORY_CARPET_ID', 7);
 include "include/findStore.php";
 include "include/acfAdminPanel.php";
 include "include/product_imposrt.php";
+include "include/import_blog.php";
 
 add_filter( 'woocommerce_breadcrumb_home_url', 'carpet_woo_custom_breadrumb_home_url' );
 function carpet_woo_custom_breadrumb_home_url() {
@@ -147,6 +148,7 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
              enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
              enqueue_versioned_script( 'sticky-slider-js',  '/static/public/js/libs/sticky.min.js', array('jquery'), true);
              enqueue_versioned_script( 'theme-js',  '/assets/js/app.min.js', array('jquery'), true);
+
          }
      } else {
          if(!is_admin()) {
@@ -159,8 +161,11 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
             enqueue_versioned_script( 'sticky-slider-js',  '/static/public/js/libs/sticky.min.js', array('jquery'), true);
             enqueue_versioned_script( 'bootstrap-js',  '/static/public/js/bootstrap.min.js', array('jquery'), true);
             enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
+			enqueue_versioned_script( 'ajax-search',  '/assets/js/ajax-search.js', array('jquery'), true);
+
          }
      }
+	 wp_localize_script( 'ajax-search', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
      enqueue_versioned_style('theme-store-locator', '/assets/css/store-locator-custom.css');
 
      //addRelatedProducts();
@@ -2353,6 +2358,7 @@ function filter_plugin_updates( $value ) {
     return $value;
 }
 
+
 function short_code_content_media($atts) {
     ob_start();
     require get_stylesheet_directory() . '/template-parts/mediacontent.php';
@@ -2451,4 +2457,133 @@ function addRelatedProducts() {
 
     dump($relatedData);
     exit();
+}
+add_action( 'wp_ajax_load_search_results', 'load_search_results' );
+add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
+
+function load_search_results() {
+	$query = $_POST['query'];
+
+	$args = array(
+		'post_type' => 'product',
+		'post_status' => 'publish',
+		's' => $query,
+        'posts_per_page' => 4
+	);
+	$search = new WP_Query( $args );
+
+	ob_start();
+
+	if ( $search->have_posts() ) :
+        ?>
+        <div class="drop-search-tile">
+
+<?php
+            while ( $search->have_posts() ) : $search->the_post();
+
+				$primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
+				$primary = $primary->get_primary_term();
+				$primary_cat = get_term_by('term_taxonomy_id', $primary);
+				$featured_image = get_field('featured_image', get_the_ID());
+            ?>
+                <a href="<?= get_permalink(get_the_ID())?>" class="search-result-card">
+                    <div class="search-result-card__img"><img src="<?= $featured_image ?? '' ?>" alt="<?= the_title()?>"></div>
+                    <div class="search-result-card__title">
+                        <div class="search-result-card__name"><?= the_title()?></div>
+                        <div class="search-result-card__whish"><i class="ic-bar-heart"></i></div>
+                    </div>
+                    <div class="search-result-card__subtitle"><?= $primary_cat->name?></div>
+                </a>
+			<?php
+
+			endwhile;
+			?>
+        </div>
+        <div class="drop-search-total">
+            <div class="drop-search-total__value">showing 4 of <?= $search->found_posts ?> results for ‘<?= $query ?>'</div>
+        </div>
+        <div class="drop-search-show"><a href="#" class="drop-search-show__link btn btn-index btn--grey" id="full-search-load">view all products</a></div>
+	<?php else :
+		echo 'No results';
+	endif;
+
+	$content = ob_get_clean();
+
+	echo $content;
+	die();
+
+}
+
+add_action( 'wp_ajax_load_related_results', 'load_related_results' );
+add_action( 'wp_ajax_nopriv_load_related_results', 'load_related_results' );
+
+function load_related_results() {
+	$query = $_POST['query'];
+
+	$args = array(
+		'post_type' => 'product',
+		'post_status' => 'publish',
+		's' => $query,
+        'posts_per_page' => 4
+	);
+	$search = new WP_Query( $args );
+
+	ob_start();
+
+	if ( $search->have_posts() ) :
+        ?>
+        <div class="drop-search-category">
+        <div class="drop-search-category__title">related categories</div>
+        <ul class="drop-search-category__list">
+
+            <?php
+
+            while ( $search->have_posts() ) : $search->the_post();
+				$primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
+				$primary = $primary->get_primary_term();
+				$primary_cat = get_term_by('term_taxonomy_id', $primary);
+                $style_value = get_field('style_filter', get_the_ID());
+                $styles_array = get_field_object('style_filter', get_the_ID());
+                if(array_key_exists($style_value[0],$styles_array['choices'])) {
+					$style_title = $styles_array['choices'][$style_value[0]];
+				}
+
+                if (($search->current_post + 1)  !=  $search->post_count) : ?>
+                     <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?? 'Carpet'?>  / <?= $style_title ?? 'Cut Pile'?></a></li>
+                <?php else :?>
+                    <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?? 'Carpet'?>  / <?= $style_title ?? 'Cut Pile'?></a></li>
+                    </ul>
+                    </div>
+                    <div class="drop-search-category">
+                    <div class="drop-search-category__title">related articles</div>
+                    <ul class="drop-search-category__list">
+                <?php
+					$args = [
+						'numberposts' => 2,
+						'post_type' => 'post',
+						's' => $query,
+					];
+					$rel_art = get_posts($args);
+					if(!empty($rel_art)) {
+					    foreach ($rel_art as $article)  :
+					?>
+                            <li><a href="<?= get_permalink($article->ID)?>"><?= $article->post_title?></a></li>
+					<?php
+                        endforeach;
+					}
+
+                endif;
+			    endwhile;
+			
+			?>
+        </ul>
+        </div>
+    <?php
+	endif;
+
+	$content = ob_get_clean();
+
+	echo $content;
+	die();
+
 }
