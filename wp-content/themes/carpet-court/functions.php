@@ -2484,10 +2484,10 @@ function load_search_results() {
 				$primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
 				$primary = $primary->get_primary_term();
 				$primary_cat = get_term_by('term_taxonomy_id', $primary);
-				$featured_image = get_field('featured_image', get_the_ID());
+				$featured_image = get_field('swatch_image', get_the_ID());
             ?>
                 <a href="<?= get_permalink(get_the_ID())?>" class="search-result-card">
-                    <div class="search-result-card__img"><img src="<?= $featured_image ?? '' ?>" alt="<?= the_title()?>"></div>
+                    <div class="search-result-card__img"><img src="<?= $featured_image['url'] ?? '' ?>" alt="<?= the_title()?>"></div>
                     <div class="search-result-card__title">
                         <div class="search-result-card__name"><?= the_title()?></div>
                         <div class="search-result-card__whish"><i class="ic-bar-heart"></i></div>
@@ -2560,7 +2560,7 @@ function load_related_results() {
                 <?php
 					$args = [
 						'numberposts' => 2,
-						'post_type' => 'post',
+						'post_type' => ['post', 'page'],
 						's' => $query,
 					];
 					$rel_art = get_posts($args);
