@@ -173,9 +173,9 @@ function import_from_file()
 
 								$y++;
 
-								 if ($y > 6) {
+								/* if ($y > 6) {
 									 break;
-								 }
+								 }*/
 
 						}
 						$i++;
