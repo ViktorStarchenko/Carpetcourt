@@ -39,6 +39,11 @@ jQuery(document).on( 'submit', 'form.search-form', function() {
 jQuery('.drop-search-main').on('click', '#full-search-load', function() {
     document.getElementById('header-search-form').submit();
 })
+jQuery(document).on('click','.ic-nav-search.search-opener', function() {
+    setTimeout(function () {
+        jQuery('#header-search-form input[name="s"]').focus();
+    }, 500);
+})
 jQuery(document).on( 'keyup', 'input[name="s"]', function() {
     var $input = jQuery(this);
     var query = $input.val();

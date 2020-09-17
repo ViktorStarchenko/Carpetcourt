@@ -147,7 +147,9 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
              enqueue_versioned_style('theme-styles', '/static/public/css/app.min.css');
              enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
              enqueue_versioned_script( 'sticky-slider-js',  '/static/public/js/libs/sticky.min.js', array('jquery'), true);
-             enqueue_versioned_script( 'theme-js',  '/assets/js/app.min.js', array('jquery'), true);
+             //enqueue_versioned_script( 'theme-js',  '/assets/js/app.min.js', array('jquery'), true);
+			 enqueue_versioned_script( 'theme-js',  '/assets/js/app-new.js', array('jquery'), true);
+			 enqueue_versioned_script( 'ajax-search',  '/assets/js/ajax-search.js', array('jquery'), true);
 
          }
      } else {
@@ -160,7 +162,8 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
             enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
             enqueue_versioned_script( 'sticky-slider-js',  '/static/public/js/libs/sticky.min.js', array('jquery'), true);
             enqueue_versioned_script( 'bootstrap-js',  '/static/public/js/bootstrap.min.js', array('jquery'), true);
-            enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
+            //enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
+			 enqueue_versioned_script( 'theme-js',  '/assets/js/app-new.js', array('jquery'), true);
 			enqueue_versioned_script( 'ajax-search',  '/assets/js/ajax-search.js', array('jquery'), true);
 
          }
@@ -2487,7 +2490,7 @@ function load_search_results() {
 				$featured_image = get_field('featured_image', get_the_ID());
             ?>
                 <a href="<?= get_permalink(get_the_ID())?>" class="search-result-card">
-                    <div class="search-result-card__img"><img src="<?= $featured_image ?>" alt="<?= the_title()?>"></div>
+                    <div class="search-result-card__img"><img src="<?= $featured_image ?? '' ?>" alt="<?= the_title()?>"></div>
                     <div class="search-result-card__title">
                         <div class="search-result-card__name"><?= the_title()?></div>
                         <div class="search-result-card__whish"><i class="ic-bar-heart"></i></div>
@@ -2549,9 +2552,9 @@ function load_related_results() {
 				}
 
                 if (($search->current_post + 1)  !=  $search->post_count) : ?>
-                     <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?>  / <?= $style_title ?></a></li>
+                     <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?? 'Carpet'?>  / <?= $style_title ?? 'Cut Pile'?></a></li>
                 <?php else :?>
-                    <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name  ?>  / <?= $style_title?></a></li>
+                    <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?? 'Carpet'?>  / <?= $style_title ?? 'Cut Pile'?></a></li>
                     </ul>
                     </div>
                     <div class="drop-search-category">
