@@ -2465,55 +2465,55 @@ add_action( 'wp_ajax_load_search_results', 'load_search_results' );
 add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
 
 function load_search_results() {
-	$query = $_POST['query'];
+    $query = $_POST['query'];
 
-	$args = array(
-		'post_type' => 'product',
-		'post_status' => 'publish',
-		's' => $query,
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        's' => $query,
         'posts_per_page' => 4
-	);
-	$search = new WP_Query( $args );
+    );
+    $search = new WP_Query( $args );
 
-	ob_start();
+    ob_start();
 
-	if ( $search->have_posts() ) :
+    if ( $search->have_posts() ) :
         ?>
         <div class="drop-search-tile">
 
-<?php
+            <?php
             while ( $search->have_posts() ) : $search->the_post();
 
-				$primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
-				$primary = $primary->get_primary_term();
-				$primary_cat = get_term_by('term_taxonomy_id', $primary);
-				$featured_image = get_field('featured_image', get_the_ID());
-            ?>
+                $primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
+                $primary = $primary->get_primary_term();
+                $primary_cat = get_term_by('term_taxonomy_id', $primary);
+                $featured_image = get_field('swatch_image', get_the_ID());
+                ?>
                 <a href="<?= get_permalink(get_the_ID())?>" class="search-result-card">
-                    <div class="search-result-card__img"><img src="<?= $featured_image ?>" alt="<?= the_title()?>"></div>
+                    <div class="search-result-card__img"><img src="<?= isset($featured_image['url']) ? $featured_image['url'] : '' ?>" alt="<?= the_title()?>"></div>
                     <div class="search-result-card__title">
                         <div class="search-result-card__name"><?= the_title()?></div>
                         <div class="search-result-card__whish"><i class="ic-bar-heart"></i></div>
                     </div>
                     <div class="search-result-card__subtitle"><?= $primary_cat->name?></div>
                 </a>
-			<?php
+            <?php
 
-			endwhile;
-			?>
+            endwhile;
+            ?>
         </div>
         <div class="drop-search-total">
             <div class="drop-search-total__value">showing 4 of <?= $search->found_posts ?> results for ‘<?= $query ?>'</div>
         </div>
         <div class="drop-search-show"><a href="#" class="drop-search-show__link btn btn-index btn--grey" id="full-search-load">view all products</a></div>
-	<?php else :
-		echo 'No results';
-	endif;
+    <?php else :
+        echo 'No results';
+    endif;
 
-	$content = ob_get_clean();
+    $content = ob_get_clean();
 
-	echo $content;
-	die();
+    echo $content;
+    die();
 
 }
 
@@ -2521,72 +2521,72 @@ add_action( 'wp_ajax_load_related_results', 'load_related_results' );
 add_action( 'wp_ajax_nopriv_load_related_results', 'load_related_results' );
 
 function load_related_results() {
-	$query = $_POST['query'];
+    $query = $_POST['query'];
 
-	$args = array(
-		'post_type' => 'product',
-		'post_status' => 'publish',
-		's' => $query,
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        's' => $query,
         'posts_per_page' => 4
-	);
-	$search = new WP_Query( $args );
+    );
+    $search = new WP_Query( $args );
 
-	ob_start();
+    ob_start();
 
-	if ( $search->have_posts() ) :
+    if ( $search->have_posts() ) :
         ?>
         <div class="drop-search-category">
         <div class="drop-search-category__title">related categories</div>
         <ul class="drop-search-category__list">
 
-            <?php
+        <?php
 
-            while ( $search->have_posts() ) : $search->the_post();
-				$primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
-				$primary = $primary->get_primary_term();
-				$primary_cat = get_term_by('term_taxonomy_id', $primary);
-                $style_value = get_field('style_filter', get_the_ID());
-                $styles_array = get_field_object('style_filter', get_the_ID());
-                if(array_key_exists($style_value[0],$styles_array['choices'])) {
-					$style_title = $styles_array['choices'][$style_value[0]];
-				}
+        while ( $search->have_posts() ) : $search->the_post();
+            $primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
+            $primary = $primary->get_primary_term();
+            $primary_cat = get_term_by('term_taxonomy_id', $primary);
+            $style_value = get_field('style_filter', get_the_ID());
+            $styles_array = get_field_object('style_filter', get_the_ID());
+            if(array_key_exists($style_value[0],$styles_array['choices'])) {
+                $style_title = $styles_array['choices'][$style_value[0]];
+            }
 
-                if (($search->current_post + 1)  !=  $search->post_count) : ?>
-                     <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?>  / <?= $style_title ?></a></li>
-                <?php else :?>
-                    <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?>  / <?= $style_title ?></a></li>
-                    </ul>
-                    </div>
-                    <div class="drop-search-category">
-                    <div class="drop-search-category__title">related articles</div>
-                    <ul class="drop-search-category__list">
+            if (($search->current_post + 1)  !=  $search->post_count) : ?>
+                <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= isset($primary_cat->name) ? $primary_cat->name : 'Carpet'?>  / <?= isset($style_title) ? $style_title : 'Cut Pile'?></a></li>
+            <?php else :?>
+                <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= isset($primary_cat->name) ? $primary_cat->name : 'Carpet' ?>  / <?= isset($style_title) ? $style_title : 'Cut Pile'?></a></li>
+                </ul>
+                </div>
+                <div class="drop-search-category">
+                <div class="drop-search-category__title">related articles</div>
+                <ul class="drop-search-category__list">
                 <?php
-					$args = [
-						'numberposts' => 2,
-						'post_type' => 'post',
-						's' => $query,
-					];
-					$rel_art = get_posts($args);
-					if(!empty($rel_art)) {
-					    foreach ($rel_art as $article)  :
-					?>
-                            <li><a href="<?= get_permalink($article->ID)?>"><?= $article->post_title?></a></li>
-					<?php
-                        endforeach;
-					}
+                $args = [
+                    'numberposts' => 2,
+                    'post_type' => ['post', 'page'],
+                    's' => $query,
+                ];
+                $rel_art = get_posts($args);
+                if(!empty($rel_art)) {
+                    foreach ($rel_art as $article)  :
+                        ?>
+                        <li><a href="<?= get_permalink($article->ID)?>"><?= $article->post_title?></a></li>
+                    <?php
+                    endforeach;
+                }
 
-                endif;
-			    endwhile;
-			
-			?>
+            endif;
+        endwhile;
+
+        ?>
         </ul>
         </div>
     <?php
-	endif;
+    endif;
 
-	$content = ob_get_clean();
+    $content = ob_get_clean();
 
-	echo $content;
-	die();
+    echo $content;
+    die();
 
 }
