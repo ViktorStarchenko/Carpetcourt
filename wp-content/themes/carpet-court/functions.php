@@ -2490,7 +2490,7 @@ function load_search_results() {
 				$featured_image = get_field('featured_image', get_the_ID());
             ?>
                 <a href="<?= get_permalink(get_the_ID())?>" class="search-result-card">
-                    <div class="search-result-card__img"><img src="<?= $featured_image ?? '' ?>" alt="<?= the_title()?>"></div>
+                    <div class="search-result-card__img"><img src="<?= $featured_image ?>" alt="<?= the_title()?>"></div>
                     <div class="search-result-card__title">
                         <div class="search-result-card__name"><?= the_title()?></div>
                         <div class="search-result-card__whish"><i class="ic-bar-heart"></i></div>
@@ -2552,9 +2552,9 @@ function load_related_results() {
 				}
 
                 if (($search->current_post + 1)  !=  $search->post_count) : ?>
-                     <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?? 'Carpet'?>  / <?= $style_title ?? 'Cut Pile'?></a></li>
+                     <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?>  / <?= $style_title ?></a></li>
                 <?php else :?>
-                    <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?? 'Carpet'?>  / <?= $style_title ?? 'Cut Pile'?></a></li>
+                    <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= $primary_cat->name ?>  / <?= $style_title ?></a></li>
                     </ul>
                     </div>
                     <div class="drop-search-category">
