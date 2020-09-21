@@ -2392,14 +2392,10 @@ function addRelatedProducts() {
             $mainProductColor = [];
             $relatedProducts = [];
             $product = wc_get_product($prod->ID);
-            var_dump(11);
             if ($product !== false ) {
-                var_dump(11);
                 $attrs = $product->get_attributes();
-
                 if (!empty($attrs)) {
                     foreach ($attrs as $key => $attr) {
-                        var_dump(11);
                         if ($key == 'pa_color') {
                             $data = $attr->get_data();
 
