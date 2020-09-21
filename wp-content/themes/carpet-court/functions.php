@@ -2391,31 +2391,33 @@ function addRelatedProducts() {
             $mainProductColor = [];
             $relatedProducts = [];
             $product = wc_get_product($prod->ID);
-            $attrs = $product->get_attributes();
-            if (!empty($attrs)) {
-                foreach ($attrs as $key => $attr) {
-                    if ($key == 'pa_color') {
-                        $data = $attr->get_data();
-                        if (!empty($data['options'])) {
-                            foreach ($data['options'] as $optionID) {
-                                foreach ($colorsData as $color) {
-                                    if ($color->term_id == $optionID) {
-                                        $pos = strpos($prod->post_title, $color->name);
-                                        if ($pos !== false) {
-                                            $mainProductColor = $color;
-                                            $baseNameData = explode($color->name, $prod->post_title);
-                                            if (isset($baseNameData[1])) {
-                                                $baseName = trim($baseNameData[0]);
-                                            }
+            if ( $product instanceof WC_Product) {
+                $attrs = $product->get_attributes();
+                if (!empty($attrs)) {
+                    foreach ($attrs as $key => $attr) {
+                        if ($key == 'pa_color') {
+                            $data = $attr->get_data();
+                            if (!empty($data['options'])) {
+                                foreach ($data['options'] as $optionID) {
+                                    foreach ($colorsData as $color) {
+                                        if ($color->term_id == $optionID) {
+                                            $pos = strpos($prod->post_title, $color->name);
+                                            if ($pos !== false) {
+                                                $mainProductColor = $color;
+                                                $baseNameData = explode($color->name, $prod->post_title);
+                                                if (isset($baseNameData[1])) {
+                                                    $baseName = trim($baseNameData[0]);
+                                                }
 
-                                            if (!empty($baseName)) {
-                                                $search_query = "SELECT ID FROM {$wpdb->prefix}posts
+                                                if (!empty($baseName)) {
+                                                    $search_query = "SELECT ID FROM {$wpdb->prefix}posts
                                                                          WHERE post_type = 'product' 
                                                                          AND post_title LIKE %s";
-                                                $like = $baseName.'%';
-                                                $results = $wpdb->get_results($wpdb->prepare($search_query, $like), ARRAY_N);
-                                                foreach($results as $key => $array){
-                                                    $relatedProducts[] = $array[0];
+                                                    $like = $baseName.'%';
+                                                    $results = $wpdb->get_results($wpdb->prepare($search_query, $like), ARRAY_N);
+                                                    foreach($results as $key => $array){
+                                                        $relatedProducts[] = $array[0];
+                                                    }
                                                 }
                                             }
                                         }
