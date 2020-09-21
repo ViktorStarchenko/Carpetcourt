@@ -2564,7 +2564,7 @@ function load_related_results() {
                 $args = [
                     'numberposts' => 2,
                     'post_type' => ['post', 'page'],
-                    's' => $query,
+                    's' => $query
                 ];
                 $rel_art = get_posts($args);
                 if(!empty($rel_art)) {

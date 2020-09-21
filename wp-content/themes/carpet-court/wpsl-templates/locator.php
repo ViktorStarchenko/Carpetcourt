@@ -169,44 +169,44 @@
                                                         }
 
 													    $openHours = '';
-														if (!empty($storeInfo[$story->ID]['wpsl_hours'][0])) {
-															//$phone = $storeInfo[$story->ID]['wpsl_hours'][0];
+                                                        if (!empty($storeInfo[$story->ID]['wpsl_hours'][0])) {
+                                                            //$phone = $storeInfo[$story->ID]['wpsl_hours'][0];
                                                             $daysArray = unserialize($storeInfo[$story->ID]['wpsl_hours'][0]);
                                                             $daysCount = count($daysArray);
                                                             $daysArrayKeys = array_keys($daysArray);
-                                                           // var_dump($daysArrayKeys);
-															$daysOfWeek = [];
+                                                            // var_dump($daysArrayKeys);
+                                                            $daysOfWeek = [];
                                                             for ($i = 0; $i < $daysCount; $i++) {
                                                                 if (!empty($daysArray[$daysArrayKeys[$i]]) && ($daysArray[$daysArrayKeys[$i]][0] == $daysArray[$daysArrayKeys[$i+1]][0] || $daysArray[$daysArrayKeys[$i-1]][0] == $daysArray[$daysArrayKeys[$i]][0]) ){
                                                                     $daysOfWeek['same']['weekdays'][] = ucfirst($daysArrayKeys[$i]);
                                                                     $daysOfWeek['same']['opens'] = explode(',', $daysArray[$daysArrayKeys[$i]][0])[0];
                                                                     $daysOfWeek['same']['closes'] = explode(',', $daysArray[$daysArrayKeys[$i]][0])[1];
                                                                 } elseif (!empty($daysArray[$daysArrayKeys[$i]])) {
-																	$daysOfWeek['separate']['weekdays'] = ucfirst($daysArrayKeys[$i]);
-																	$daysOfWeek['separate']['opens'] = explode(',', $daysArray[$daysArrayKeys[$i]][0])[0];
-																	$daysOfWeek['separate']['closes'] = explode(',', $daysArray[$daysArrayKeys[$i]][0])[1];
+                                                                    $daysOfWeek['separate']['weekdays'] = ucfirst($daysArrayKeys[$i]);
+                                                                    $daysOfWeek['separate']['opens'] = explode(',', $daysArray[$daysArrayKeys[$i]][0])[0];
+                                                                    $daysOfWeek['separate']['closes'] = explode(',', $daysArray[$daysArrayKeys[$i]][0])[1];
                                                                 }
 
                                                             }
 
                                                             if (!empty($daysOfWeek)) {
-																foreach ($daysOfWeek as $key => $group) {
-																	$days = $group['weekdays'];
-																	if ($key == 'same') {
-																		$days = implode(', ',array_values($group['weekdays']));
-																		$days = '['.$days .']';
-																	}
-																	$openHours .= '                                                                     
+                                                                foreach ($daysOfWeek as $key_value => $group) {
+                                                                    $days = $group['weekdays'];
+                                                                    if ($key_value == 'same') {
+                                                                        $days = implode(', ',array_values($group['weekdays']));
+                                                                        $days = '['.$days .']';
+                                                                    }
+                                                                    $openHours .= '                                                                     
                                                                     {
                                                                         "@type": "OpeningHoursSpecification",
                                                                         "dayOfWeek": '.$days .',
                                                                         "opens": "' .$group['opens']. '",
                                                                         "closes": "' .$group['closes']. '"
                                                                     },';
-																}
+                                                                }
                                                             }
 
-														}
+                                                        }
 
                                                         $schemeLocalBusiness .= '{
                                                                 "@type": "LocalBusiness",
