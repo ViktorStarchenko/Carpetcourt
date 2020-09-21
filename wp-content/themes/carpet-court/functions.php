@@ -2464,7 +2464,7 @@ function addRelatedProducts() {
     dump($relatedData);
     exit();
 }
-addRelatedProducts();
+//addRelatedProducts();
 add_action( 'wp_ajax_load_search_results', 'load_search_results' );
 add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
 
