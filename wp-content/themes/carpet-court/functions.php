@@ -2444,7 +2444,7 @@ function addRelatedProducts() {
                 if (!empty($colorProductField['key'])) {
                     update_field($colorProductField['key'], $item['mainColor']->term_id, $item['ID']);
                 } else {
-                    update_field('field_5f101d24bd89a', $item['mainColor']->term_id, $item['ID']);
+                    update_field('field_5f290e4682bd7', $item['mainColor']->term_id, $item['ID']);
                 }
             }
             if (!empty($item['relatedProducts'])) {
@@ -2452,7 +2452,7 @@ function addRelatedProducts() {
                 if (!empty($relatedProductsField['key'])) {
                     update_field($relatedProductsField['key'], $item['relatedProducts'], $item['ID']);
                 } else {
-                    update_field('field_5f101d6abd89b', $item['relatedProducts'], $item['ID']);
+                    update_field('field_5f290e8682bd8', $item['relatedProducts'], $item['ID']);
                 }
             }
         }
@@ -2461,6 +2461,7 @@ function addRelatedProducts() {
     dump($relatedData);
     exit();
 }
+addRelatedProducts();
 add_action( 'wp_ajax_load_search_results', 'load_search_results' );
 add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
 
