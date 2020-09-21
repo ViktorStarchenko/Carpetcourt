@@ -2369,12 +2369,13 @@ function short_code_content_media($atts) {
 }
 add_shortcode('mediacontent' , 'short_code_content_media' );
 
+
 function addRelatedProducts() {
     global $wpdb;
 
     $args = [
         'post_type'   => 'product',
-        'numberposts' => -1
+        'numberposts' => 1500
     ];
 
     $products = get_posts($args);
@@ -2391,18 +2392,26 @@ function addRelatedProducts() {
             $mainProductColor = [];
             $relatedProducts = [];
             $product = wc_get_product($prod->ID);
+            var_dump(11);
             if ($product !== false ) {
+                var_dump(11);
                 $attrs = $product->get_attributes();
+
                 if (!empty($attrs)) {
                     foreach ($attrs as $key => $attr) {
+                        var_dump(11);
                         if ($key == 'pa_color') {
                             $data = $attr->get_data();
+
                             if (!empty($data['options'])) {
                                 foreach ($data['options'] as $optionID) {
                                     foreach ($colorsData as $color) {
+
                                         if ($color->term_id == $optionID) {
+
                                             $pos = strpos($prod->post_title, $color->name);
                                             if ($pos !== false) {
+
                                                 $mainProductColor = $color;
                                                 $baseNameData = explode($color->name, $prod->post_title);
                                                 if (isset($baseNameData[1])) {
@@ -2415,6 +2424,7 @@ function addRelatedProducts() {
                                                                          AND post_title LIKE %s";
                                                     $like = $baseName.'%';
                                                     $results = $wpdb->get_results($wpdb->prepare($search_query, $like), ARRAY_N);
+
                                                     foreach($results as $key => $array){
                                                         $relatedProducts[] = $array[0];
                                                     }
@@ -2464,7 +2474,8 @@ function addRelatedProducts() {
     dump($relatedData);
     exit();
 }
-//addRelatedProducts();
+
+
 add_action( 'wp_ajax_load_search_results', 'load_search_results' );
 add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
 
