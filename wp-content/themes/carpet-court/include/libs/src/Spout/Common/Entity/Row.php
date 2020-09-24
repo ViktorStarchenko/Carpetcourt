@@ -70,7 +70,7 @@ class Row
      */
     public function getCellAtIndex($cellIndex)
     {
-        return $this->cells[$cellIndex] ?? null;
+        return isset($this->cells[$cellIndex]) ? $this->cells[$cellIndex] : null;
     }
 
     /**
