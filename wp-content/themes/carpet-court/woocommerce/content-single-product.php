@@ -252,6 +252,7 @@ if ( post_password_required() ) {
                                             $color = get_term_by('term_taxonomy_id', $relatedProductColour);
                                             ?>
                                             <?php if (!empty($color) && !empty($relatedProductColour)) : ?>
+                                                <?php $color_image = get_term_meta($relatedProductColour, 'cpm_color_thumbnail', true ); ?>
                                                 <?php if ($relatedProduct == $post->ID) : ?>
                                                     <li data-naming="<?= $color->name ?>" class="product-selector-thumbs__item js-product-trigger is-active color-<?= $color->slug ?>" data-name="<?= $color->name ?>" data-color="<?= $color->slug ?>">
                                                         <div class="product-selector-thumbs__img">
@@ -259,7 +260,6 @@ if ( post_password_required() ) {
                                                         </div>
                                                     </li>
                                                 <?php else : ?>
-                                                    <?php $color_image = get_term_meta($relatedProductColour, 'cpm_color_thumbnail', true ); ?>
                                                     <li class="product-selector-thumbs__item js-product-trigger color-<?= $color->slug ?>" data-name="<?= $color->name ?>" data-color="<?= $color->slug ?>">
                                                         <a href="<?= get_permalink($relatedProduct) ?>">
                                                             <div class="product-selector-thumbs__img">
