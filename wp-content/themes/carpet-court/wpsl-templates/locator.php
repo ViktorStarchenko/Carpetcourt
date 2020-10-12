@@ -209,13 +209,12 @@
                                                         }
 
                                                         $schemeLocalBusiness .= '{
-                                                                "@type": "LocalBusiness",
-                                                                "priceRange":"NZD",
+                                                                "@type": "Store",
                                                                 "image": [
                                                                     "'.$image[0].'"
                                                                 ],
                                                                 "@id": "'.get_permalink($story->ID).'",
-                                                                "name": "'.$story->post_title.'",
+                                                                "name": "Carpet Court '.$story->post_title.'",
                                                                 "address": {
                                                                     "@type": "PostalAddress",
                                                                     "streetAddress": "'.$address.'",
@@ -227,7 +226,7 @@
                                                                 '.$geo.'
                                                                 "url": "'.get_permalink($story->ID).'",
                                                                 "telephone": "'.$phone.'",
-                                                                "openingHoursSpecification": [' .$openHours .'];
+                                                                "openingHoursSpecification": [' .$openHours .']
                                                             },';
                                                         ?>
                                                     <?php endif; ?>
