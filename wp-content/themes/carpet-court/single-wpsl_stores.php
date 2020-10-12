@@ -179,7 +179,7 @@
                                 <?php
                                     foreach ($work as $day => $time) {
                                         if ($day != 'today') {
-                                            $scheduled = explode(',', $time);
+                                            $scheduled = explode(' — ', $time);
                                             if (isset($scheduled[0]) && isset($scheduled[1])){
                                                 $schemaWork .= '
                                                 {
@@ -322,13 +322,12 @@ foreach ($footer['contacts'] as $contact) {
                 <?= $organizationAddress; ?>
             },
             {
-                "@type": "LocalBusiness",
-                "priceRange":"NZD",
+                "@type": "Store",
                 "image": [
                     "<?= $image[0] ?>"
                 ],
                 "@id": "<?= get_permalink($post->ID) ?>",
-                "name": "<?= $post->post_title ?>",
+                "name": "Carpet Court <?= $post->post_title ?>",
                 "address": {
                     "@type": "PostalAddress",
                     "streetAddress": "<?= $address ?>",
