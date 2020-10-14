@@ -12,7 +12,7 @@ function toggleColorProduct() {
 
 		//productTriggerPhoto[0].classList.add('is-active');
 		productTargetPhoto[0].classList.add('is-visible');
-		productNamingEl.textContent = productNaming;
+		//productNamingEl.textContent = productNaming;
 
 
 		productTriggerPhoto.forEach( function(item, trigIndex) {
