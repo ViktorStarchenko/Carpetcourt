@@ -203,15 +203,24 @@ if ( post_password_required() ) {
                         <h1 class="product-description__title"><?php the_title() ?></h1>
                         <p><?php the_content(); ?></p>
                     </div>
+                    <?php
+                    $colors = get_the_terms( $product->id, 'pa_color' );
+                    $currentColour = get_field('current_colour', $post->ID);
+                    $relatedProducts = get_field('related_products', $post->ID);
+                    ?>
                     <div class="product-selector js-product-parent">
                         <div class="product-selector__title">Selected Colour:
-                            <div class="product-selector__title-select js-select-color"></div>
+                            <?php if (!empty($colors)) : ?>
+                            <div class="product-selector__title-select js-select-color">
+                                <?php foreach ($colors as $color) : ?>
+                                    <?php if ($color->term_id == $currentColour) : ?>
+                                        <?php $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+                                        <?= $color->name ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php endif; ?>
                         </div>
-                        <?php
-                        $colors = get_the_terms( $product->id, 'pa_color' );
-                        $currentColour = get_field('current_colour', $post->ID);
-                        $relatedProducts = get_field('related_products', $post->ID);
-                        ?>
                         <?php if (!empty($currentColour) && !empty($relatedProducts)) : ?>
                             <div class="product-selector-inner">
                                 <a href="#" class="product-selector-preview">
