@@ -289,15 +289,9 @@ foreach ($footer['contacts'] as $contact) {
         $organizationAddress = ' "address": "'.$contact['title'].'" ';
     }
 }
-?>
-    <script type="application/ld+json">
-
-        {
-            "@context": {
-                "@vocab": "http://schema.org/"
-            },
-            "@graph": [
-                {
+/*
+ *
+                 {
                     "@id": "<?= get_option( 'home' ); ?>",
                     "@type": "Organization",
                     "name": "<?= get_bloginfo() ?>",
@@ -306,6 +300,16 @@ foreach ($footer['contacts'] as $contact) {
                     <?= $organizationPhone; ?>
                     <?= $organizationAddress; ?>
                 },
+ *
+ */
+?>
+    <script type="application/ld+json">
+
+        {
+            "@context": {
+                "@vocab": "http://schema.org/"
+            },
+            "@graph": [
                 <?= $schemeLocalBusiness; ?>
             ]
         }
