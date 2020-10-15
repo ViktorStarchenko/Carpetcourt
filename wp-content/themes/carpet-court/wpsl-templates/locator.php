@@ -124,7 +124,7 @@
 
                                                         $zip = '';
                                                         if (!empty($storeInfo[$story->ID]['wpsl_zip'][0])) {
-                                                            $country = $storeInfo[$story->ID]['wpsl_zip'][0];
+                                                            $zip = $storeInfo[$story->ID]['wpsl_zip'][0];
                                                         }
 
                                                         $city = '';
@@ -214,7 +214,7 @@
                                                                     "'.$image[0].'"
                                                                 ],
                                                                 "@id": "'.get_permalink($story->ID).'",
-                                                                "name": "Carpet Court '.$story->post_title.'",
+                                                                "name": "'.$story->post_title.'",
                                                                 "address": {
                                                                     "@type": "PostalAddress",
                                                                     "streetAddress": "'.$address.'",

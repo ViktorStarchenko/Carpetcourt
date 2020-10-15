@@ -48,7 +48,7 @@
 
                                         $zip = '';
                                         if (!empty($storeInfo['wpsl_zip'][0])) {
-                                            $country = $storeInfo['wpsl_zip'][0];
+                                            $zip = $storeInfo['wpsl_zip'][0];
                                         }
 
                                         $city = '';
@@ -332,7 +332,7 @@ foreach ($footer['contacts'] as $contact) {
                     "<?= $image[0] ?>"
                 ],
                 "@id": "<?= get_permalink($post->ID) ?>",
-                "name": "Carpet Court <?= $post->post_title ?>",
+                "name": "<?= $post->post_title ?>",
                 "address": {
                     "@type": "PostalAddress",
                     "streetAddress": "<?= $address ?>",
