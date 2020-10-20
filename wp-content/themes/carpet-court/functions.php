@@ -2602,3 +2602,16 @@ function load_related_results() {
     die();
 
 }
+
+
+function filter_wpseo_canonical($canonical) {
+    global $post;
+
+    if (!empty($post) && $post->ID == 44631) { //Blog page
+        $canonical = get_site_url().$_SERVER['REQUEST_URI'];
+    }
+
+
+    return $canonical;
+}
+add_filter( 'wpseo_canonical', 'filter_wpseo_canonical', 10, 1 );
