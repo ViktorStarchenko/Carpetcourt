@@ -156,8 +156,8 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
          if(!is_admin()) {
             // new design
             enqueue_versioned_style('theme-styles', '/static/public/css/app.min.css');
-            //wp_deregister_script( 'jquery' );
-            //enqueue_versioned_script( 'jquery',  '/static/public/js/libs/jquery-3.2.1.min.js', false, false);
+            wp_deregister_script( 'jquery' );
+            enqueue_versioned_script( 'jquery',  '/static/public/js/libs/jquery-3.2.1.min.js', false, false);
             //wp_enqueue_script( 'jquery' );
             enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
             enqueue_versioned_script( 'sticky-slider-js',  '/static/public/js/libs/sticky.min.js', array('jquery'), true);
