@@ -149,7 +149,6 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
              enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
              enqueue_versioned_script( 'sticky-slider-js',  '/static/public/js/libs/sticky.min.js', array('jquery'), true);
              enqueue_versioned_script( 'theme-js',  '/assets/js/app.min.js', array('jquery'), true);
-			 enqueue_versioned_script( 'new-js',  '/assets/js/app-new.js', array('jquery'), true);
 			 enqueue_versioned_script( 'ajax-search',  '/assets/js/ajax-search.js', array('jquery'), true);
 
          }
@@ -163,8 +162,7 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
             enqueue_versioned_script( 'slick-slider-js',  '/static/public/js/libs/slick.min.js', array('jquery'), true);
             enqueue_versioned_script( 'sticky-slider-js',  '/static/public/js/libs/sticky.min.js', array('jquery'), true);
             enqueue_versioned_script( 'bootstrap-js',  '/static/public/js/bootstrap.min.js', array('jquery'), true);
-            enqueue_versioned_script( 'theme-js',  '/assets/js/app.min.js', array('jquery'), true);
-			 enqueue_versioned_script( 'new-js',  '/assets/js/app-new.js', array('jquery'), true);
+			 enqueue_versioned_script( 'theme-js',  '/static/public/js/app.min.js', array('jquery'), true);
 			enqueue_versioned_script( 'ajax-search',  '/assets/js/ajax-search.js', array('jquery'), true);
 
          }
