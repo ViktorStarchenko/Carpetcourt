@@ -486,7 +486,7 @@
   flex-flow: row wrap;
 }
 .drop-search-main{
-  width: 73%;
+  width: 70%;
   @include r(1024) {
     width: 100%;
   }
@@ -695,6 +695,7 @@
 }
 
 .drop-search-aside{
+  width: 30%;
   flex-grow: 1;
   padding-left: 65px;
   padding-top: 15px;
@@ -738,6 +739,31 @@
       line-height: 1.31;
       letter-spacing: 0.18px;
       color: $text-color;
+      transition: color .2s ease;
+      &:hover{
+        color: $color-main-red;
+      }
     }
+  }
+  &__subtitle{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.47;
+    letter-spacing: 0.16px;
+    color: $text-color;
+    margin-bottom: 10px;
+  }
+  &__row{
+    margin: 0 -10px;
+    display: flex;
+    flex-flow: row wrap
+  }
+  &__item{
+    display: inline-block;
+    width: 49%;
+    padding: 0 10px;
+    min-width: 150px;
+    flex-grow: 1;
+    margin-bottom: 20px;
   }
 }
