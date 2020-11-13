@@ -107,6 +107,7 @@ function compare_name($a, $b)
                 <div class="h-wrap__inner">
                     <div class="h-burger">
                         <button type="button" data-target="#mobileMenu" class="btn-burger mm-opener"><span class="icon"></span></button>
+                        <button type="button" class="drop-search-burger-bttn search-opener ic-icon-cross"></button>
                     </div>
                     <div class="h-search"><a href="#" class="ic-nav-search search-opener"></a></div>
                     <?php if (!empty($logo['dark'])) : ?>
@@ -399,6 +400,36 @@ function compare_name($a, $b)
                 <?php endif; ?>
             </div>
         </div>
+    <div class="drop-search js-check-padding">
+        <div class="container">
+            <div class="drop-search-inner">
+                <div class="drop-search-main">
+                    <div class="drop-search-form">
+                        <div class="drop-search-form__field">
+                            <form action = "<?= home_url() ?>" class="search-form" id="header-search-form">
+                                <input type="text" name="s" placeholder="search for products, categories or advice...">
+                                <button type="submit" class="ic-nav-search"></button>
+                            </form>
+                        </div>
+                        <div class="drop-search-form__bttn">
+                            <button type="button" class="search-opener ic-icon-cross">close</button>
+                        </div>
+                    </div>
+                    <!-- скрываем эти блоки, если нет результатов-->
+                    <div class="search-result">
+
+
+                    </div>
+                </div>
+                <div class="drop-search-aside">
+                    <!-- скрываем эти блоки, если нет результатов-->
+                    <div class="search-result">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </header>
     <div class="g-main">
 <?php if (!newDesign()) : ?>

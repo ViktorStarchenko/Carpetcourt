@@ -6408,7 +6408,7 @@ html{
 
 .onepage-scroll{
     height: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: relative;
 
     /* -webkit-transform: translateZ(0) !important;
@@ -8473,4 +8473,7 @@ label.filter-item__label-visual-checked::after {
 }
 .product-info-content dl:not(:last-child){
     margin: 0 !important;
+}
+.g-search {
+    display: none;
 }
