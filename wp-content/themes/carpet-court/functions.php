@@ -2576,7 +2576,7 @@ function load_related_results() {
                         <ul class="drop-search-category__list">
                             <?php
                             $args = [
-                                'numberposts' => 2,
+                                'numberposts' => 4,
                                 'post_type' => ['page'],
                                 's' => $query
                             ];
@@ -2595,7 +2595,7 @@ function load_related_results() {
                         <ul class="drop-search-category__list">
                             <?php
                             $args = [
-                                'numberposts' => 2,
+                                'numberposts' => 4,
                                 'post_type' => ['post'],
                                 's' => $query
                             ];
