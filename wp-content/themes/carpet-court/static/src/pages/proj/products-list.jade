@@ -1,0 +1,91 @@
+extends ../tpl/layout
+include ../../components/pages/category/product-card-price/index
+include ../../components/pages/category/filter/index
+include ../../components/prefooter/index
+
+block vars
+	- var bodyClass = ''
+	- var pageTitle = 'Category'
+	- var DIR = ''
+block content
+	// SVG Sprite
+	+svg-icon()
+	// стили темы для переноса страницы со списком товаров
+	// на проде они уже есть
+	<link rel="stylesheet" href="../time-style/style.css"/>
+	-
+		var filters = [
+			{
+				name: 'Type',
+				items: ['Carpet', 'Tiles', 'Vinyl Planks', 'Laminate', 'Vinyl', 'Woods', ]
+			},
+			{
+				name: 'Fibre',
+				items: ['Fibre 1', 'Fibre 2', 'Fibre 3', 'Fibre 4', ]
+			},
+			{
+				name: 'Colours',
+				items: ['Colours 1', 'Colours 2', 'Colours 3', 'Colours 4', ]
+			},
+			{
+				name: 'Features',
+				items: ['Features 1', 'Features 2', 'Features 3', 'Features 4']
+			},
+		];
+		var vantages = [
+			{
+				icon: 'stores',
+				text: '57 stores nationwide',
+			},
+			{
+				icon: 'quote',
+				text: 'free measure & quote',
+			},
+			{
+				icon: 'finance',
+				text: 'finance options available',
+			},
+			{
+				icon: 'commercial',
+				text: 'expertise in all commercial sectors',
+			},
+			{
+				icon: 'quality',
+				text: '2019 Reader’s Digest Quality service award ',
+			},
+		]
+
+	.category-head(style="background-image:url(images/product-card/product-image.png);")
+		h1 Carpet
+	.packaging
+		<div class="crumps"><ul class="crumps-list" itemscope="" itemtype="http://schema.org/BreadcrumbList"><li class="crumps-list__item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"> <a itemprop="item" href="https://carpetcourt.nz"> <span itemprop="name"> Home </span><meta itemprop="position" content="1"> </a></li><li class="crumps-list__item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"> <a itemprop="item" href="https://carpetcourt.nz/products/carpet/"> <span itemprop="name"> Carpet </span><meta itemprop="position" content="2"> </a></li></ul></div>
+		<div class="category-description"><p>Soft, warm, comfortable and beautifully tactile, carpet remains a timeless option for any home whether your look is classic or more modern. Renowned for superior noise reducing and insulating qualities, today’s carpet lets you create a space that’s practical without compromising on style. Carpet Court boasts a range of coloured, black, white, grey carpet and more.</p></div>
+		<div class="category-grid-selector"><div class="category-sorter"><div class="item-label">Sort By:</div><div class="category-type-sort-items"> <button type="button" data-toggle="dropdown" aria-expanded="false" class="ic-down-arrow dropdown-toggle"><div class="current-toggle"> Popularity<div class="f-dropdown-menu"><div class="drop-item"> <span> Popularity </span></div><div class="drop-item"> <a href="/products/carpet/?sort=relevance&amp;type=DESC"> Relevance </a></div><div class="drop-item"> <a href="/products/carpet/?sort=name&amp;type=ASC"> Product Name A-Z </a></div><div class="drop-item"> <a href="/products/carpet/?sort=name&amp;type=DESC"> Product Name Z-A </a></div><div class="drop-item"> <a href="/products/carpet/?sort=price&amp;type=DESC"> Price (Highest) </a></div><div class="drop-item"> <a href="/products/carpet/?sort=price&amp;type=ASC"> Price (Lowest) </a></div></div></div> </button></div></div></div>
+		.category-grid
+			.category-grid__sidebar.js-accordeon-wrap(data-sticky-container)
+				.filters-sticky.js-sticky(data-margin-top="150" data-sticky-for="1200" data-sticky-class="is-sticky")
+					button.js-accordeon-title.filters-wrap-btn Filter By
+					form.filters-wrap.js-accordeon-content.js-accordeon-wrap
+						each filter, index in filters
+							+filter(filter, index)
+			.category-grid__main.swatch
+				+product-card-price({sales:true})
+				+product-card-price({offers:true})
+				+product-card-price({sales:true, offers:true})
+				+product-card-price
+				+product-card-price
+				+product-card-price
+		.pagination-wrap
+			.pagination
+				a(href="#").pagination-item <
+				a(href="#").pagination-item 1
+				a(href="#").pagination-item 2
+				a(href="#").pagination-item 3
+				a(href="#").pagination-item 4
+				a(href="#").pagination-item >
+
+		.category-content.category-content--align_r
+			h2 Carpet
+			p Elegant, comfortable and beautifully tactile, carpet remains a timeless option for any home whether your look is classic or more fashion forward. Renowned for superior noise reducing and insulating qualities, today’s carpet lets you create a space that's practical without compromising on style.
+
+	+prefooter

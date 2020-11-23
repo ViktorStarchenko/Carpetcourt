@@ -1,0 +1,24 @@
+mixin product-card-price(props={})
+    .product-card.swatch
+        .product-card-inner
+            a.product-card-image(href='#' style='background-image: url(https://carpetcourt.nz/wp-content/uploads/2020/11/Rhino_Austin_Lakeway.jpg)')
+                .product-card-image-hover(style='background-image: url(https://carpetcourt.nz/wp-content/uploads/2020/11/Rhino-Austin_Lakeway_web.jpg)')
+                span Explore more
+                if props.sales
+                    strong.product-card-image__sale Sale
+            .product-card-footer
+                h5.product-card__title Rhino Austin Lakeway
+            .product-card-extend
+                .product-card-variety Clare
+                .product-card-price
+                    if props.sales
+                        .product-card-price__value
+                            span.-old $59.99
+                            span.-new $39.99
+                    else
+                        .product-card-price__value
+                            span $59.99
+                    .product-card-price__unit *per sqm
+                if props.offers
+                    .product-card-special
+                        .product-card-special__item Includes #[b FREE] Bissell Floor Cleaner

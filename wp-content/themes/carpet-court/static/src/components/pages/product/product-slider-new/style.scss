@@ -30,6 +30,7 @@
     pointer-events: none;
     .btn-prev,
     .btn-next {
+      min-width: auto;
       position: relative;
       z-index: 5;
       background-color: #fff;
@@ -53,6 +54,11 @@
         border-color: $color-main-grey;
         background-color: $color-main-grey;
         color: #fff;
+      }
+
+      &.slick-disabled{
+        opacity: .5;
+        pointer-events: none;
       }
   
       &:before {
@@ -101,6 +107,16 @@
       width: 100%;
       position: relative;
 
+    }
+    .product-sales-banner{
+      position: absolute;
+      top: 20px;
+      left: 25px;
+      pointer-events: none;
+      z-index: 1;
+      @include rm(901) {
+        display: none;
+      }
     }
   }
   &-thumnbs{

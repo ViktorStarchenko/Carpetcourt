@@ -6,10 +6,17 @@ function accordeon() {
 	if(!titles.length) return false;
 
 	var contents_all = $('.js-accordeon-content');
+	var mql = window.matchMedia('(max-width: 900px)');
 
 	if(contents_all.is(':visible')) {
 		contents_all.filter(':visible').prev('.js-accordeon-title').addClass('is-opened');
 	}
+
+	window.addEventListener('resize', function(){
+		if(mql.matches) {
+			contents_all.filter(':hidden').prev('.js-accordeon-title').removeClass('is-opened');
+		}
+	});
 
 	titles.on('click',function() {
 		var t_title = $(this);

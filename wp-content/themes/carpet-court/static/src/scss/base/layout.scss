@@ -222,6 +222,7 @@ svg {
   flex-flow: row wrap;
   justify-content: flex-start;
   align-items: center;
+  margin: 0;
   margin-bottom: 40px;
   list-style: none;
   padding: 0;
@@ -322,6 +323,27 @@ svg {
       margin-left: auto;
       padding-left: 20px;
     }
+    @include r(900) {
+      display: flex;
+      flex-flow: column nowrap;
+      .product-extend{
+        order: 0;
+      }
+      .producr-button-wrap{
+        order: 1;
+      }
+      .product-description{
+        order: 2;
+        border-top: solid 1px #e8eced;
+        padding-top: 20px;
+      }
+      .product-selector{
+        order: 3;
+      }
+      .product-info{
+        order: 4;
+      }
+    }
   }
 }
 .item-label{
@@ -332,7 +354,7 @@ svg {
   align-items: center;
   width: 100%;
   justify-content: flex-end;
-  @media (max-width: $screen-md-max) {
+  @include r(900){
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
@@ -372,6 +394,7 @@ svg {
       align-items: center;
       max-width: 100%;
       padding: 0;
+      border: none;
       .filter-label {
         color: #808487;
       }
@@ -436,9 +459,11 @@ svg {
     margin: 0 !important;
     @include rm(560) {
       flex: 0 0 50%;
+      width: 50%;
     }
     @include rm(991) {
       flex: 0 0 33.3%;
+      width: 33.33%;
     }
     .product-card-inner{
       width: 100%;
@@ -473,6 +498,23 @@ svg {
           transition: all .5s;
           color: white;
         }
+        &__sale{
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          z-index: 1;
+          display: inline-block;
+          padding: 3px 10px;
+          font-family: $font-medium;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 1.33;
+          letter-spacing: 0.15px;
+          color: #ffffff;
+          background: #ff3858;
+          border-radius: 4px;
+          pointer-events: none;
+        }
       }
       .product-card-footer{
         display: flex;
@@ -481,6 +523,79 @@ svg {
         .product-card__title{
           max-width: 90%;
           margin: 0;
+        }
+      }
+      .product-card-extend{
+        display: flex;
+        flex-flow: row wrap;
+      }
+      .product-card-variety{
+        font-size: 15px;
+        line-height: 1.47;
+        letter-spacing: 0.16px;
+        color: #808487;
+        position: relative;
+        top: -3px;
+        max-width: 60%;
+        margin-bottom: 6px;
+      }
+      .product-card-price{
+        display: inline-flex;
+        flex-flow: column;
+        margin-left: auto;
+        &__value{
+          line-height: 0;
+          span{
+            display: inline-block;
+            font-family: $font-medium;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: 0.16px;
+            color: #434a4f;
+            &.-old{
+              margin: 0 6px;
+              color: #b4b7b9;
+              text-decoration: line-through;
+              position: relative;
+            }
+            &.-new{
+              color: #ff1f43;
+            }
+          }
+        }
+        &__unit{
+          font-family: $font-regular;
+          font-size: 12px;
+          line-height: normal;
+          letter-spacing: 0.15px;
+          text-align: right;
+          color: #808487;
+        }
+      }
+      .product-card-special{
+        width: 100%;
+        position: relative;
+        padding-right: 55px;
+        &__item{
+          display: inline-block;
+          position: relative;
+          top: -9px;
+          border: solid 1px #434a4f;
+          padding: 4px 9px;
+          font-family: $font-medium;
+          font-size: 13px;
+          font-weight: 500;
+          font-stretch: normal;
+          font-style: italic;
+          line-height: normal;
+          letter-spacing: 0.16px;
+          color: #434a4f;
+          b{
+            font-family: $font-semibold;
+            color: currentColor;
+            font-weight: 600;
+          }
         }
       }
     }
@@ -636,11 +751,11 @@ p, .text{
   pointer-events: auto;
   letter-spacing: 0.17px;
   background: $red;
-  background: $text-color;
   color: $white;
   transition: all .2s;
   &:hover{
-    background: $red;
+    // background: $red;
+    background: $text-color;
     text-decoration: none;
     color: $white;
     transition: all .2s;

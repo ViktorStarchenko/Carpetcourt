@@ -5,112 +5,112 @@
       @include rm(901){
         padding-top: 15px;
         margin-bottom: 30px;
-        }
-      }
-    }
-  
-    &-title {
-      $this: &;
-  
-      position: relative;
-      padding-right: 20px;
-      padding-top: 15px;
-      padding-bottom: 15px;
-      margin: 0;
-      color: $text-color;
-      font-family: $font-medium;
-      font-size: 24px;
-      font-weight: 500;
-      letter-spacing: 0.2px;
-      line-height: 1.1;
-      @include r(768){
-        font-size: 16px;
-      }
-
-  
-      &__icon {
-        display: block;
-        width: 13px;
-        height: 7px;
-        font-size: 0;
-        line-height: 1;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        transition: transform 0.3s;
-  
-        @include rm(901) {
-          display: none;
-        }
-      }
-  
-      &.is-opened {
-        #{$this}__icon {
-          transform: translateY(-50%) rotate(180deg);
-        }
-      }
-  
-      @include rm(901) {
-        pointer-events: none;
-      }
-    }
-  
-    &-content {
-      padding-top: 15px;
-  
-      dl {
-        display: flex;
-        flex-flow: row wrap;
-        font-family: $font-family-base;
-  
-        &:not(:last-child) {
-          margin-bottom: 50px;
-          @include r(768){
-            margin-bottom: 16px;
-          }
-        }
-      }
-  
-      dt {
-        display: block;
-        width: 105px;
-        flex-shrink: 0;
-        font-size: 18px;
-        line-height: calc(24/18);
-        font-weight: 500;
-        font-family: $font-medium;
-        letter-spacing: 0.15px;
-      }
-  
-      dd {
-        flex-grow: 1;
-        max-width: 190px;
-        font-size: 15px;
-        line-height: calc(22/15);
-        font-weight: 400;
-        font-family: $font-regular;
-        letter-spacing: 0.17px;
-      }
-  
-      a {
-        font-size: 15px;
-        line-height: calc(22/15);
-        font-family: $font-regular;
-        font-weight: 400;
-        letter-spacing: 0.17px;
-        text-decoration: underline;
-        font-family: $font-regular;
-        color: $text-color;
-      }
-    }
-  
-    @include r(900) {
-      .js-accordeon-content {
-        display: none;
       }
     }
   }
+  
+  &-title {
+    $this: &;
+
+    position: relative;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 0;
+    color: $text-color;
+    font-family: $font-medium;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    line-height: 1.1;
+    @include r(768){
+      font-size: 16px;
+    }
+
+
+    &__icon {
+      display: block;
+      width: 13px;
+      height: 7px;
+      font-size: 0;
+      line-height: 1;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform 0.3s;
+
+      @include rm(901) {
+        display: none;
+      }
+    }
+
+    &.is-opened {
+      #{$this}__icon {
+        transform: translateY(-50%) rotate(180deg);
+      }
+    }
+
+    @include rm(901) {
+      pointer-events: none;
+    }
+  }
+  
+  &-content {
+    padding-top: 15px;
+
+    dl {
+      display: flex;
+      flex-flow: row wrap;
+      font-family: $font-family-base;
+
+      &:not(:last-child) {
+        margin-bottom: 50px;
+        @include r(768){
+          margin-bottom: 16px;
+        }
+      }
+    }
+
+    dt {
+      display: block;
+      width: 105px;
+      flex-shrink: 0;
+      font-size: 18px;
+      line-height: calc(24/18);
+      font-weight: 500;
+      font-family: $font-medium;
+      letter-spacing: 0.15px;
+    }
+
+    dd {
+      flex-grow: 1;
+      max-width: 190px;
+      font-size: 15px;
+      line-height: calc(22/15);
+      font-weight: 400;
+      font-family: $font-regular;
+      letter-spacing: 0.17px;
+    }
+
+    a {
+      font-size: 15px;
+      line-height: calc(22/15);
+      font-family: $font-regular;
+      font-weight: 400;
+      letter-spacing: 0.17px;
+      text-decoration: underline;
+      font-family: $font-regular;
+      color: $text-color;
+    }
+  }
+
+  @include r(900) {
+    .js-accordeon-content {
+      display: none;
+    }
+  }
+}
 
 .product-description{
   margin-bottom: 45px;
@@ -123,15 +123,63 @@
       display: none;
     }
   }
+  &__sales{
+    .product-sales-banner{
+      @include r(900) {
+        display: none;
+      }
+    }
+  }
+}
+
+.product-sales-banner{
+  display: inline-block;
+  font-family: $font-medium;
+  border-radius: 4px;
+  background-color: #ff3858;
+  padding: 6px 10px;
+  font-size: 18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0.15px;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.producr-button-wrap{
+  &__info{
+    margin-bottom: 20px;
+  }
+  &__sub{
+    font-family: $font-semibold;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: 1.11;
+    letter-spacing: 0.21px;
+    color: #434a4f;
+  }
+  &__text{
+    font-family: $font-regular;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.36;
+    letter-spacing: 0.16px;
+    color: #434a4f;
+  }
 }
 
 .producr-button-row{
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 15px;
   @include r(900) {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    border-bottom: solid 1px #e8eced;
   }
   @include r(768) {
     flex-flow: column nowrap;
@@ -139,13 +187,109 @@
     margin-bottom: 10px;
   }
   .measure-button{
-      min-width: 246px;
-      @include rm(769) {
-        margin-right: 8%;
-      }
+    min-width: 246px;
+    flex-grow: 1;
+    @include rm(769) {
+      margin-right: 8%;
+    }
+    @include r(768) {
+      width: 100%;
+    }
   }
   .measure-button,.wish-button{
-      margin-top: 10px;
-      margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.producr-button-inline{
+  margin-left: -10px;
+  margin-right: -10px;
+  display: flex;
+  margin-bottom: 25px;
+  @include r(900) {
+    margin-bottom: 20px;
+  }
+  .btn{
+    flex-grow: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 13px;
+    padding-bottom: 12px;
+    @include rm(769) {
+      width: 50%;
+    }
+  }
+}
+
+.product-extend{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 0;
+  border-top: solid 1px #e8eced;
+  border-bottom: solid 1px #e8eced;
+  margin-bottom: 35px;
+  @include r(900) {
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+  .product-price{
+    flex-shrink: 0;
+  }
+  .product-special{
+    margin-left: auto;
+    padding-left: 10px;
+  }
+}
+
+.product-price{
+  display: inline-flex;
+  &__value{
+    line-height: 0;
+    span{
+      display: inline-block;
+      font-family: $font-medium;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.33;
+      letter-spacing: 0.16px;
+      color: #434a4f;
+      &.-old{
+        margin-right: 6px;
+        color: #b4b7b9;
+        text-decoration: line-through;
+        position: relative;
+      }
+      &.-new{
+        color: #ff1f43;
+      }
+    }
+  }
+  &__unit{
+    font-family: $font-regular;
+    font-size: 12px;
+    line-height: normal;
+    letter-spacing: 0.15px;
+    text-align: right;
+    color: #808487;
+    align-self: center;
+    margin-left: 9px;
+  }
+}
+
+.product-special{
+  font-family: $font-medium;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: italic;
+  line-height: normal;
+  letter-spacing: 0.18px;
+  color: #f13e4b;
+  text-align: center;
+  b{
+    font-family: $font-semibold;
+    color: currentColor;
+    font-weight: 600;
   }
 }
