@@ -2550,7 +2550,7 @@ function load_related_results() {
         <ul class="drop-search-category__list">
 
         <?php
-
+        $first_post_cat = '';
         while ( $search->have_posts() ) : $search->the_post();
             $primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
             $primary = $primary->get_primary_term();
@@ -2561,29 +2561,57 @@ function load_related_results() {
                 $style_title = $styles_array['choices'][$style_value[0]];
             }
 
-            if (($search->current_post + 1)  !=  $search->post_count) : ?>
+            if (($search->current_post + 1)  !=  $search->post_count && $primary_cat->name != $first_post_cat) :
+                $first_post_cat = $primary_cat->name;
+            ?>
                 <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= isset($primary_cat->name) ? $primary_cat->name : 'Carpet'?>  / <?= isset($style_title) ? $style_title : 'Cut Pile'?></a></li>
-            <?php else :?>
-                <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= isset($primary_cat->name) ? $primary_cat->name : 'Carpet' ?>  / <?= isset($style_title) ? $style_title : 'Cut Pile'?></a></li>
+            <?php elseif (($search->current_post + 1)  ==  $search->post_count) :?>
                 </ul>
                 </div>
                 <div class="drop-search-category">
                 <div class="drop-search-category__title">related articles</div>
-                <ul class="drop-search-category__list">
-                <?php
-                $args = [
-                    'numberposts' => 2,
-                    'post_type' => ['post', 'page'],
-                    's' => $query
-                ];
-                $rel_art = get_posts($args);
-                if(!empty($rel_art)) {
-                    foreach ($rel_art as $article)  :
-                        ?>
-                        <li><a href="<?= get_permalink($article->ID)?>"><?= $article->post_title?></a></li>
-                    <?php
-                    endforeach;
-                }
+                <div class="drop-search-category__row">
+                    <div class="drop-search-category__item">
+                        <div class="drop-search-category__subtitle">Pages</div>
+                        <ul class="drop-search-category__list">
+                            <?php
+                            $args = [
+                                'numberposts' => 4,
+                                'post_type' => ['page'],
+                                's' => $query
+                            ];
+                            $rel_art = get_posts($args);
+                            if(!empty($rel_art)) {
+                                foreach ($rel_art as $article)  :
+                                    ?>
+                                    <li><a href="<?= get_permalink($article->ID)?>"><?= $article->post_title?></a></li>
+                                <?php
+                                endforeach;
+                            }?>
+                        </ul>
+                    </div>
+                    <div class="drop-search-category__item">
+                        <div class="drop-search-category__subtitle">Articles</div>
+                        <ul class="drop-search-category__list">
+                            <?php
+                            $args = [
+                                'numberposts' => 4,
+                                'post_type' => ['post'],
+                                's' => $query
+                            ];
+                            $rel_art = get_posts($args);
+                            if(!empty($rel_art)) {
+                                foreach ($rel_art as $article)  :
+                                    ?>
+                                    <li><a href="<?= get_permalink($article->ID)?>"><?= $article->post_title?></a></li>
+                                <?php
+                                endforeach;
+                            }?>
+                        </ul>
+                    </div>
+                </div>
+
+            <?php
 
             endif;
         endwhile;
