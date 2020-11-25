@@ -174,7 +174,8 @@ function scheduled($ajaxpostInfo) {
         6 => 'saturday',
         7 => 'sunday',
     ];
-
+    $wp_tz = get_option('timezone_string');
+    date_default_timezone_set($wp_tz);
     $date = new DateTime();
     $weekNumber = $date->format("N");
     if (!empty($work[$week[$weekNumber]][0])) {
