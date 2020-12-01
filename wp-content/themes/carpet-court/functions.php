@@ -2641,3 +2641,58 @@ function filter_wpseo_canonical($canonical) {
     return $canonical;
 }
 add_filter( 'wpseo_canonical', 'filter_wpseo_canonical', 10, 1 );
+
+function get_brem() {
+    $args = [
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'tax_query' => [
+        [
+            'taxonomy' => 'product_brand',
+            'field'    => 'slug',
+            'terms'    => 'bremworth',
+        ]
+    ]
+    ];
+    $the_query = get_posts( $args );
+    $posts_count = count($the_query);
+    $posts_updated = 0;
+    $to_update = false;
+    $file = fopen("redirect_old_urls.txt", "w") or die("Unable to open file!");
+    $txt = "OLD URLS\n";
+    fwrite($file, $txt);
+    foreach ($the_query as $post) {
+        $old_url = get_permalink($post->ID);
+        $txt = $old_url. "\n";
+        fwrite($file, $txt);
+        if (strpos($post->post_title, 'Cavalier') !== false ){
+            $post->post_title =  trim(str_replace('Cavalier', '', $post->post_title));
+            $to_update = true;
+        }
+        if (strpos($post->post_name, 'cavalier-') !== false ){
+            $post->post_name =  trim(str_replace('cavalier-', '', $post->post_name));
+            $to_update = true;
+        }
+        if ($to_update) {
+            if (wp_update_post($post)) {
+                $posts_updated++;
+            }
+        }
+
+
+    }
+    $txt = "NEW URLS\n";
+    fwrite($file, $txt);
+    foreach ($the_query as $post) {
+        $new_url = get_permalink($post->ID);
+        $txt = $new_url. "\n";
+        fwrite($file, $txt);
+    }
+
+    fclose($file);
+    echo 'Total posts: ' . $posts_count;
+    echo 'Posts updated' . $posts_updated;
+}
+
+
