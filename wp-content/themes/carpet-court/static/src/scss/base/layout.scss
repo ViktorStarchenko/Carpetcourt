@@ -872,29 +872,37 @@ p, .text{
 .star-rating{
   font-size: 0;
   line-height: 0;
+  path{
+    stroke: #d3ced2;
+  }
   &--one{
     & path:first-child{
       fill: #00b262;
+      stroke: #00b262;
     }
   }
   &--two{
     path:nth-of-type(-n+2){
       fill: #00b262;
+      stroke: #00b262;
     }
   }
   &--three{
     path:nth-of-type(-n+3){
       fill: #00b262;
+      stroke: #00b262;
     }
   }
   &--four{
     path:nth-of-type(-n+4){
       fill: #00b262;
+      stroke: #00b262;
     }
   }
   &--five{
     path:nth-of-type(-n+5){
       fill: #00b262;
+      stroke: #00b262;
     }
   }
 }
