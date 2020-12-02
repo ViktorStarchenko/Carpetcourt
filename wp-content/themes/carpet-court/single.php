@@ -202,7 +202,7 @@ get_header(); ?>
                 </div>
             </div>
             <div class="more-wrap">
-                <a href="<?= get_category_link($blogCategory->term_id); ?>" class="view-more-articles btn">View More articles</a>
+                <a href="<?= home_url().'/blog'; ?>" class="view-more-articles btn">View More articles</a>
             </div>
         </div>
     </div>
