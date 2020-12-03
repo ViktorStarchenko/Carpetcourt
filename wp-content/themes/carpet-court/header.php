@@ -23,7 +23,7 @@ header("Access-Control-Allow-Credentials: true");
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <?php
     $hostUrl = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-    if(is_search() || strpos($hostUrl , 'search/?search') !== false){
+    if(is_search() || strpos($hostUrl , 'search/?search') !== false || strpos($hostUrl , 'blog/?cat=') !== false){
         echo '<meta name="robots" content="noindex" />' ;
     }
     ?>
