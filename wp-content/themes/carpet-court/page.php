@@ -142,7 +142,6 @@ $slider_description = get_field('slider_description');
     <?php get_footer(); ?>
 <?php }else{?>
 <div class="slider-view">
-<a href="/store-finder/">
     <?php
     $show_slider = false;
     if ( $show_random_slider == 'no' ) {
@@ -186,7 +185,6 @@ $slider_description = get_field('slider_description');
             $margin_top_class = 'cpm-margin-no-slider';
         }
     ?>
-</a>
 </div>
 
 <div id="primary" class="content-area container <?php echo $margin_top_class; ?>">
