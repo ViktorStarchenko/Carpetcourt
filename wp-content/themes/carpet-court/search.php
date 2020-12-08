@@ -7,7 +7,9 @@
  * @package Carpet_Court
  */
 
-get_header(); ?>
+get_header();
+get_brem();
+?>
 <section id="primary" class="content-area container cpm-margin-no-slider">
     <main id="main" class="site-main row" role="main">
         <div class="col-md-12">
