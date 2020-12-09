@@ -569,13 +569,20 @@ if ( post_password_required() ) {
                                     <p><?= $comment->comment_content ?></p>
                                 </div>
                             </div>
+                            <?php
+                            $cld_settings = get_option( 'cld_settings' );
+
+                            if ( $cld_settings['basic_settings']['status'] != 1 ) {
+                                // if comments like dislike is disabled from backend
+                                return;
+                            }
+                            ?>
                             <div class="review-btns">
                                 <?php
                                 $comment_id = $comment->comment_ID;
                                 $like_count = get_comment_meta( $comment_id, 'cld_like_count', true );
                                 $dislike_count = get_comment_meta( $comment_id, 'cld_dislike_count', true );
                                 $post_id = get_the_ID();
-                                $cld_settings = get_option( 'cld_settings' );
                                 /**
                                  * Filters like count
                                  *
