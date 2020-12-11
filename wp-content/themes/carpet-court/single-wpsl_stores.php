@@ -212,12 +212,7 @@
     <div class="carousel-wrap cursor">
         <div class="carousel-slider">
             <?php $schemaTestimonials = '
-            
-                    "aggregateRating": {
-                        "@type": "AggregateRating",
-                        "ratingValue": "5",
-                        "reviewCount": "5"
-                    },
+           
                     "review": [
             
             ';
