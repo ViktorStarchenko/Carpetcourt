@@ -224,17 +224,17 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                     $relatedProducts = get_field('related_products', $post->ID);
 
                     ?>
-                    <div class="product-extend">
+                    <!--<div class="product-extend">
                         <div class="product-price">
-                            <?php if($on_sale): ?>
-                                <div class="product-price__value"><span class="-old"><?= $currency.$wc_product->get_regular_price() ?></span><span class="-new"><?= $currency.$wc_product->get_sale_price() ?></span></div>
-                            <?php else : ?>
-                                <div class="product-price__value"><span><?= $currency.$wc_product->get_regular_price() ?></span></div>
-                            <?php endif; ?>
+                            <?php /*if($on_sale): */?>
+                                <div class="product-price__value"><span class="-old"><?/*= $currency.$wc_product->get_regular_price() */?></span><span class="-new"><?/*= $currency.$wc_product->get_sale_price() */?></span></div>
+                            <?php /*else : */?>
+                                <div class="product-price__value"><span><?/*= $currency.$wc_product->get_regular_price() */?></span></div>
+                            <?php /*endif; */?>
                             <div class="product-price__unit">*per sqm</div>
                         </div>
-                        <div class="product-special"><?php echo !empty($special_offer) ? $special_offer : '' ?></div>
-                    </div>
+                        <div class="product-special"><?php /*echo !empty($special_offer) ? $special_offer : '' */?></div>
+                    </div>-->
                     <div class="product-selector js-product-parent">
                         <div class="product-selector__title">Selected Colour:
                             <?php if (!empty($colors)) : ?>

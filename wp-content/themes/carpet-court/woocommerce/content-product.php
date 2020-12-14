@@ -115,14 +115,14 @@ $special_offer = get_field('special_offers', $product->id);
             </div>
             <div class="product-card-extend">
                 <div class="product-card-variety"><!--Clare--></div>
-                <div class="product-card-price">
-                    <?php if($on_sale): ?>
-                        <div class="product-card-price__value"><span class="-old"><?= $currency.$product->get_regular_price()?></span><span class="-new"><?= $currency.$product->get_sale_price()?></span></div>
-                    <?php else : ?>
-                        <div class="product-card-price__value"><span><?= $currency.$product->get_regular_price()?></span></div>
-                    <?php endif; ?>
+               <!-- <div class="product-card-price">
+                    <?php /*if($on_sale): */?>
+                        <div class="product-card-price__value"><span class="-old"><?/*= $currency.$product->get_regular_price()*/?></span><span class="-new"><?/*= $currency.$product->get_sale_price()*/?></span></div>
+                    <?php /*else : */?>
+                        <div class="product-card-price__value"><span><?/*= $currency.$product->get_regular_price()*/?></span></div>
+                    <?php /*endif; */?>
                     <div class="product-card-price__unit">*per sqm</div>
-                </div>
+                </div>-->
                 <?php if(!empty($special_offer)): ?>
                     <div class="product-card-special">
                         <div class="product-card-special__item"><?= $special_offer ?></div>
