@@ -17,93 +17,120 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+    exit; // Exit if accessed directly
 }
 
 global $product;
 
 // Ensure visibility
 if ( empty( $product ) || ! $product->is_visible() ) {
-	return;
+    return;
 }
 ?>
 <?php // post_class(); ?>
-	<?php
-	/**
-	 * woocommerce_before_shop_loop_item hook.
-	 *
-	 * @hooked woocommerce_template_loop_product_link_open - 10
-	 */
+<?php
+/**
+ * woocommerce_before_shop_loop_item hook.
+ *
+ * @hooked woocommerce_template_loop_product_link_open - 10
+ */
 //	do_action( 'woocommerce_before_shop_loop_item' );
 
-	/**
-	 * woocommerce_before_shop_loop_item_title hook.
-	 *
-	 * @hooked woocommerce_show_product_loop_sale_flash - 10
-	 * @hooked woocommerce_template_loop_product_thumbnail - 10
-	 */
-	//do_action( 'woocommerce_before_shop_loop_item_title' );
+/**
+ * woocommerce_before_shop_loop_item_title hook.
+ *
+ * @hooked woocommerce_show_product_loop_sale_flash - 10
+ * @hooked woocommerce_template_loop_product_thumbnail - 10
+ */
+//do_action( 'woocommerce_before_shop_loop_item_title' );
 
-	/**
-	 * woocommerce_shop_loop_item_title hook.
-	 *
-	 * @hooked woocommerce_template_loop_product_title - 10
-	 */
-	//do_action( 'woocommerce_shop_loop_item_title' );
+/**
+ * woocommerce_shop_loop_item_title hook.
+ *
+ * @hooked woocommerce_template_loop_product_title - 10
+ */
+//do_action( 'woocommerce_shop_loop_item_title' );
 
-	/**
-	 * woocommerce_after_shop_loop_item_title hook.
-	 *
-	 * @hooked woocommerce_template_loop_rating - 5
-	 * @hooked woocommerce_template_loop_price - 10
-	 */
+/**
+ * woocommerce_after_shop_loop_item_title hook.
+ *
+ * @hooked woocommerce_template_loop_rating - 5
+ * @hooked woocommerce_template_loop_price - 10
+ */
 //	do_action( 'woocommerce_after_shop_loop_item_title' );
 
-	/**
-	 * woocommerce_after_shop_loop_item hook.
-	 *
-	 * @hooked woocommerce_template_loop_product_link_close - 5
-	 * @hooked woocommerce_template_loop_add_to_cart - 10
-	 */
-	//do_action( 'woocommerce_after_shop_loop_item' );
+/**
+ * woocommerce_after_shop_loop_item hook.
+ *
+ * @hooked woocommerce_template_loop_product_link_close - 5
+ * @hooked woocommerce_template_loop_add_to_cart - 10
+ */
+//do_action( 'woocommerce_after_shop_loop_item' );
 
-	?>
+?>
 
 <?php
-    $imgSwatch = get_field('swatch_image', $post->ID);
-    $imgRoom = get_field('featured_image');
+$imgSwatch = get_field('swatch_image', $post->ID);
+$imgRoom = get_field('featured_image');
 ?>
 <?php switch (CATEGORY_TYPE): ?>
 <?php case "swatch": ?>
-    <?php
+        <?php
         if (!empty($imgSwatch['url'])) {
             $image = $imgSwatch['url'];
         }
-    ?>
-<?php break; ?>
-<?php case "room": ?>
-    <?php
+        ?>
+        <?php break; ?>
+    <?php case "room": ?>
+        <?php
         $image = $imgRoom;
-    ?>
-<?php break; ?>
-<?php endswitch ?>
+        ?>
+        <?php break; ?>
+    <?php endswitch ?>
+<?php
+$currency = get_woocommerce_currency_symbol();
+$on_sale = false;
 
-<div class="product-card <?= CATEGORY_TYPE ?> p-<?= $product->get_price() ?>">
-    <div class="product-card-inner">
-        <a href="<?= get_the_permalink(); ?>" class="product-card-image" data-swatch="background-image: url(<?= $imgSwatch ?>)" data-room="background-image: url(<?= $imgRoom ?>)" style="background-image: url(<?php if(!(empty($image))) { echo $image; } else { echo $imgRoom;} ?>)" >
-            <?php if (!empty($imgRoom)) : ?>
-            <div class="product-card-image-hover" style="background-image: url(<?= $imgRoom ?>)"></div>
-            <?php endif; ?>
-            <span>Explore more</span>
-        </a>
-        <div class="product-card-footer">
-            <h5 class="product-card__title"><?php the_title() ?></h5>
-            <div class="whishlist">
-                <?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
+if($product->is_on_sale()) {
+    $on_sale = true;
+}
+$special_offer = get_field('special_offers', $product->id);
+?>
+    <div class="product-card <?= CATEGORY_TYPE ?> p-<?= $product->get_price() ?>">
+        <div class="product-card-inner">
+            <a href="<?= get_the_permalink(); ?>" class="product-card-image" data-swatch="background-image: url(<?= $imgSwatch ?>)" data-room="background-image: url(<?= $imgRoom ?>)" style="background-image: url(<?php if(!(empty($image))) { echo $image; } else { echo $imgRoom;} ?>)" >
+                <?php if (!empty($imgRoom)) : ?>
+                    <div class="product-card-image-hover" style="background-image: url(<?= $imgRoom ?>)"></div>
+                <?php endif; ?>
+                <span>Explore more</span>
+                <?php if($on_sale): ?>
+                    <strong class="product-card-image__sale">Sale</strong>
+                <?php endif; ?>
+            </a>
+            <div class="product-card-footer">
+                <h5 class="product-card__title"><?php the_title() ?></h5>
+                <div class="whishlist">
+                    <?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
+                </div>
+            </div>
+            <div class="product-card-extend">
+                <div class="product-card-variety"><!--Clare--></div>
+                <div class="product-card-price">
+                    <?php if($on_sale): ?>
+                        <div class="product-card-price__value"><span class="-old"><?= $currency.$product->get_regular_price()?></span><span class="-new"><?= $currency.$product->get_sale_price()?></span></div>
+                    <?php else : ?>
+                        <div class="product-card-price__value"><span><?= $currency.$product->get_regular_price()?></span></div>
+                    <?php endif; ?>
+                    <div class="product-card-price__unit">*per sqm</div>
+                </div>
+                <?php if(!empty($special_offer)): ?>
+                    <div class="product-card-special">
+                        <div class="product-card-special__item"><?= $special_offer ?></div>
+                    </div>
+                <?php endif;?>
             </div>
         </div>
     </div>
-</div>
 
 <?php
 /*

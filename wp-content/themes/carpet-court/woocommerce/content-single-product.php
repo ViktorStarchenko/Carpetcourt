@@ -49,8 +49,8 @@ if ( post_password_required() ) {
         }
     }
     img{
-         max-width: none;
-     }
+        max-width: none;
+    }
     .wish-button.custom-addtowishlist-btn{
         text-decoration: none;
     }
@@ -73,107 +73,107 @@ if ( post_password_required() ) {
 </style>
 
 <?php
-    $primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
-    $primary = $primary->get_primary_term();
-    $primary = get_term_by('term_taxonomy_id', $primary);
+$primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
+$primary = $primary->get_primary_term();
+$primary = get_term_by('term_taxonomy_id', $primary);
 ?>
 <?php $cat = get_the_terms( $post->ID, 'product_cat' )[0]; ?>
 <div class="js-check-padding">
-<main class="g-main">
-    <!-- SVG Sprite-->
-    <div style="display: none;" class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol id="arrow_right"><path fill="#fff" d="M8.808 1.242a.42.42 0 01.604-.584l3.885 4.015a.42.42 0 01.116.328.603.603 0 01.002.044c0 .266-.175.484-.396.5L9.412 9.276a.42.42 0 11-.604-.584l3.042-3.148H1.06c-.232 0-.42-.224-.42-.5s.188-.5.42-.5h10.944z"/></symbol><symbol id="close"><path fill="currentColor" d="M27.296.654L15 12.938 2.705.654a1.45 1.45 0 00-2.05 2.052L12.961 15 .655 27.295a1.45 1.45 0 102.05 2.051L15 17.062l12.296 12.284a1.45 1.45 0 102.05-2.051L17.038 15 29.345 2.706a1.45 1.45 0 10-2.05-2.052z"/></symbol><symbol id="drop_arrow"><path d="M11.045.77a.507.507 0 01.704.729L6.346 6.718a.506.506 0 01-.704 0L.244 1.498A.506.506 0 11.948.77l5.046 4.88z"/></symbol><symbol id="finger-down"><path fill="currentColor" d="M13.168 7.656a1.478 1.478 0 01-1.08.455H9.87a1.333 1.333 0 00.152.367 6.593 6.593 0 01.3.59c.051.117.101.277.152.479.051.202.076.404.076.606a3.42 3.42 0 01-.044.67c-.024.16-.056.292-.096.399-.04.106-.104.226-.192.359a1.12 1.12 0 01-.32.323 1.756 1.756 0 01-.48.207 2.397 2.397 0 01-.66.084.493.493 0 01-.36-.152 1.385 1.385 0 01-.273-.399 2.37 2.37 0 01-.156-.414 7.701 7.701 0 01-.1-.487 20.007 20.007 0 00-.108-.483 2.546 2.546 0 00-.14-.386 1.222 1.222 0 00-.248-.383c-.176-.176-.445-.495-.808-.957a14.65 14.65 0 00-.808-.966c-.278-.303-.48-.46-.608-.47a.525.525 0 01-.344-.164.48.48 0 01-.144-.347V1.474c0-.138.05-.256.152-.355a.53.53 0 01.36-.155C5.36.958 5.782.84 6.438.612c.41-.138.732-.243.964-.314a9.91 9.91 0 01.972-.232c.416-.082.8-.124 1.152-.124h1.032c.71.011 1.235.219 1.577.623.31.367.44.848.392 1.443.208.197.352.447.432.75.09.324.09.636 0 .933.245.325.36.689.344 1.093 0 .17-.04.372-.12.607.294.335.44.73.44 1.188 0 .415-.152.774-.455 1.077zM1.333 7.09a.493.493 0 01-.36-.152.49.49 0 01-.152-.359V1.474a.49.49 0 01.152-.36.494.494 0 01.36-.15h2.305c.138 0 .258.05.36.15a.49.49 0 01.152.36v5.105a.49.49 0 01-.152.359.493.493 0 01-.36.152zm1.384-4.958a.5.5 0 00-.36-.148.495.495 0 00-.364.148.492.492 0 00-.148.363.5.5 0 00.148.359c.099.1.22.152.364.152.14 0 .26-.051.36-.152a.49.49 0 00.153-.36.485.485 0 00-.153-.362z"/></symbol><symbol id="finger-up"><path fill="currentColor" d="M13.012 6.046c0 .457-.146.853-.44 1.188.08.234.12.436.12.607.016.404-.099.768-.344 1.092.09.298.09.61 0 .934a1.55 1.55 0 01-.432.75c.048.595-.083 1.076-.392 1.443-.342.404-.867.612-1.577.622H8.915c-.352 0-.736-.041-1.152-.123a10.21 10.21 0 01-.972-.232 44.448 44.448 0 01-.964-.315c-.656-.229-1.078-.346-1.264-.35a.53.53 0 01-.36-.156.477.477 0 01-.153-.355V6.038a.48.48 0 01.144-.347.525.525 0 01.345-.164c.128-.01.33-.167.608-.47.277-.304.546-.625.808-.966.363-.462.632-.781.808-.957.096-.096.179-.223.248-.383.07-.16.116-.288.14-.387.024-.098.06-.259.108-.482a7.7 7.7 0 01.1-.487c.03-.117.082-.255.156-.415a1.39 1.39 0 01.272-.398.493.493 0 01.36-.152c.246 0 .466.028.66.084.196.056.356.125.481.207.125.083.232.19.32.323s.152.253.192.36c.04.105.072.238.096.398a3.42 3.42 0 01.044.67c0 .202-.025.404-.076.606-.05.202-.101.362-.152.479a6.588 6.588 0 01-.3.59 1.335 1.335 0 00-.152.367h2.217c.416 0 .776.152 1.08.455.303.303.455.662.455 1.077zm-9.985-.51c.138 0 .258.05.36.15a.49.49 0 01.152.36v5.105a.49.49 0 01-.152.359.493.493 0 01-.36.151H.722a.494.494 0 01-.36-.151.49.49 0 01-.152-.359V6.046a.49.49 0 01.152-.36.493.493 0 01.36-.15zm-.769 4.594a.49.49 0 00-.152-.36.493.493 0 00-.36-.15.489.489 0 00-.364.15.496.496 0 00-.148.36c0 .143.05.264.148.363.099.098.22.147.364.147a.5.5 0 00.36-.147.485.485 0 00.152-.363z"/></symbol><symbol id="star"><path d="M9.834 1.049c.21-.645 1.122-.645 1.332 0l1.983 6.105a.7.7 0 00.666.483h6.419c.678 0 .96.868.411 1.267l-5.193 3.773a.7.7 0 00-.254.782l1.984 6.105c.21.645-.529 1.181-1.078.782l-5.193-3.773a.7.7 0 00-.822 0l-5.193 3.773c-.549.399-1.287-.137-1.078-.782l1.984-6.105a.7.7 0 00-.254-.783L.355 8.904c-.549-.399-.267-1.267.411-1.267h6.419a.7.7 0 00.666-.483z" fill="currentcolor" stroke="#f13e4b"/></symbol></svg></div>
-    <div class="packaging-product">
-        <div class="crumps">
-            <ul class="crumps-list" style="margin-left: 0;" itemscope itemtype="http://schema.org/BreadcrumbList">
-                <li class="crumps-list__item" itemprop="itemListElement" itemscope
-                    itemtype="http://schema.org/ListItem">
-                    <a itemprop="item" href="<?= home_url() ?>">
-                        <span itemprop="name">  home</span>
-                    </a>
-                </li>
-                <?php
+    <main class="g-main">
+        <!-- SVG Sprite-->
+        <div style="display: none;" class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol id="arrow_right"><path fill="#fff" d="M8.808 1.242a.42.42 0 01.604-.584l3.885 4.015a.42.42 0 01.116.328.603.603 0 01.002.044c0 .266-.175.484-.396.5L9.412 9.276a.42.42 0 11-.604-.584l3.042-3.148H1.06c-.232 0-.42-.224-.42-.5s.188-.5.42-.5h10.944z"/></symbol><symbol id="close"><path fill="currentColor" d="M27.296.654L15 12.938 2.705.654a1.45 1.45 0 00-2.05 2.052L12.961 15 .655 27.295a1.45 1.45 0 102.05 2.051L15 17.062l12.296 12.284a1.45 1.45 0 102.05-2.051L17.038 15 29.345 2.706a1.45 1.45 0 10-2.05-2.052z"/></symbol><symbol id="drop_arrow"><path d="M11.045.77a.507.507 0 01.704.729L6.346 6.718a.506.506 0 01-.704 0L.244 1.498A.506.506 0 11.948.77l5.046 4.88z"/></symbol><symbol id="finger-down"><path fill="currentColor" d="M13.168 7.656a1.478 1.478 0 01-1.08.455H9.87a1.333 1.333 0 00.152.367 6.593 6.593 0 01.3.59c.051.117.101.277.152.479.051.202.076.404.076.606a3.42 3.42 0 01-.044.67c-.024.16-.056.292-.096.399-.04.106-.104.226-.192.359a1.12 1.12 0 01-.32.323 1.756 1.756 0 01-.48.207 2.397 2.397 0 01-.66.084.493.493 0 01-.36-.152 1.385 1.385 0 01-.273-.399 2.37 2.37 0 01-.156-.414 7.701 7.701 0 01-.1-.487 20.007 20.007 0 00-.108-.483 2.546 2.546 0 00-.14-.386 1.222 1.222 0 00-.248-.383c-.176-.176-.445-.495-.808-.957a14.65 14.65 0 00-.808-.966c-.278-.303-.48-.46-.608-.47a.525.525 0 01-.344-.164.48.48 0 01-.144-.347V1.474c0-.138.05-.256.152-.355a.53.53 0 01.36-.155C5.36.958 5.782.84 6.438.612c.41-.138.732-.243.964-.314a9.91 9.91 0 01.972-.232c.416-.082.8-.124 1.152-.124h1.032c.71.011 1.235.219 1.577.623.31.367.44.848.392 1.443.208.197.352.447.432.75.09.324.09.636 0 .933.245.325.36.689.344 1.093 0 .17-.04.372-.12.607.294.335.44.73.44 1.188 0 .415-.152.774-.455 1.077zM1.333 7.09a.493.493 0 01-.36-.152.49.49 0 01-.152-.359V1.474a.49.49 0 01.152-.36.494.494 0 01.36-.15h2.305c.138 0 .258.05.36.15a.49.49 0 01.152.36v5.105a.49.49 0 01-.152.359.493.493 0 01-.36.152zm1.384-4.958a.5.5 0 00-.36-.148.495.495 0 00-.364.148.492.492 0 00-.148.363.5.5 0 00.148.359c.099.1.22.152.364.152.14 0 .26-.051.36-.152a.49.49 0 00.153-.36.485.485 0 00-.153-.362z"/></symbol><symbol id="finger-up"><path fill="currentColor" d="M13.012 6.046c0 .457-.146.853-.44 1.188.08.234.12.436.12.607.016.404-.099.768-.344 1.092.09.298.09.61 0 .934a1.55 1.55 0 01-.432.75c.048.595-.083 1.076-.392 1.443-.342.404-.867.612-1.577.622H8.915c-.352 0-.736-.041-1.152-.123a10.21 10.21 0 01-.972-.232 44.448 44.448 0 01-.964-.315c-.656-.229-1.078-.346-1.264-.35a.53.53 0 01-.36-.156.477.477 0 01-.153-.355V6.038a.48.48 0 01.144-.347.525.525 0 01.345-.164c.128-.01.33-.167.608-.47.277-.304.546-.625.808-.966.363-.462.632-.781.808-.957.096-.096.179-.223.248-.383.07-.16.116-.288.14-.387.024-.098.06-.259.108-.482a7.7 7.7 0 01.1-.487c.03-.117.082-.255.156-.415a1.39 1.39 0 01.272-.398.493.493 0 01.36-.152c.246 0 .466.028.66.084.196.056.356.125.481.207.125.083.232.19.32.323s.152.253.192.36c.04.105.072.238.096.398a3.42 3.42 0 01.044.67c0 .202-.025.404-.076.606-.05.202-.101.362-.152.479a6.588 6.588 0 01-.3.59 1.335 1.335 0 00-.152.367h2.217c.416 0 .776.152 1.08.455.303.303.455.662.455 1.077zm-9.985-.51c.138 0 .258.05.36.15a.49.49 0 01.152.36v5.105a.49.49 0 01-.152.359.493.493 0 01-.36.151H.722a.494.494 0 01-.36-.151.49.49 0 01-.152-.359V6.046a.49.49 0 01.152-.36.493.493 0 01.36-.15zm-.769 4.594a.49.49 0 00-.152-.36.493.493 0 00-.36-.15.489.489 0 00-.364.15.496.496 0 00-.148.36c0 .143.05.264.148.363.099.098.22.147.364.147a.5.5 0 00.36-.147.485.485 0 00.152-.363z"/></symbol><symbol id="star"><path d="M9.834 1.049c.21-.645 1.122-.645 1.332 0l1.983 6.105a.7.7 0 00.666.483h6.419c.678 0 .96.868.411 1.267l-5.193 3.773a.7.7 0 00-.254.782l1.984 6.105c.21.645-.529 1.181-1.078.782l-5.193-3.773a.7.7 0 00-.822 0l-5.193 3.773c-.549.399-1.287-.137-1.078-.782l1.984-6.105a.7.7 0 00-.254-.783L.355 8.904c-.549-.399-.267-1.267.411-1.267h6.419a.7.7 0 00.666-.483z" fill="currentcolor" stroke="#f13e4b"/></symbol></svg></div>
+        <div class="packaging-product">
+            <div class="crumps">
+                <ul class="crumps-list" style="margin-left: 0;" itemscope itemtype="http://schema.org/BreadcrumbList">
+                    <li class="crumps-list__item" itemprop="itemListElement" itemscope
+                        itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="<?= home_url() ?>">
+                            <span itemprop="name">  home</span>
+                        </a>
+                    </li>
+                    <?php
                     $primary = new WPSEO_Primary_Term('product_cat', get_the_ID());
                     $primary = $primary->get_primary_term();
                     $primary = get_term_by('term_taxonomy_id', $primary);
-                ?>
-                <li class="crumps-list__item" itemprop="itemListElement" itemscope
-                    itemtype="http://schema.org/ListItem" >
-                    <a itemprop="item" href="<?= get_category_link($primary->term_id); ?>" style="text-transform: lowercase">
-                        <span itemprop="name"><?= $primary->name; ?></span>
-                    </a>
-                </li>
-                <li class="crumps-list__item" itemprop="itemListElement" itemscope
-                    itemtype="http://schema.org/ListItem">
-                    <a href="#" itemprop="item">
-                        <span itemprop="name"><?php the_title() ?></span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="product-grid">
-            <div class="product-grid__media">
-                <h2 class="product-slider-title"><?php the_title() ?></h2>
-                <?php
-                $feature_tag = get_field('feature_tag');
-                $gallery_tag = get_field('gallery_tag');
-                ?>
-                <div class="product-slider-wrap">
-                    <div class="product-slider-main">
-                        <div class="product-slider zoom-wrap">
+                    ?>
+                    <li class="crumps-list__item" itemprop="itemListElement" itemscope
+                        itemtype="http://schema.org/ListItem" >
+                        <a itemprop="item" href="<?= get_category_link($primary->term_id); ?>" style="text-transform: lowercase">
+                            <span itemprop="name"><?= $primary->name; ?></span>
+                        </a>
+                    </li>
+                    <li class="crumps-list__item" itemprop="itemListElement" itemscope
+                        itemtype="http://schema.org/ListItem">
+                        <a href="#" itemprop="item">
+                            <span itemprop="name"><?php the_title() ?></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="product-grid">
+                <div class="product-grid__media">
+                    <h2 class="product-slider-title"><?php the_title() ?></h2>
+                    <?php
+                    $feature_tag = get_field('feature_tag');
+                    $gallery_tag = get_field('gallery_tag');
+                    ?>
+                    <div class="product-slider-wrap">
+                        <div class="product-slider-main">
+                            <div class="product-slider zoom-wrap">
                                 <span class="slide">
                                     <img id="zoom-trigger-1" data-target="zoom-target-1" src="<?= get_field('featured_image') ?>" alt="product image" data-large-img="<?= get_field('featured_image') ?>" class="product-slider-img"/>
                                     <?php if (!empty($feature_tag)) : ?>
                                         <p class="thumnbs-tag"><?= $feature_tag ?></p>
                                     <?php endif; ?>
                                 </span>
-                            <?php $gallery_images = get_field('gallery_images');
-                            foreach ($gallery_images as $key => $gallery_image){ ?>
-                                <?php $i = $key + 2; ?>
-                                <span class="slide">
+                                <?php $gallery_images = get_field('gallery_images');
+                                foreach ($gallery_images as $key => $gallery_image){ ?>
+                                    <?php $i = $key + 2; ?>
+                                    <span class="slide">
                                     <img id="zoom-trigger-<?= $i ?>" data-target="zoom-target-<?= $i ?>" src="<?= $gallery_image['gallery_images_url'] ?>" alt="product image" data-large-img="<?= $gallery_image['gallery_images_url'] ?>" class="product-slider-img"/>
                                     <?php if (!empty($gallery_tag[$key]['gallery_images_tag'])) : ?>
                                         <p class="thumnbs-tag"><?= $gallery_tag[$key]['gallery_images_tag'] ?></p>
                                     <?php endif; ?>
                                 </span>
-                            <?php }
-                            ?>
-                        </div>
-                        <div class="product-slider-nav">
-                            <button type="button" class="btn btn-prev btn-prev-main ic-nav-prev"></button>
-                            <button type="button" class="btn btn-next btn-next-main ic-nav-next" style="min-width: 0;"></button>
-                        </div>
-                        <div class="product-slider-dots"></div>
-                        <div class="product-slider-zoom">
-                            <!-- this count = img count-->
-                            <!-- this id = img data-target-->
-                            <?php
-                            $count = count($gallery_images) + 1;
-                            for ( $k = 1; $k <= $count; $k++ ) {
-                            ?>
-                                <div id="zoom-target-<?= $k ?>" class="img-zoom-result"></div>
-                            <?php
-                            }
-                            ?>
+                                <?php }
+                                ?>
+                            </div>
+                            <div class="product-slider-nav">
+                                <button type="button" class="btn btn-prev btn-prev-main ic-nav-prev"></button>
+                                <button type="button" class="btn btn-next btn-next-main ic-nav-next" style="min-width: 0;"></button>
+                            </div>
+                            <div class="product-slider-dots"></div>
+                            <div class="product-slider-zoom">
+                                <!-- this count = img count-->
+                                <!-- this id = img data-target-->
+                                <?php
+                                $count = count($gallery_images) + 1;
+                                for ( $k = 1; $k <= $count; $k++ ) {
+                                    ?>
+                                    <div id="zoom-target-<?= $k ?>" class="img-zoom-result"></div>
+                                    <?php
+                                }
+                                ?>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="product-slider-thumnbs-wrap">
-                        <div class="product-slider-thumnbs">
+                        <div class="product-slider-thumnbs-wrap">
+                            <div class="product-slider-thumnbs">
                                 <div class="thumnbs-slide">
                                     <img data-lazy="<?= get_field('featured_image') ?>" alt="product image"/>
                                 </div>
-                            <?php foreach ($gallery_images as $key => $gallery_image) : ?>
-                                <div class="thumnbs-slide">
-                                    <img data-lazy="<?= $gallery_image['gallery_images_url'] ?>" alt="product image"/>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="product-slider-nav">
-                            <button type="button" class="btn btn-prev btn-prev-thumbs ic-nav-prev"></button>
-                            <button type="button" class="btn btn-next btn-next-thumbs ic-nav-next" style="min-width: 0;"></button>
+                                <?php foreach ($gallery_images as $key => $gallery_image) : ?>
+                                    <div class="thumnbs-slide">
+                                        <img data-lazy="<?= $gallery_image['gallery_images_url'] ?>" alt="product image"/>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <div class="product-slider-nav">
+                                <button type="button" class="btn btn-prev btn-prev-thumbs ic-nav-prev"></button>
+                                <button type="button" class="btn btn-next btn-next-thumbs ic-nav-next" style="min-width: 0;"></button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
                     <div class="product-features">
                         <?php
@@ -198,8 +198,23 @@ if ( post_password_required() ) {
                         ?>
                     </div>
                 </div>
+                <?php
+                $wc_product = wc_get_product(get_the_ID());
+                $currency = get_woocommerce_currency_symbol();
+                $on_sale = false;
+
+                if($wc_product->is_on_sale()) {
+                    $on_sale = true;
+                }
+                $special_offer = get_field('special_offers', $post_id);
+                ?>
                 <div class="product-grid__description">
                     <div class="product-description">
+                        <?php if($on_sale): ?>
+                            <div class="product-description__sales">
+                                <div class="product-sales-banner">Sale</div>
+                            </div>
+                        <?php endif;?>
                         <h1 class="product-description__title"><?php the_title() ?></h1>
                         <p><?php the_content(); ?></p>
                     </div>
@@ -207,18 +222,30 @@ if ( post_password_required() ) {
                     $colors = get_the_terms( $product->id, 'pa_color' );
                     $currentColour = get_field('current_colour', $post->ID);
                     $relatedProducts = get_field('related_products', $post->ID);
+
                     ?>
+                    <div class="product-extend">
+                        <div class="product-price">
+                            <?php if($on_sale): ?>
+                                <div class="product-price__value"><span class="-old"><?= $currency.$wc_product->get_regular_price() ?></span><span class="-new"><?= $currency.$wc_product->get_sale_price() ?></span></div>
+                            <?php else : ?>
+                                <div class="product-price__value"><span><?= $currency.$wc_product->get_regular_price() ?></span></div>
+                            <?php endif; ?>
+                            <div class="product-price__unit">*per sqm</div>
+                        </div>
+                        <div class="product-special"><?php echo !empty($special_offer) ? $special_offer : '' ?></div>
+                    </div>
                     <div class="product-selector js-product-parent">
                         <div class="product-selector__title">Selected Colour:
                             <?php if (!empty($colors)) : ?>
-                            <div class="product-selector__title-select js-select-color">
-                                <?php foreach ($colors as $color) : ?>
-                                    <?php if ($color->term_id == $currentColour) : ?>
-                                        <?php $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
-                                        <?= $color->name ?>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </div>
+                                <div class="product-selector__title-select js-select-color">
+                                    <?php foreach ($colors as $color) : ?>
+                                        <?php if ($color->term_id == $currentColour) : ?>
+                                            <?php $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+                                            <?= $color->name ?>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </div>
                             <?php endif; ?>
                         </div>
                         <?php if (!empty($currentColour) && !empty($relatedProducts)) : ?>
@@ -283,27 +310,27 @@ if ( post_password_required() ) {
                                 </ul>
                             </div>
                         <?php else : ?>
-                        <div class="product-selector-inner"><a href="#" class="product-selector-preview js-show-swatch">
-                                <?php
-                                if (!empty($colors))
-                                    foreach ($colors as $color){
-                                        $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
-                                        <div style="background-image:url('<?= $color_image ?>');" class="product-selector-preview__item js-product-target"></div>
-                                    <?php }
-                                ?>
-                                <div class="product-selector-preview__button"><span>Open Swatch Gallery</span></div></a>
-                            <ul class="product-selector-thumbs">
-                                <?php
-                                if (!empty($colors))
-                                    foreach ($colors as $color){
-                                        $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
-                                        <li data-naming="<?= $color->name ?>" class="product-selector-thumbs__item js-product-trigger">
-                                            <div class="product-selector-thumbs__img"><img style="min-width: 34px; min-height: 34px;" src="<?= $color_image ?>" alt="<?= $color->name ?>"/></div>
-                                        </li>
-                                    <?php }
-                                ?>
-                            </ul>
-                        </div>
+                            <div class="product-selector-inner"><a href="#" class="product-selector-preview js-show-swatch">
+                                    <?php
+                                    if (!empty($colors))
+                                        foreach ($colors as $color){
+                                            $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+                                            <div style="background-image:url('<?= $color_image ?>');" class="product-selector-preview__item js-product-target"></div>
+                                        <?php }
+                                    ?>
+                                    <div class="product-selector-preview__button"><span>Open Swatch Gallery</span></div></a>
+                                <ul class="product-selector-thumbs">
+                                    <?php
+                                    if (!empty($colors))
+                                        foreach ($colors as $color){
+                                            $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+                                            <li data-naming="<?= $color->name ?>" class="product-selector-thumbs__item js-product-trigger">
+                                                <div class="product-selector-thumbs__img"><img style="min-width: 34px; min-height: 34px;" src="<?= $color_image ?>" alt="<?= $color->name ?>"/></div>
+                                            </li>
+                                        <?php }
+                                    ?>
+                                </ul>
+                            </div>
                         <?php endif; ?>
                     </div>
                     <div class="product producr-button-row"><a href="<?= home_url()?>/measure-and-quote" class="button">Book measure and quote</a>
@@ -354,17 +381,17 @@ if ( post_password_required() ) {
                                     <dd><?= $primary->name ?></dd>
                                 </dl>
                                 <?php
-                                    $list = [];
-                                    $ID = get_the_ID();
-                                    $fibres = get_the_terms( $product->id, 'pa_fibres' );
-                                    $attribute = get_post_meta($ID, '_product_attributes', true);
-                                    if (!empty($attribute['pa_fibres']) && $attribute['pa_fibres']['is_visible'] == 1) {
-                                        if (!empty($fibres)) {
-                                            foreach ($fibres as $key => $fibre) {
-                                                $list[] = $fibre->name;
-                                            }
+                                $list = [];
+                                $ID = get_the_ID();
+                                $fibres = get_the_terms( $product->id, 'pa_fibres' );
+                                $attribute = get_post_meta($ID, '_product_attributes', true);
+                                if (!empty($attribute['pa_fibres']) && $attribute['pa_fibres']['is_visible'] == 1) {
+                                    if (!empty($fibres)) {
+                                        foreach ($fibres as $key => $fibre) {
+                                            $list[] = $fibre->name;
                                         }
                                     }
+                                }
                                 ?>
                                 <?php if (!empty($list)) : ?>
                                     <dl>
@@ -373,10 +400,10 @@ if ( post_password_required() ) {
                                     </dl>
                                 <?php endif; ?>
                                 <?php if (!empty(get_field('best_for'))) : ?>
-                                <dl>
-                                    <dt>Best For:</dt>
-                                    <dd><?= get_field('best_for') ?></dd>
-                                </dl>
+                                    <dl>
+                                        <dt>Best For:</dt>
+                                        <dd><?= get_field('best_for') ?></dd>
+                                    </dl>
                                 <?php endif; ?>
                                 <?php if ($material = get_the_terms( $product->id, 'pa_materials' )) : ?>
                                     <dl>
@@ -518,8 +545,8 @@ if ( post_password_required() ) {
         <div class="review-form-success" <?php if(strpos($_SERVER['REQUEST_URI'], '/comment-page-')) echo 'style="display: block"'; ?>>Thank you! Your review has been sent</div>
 
 
-    <!-- Reviews output -->
-    <div class="packaging-product">
+        <!-- Reviews output -->
+        <div class="packaging-product">
             <div class="review-wrap">
                 <?php
                 $comments = get_comments(['post_id' => $post->ID, 'status' => 'approve']);
@@ -550,16 +577,16 @@ if ( post_password_required() ) {
                                     <div class="star-rating star-rating--five">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="74" height="11" viewBox="0 0 74 11">
                                             <?php for($i=1; $i<2; $i++){ ?>
-                                               <?php if($rating < 1)break; ?>
-                                            <path fill="transparent" stroke="#00b262" d="M2.432 11.01a.405.405 0 0 1-.386-.532L3.221 6.85.128 4.601a.405.405 0 0 1 .238-.735h3.825L5.368.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L5.754 8.69 2.67 10.93a.406.406 0 0 1-.238.079"></path>
-                                               <?php if($rating < 2)break; ?>
-                                            <path fill="transparent" stroke="#00b262" d="M17.872 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L20.808.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L21.194 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
-                                               <?php if($rating < 3)break; ?>
-                                            <path fill="transparent" stroke="#00b262" d="M33.302 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L36.238.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L36.624 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
-                                               <?php if($rating < 4)break; ?>
-                                            <path fill="transparent" stroke="#00b262" d="M48.732 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L51.668.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L52.054 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
-                                               <?php if($rating < 5)break; ?>
-                                            <path fill="transparent" stroke="#00b262" d="M64.162 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L67.098.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L67.484 8.69 64.4 10.93a.406.406 0 0 1-.238.079"></path>
+                                                <?php if($rating < 1)break; ?>
+                                                <path fill="transparent" stroke="#00b262" d="M2.432 11.01a.405.405 0 0 1-.386-.532L3.221 6.85.128 4.601a.405.405 0 0 1 .238-.735h3.825L5.368.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L5.754 8.69 2.67 10.93a.406.406 0 0 1-.238.079"></path>
+                                                <?php if($rating < 2)break; ?>
+                                                <path fill="transparent" stroke="#00b262" d="M17.872 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L20.808.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L21.194 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
+                                                <?php if($rating < 3)break; ?>
+                                                <path fill="transparent" stroke="#00b262" d="M33.302 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L36.238.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L36.624 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
+                                                <?php if($rating < 4)break; ?>
+                                                <path fill="transparent" stroke="#00b262" d="M48.732 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L51.668.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L52.054 8.69l-3.084 2.24a.406.406 0 0 1-.238.079"></path>
+                                                <?php if($rating < 5)break; ?>
+                                                <path fill="transparent" stroke="#00b262" d="M64.162 11.01a.405.405 0 0 1-.386-.532l1.176-3.628-3.094-2.249a.405.405 0 0 1 .238-.735h3.825L67.098.24a.406.406 0 0 1 .773 0l1.176 3.626h3.825a.406.406 0 0 1 .239.735l-3.095 2.25 1.177 3.627a.406.406 0 0 1-.625.454L67.484 8.69 64.4 10.93a.406.406 0 0 1-.238.079"></path>
                                             <?php } ?>
                                         </svg>
                                     </div>
@@ -569,20 +596,13 @@ if ( post_password_required() ) {
                                     <p><?= $comment->comment_content ?></p>
                                 </div>
                             </div>
-                            <?php
-                            $cld_settings = get_option( 'cld_settings' );
-
-                            if ( $cld_settings['basic_settings']['status'] != 1 ) {
-                                // if comments like dislike is disabled from backend
-                                return;
-                            }
-                            ?>
                             <div class="review-btns">
                                 <?php
                                 $comment_id = $comment->comment_ID;
                                 $like_count = get_comment_meta( $comment_id, 'cld_like_count', true );
                                 $dislike_count = get_comment_meta( $comment_id, 'cld_dislike_count', true );
                                 $post_id = get_the_ID();
+                                $cld_settings = get_option( 'cld_settings' );
                                 /**
                                  * Filters like count
                                  *
@@ -620,7 +640,7 @@ if ( post_password_required() ) {
                                 }
                                 $user_ip = apply_filters( 'wpb_get_ip', $ip );
 
-                                
+
                                 if ( empty( $liked_ips ) ) {
                                     $liked_ips = array();
                                 }
@@ -684,28 +704,28 @@ if ( post_password_required() ) {
 
 
 
-                   <?php
+                        <?php
                     }
                 ?>
 
             </div>
         </div>
-    <style>
-        .section-come{
-            background-color: rgb(245, 246, 246);
-            margin-top: 50px;
+        <style>
+            .section-come{
+                background-color: rgb(245, 246, 246);
+                margin-top: 50px;
+            }
+        </style>
+        <?php
+        // go to action section
+        $goToAction = get_field('go_to_action', 35060);
+        if (!empty($goToAction)) {
+            if (!empty($goToAction['enable'])) {
+                echo template_part('goToAction', $goToAction);
+            }
         }
-    </style>
-    <?php
-    // go to action section
-    $goToAction = get_field('go_to_action', 35060);
-    if (!empty($goToAction)) {
-        if (!empty($goToAction['enable'])) {
-            echo template_part('goToAction', $goToAction);
-        }
-    }
 
-    ?>
+        ?>
         <div class="packaging">
             <div class="vantage">
                 <dl class="vantage-item">
@@ -739,7 +759,7 @@ if ( post_password_required() ) {
                 </div>
             </div>
         </div>
-</main>
+    </main>
 
 
     <div class="g-search">
@@ -754,44 +774,44 @@ if ( post_password_required() ) {
         </div>
     </div>
 
-<div class="swatch-gallery-wrap js-swatch-parent">
-    <div class="swatch-gallery js-product-parent">
-        <button aria-label="close modal" class="swatch-gallery__close js-show-swatch">
-            <svg class="icon close">
-                <use xlink:href="#close"></use>
-            </svg>
-        </button>
-        <div class="swatch-gallery__title">Swatch Gallery</div>
-        <div class="swatch-gallery-inner">
-            <ul class="swatch-gallery-thumbs">
-                <?php
-                if (!empty($colors))
-                    foreach ($colors as $color){
-                        $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
-                        <li data-naming="<?= $color->name ?>" class="swatch-gallery-thumbs__item js-product-trigger">
-                            <div class="swatch-gallery-thumbs__img"><img src="<?= $color_image ?>" alt="<?= $color->name ?>"></div>
-                        </li>
-                    <?php }
-                ?>
-
-            </ul>
-            <div class="swatch-gallery__select js-select-color"></div>
-            <div class="swatch-gallery-preview">
-                <?php
-                $image_count = 0;
-                if (!empty($colors))
-                    foreach ($colors as $color){
-                        $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
-                        <div style="background-image:url('<?= $color_image ?>');" class="swatch-gallery-preview__item js-product-target"></div>
+    <div class="swatch-gallery-wrap js-swatch-parent">
+        <div class="swatch-gallery js-product-parent">
+            <button aria-label="close modal" class="swatch-gallery__close js-show-swatch">
+                <svg class="icon close">
+                    <use xlink:href="#close"></use>
+                </svg>
+            </button>
+            <div class="swatch-gallery__title">Swatch Gallery</div>
+            <div class="swatch-gallery-inner">
+                <ul class="swatch-gallery-thumbs">
                     <?php
-                        $image_count++;
-                    }
-                ?>
-                <div style="background-image:url('<?= get_template_directory_uri() ?>/static/public/images/product-preview/product-preview.png');" data-trig-index="<?= $image_count?>" class="swatch-gallery-preview__item js-product-target"></div>
+                    if (!empty($colors))
+                        foreach ($colors as $color){
+                            $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+                            <li data-naming="<?= $color->name ?>" class="swatch-gallery-thumbs__item js-product-trigger">
+                                <div class="swatch-gallery-thumbs__img"><img src="<?= $color_image ?>" alt="<?= $color->name ?>"></div>
+                            </li>
+                        <?php }
+                    ?>
+
+                </ul>
+                <div class="swatch-gallery__select js-select-color"></div>
+                <div class="swatch-gallery-preview">
+                    <?php
+                    $image_count = 0;
+                    if (!empty($colors))
+                        foreach ($colors as $color){
+                            $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+                            <div style="background-image:url('<?= $color_image ?>');" class="swatch-gallery-preview__item js-product-target"></div>
+                            <?php
+                            $image_count++;
+                        }
+                    ?>
+                    <div style="background-image:url('<?= get_template_directory_uri() ?>/static/public/images/product-preview/product-preview.png');" data-trig-index="<?= $image_count?>" class="swatch-gallery-preview__item js-product-target"></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 
