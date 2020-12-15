@@ -339,7 +339,6 @@ foreach ($footer['contacts'] as $contact) {
                 <?= $geo; ?>
                 "url": "<?= get_permalink($post->ID) ?>",
                 "telephone": "<?= $phone ?>",
-                <?= $schemaTestimonials; ?>
                 <?= $schemaWork; ?>
             }
         ]
