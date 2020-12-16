@@ -519,10 +519,14 @@ svg {
       .product-card-footer{
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
         margin: 7px 0;
         .product-card__title{
           max-width: 90%;
           margin: 0;
+        }
+        .product-card-price{
+          margin-top: 5px;
         }
       }
       .product-card-extend{
@@ -543,6 +547,9 @@ svg {
         display: inline-flex;
         flex-flow: column;
         margin-left: auto;
+        text-align: right;
+        flex-shrink: 0;
+        padding-left: 10px;
         &__value{
           line-height: 0;
           span{
@@ -603,6 +610,7 @@ svg {
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-top: 5px;
     }
     .yith-wcwl-add-to-wishlist{
       margin: 0;

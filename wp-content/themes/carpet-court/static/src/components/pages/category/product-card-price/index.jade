@@ -8,17 +8,28 @@ mixin product-card-price(props={})
                     strong.product-card-image__sale Sale
             .product-card-footer
                 h5.product-card__title Rhino Austin Lakeway
-            .product-card-extend
-                .product-card-variety Clare
-                .product-card-price
-                    if props.sales
-                        .product-card-price__value
-                            span.-old $59.99
-                            span.-new $39.99
-                    else
-                        .product-card-price__value
-                            span $59.99
-                    .product-card-price__unit *per sqm
-                if props.offers
-                    .product-card-special
-                        .product-card-special__item Includes #[b FREE] Bissell Floor Cleaner
+                if props.version
+                    .product-card-price
+                        if props.sales
+                            .product-card-price__value
+                                span.-old $59.99
+                                span.-new $39.99
+                        else
+                            .product-card-price__value
+                                span $59.99
+                        .product-card-price__unit *per sqm
+            if !props.version
+                .product-card-extend
+                    .product-card-variety Clare
+                    .product-card-price
+                        if props.sales
+                            .product-card-price__value
+                                span.-old $59.99
+                                span.-new $39.99
+                        else
+                            .product-card-price__value
+                                span $59.99
+                        .product-card-price__unit *per sqm
+                    if props.offers
+                        .product-card-special
+                            .product-card-special__item Includes #[b FREE] Bissell Floor Cleaner
