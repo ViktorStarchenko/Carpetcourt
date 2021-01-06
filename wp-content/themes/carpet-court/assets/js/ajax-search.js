@@ -20,6 +20,7 @@ jQuery(document).on( 'submit', 'form.search-form', function() {
             $input.prop('disabled', false);
             $content.removeClass('loading');
             $content.html( response );
+            window.history.pushState("", "", `/?s=${query}`);
         }
     });
 
@@ -64,6 +65,7 @@ jQuery(document).on( 'keyup', 'input[name="s"]', function() {
             $input.prop('disabled', false);
             $content.removeClass('loading');
             $content.html( response );
+            window.history.pushState("", "", `/?s=${query}`);
         }
     });
 
