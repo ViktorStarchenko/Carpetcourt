@@ -259,6 +259,12 @@ function compare_name($a, $b)
                                                                 <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=patterned" class="menu-item__link">Patterned</a></li>
                                                                 */ ?>
                                                                     </ul>
+                                                                <?php elseif ($dropdown['sub_item']['title'] == "Brands") : ?>
+                                                                    <ul class="menu-item__list">
+                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/rhino-carpet/" class="menu-item__link">Rhino</a></li>
+                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/malmo/" class="menu-item__link">Malmo</a></li>
+                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/premium-collection/" class="menu-item__link">Premium Collection</a></li>
+                                                                    </ul>
                                                                 <?php endif ?>
                                                             </div>
                                                         <?php endif; ?>
@@ -321,7 +327,7 @@ function compare_name($a, $b)
                                 <div class="container">
                                     <div id="nav-1" class="drop-menu js-card-wrapper">
                                         <div class="drop-menu__nav">
-                                            <?php $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID]]);
+                                            <?php $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID], 'hide_empty' => 0]);
                                             foreach ($all_categories as $menu_cat) :
                                             ?>
                                             <div class="menu-item">
@@ -340,23 +346,30 @@ function compare_name($a, $b)
 
                                                 <ul class="menu-item__list">
                                                     <?php
-                                                    $products = wc_get_products(array(
-                                                        'category' => array($menu_cat->slug),
-                                                    ));
-                                                    $prID = $products[0]->get_id();
-                                                    $field = get_field_object('style_filter', $prID);
+                                                    if ($menu_cat->slug == 'brands'):?>
+                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/rhino-evercore/" class="menu-item__link">Rhino</a></li>
+                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/coretec/" class="menu-item__link">COREtec</a></li>
+                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/malmo/" class="menu-item__link">Malmo</a></li>
+                                                    <?php
+                                                    else :
+                                                        $products = wc_get_products(array(
+                                                            'category' => array($menu_cat->slug),
+                                                        ));
+                                                        $prID = $products[0]->get_id();
+                                                        $field = get_field_object('style_filter', $prID);
 
-                                                    $all_styles = $field['choices'];
-                                                    $style_slugs = array();
-                                                    ?>
+                                                        $all_styles = $field['choices'];
+                                                        $style_slugs = array();
+                                                        ?>
 
-                                                    <?php if ($all_styles) :
-                                                        //asort($all_styles); ?>
+                                                        <?php if ($all_styles) :
+                                                            //asort($all_styles); ?>
 
-                                                        <?php if ($menu_cat->term_id != 8) : ?>
-                                                            <?php foreach ($all_styles as $key => $c_style){ ?>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
-                                                            <?php } ?>
+                                                            <?php if ($menu_cat->term_id != 8) : ?>
+                                                                <?php foreach ($all_styles as $key => $c_style){ ?>
+                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
+                                                                <?php } ?>
+                                                            <?php endif; ?>
                                                         <?php endif; ?>
                                                     <?php endif; ?>
                                                 </ul>
