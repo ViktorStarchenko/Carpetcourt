@@ -2563,8 +2563,8 @@ function load_related_results() {
 
             if (($search->current_post + 1)  !=  $search->post_count && $primary_cat->name != $first_post_cat) :
                 $first_post_cat = $primary_cat->name;
-            ?>
-                <li><a href="<?= get_permalink(get_the_ID())?>">shop  <?= isset($primary_cat->name) ? $primary_cat->name : 'Carpet'?>  / <?= isset($style_title) ? $style_title : 'Cut Pile'?></a></li>
+                ?>
+                <li><a href="<?= get_term_link($primary_cat->term_id, 'product_cat')?>">shop  <?= isset($primary_cat->name) ? $primary_cat->name : 'Carpet'?>  / <?= isset($style_title) ? $style_title : 'Cut Pile'?></a></li>
             <?php elseif (($search->current_post + 1)  ==  $search->post_count) :?>
                 </ul>
                 </div>
@@ -2620,6 +2620,57 @@ function load_related_results() {
         </ul>
         </div>
     <?php
+    else:?>
+        <div class="drop-search-category">
+            <div class="drop-search-category__title">related categories</div>
+            <ul class="drop-search-category__list">
+                <li><a href="#"></a>No related categories</li>
+            </ul>
+        </div>
+        <div class="drop-search-category">
+            <div class="drop-search-category__title">related articles</div>
+            <div class="drop-search-category__row">
+                <div class="drop-search-category__item">
+                    <div class="drop-search-category__subtitle">Pages</div>
+                    <ul class="drop-search-category__list">
+                        <?php
+                        $args = [
+                            'numberposts' => 4,
+                            'post_type' => ['page'],
+                            's' => $query
+                        ];
+                        $rel_art = get_posts($args);
+                        if(!empty($rel_art)) {
+                            foreach ($rel_art as $article)  :
+                                ?>
+                                <li><a href="<?= get_permalink($article->ID)?>"><?= $article->post_title?></a></li>
+                            <?php
+                            endforeach;
+                        }?>
+                    </ul>
+                </div>
+                <div class="drop-search-category__item">
+                    <div class="drop-search-category__subtitle">Articles</div>
+                    <ul class="drop-search-category__list">
+                        <?php
+                        $args = [
+                            'numberposts' => 4,
+                            'post_type' => ['post'],
+                            's' => $query
+                        ];
+                        $rel_art = get_posts($args);
+                        if(!empty($rel_art)) {
+                            foreach ($rel_art as $article)  :
+                                ?>
+                                <li><a href="<?= get_permalink($article->ID)?>"><?= $article->post_title?></a></li>
+                            <?php
+                            endforeach;
+                        }?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <?php
     endif;
 
     $content = ob_get_clean();
@@ -2628,6 +2679,7 @@ function load_related_results() {
     die();
 
 }
+
 
 
 function filter_wpseo_canonical($canonical) {
