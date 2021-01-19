@@ -131,7 +131,40 @@
                                             <?php foreach ($item['sub_items'] as $dropdown) : ?>
                                                 <?php if (!empty($dropdown['sub_item'])) : ?>
                                                 <div class="menu-item">
-                                                    <a href="<?= $dropdown['sub_item']['url'] ?>" target="<?= $dropdown['sub_item']['target'] ?>" class=""><?= $dropdown['sub_item']['title'] ?></a>
+                                                    <a href="<?= $dropdown['sub_item']['url'] ?>" target="<?= $dropdown['sub_item']['target'] ?>" class="<?= $dropdown['sub_item']['title'] == 'Brands' ? 'lnk-next' : '' ?>"><?= $dropdown['sub_item']['title'] ?></a>
+                                                    <?php if (($dropdown['sub_item']['title'] == 'Brands')) : ?>
+                                                        <div class="item-dropdown">
+                                                            <div class="dropdown-nav">
+                                                                <div class="dropdown-nav__ttl"><?= $dropdown['sub_item']['title'] ?></div>
+                                                                <div class="dropdown-nav__btn">
+                                                                    <button type="button" class="btn btn-index btn--grey lnk-back">back</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="drop-menu">
+                                                            <?php if ($item['link']['title'] == "Carpet") : ?>
+                                                                <div class="menu-item">
+                                                                    <a href="<?= home_url(); ?>/rhino-carpet/" target="" class="">Rhino</a>
+                                                                </div>
+                                                                <div class="menu-item">
+                                                                    <a href="<?= home_url(); ?>/malmo/" target="" class="">Malmo</a>
+                                                                </div>
+                                                                <div class="menu-item">
+                                                                    <a href="<?= home_url(); ?>/premium-collection/" target="" class="">Premium Collection</a>
+                                                                </div>
+                                                            <?php else: ?>
+                                                                <div class="menu-item">
+                                                                    <a href="<?= home_url(); ?>/rhino-evercore/" target="" class="">Rhino</a>
+                                                                </div>
+                                                                <div class="menu-item">
+                                                                    <a href="<?= home_url(); ?>/coretec/" target="" class="">COREtec</a>
+                                                                </div>
+                                                                <div class="menu-item">
+                                                                    <a href="<?= home_url(); ?>/malmo/" target="" class="">Malmo</a>
+                                                                </div>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
