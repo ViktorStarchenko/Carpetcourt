@@ -21,6 +21,7 @@ jQuery(document).on( 'submit', 'form.search-form', function() {
             $content.removeClass('loading');
             $content.html( response );
             window.history.pushState("", "", `/?s=${query}`);
+            ga('send', 'pageview', `/?s=${query}`);
         }
     });
 
@@ -66,6 +67,7 @@ jQuery(document).on( 'keyup', 'input[name="s"]', function() {
             $content.removeClass('loading');
             $content.html( response );
             window.history.pushState("", "", `/?s=${query}`);
+            ga('send', 'pageview', `/?s=${query}`);
         }
     });
 
