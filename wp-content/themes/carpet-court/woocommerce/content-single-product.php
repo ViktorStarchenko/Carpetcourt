@@ -202,6 +202,7 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                 $wc_product = wc_get_product(get_the_ID());
                 $currency = get_woocommerce_currency_symbol();
                 $on_sale = false;
+                $on_sale_without_discount =  product_on_sale_without_discount($wc_product->get_id());
 
                 if($wc_product->is_on_sale()) {
                     $on_sale = true;
@@ -233,7 +234,7 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                             <?php endif; ?>
                             <div class="product-price__unit">*per sqm</div>
                         </div>
-                        <div class="product-special"><?php echo !empty($special_offer) ? $special_offer : '' ?></div>
+                        <div class="product-special"><?php if($on_sale || $on_sale_without_discount): ?><?php echo !empty($special_offer) ? $special_offer : '' ?><?php endif; ?></div>
                     </div>
                     <div class="product-selector js-product-parent">
                         <div class="product-selector__title">Selected Colour:

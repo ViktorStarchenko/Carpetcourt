@@ -90,6 +90,7 @@ $imgRoom = get_field('featured_image');
 <?php
 $currency = get_woocommerce_currency_symbol();
 $on_sale = false;
+$on_sale_without_discount =  product_on_sale_without_discount($product->get_id());
 
 if($product->is_on_sale()) {
     $on_sale = true;
@@ -123,10 +124,12 @@ $special_offer = get_field('special_offers', $product->id);
                     <?php endif; ?>
                     <div class="product-card-price__unit">*per sqm</div>
                 </div>
-                <?php if(!empty($special_offer)): ?>
-                    <div class="product-card-special">
-                        <div class="product-card-special__item"><?= $special_offer ?></div>
-                    </div>
+                <?php if($on_sale || $on_sale_without_discount): ?>
+                    <?php if(!empty($special_offer)): ?>
+                        <div class="product-card-special">
+                            <div class="product-card-special__item"><?= $special_offer ?></div>
+                        </div>
+                    <?php endif;?>
                 <?php endif;?>
             </div>
         </div>

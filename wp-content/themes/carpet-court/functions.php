@@ -2746,5 +2746,19 @@ function get_brem() {
     echo 'Total posts: ' . $posts_count;
     echo 'Posts updated' . $posts_updated;
 }
+function product_on_sale_without_discount($product_id) :bool {
+    $sales_rule_enabled_without_discount = false;
+    global $wpdb;
+    $rule_id_of_current_product = $wpdb->get_var( $wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE post_id IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key LIKE '_wcct_current_status_timing' AND meta_value LIKE 'running') AND meta_key = %s AND meta_value LIKE %s", 'wcct_rule', '%'.$product_id.'%'));
 
+    if (!empty($rule_id_of_current_product)) {
+        $status_of_rule = $wpdb->get_var($wpdb->prepare("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = %s AND post_id = %s", '_wcct_current_status_timing', intval($rule_id_of_current_product)));
+        if ($status_of_rule == 'running') {
+            $deal_enable_price_discount = $wpdb->get_var( $wpdb->prepare("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = %s AND post_id = %s", '_wcct_deal_enable_price_discount', intval($rule_id_of_current_product)));
+            $sales_rule_enabled_without_discount = $deal_enable_price_discount == 0;
+        }
+    }
+
+    return $sales_rule_enabled_without_discount;
+}
 
