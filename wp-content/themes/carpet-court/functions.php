@@ -2746,7 +2746,7 @@ function get_brem() {
     echo 'Total posts: ' . $posts_count;
     echo 'Posts updated' . $posts_updated;
 }
-function product_on_sale_without_discount($product_id) :bool {
+function product_on_sale_without_discount($product_id) {
     $sales_rule_enabled_without_discount = false;
     global $wpdb;
     $rule_id_of_current_product = $wpdb->get_var( $wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE post_id IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key LIKE '_wcct_current_status_timing' AND meta_value LIKE 'running') AND meta_key = %s AND meta_value LIKE %s", 'wcct_rule', '%'.$product_id.'%'));
