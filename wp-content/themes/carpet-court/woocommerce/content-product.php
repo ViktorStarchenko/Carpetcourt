@@ -110,12 +110,6 @@ $special_offer = get_field('special_offers', $product->id);
             </a>
             <div class="product-card-footer">
                 <h5 class="product-card__title"><?php the_title() ?></h5>
-                <div class="whishlist">
-                    <?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
-                </div>
-            </div>
-            <div class="product-card-extend">
-                <div class="product-card-variety"><!--Clare--></div>
                 <div class="product-card-price">
                     <?php if($on_sale): ?>
                         <div class="product-card-price__value"><span class="-old"><?= $currency.$product->get_regular_price()?></span><span class="-new"><?= $currency.$product->get_sale_price()?></span></div>
@@ -124,6 +118,8 @@ $special_offer = get_field('special_offers', $product->id);
                     <?php endif; ?>
                     <div class="product-card-price__unit">*per sqm</div>
                 </div>
+            </div>
+            <div class="product-card-extend">
                 <?php if($on_sale || $on_sale_without_discount): ?>
                     <?php if(!empty($special_offer)): ?>
                         <div class="product-card-special">
