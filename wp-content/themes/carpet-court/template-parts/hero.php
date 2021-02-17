@@ -2,7 +2,7 @@
 $wp_tz = get_option('timezone_string');
 $tz_obj = new DateTimeZone($wp_tz);
 $time_now = new DateTime("now", $tz_obj);
-$time_now = $time_now->format("r");
+$time_now_in_tz = $time_now->getTimestamp()+$time_now->getOffset();
 ?>
 
 <div class="section-hero">
@@ -42,12 +42,16 @@ $time_now = $time_now->format("r");
 
             if (!empty($item['active_from'])) {
                 $start_date_set = true;
-                $started = $item['active_from'] < $time_now;
+                $active_from = new DateTime($item['active_from'],$tz_obj);
+                $active_from_with_tz = $active_from->getTimestamp() + $active_from->getOffset();
+                $started = $active_from_with_tz < $time_now_in_tz;
             }
 
             if (!empty($item['active_till'])) {
                 $end_date_set = true;
-                $ended = $item['active_till'] < $time_now;
+                $active_till = new DateTime($item['active_till'],$tz_obj);
+                $active_till_with_tz = $active_till->getTimestamp() + $active_till->getOffset();
+                $ended = $active_till_with_tz < $time_now_in_tz;
             }
             ?>
             <?php if (($start_date_set && $started) || !$start_date_set ) :?>
