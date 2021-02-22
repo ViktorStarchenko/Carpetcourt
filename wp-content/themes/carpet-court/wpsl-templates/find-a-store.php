@@ -195,12 +195,12 @@ ob_start();
         }
     });
 </script>
-<?php wp_enqueue_script('wpsl-js', get_template_directory_uri() . '/wpsl-templates/custom-wpsl-gmap.js', ['jquery'], WPSL_VERSION_NUM, true); ?>
+<?php wp_enqueue_script('wpsl-js-custom', get_template_directory_uri() . '/wpsl-templates/custom-wpsl-gmap.js', ['jquery'], WPSL_VERSION_NUM, true); ?>
 
     <div class="locator-hero">
         <div class="container container--fluid">
             <div class="s-wrap">
-                <div class="s-locator">
+                <div class="s-locator">asdasdasdasd
                     <div class="s-locator__header">
                         <h2 class="header-title">store locator</h2>
                         <div class="header-box hide">
