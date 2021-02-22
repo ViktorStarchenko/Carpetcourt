@@ -26,10 +26,7 @@ function initWpslMap() {
 	}, 500 );
 }
 
-
-jQuery(document).on('ready', function() {
-	(function($){
-
+$(document).ready(function() {
 		var geocoder, map, directionsDisplay, directionsService, autoCompleteLatLng,
 			activeWindowMarkerId, infoWindow, markerClusterer, startMarkerData, startAddress, userPosition, notGeoLocation,
 			openInfoWindow = [],
@@ -82,7 +79,6 @@ jQuery(document).on('ready', function() {
 
 			// Get the settings that belongs to the current map.
 			settings = getMapSettings( mapIndex );
-
 			/*
              * This is the value from either the settings page,
              * or the zoom level set through the shortcode.
@@ -174,7 +170,6 @@ jQuery(document).on('ready', function() {
 
 			// Only run this part if the store locator exist and we don't just have a basic map.
 			if ( $( "#wpsl-gmap" ).length ) {
-
 				if ( wpslSettings.autoComplete == 1 ) {
 					activateAutocomplete();
 				}
@@ -2826,5 +2821,4 @@ jQuery(document).on('ready', function() {
 			deleteStartMarker();
 		}
 
-	}(jQuery));
 });
