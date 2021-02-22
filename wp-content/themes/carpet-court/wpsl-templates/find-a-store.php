@@ -200,7 +200,7 @@ ob_start();
     <div class="locator-hero">
         <div class="container container--fluid">
             <div class="s-wrap">
-                <div class="s-locator">asdasdasdasd
+                <div class="s-locator">
                     <div class="s-locator__header">
                         <h2 class="header-title">store locator</h2>
                         <div class="header-box hide">
