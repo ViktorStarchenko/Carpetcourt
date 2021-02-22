@@ -897,10 +897,6 @@ input[type='submit']:active
     color: #fff;
     background-color: #54c6d3;
 }
-.btn-previous,
-.btn-next{
-    min-width: 250px;
-}
 input[type='text'],
 input[type='email'],
 input[type='url'],
