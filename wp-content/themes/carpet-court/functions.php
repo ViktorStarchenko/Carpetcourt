@@ -2312,7 +2312,7 @@ function newDesign() {
 
     $flag = false;
     if (!empty($post)) {
-        if ($post->post_type == 'wpsl_stores' || $post->post_type == 'post' || $post->post_type == 'product') {
+        if ($post->post_type == 'post' || $post->post_type == 'product') {
             $flag = true;
         }
     }
