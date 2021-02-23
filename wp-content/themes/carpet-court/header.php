@@ -23,7 +23,7 @@ header("Access-Control-Allow-Credentials: true");
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <?php
     $hostUrl = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-    if(is_search() || strpos($hostUrl , 'search/?search') !== false || strpos($hostUrl , 'blog/?cat=') !== false){
+    if(is_search() || strpos($hostUrl , 'search/?search') !== false){
         echo '<meta name="robots" content="noindex" />' ;
     }
     ?>
@@ -60,14 +60,14 @@ header("Access-Control-Allow-Credentials: true");
     <?php
     $pagename = get_query_var('pagename');
     if ($pagename == 'measure-and-quote') { ?>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <?php } ?>
     <?php wp_head(); ?>
 </head>
 <?php
-    $logo = get_field('logo', 'option');
-    $topBar = get_field('top_bar', 'option');
-    $header = get_field('header', 'option');
+$logo = get_field('logo', 'option');
+$topBar = get_field('top_bar', 'option');
+$header = get_field('header', 'option');
 ?>
 <?php
 function compare_name($a, $b)
@@ -76,18 +76,18 @@ function compare_name($a, $b)
 }
 ?>
 <body <?php body_class(); ?>>
-    <div class="g-wrap <?php if (newDesign()) : ?> js-check-padding <?php endif; ?>">
-        <header class="g-header">
+<div class="g-wrap <?php if (newDesign()) : ?> js-check-padding <?php endif; ?>">
+    <header class="g-header">
         <div class="h-bar js-check-padding">
             <div class="container">
                 <div class="h-bar__inner">
                     <?php if (!empty($topBar['text'])) : ?>
-                    <div class="bar-text">
-                        <?= $topBar['text'] ?>
-                    </div>
+                        <div class="bar-text">
+                            <?= $topBar['text'] ?>
+                        </div>
                     <?php endif; ?>
                     <div class="bar-menu">
-                         <div class="menu-item"><a  target="_blank" rel="noopener noreferrer" href="https://clearance.carpetcourt.nz/" style="color: #f13e4b"><?= "shop clearance" ?></a></div>
+                        <div class="menu-item"><a  target="_blank" rel="noopener noreferrer" href="https://clearance.carpetcourt.nz/" style="color: #f13e4b"><?= "shop clearance" ?></a></div>
                         <?php /*
                         <?php if (is_user_logged_in()) : ?>
                             <?php if (!empty($topBar['wishlist_logened'])) : ?>
@@ -100,7 +100,7 @@ function compare_name($a, $b)
                         <?php endif; ?>
                         */ ?>
                         <?php if (!empty($topBar['phone'])) : ?>
-                        <div class="menu-item"><a href="<?= $topBar['phone']['url'] ?>" class="ic-bar-phone"><?= $topBar['phone']['title'] ?></a></div>
+                            <div class="menu-item"><a href="<?= $topBar['phone']['url'] ?>" class="ic-bar-phone"><?= $topBar['phone']['title'] ?></a></div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -115,161 +115,171 @@ function compare_name($a, $b)
                     </div>
                     <div class="h-search"><a href="#" class="ic-nav-search search-opener"></a></div>
                     <?php if (!empty($logo['dark'])) : ?>
-                        <?php
-                            $tag = 'div';
-                            if (is_front_page()) {
-                                $tag = 'h1';
-                            }
-                        ?>
+                    <?php
+                    $tag = 'div';
+                    if (is_front_page()) {
+                        $tag = 'h1';
+                    }
+                    ?>
                     <<?= $tag ?> class="h-logo" itemscope itemtype="https://schema.org/Organization">
-                        <a href="<?= get_option( 'home' ); ?>" itemprop="url" >
-                            <img src="<?= $logo['dark']['url'] ?>" alt="<?= get_option( 'blogname' ); ?>">
-                            <?php if (!empty($header['site_title'])) : ?>
-                                <span><?= $header['site_title'] ?></span>
+                    <a href="<?= get_option( 'home' ); ?>" itemprop="url" >
+                        <img src="<?= $logo['dark']['url'] ?>" alt="<?= get_option( 'blogname' ); ?>">
+                        <?php if (!empty($header['site_title'])) : ?>
+                            <span><?= $header['site_title'] ?></span>
+                        <?php endif; ?>
+                    </a>
+                </<?= $tag ?>>
+                <?php endif; ?>
+                <div class="h-nav">
+                    <?php if (!empty($header['navigation'])) : ?>
+                        <?php foreach ($header['navigation'] as $key => $item) : ?>
+                            <?php if (!empty($item['link'])) : ?>
+                                <?php
+                                $dropdown = '';
+                                if (!empty($item['sub_items'])) {
+                                    $dropdown = ' data-dropdown="#nav-' . $key . '" ';
+                                }
+
+                                $isPromotions = '';
+                                if (!empty($item['isPromotions'])) {
+                                    $isPromotions = ' nav-item--promo ';
+                                }
+
+                                if (!empty($item['toPage'])) {
+                                    $item['link']['url'] = "#";
+                                }
+                                ?>
+                                <div class="nav-item <?= $isPromotions ?> to-page-<?= $item['toPage'] ?>">
+                                    <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" <?= $dropdown ?> ><?= $item['link']['title'] ?></a>
+                                </div>
                             <?php endif; ?>
-                        </a>
-                    </<?= $tag ?>>
+                        <?php endforeach; ?>
                     <?php endif; ?>
-                    <div class="h-nav">
-                        <?php if (!empty($header['navigation'])) : ?>
-                            <?php foreach ($header['navigation'] as $key => $item) : ?>
-                                <?php if (!empty($item['link'])) : ?>
-                                    <?php
-                                        $dropdown = '';
-                                        if (!empty($item['sub_items'])) {
-                                            $dropdown = ' data-dropdown="#nav-' . $key . '" ';
-                                        }
-
-                                        $isPromotions = '';
-                                        if (!empty($item['isPromotions'])) {
-                                            $isPromotions = ' nav-item--promo ';
-                                        }
-
-                                        if (!empty($item['toPage'])) {
-                                            $item['link']['url'] = "#";
-                                        }
-                                    ?>
-                                    <div class="nav-item <?= $isPromotions ?> to-page-<?= $item['toPage'] ?>">
-                                        <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" <?= $dropdown ?> ><?= $item['link']['title'] ?></a>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                        <div class="nav-item nav-item--right"><a href="#" class="ic-nav-search search-opener">search</a></div>
-                        <?php if (!empty($header['location'])) : ?>
-                            <div class="nav-item nav-item--right"><a href="<?= $header['location']['url'] ?>" class="ic-nav-location"><?= $header['location']['title'] ?></a></div>
-                        <?php endif; ?>
-                    </div>
-                    <?php if (!empty($header['button'])) : ?>
+                    <div class="nav-item nav-item--right"><a href="#" class="ic-nav-search search-opener">search</a></div>
+                    <?php if (!empty($header['location'])) : ?>
+                        <div class="nav-item nav-item--right"><a href="<?= $header['location']['url'] ?>" class="ic-nav-location"><?= $header['location']['title'] ?></a></div>
+                    <?php endif; ?>
+                </div>
+                <?php if (!empty($header['button'])) : ?>
                     <div class="h-button">
                         <a href="<?= $header['button']['url'] ?>" class="btn btn-index"><?= $header['button']['title'] ?></a>
                     </div>
+                <?php endif; ?>
+                <?php if (is_user_logged_in()) : ?>
+                    <?php if (!empty($topBar['wishlist_logened'])) : ?>
+                        <div class="h-favorite"><a href="<?= $topBar['wishlist_logened']['url'] ?>" class="ic-bar-heart"></a></div>
                     <?php endif; ?>
-                    <?php if (is_user_logged_in()) : ?>
-                        <?php if (!empty($topBar['wishlist_logened'])) : ?>
-                            <div class="h-favorite"><a href="<?= $topBar['wishlist_logened']['url'] ?>" class="ic-bar-heart"></a></div>
-                        <?php endif; ?>
-                    <?php else: ?>
-                        <?php if (!empty($topBar['wishlist_guest'])) : ?>
-                            <div class="h-favorite"><a href="<?= $topBar['wishlist_guest']['url'] ?>" class="ic-bar-heart"></a></div>
-                        <?php endif; ?>
+                <?php else: ?>
+                    <?php if (!empty($topBar['wishlist_guest'])) : ?>
+                        <div class="h-favorite"><a href="<?= $topBar['wishlist_guest']['url'] ?>" class="ic-bar-heart"></a></div>
                     <?php endif; ?>
-                    <?php if (!empty($header['location'])) : ?>
-                        <div class="h-location"><a href="<?= $header['location']['url'] ?>" class="ic-nav-location"></a></div>
-                    <?php endif; ?>
-                </div>
+                <?php endif; ?>
+                <?php if (!empty($header['location'])) : ?>
+                    <div class="h-location"><a href="<?= $header['location']['url'] ?>" class="ic-nav-location"></a></div>
+                <?php endif; ?>
             </div>
         </div>
-        <div class="h-drop js-check-padding">
-            <div class="container">
-                <?php if (!empty($header['navigation'])) : ?>
-                    <?php foreach ($header['navigation'] as $key => $item) : ?>
-                        <?php if (!empty($item['link']) && !empty($item['enable_link'])) : ?>
-                            <?php if (!empty($item['sub_items'])) : ?>
+</div>
+<div class="h-drop js-check-padding">
+    <div class="container">
+        <?php if (!empty($header['navigation'])) : ?>
+            <?php foreach ($header['navigation'] as $key => $item) : ?>
+                <?php if (!empty($item['link']) && !empty($item['enable_link'])) : ?>
+                    <?php if (!empty($item['sub_items'])) : ?>
 
-                            <!-- Products -->
-                            <?php if($item['link']['title'] == "Carpet") : { ?>
-                                        <div class="container">
-                                            <div id="nav-0" class="drop-menu js-card-wrapper">
-                                                <div class="drop-menu__nav">
-                                                    <?php foreach ($item['sub_items'] as $dropdown) : ?>
-                                                        <?php if (!empty($dropdown['sub_item'])) : ?>
+                        <!-- Products -->
+                        <?php if($item['link']['title'] == "Carpet") : { ?>
+                            <div class="container">
+                                <div id="nav-0" class="drop-menu js-card-wrapper">
+                                    <div class="drop-menu__nav">
+                                        <?php foreach ($item['sub_items'] as $dropdown) : ?>
+                                            <?php if (!empty($dropdown['sub_item'])) : ?>
+                                                <?php
+                                                $image = '';
+                                                if ($dropdown['image']) {
+                                                    $image = $dropdown['image']['url'];
+                                                }
+                                                ?>
+                                                <div class="menu-item">
+                                                    <?php if (empty($image)) : ?>
+                                                        <?php if ($dropdown['sub_item']['title'] == "Carpet Tiles"):?>
+                                                            <a href="<?= $dropdown['sub_item']['url']?>" class="menu-item__title hidden"><?= $dropdown['sub_item']['title'] ?></a>
+                                                        <?php else :?>
+                                                            <a href="#" class="menu-item__title" style="pointer-events: none;"><?= $dropdown['sub_item']['title'] ?></a>
+                                                        <?php endif; ?>
+                                                    <?php else: ?>
+                                                        <div class="menu-item">
+                                                            <a href="#" style="background-image: url(<?= $image ?>)" class="card card--small">
+                                                                <div class="card-label">
+                                                                    <div class="card-title"><?= $dropdown['sub_item']['title'] ?></div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                    <?php if ($dropdown['sub_item']['title'] == "Style") : ?>
+                                                        <ul class="menu-item__list">
                                                             <?php
-                                                            $image = '';
-                                                            if ($dropdown['image']) {
-                                                                $image = $dropdown['image']['url'];
-                                                            }
+                                                            $products = wc_get_products(array(
+                                                                'category' => array('carpet'),
+                                                            ));
+                                                            $prID = $products[0]->get_id();
+                                                            $field = get_field_object('style_filter', $prID);
+
+                                                            $all_styles = $field['choices'];
+                                                            $style_slugs = array();
                                                             ?>
-                                                            <div class="menu-item">
-                                                                <?php if (empty($image)) : ?>
-                                                                    <a href="#" class="menu-item__title" style="pointer-events: none;"><?= $dropdown['sub_item']['title'] ?></a>
-                                                                <?php else: ?>
-                                                                    <div class="menu-item">
-                                                                        <a href="#" style="background-image: url(<?= $image ?>)" class="card card--small">
-                                                                            <div class="card-label">
-                                                                                <div class="card-title"><?= $dropdown['sub_item']['title'] ?></div>
-                                                                            </div>
-                                                                        </a>
-                                                                    </div>
-                                                                <?php endif; ?>
-                                                                <?php if ($dropdown['sub_item']['title'] == "Style") : ?>
-                                                                    <ul class="menu-item__list">
-                                                                        <?php
-                                                                        $products = wc_get_products(array(
-                                                                            'category' => array('carpet'),
-                                                                        ));
-                                                                        $prID = $products[0]->get_id();
-                                                                        $field = get_field_object('style_filter', $prID);
 
-                                                                        $all_styles = $field['choices'];
-                                                                        $style_slugs = array();
-                                                                        ?>
+                                                            <?php if ($all_styles) :
+                                                                asort($all_styles); ?>
 
-                                                                        <?php if ($all_styles) :
-                                                                            asort($all_styles); ?>
-
-                                                                            <?php foreach ($all_styles as $key => $c_style){ ?>
-                                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
-                                                                        <?php } ?>
-                                                                        <?php endif; ?>
-                                                                    </ul>
-                                                                <?php elseif ($dropdown['sub_item']['title'] == "Fibre") : ?>
-                                                                    <ul class="menu-item__list">
-                                                                        <?php
-                                                                        $fibre_slugs = array();
-                                                                        $all_fibre = get_terms(['taxonomy' => 'pa_fibres']);
-                                                                        $get_fibre = $_GET['fibre'];
-                                                                        $checked_fibre = explode(' ', $get_fibre);
-                                                                        if ($all_fibre) :
-                                                                            // sort alphabetically by name
-                                                                            usort($all_fibre, 'compare_name');
-                                                                            ?>
-                                                                            <?php foreach ($all_fibre as $c_fibre){ ?>
-                                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?fibre=<?= $c_fibre->slug ?>" class="menu-item__link"><?= $c_fibre->name ?></a></li>
-                                                                        <?php } ?>
-                                                                        <?php endif; ?>
-                                                                    </ul>
-                                                                <?php elseif ($dropdown['sub_item']['title'] == "Colour") : ?>
-                                                                    <ul class="menu-item__list">
-                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=grey" class="menu-item__link">Grey</a></li>
-                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=brown" class="menu-item__link">Brown</a></li>
-                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=beige" class="menu-item__link">Beige</a></li>
-                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=blue" class="menu-item__link">Blue</a></li>
-                                                                        <?php /*
+                                                                <?php foreach ($all_styles as $key => $c_style){ ?>
+                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
+                                                            <?php } ?>
+                                                            <?php endif; ?>
+                                                        </ul>
+                                                    <?php elseif ($dropdown['sub_item']['title'] == "Fibre") : ?>
+                                                        <ul class="menu-item__list">
+                                                            <?php
+                                                            $fibre_slugs = array();
+                                                            $all_fibre = get_terms(['taxonomy' => 'pa_fibres']);
+                                                            $get_fibre = $_GET['fibre'];
+                                                            $checked_fibre = explode(' ', $get_fibre);
+                                                            if ($all_fibre) :
+                                                                // sort alphabetically by name
+                                                                usort($all_fibre, 'compare_name');
+                                                                ?>
+                                                                <?php foreach ($all_fibre as $c_fibre){ ?>
+                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?fibre=<?= $c_fibre->slug ?>" class="menu-item__link"><?= $c_fibre->name ?></a></li>
+                                                            <?php } ?>
+                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/wool-carpet" class="menu-item__link hidden">Wool Carpet</a></li>
+                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/nylon-carpet" class="menu-item__link hidden">Nylon Carpet</a></li>
+                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/polyester-carpet" class="menu-item__link hidden">Polyester Carpet</a></li>
+                                                            <?php endif; ?>
+                                                        </ul>
+                                                    <?php elseif ($dropdown['sub_item']['title'] == "Colour") : ?>
+                                                        <ul class="menu-item__list">
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=grey" class="menu-item__link">Grey</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=brown" class="menu-item__link">Brown Carpet</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=beige" class="menu-item__link">Beige Carpet</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=blue" class="menu-item__link">Blue Carpet</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/grey-carpet" class="menu-item__link hidden">Grey Carpet</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/dark-carpet" class="menu-item__link hidden">Dark Carpet</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/patterned-carpet" class="menu-item__link hidden">Patterned Carpet</a></li>
+                                                            <?php /*
                                                                 <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=patterned" class="menu-item__link">Patterned</a></li>
                                                                 */ ?>
-                                                                    </ul>
-                                                                <?php elseif ($dropdown['sub_item']['title'] == "Brands") : ?>
-                                                                    <ul class="menu-item__list">
-                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/rhino-carpet/" class="menu-item__link">Rhino</a></li>
-                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/malmo/" class="menu-item__link">Malmo</a></li>
-                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/premium-collection/" class="menu-item__link">Premium Collection</a></li>
-                                                                    </ul>
-                                                                <?php endif ?>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                    <?php endforeach; ?>
-                                                    <?php /*
+                                                        </ul>
+                                                    <?php elseif ($dropdown['sub_item']['title'] == "Brands") : ?>
+                                                        <ul class="menu-item__list">
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/rhino-carpet/" class="menu-item__link">Rhino</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/malmo/" class="menu-item__link">Malmo</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/premium-collection/" class="menu-item__link">Premium Collection</a></li>
+                                                        </ul>
+                                                    <?php endif ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                        <?php /*
                                                     <div class="menu-item"><a href="#" class="menu-item__title" style="pointer-events: none;">Features</a>
                                                         <ul class="menu-item__list">
                                                             <?php
@@ -308,31 +318,33 @@ function compare_name($a, $b)
                                                         </ul>
                                                     </div>
                                                     */ ?>
-                                                </div>
-                                                <div class="drop-menu__img">
-                                                    <div class="menu-img-category"><img src="<?= $item['menu_image']['url'] ?>" alt="<?= $item['menu_image']['alt'] ?>">
-                                                        <?php /*<div class="menu-img-category__title">Carpet</div> */ ?>
-                                                    </div>
-
-                                                    <?php if (!empty($item['image_link'])) : ?>
-                                                        <a href="<?= $item['image_link']['url'] ?>" class="menu-img-link"><?= $item['image_link']['title'] ?></a>
-                                                    <?php endif; ?>
-                                                </div>
-                                            </div>
+                                    </div>
+                                    <div class="drop-menu__img">
+                                        <div class="menu-img-category"><img src="<?= $item['menu_image']['url'] ?>" alt="<?= $item['menu_image']['alt'] ?>">
+                                            <?php /*<div class="menu-img-category__title">Carpet</div> */ ?>
                                         </div>
-                            <?php } ?>
+
+                                        <?php if (!empty($item['image_link'])) : ?>
+                                            <a href="<?= $item['image_link']['url'] ?>" class="menu-img-link"><?= $item['image_link']['title'] ?></a>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
 
                             <!-- Flooring -->
-                            <?php elseif($item['link']['title'] == "Flooring") : { ?>
-                                <div class="container">
-                                    <div id="nav-1" class="drop-menu js-card-wrapper">
-                                        <div class="drop-menu__nav">
-                                            <?php $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID], 'hide_empty' => 0]);
-                                            foreach ($all_categories as $menu_cat) :
+                        <?php elseif($item['link']['title'] == "Flooring") : { ?>
+                            <div class="container">
+                                <div id="nav-1" class="drop-menu js-card-wrapper">
+                                    <div class="drop-menu__nav">
+                                        <?php //$all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID, 26253, 26257, 26254, 26255, 26256, 26258, 26259, 26260, 26261, 26262], 'hide_empty' => 0 ]);
+                                        //$all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID, 26349, 26350, 26351, 26352, 26353, 26354, 26356, 26357, 26358, 26359], 'hide_empty' => 0 ]);
+                                        $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID, 28914, 28915, 28916, 28917, 28918, 28919, 28920, 28921, 28922, 28923], 'hide_empty' => 0 ]);
+                                        foreach ($all_categories as $menu_cat) :
                                             ?>
                                             <div class="menu-item">
                                                 <?php
-                                                    $image = get_field('image', $menu_cat);
+                                                $image = get_field('image', $menu_cat);
                                                 ?>
                                                 <?php if (!empty($image)) : ?>
                                                     <a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>" style="background-image: url(<?= $image['url'] ?>)" class="card card--small">
@@ -363,404 +375,412 @@ function compare_name($a, $b)
                                                         ?>
 
                                                         <?php if ($all_styles) :
-                                                            //asort($all_styles); ?>
+                                                        //asort($all_styles); ?>
 
-                                                            <?php if ($menu_cat->term_id != 8) : ?>
-                                                                <?php foreach ($all_styles as $key => $c_style){ ?>
+                                                        <?php if ($menu_cat->term_id != 8 && $menu_cat->term_id != 10) : ?>
+                                                            <?php foreach ($all_styles as $key => $c_style){ ?>
                                                                 <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
-                                                                <?php } ?>
-                                                            <?php endif; ?>
+                                                            <?php } ?>
+                                                        <?php elseif ($menu_cat->term_id == 10) :?>
+                                                            <?php foreach ($all_styles as $key => $c_style){ ?>
+                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
+                                                            <?php } ?>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/vinyl-tiles" class="menu-item__link hidden">Vinyl Tiles</a></li>
+                                                        <?php else: ?>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/bathroom-tiles" class="menu-item__link hidden">Bathroom Tiles</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/kitchen-tiles" class="menu-item__link hidden">Kitchen Tiles</a></li>
                                                         <?php endif; ?>
+                                                    <?php endif; ?>
                                                     <?php endif; ?>
                                                 </ul>
                                             </div>
-                                            <?php endforeach; ?>
+                                        <?php endforeach; ?>
 
-                                        </div>
-                                        <div class="drop-menu__img">
-                                            <div class="menu-img-category"><img src="<?= $item['menu_image']['url'] ?>" alt="<?= $item['menu_image']['alt'] ?>">
-                                                <?php /*<div class="menu-img-category__title">Flooring</div> */ ?>
-                                            </div>
-
-                                            <?php if (!empty($item['image_link'])) : ?>
-                                                <a href="<?= $item['image_link']['url'] ?>" class="menu-img-link"><?= $item['image_link']['title'] ?></a>
-                                            <?php endif; ?>
-                                        </div>
                                     </div>
+                                    <div class="drop-menu__img">
+                                        <div class="menu-img-category"><img src="<?= $item['menu_image']['url'] ?>" alt="<?= $item['menu_image']['alt'] ?>">
+                                            <?php /*<div class="menu-img-category__title">Flooring</div> */ ?>
+                                        </div>
 
-
+                                        <?php if (!empty($item['image_link'])) : ?>
+                                            <a href="<?= $item['image_link']['url'] ?>" class="menu-img-link"><?= $item['image_link']['title'] ?></a>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
 
-                            <?php } ?>
 
-                            <?php else : ?>
+                            </div>
+
+                        <?php } ?>
+
+                        <?php else : ?>
                             <div id="nav-<?= $key ?>" class="drop-menu js-card-wrapper">
                                 <?php foreach ($item['sub_items'] as $dropdown) : ?>
-                                <?php if (!empty($dropdown['sub_item'])) : ?>
-                                <?php
-                                    $image = '';
-                                    if ($dropdown['image']) {
-                                        $image = $dropdown['image']['url'];
-                                    }
-                                ?>
-                                <div class="menu-item">
-                                    <a href="<?= $dropdown['sub_item']['url'] ?>" style="background-image: url(<?= $image ?>)" class="card card--small">
-                                        <div class="card-label">
-                                            <div class="card-title"><?= $dropdown['sub_item']['title'] ?></div>
+                                    <?php if (!empty($dropdown['sub_item'])) : ?>
+                                        <?php
+                                        $image = '';
+                                        if ($dropdown['image']) {
+                                            $image = $dropdown['image']['url'];
+                                        }
+                                        ?>
+                                        <div class="menu-item">
+                                            <a href="<?= $dropdown['sub_item']['url'] ?>" style="background-image: url(<?= $image ?>)" class="card card--small">
+                                                <div class="card-label">
+                                                    <div class="card-title"><?= $dropdown['sub_item']['title'] ?></div>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
-                                </div>
-                                <?php endif; ?>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </div>
-                            <?php endif; ?>
-                            <?php endif; ?>
                         <?php endif; ?>
-                    <?php endforeach; ?>
+                    <?php endif; ?>
                 <?php endif; ?>
-            </div>
-        </div>
-    <div class="drop-search js-check-padding">
-        <div class="container">
-            <div class="drop-search-inner">
-                <div class="drop-search-main">
-                    <div class="drop-search-form">
-                        <div class="drop-search-form__field">
-                            <form action = "<?= home_url() ?>" class="search-form" id="header-search-form">
-                                <input type="text" name="s" placeholder="search for products, categories or advice...">
-                                <button type="submit" class="ic-nav-search"></button>
-                            </form>
-                        </div>
-                        <div class="drop-search-form__bttn">
-                            <button type="button" class="search-opener ic-icon-cross">close</button>
-                        </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</div>
+<div class="drop-search js-check-padding">
+    <div class="container">
+        <div class="drop-search-inner">
+            <div class="drop-search-main">
+                <div class="drop-search-form">
+                    <div class="drop-search-form__field">
+                        <form action = "<?= home_url() ?>" class="search-form" id="header-search-form">
+                            <input type="text" name="s" placeholder="search for products, categories or advice...">
+                            <button type="submit" class="ic-nav-search"></button>
+                        </form>
                     </div>
-                    <!-- скрываем эти блоки, если нет результатов-->
-                    <div class="search-result">
-
-
+                    <div class="drop-search-form__bttn">
+                        <button type="button" class="search-opener ic-icon-cross">close</button>
                     </div>
                 </div>
-                <div class="drop-search-aside">
-                    <!-- скрываем эти блоки, если нет результатов-->
-                    <div class="search-result">
+                <!-- скрываем эти блоки, если нет результатов-->
+                <div class="search-result">
 
-                    </div>
+
+                </div>
+            </div>
+            <div class="drop-search-aside">
+                <!-- скрываем эти блоки, если нет результатов-->
+                <div class="search-result">
+
                 </div>
             </div>
         </div>
     </div>
-    </header>
-    <div class="g-main">
-<?php if (!newDesign()) : ?>
-    <!-- this is for new slide menu  -->
-    <script type="text/javascript">
-        var disable_f = 0;
-    </script>
-<?php
-if ( get_field('disable_page_refresh', get_the_ID() ) ) {
-    ?>
-    <script type="text/javascript">
-        disable_f = 1;
-    </script>
+</div>
+</header>
+<div class="g-main">
+    <?php if (!newDesign()) : ?>
+        <!-- this is for new slide menu  -->
+        <script type="text/javascript">
+            var disable_f = 0;
+        </script>
     <?php
-}
-?>
-<?php if( is_singular() && get_field('enable_one_page_scroller', get_the_ID()) ){?>
+    if ( get_field('disable_page_refresh', get_the_ID() ) ) {
+    ?>
+        <script type="text/javascript">
+            disable_f = 1;
+        </script>
+    <?php
+    }
+    ?>
+    <?php if( is_singular() && get_field('enable_one_page_scroller', get_the_ID()) ){?>
 
 
-    <div class="cpm-preloader"><div class="loader-icon"></div></div>
-    <div class="slider-menu-section">
-        <ul class="slier-menu-right">
-            <?php
-            $menu_title = "Banner";
-            if( get_field('banner_menu_title', get_the_ID()) ){
-                $menu_title = get_field('banner_menu_title', get_the_ID());
+        <div class="cpm-preloader"><div class="loader-icon"></div></div>
+        <div class="slider-menu-section">
+            <ul class="slier-menu-right">
+                <?php
+                $menu_title = "Banner";
+                if( get_field('banner_menu_title', get_the_ID()) ){
+                    $menu_title = get_field('banner_menu_title', get_the_ID());
+                }
+                if( get_field('add_slider_shortcode', get_the_ID()) ){
+                    ?>
+                    <li><a class="active" href="#section-0"><span></span></a><div class="tooltip"><span><?php echo get_field('banner_menu_title', get_the_ID()); ?></span></div></li>
+                <?php } ?>
+            </ul>
+        </div>
+    <?php } ?>
+    <?php /** old design */ ?>
+
+
+    <?php if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); } ?>
+
+        <style type="text/css">
+
+            .color-term-name {
+                position: absolute;
+                z-index: 9999;
+                top: 0;
+                left: 0;
+                text-align: center;
+                color: white;
+                margin: 0px auto;
+                right: 0;
+                font-size: 30px;
+                font-weight: 600;
+                width: 100%;
+                height: 100%;
+                display: none;
             }
-            if( get_field('add_slider_shortcode', get_the_ID()) ){
-                ?>
-                <li><a class="active" href="#section-0"><span></span></a><div class="tooltip"><span><?php echo get_field('banner_menu_title', get_the_ID()); ?></span></div></li>
-            <?php } ?>
-        </ul>
-    </div>
-<?php } ?>
-<?php /** old design */ ?>
+            .color-term-name span {
+                width: 100%;
+                display: table-cell;
+                vertical-align: middle;
+                height: 100%;
+            }
+            #easy_zoom{
+                width:300px;
+                height:300px;
+                border:5px solid #eee;
+                background:#fff;
+                color:#ffffff;
+                font-size: 24px;
+                font-weight: 500;
+                position:absolute;
+                overflow:hidden;
+                -moz-box-shadow:0 0 10px #777;
+                -webkit-box-shadow:0 0 10px #777;
+                box-shadow:0 0 10px #777;
+                line-height:300px;
+                text-align:center;
+                z-index: 9999;
+                top: -250px;
+            }
+            #easy_zoom img{
+                width: 100%;
+                height: 100%;
+            }
+            div#collapse-color {
+                position: relative;
+            }
 
+            #easy_zoom .color-i-term{
+                position: relative;
+            }
+            #cceasy_zoom{
+                width:300px;
+                height:300px;
+                border:5px solid #eee;
+                background:#fff;
+                color:#ffffff;
+                font-size: 24px;
+                font-weight: 500;
+                position:absolute;
+                overflow:hidden;
+                -moz-box-shadow:0 0 10px #777;
+                -webkit-box-shadow:0 0 10px #777;
+                box-shadow:0 0 10px #777;
+                line-height:300px;
+                text-align:center;
+                z-index: 9999;
+                bottom: 40px;
+                left: 0px;
+            }
+            #cceasy_zoom img{
+                width: 100%;
+                height: 100%;
+            }
+            div#collapse-color {
+                position: relative;
+            }
 
-<?php if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); } ?>
+            #cceasy_zoom .color-i-term{
+                position: relative;
+            }
+            .list-color-available ul li {
+                position: relative;
+            }
+        </style>
+    <?php
+    $pagename = get_query_var('pagename');
 
-    <style type="text/css">
-
-        .color-term-name {
-            position: absolute;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            text-align: center;
-            color: white;
-            margin: 0px auto;
-            right: 0;
-            font-size: 30px;
-            font-weight: 600;
-            width: 100%;
-            height: 100%;
-            display: none;
-        }
-        .color-term-name span {
-            width: 100%;
-            display: table-cell;
-            vertical-align: middle;
-            height: 100%;
-        }
-        #easy_zoom{
-            width:300px;
-            height:300px;
-            border:5px solid #eee;
-            background:#fff;
-            color:#ffffff;
-            font-size: 24px;
-            font-weight: 500;
-            position:absolute;
-            overflow:hidden;
-            -moz-box-shadow:0 0 10px #777;
-            -webkit-box-shadow:0 0 10px #777;
-            box-shadow:0 0 10px #777;
-            line-height:300px;
-            text-align:center;
-            z-index: 9999;
-            top: -250px;
-        }
-        #easy_zoom img{
-            width: 100%;
-            height: 100%;
-        }
-        div#collapse-color {
-            position: relative;
-        }
-
-        #easy_zoom .color-i-term{
-            position: relative;
-        }
-        #cceasy_zoom{
-            width:300px;
-            height:300px;
-            border:5px solid #eee;
-            background:#fff;
-            color:#ffffff;
-            font-size: 24px;
-            font-weight: 500;
-            position:absolute;
-            overflow:hidden;
-            -moz-box-shadow:0 0 10px #777;
-            -webkit-box-shadow:0 0 10px #777;
-            box-shadow:0 0 10px #777;
-            line-height:300px;
-            text-align:center;
-            z-index: 9999;
-            bottom: 40px;
-            left: 0px;
-        }
-        #cceasy_zoom img{
-            width: 100%;
-            height: 100%;
-        }
-        div#collapse-color {
-            position: relative;
-        }
-
-        #cceasy_zoom .color-i-term{
-            position: relative;
-        }
-        .list-color-available ul li {
-            position: relative;
-        }
-    </style>
-<?php
-$pagename = get_query_var('pagename');
-
-if(is_front_page()){
+    if(is_front_page()){
 
     ?>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'pageType':'home'
-        });
-    </script>
-<?php }
-elseif(is_product()){
-global $post, $product;
-$terms = get_the_terms( $product->id, 'product_cat' );
-foreach ($terms as $term) {
-    $categ = $term->slug;
-    break;
-}
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'pageType':'home'
+            });
+        </script>
+    <?php }
+    elseif(is_product()){
+    global $post, $product;
+    $terms = get_the_terms( $product->id, 'product_cat' );
+    foreach ($terms as $term) {
+        $categ = $term->slug;
+        break;
+    }
 
 
-// $categ = $product->get_categories();
+    // $categ = $product->get_categories();
 
-?>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'pageType':'product',
-            'productCategory':'<?php echo $categ; ?>'
-        });
-    </script>
-<?php }
-elseif(is_search()){ ?>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'pageType':'searchresults'
-        });
-    </script>
-<?php }
-elseif($pagename == 'measure-and-quote'){ ?>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    ?>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'pageType':'product',
+                'productCategory':'<?php echo $categ; ?>'
+            });
+        </script>
+    <?php }
+    elseif(is_search()){ ?>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'pageType':'searchresults'
+            });
+        </script>
+    <?php }
+    elseif($pagename == 'measure-and-quote'){ ?>
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <script type="text/javascript">
-    jQuery(document).ready(function() {
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
 
-        // clientID value, i.e. let cid = $.cookie('cid');
-        let cid =   '<?php echo preg_replace("/^.+\.(.+?\..+?)$/", "\\1", @$_COOKIE['_ga']) ?>';
+                // clientID value, i.e. let cid = $.cookie('cid');
+                let cid =   '<?php echo preg_replace("/^.+\.(.+?\..+?)$/", "\\1", @$_COOKIE['_ga']) ?>';
 
-        // URL to redirect the customer to after submitting the form.
-        // default is to return to the current form location
-        let returnURL = window.location.href;
+                // URL to redirect the customer to after submitting the form.
+                // default is to return to the current form location
+                let returnURL = window.location.href;
 
-        // CSS selector of the target element that will receive the form.
-        let formTarget = '#crmFormContainer';
+                // CSS selector of the target element that will receive the form.
+                let formTarget = '#crmFormContainer';
 
-        // The URL to get the form
-        let formURL = 'https://scoreboard.carpetcourt.nz/crm/lead-form/web/getLeadForm.php';
+                // The URL to get the form
+                let formURL = 'https://scoreboard.carpetcourt.nz/crm/lead-form/web/getLeadForm.php';
 
-        jQuery.ajax({
-            url: formURL,
-            data: {
-                cid: cid,
-                returnURL: returnURL
-            },
-            dataType: "html",
-            cache: false,
-            success: function (response) {
-                jQuery(formTarget).html(response);
-            }
-        });
-    });
-    </script>
+                jQuery.ajax({
+                    url: formURL,
+                    data: {
+                        cid: cid,
+                        returnURL: returnURL
+                    },
+                    dataType: "html",
+                    cache: false,
+                    success: function (response) {
+                        jQuery(formTarget).html(response);
+                    }
+                });
+            });
+        </script>
 
-   <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'pageType':'contactus'
-        });
-    </script>
-<?php }
-elseif($pagename == 'thanks-for-your-email'){ ?>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'event':'quoteSubmitted'
-        });
-    </script>
-<?php }
-elseif($pagename == 'my-account'){ ?>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'event':'accountCreated'
-        });
-    </script>
-<?php }
-elseif($pagename == 'search'){ ?>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'pageType':'searchresults'
-        });
-    </script>
-<?php }
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'pageType':'contactus'
+            });
+        </script>
+    <?php }
+    elseif($pagename == 'thanks-for-your-email'){ ?>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event':'quoteSubmitted'
+            });
+        </script>
+    <?php }
+    elseif($pagename == 'my-account'){ ?>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event':'accountCreated'
+            });
+        </script>
+    <?php }
+    elseif($pagename == 'search'){ ?>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'pageType':'searchresults'
+            });
+        </script>
+    <?php }
 
-elseif($pagename == 'store-finder'){ ?>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'pageType':'storefinder'
-        });
-    </script>
-<?php }
-elseif($pagename == 'advice'){ ?>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'pageType':'advice'
-        });
-    </script>
-<?php }
-?>
+    elseif($pagename == 'store-finder'){ ?>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'pageType':'storefinder'
+            });
+        </script>
+    <?php }
+    elseif($pagename == 'advice'){ ?>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'pageType':'advice'
+            });
+        </script>
+    <?php }
+    ?>
 
 
-<?php
-if ( $pagename == 'style-guide' ) { ?>
-    <div class="modal grow" id="style-guide-modal-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-        <div class="modal-dialog modal-lg modal-xlg" role="document">
+    <?php
+    if ( $pagename == 'style-guide' ) { ?>
+        <div class="modal grow" id="style-guide-modal-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog modal-lg modal-xlg" role="document">
 
-            <div class="modal-content">
-                <div class="modalbox-header pull-right">
-                    <form>
+                <div class="modal-content">
+                    <div class="modalbox-header pull-right">
+                        <form>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                        </form>
+                    </div>
+                    <div class="modal-body" id="post-popup-style-guide-cc">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php
+
+    } ?>
+        <div class="modal cc-model fade cc-masonry-popup" id="pop-up-video" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                    </form>
-                </div>
-                <div class="modal-body" id="post-popup-style-guide-cc">
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php
-
-} ?>
-    <div class="modal cc-model fade cc-masonry-popup" id="pop-up-video" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body clearfix">
-                    <div class="col-sm-12">
+                    </div>
+                    <div class="modal-body clearfix">
+                        <div class="col-sm-12">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-<?php
+    <?php
 
-if( is_product() ){ ?>
-    <div class="modal fade" id="like-img-modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body img-modal-body clearfix">
+    if( is_product() ){ ?>
+        <div class="modal fade" id="like-img-modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body img-modal-body clearfix">
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <?php
+        <?php
 
-}
-?>
-<?php endif; ?>
-<?php /*
+    }
+        ?>
+    <?php endif; ?>
+    <?php /*
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
