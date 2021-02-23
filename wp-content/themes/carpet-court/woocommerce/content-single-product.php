@@ -120,12 +120,14 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                     <div class="product-slider-wrap">
                         <div class="product-slider-main">
                             <div class="product-slider zoom-wrap">
-                                <span class="slide">
-                                    <img id="zoom-trigger-1" data-target="zoom-target-1" src="<?= get_field('featured_image') ?>" alt="product image" data-large-img="<?= get_field('featured_image') ?>" class="product-slider-img"/>
-                                    <?php if (!empty($feature_tag)) : ?>
-                                        <p class="thumnbs-tag"><?= $feature_tag ?></p>
-                                    <?php endif; ?>
-                                </span>
+                                <?php if (!empty(get_field('featured_image'))) : ?>
+                                    <span class="slide">
+                                        <img id="zoom-trigger-1" data-target="zoom-target-1" src="<?= get_field('featured_image') ?>" alt="product image" data-large-img="<?= get_field('featured_image') ?>" class="product-slider-img"/>
+                                        <?php if (!empty($feature_tag)) : ?>
+                                            <p class="thumnbs-tag"><?= $feature_tag ?></p>
+                                        <?php endif; ?>
+                                    </span>
+                                <?php endif; ?>
                                 <?php $gallery_images = get_field('gallery_images');
                                 foreach ($gallery_images as $key => $gallery_image){ ?>
                                     <?php $i = $key + 2; ?>
@@ -159,9 +161,11 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                         </div>
                         <div class="product-slider-thumnbs-wrap">
                             <div class="product-slider-thumnbs">
-                                <div class="thumnbs-slide">
-                                    <img data-lazy="<?= get_field('featured_image') ?>" alt="product image"/>
-                                </div>
+                                <?php if (!empty(get_field('featured_image'))) : ?>
+                                    <div class="thumnbs-slide">
+                                        <img data-lazy="<?= get_field('featured_image') ?>" alt="product image"/>
+                                    </div>
+                                <?php endif; ?>
                                 <?php foreach ($gallery_images as $key => $gallery_image) : ?>
                                     <div class="thumnbs-slide">
                                         <img data-lazy="<?= $gallery_image['gallery_images_url'] ?>" alt="product image"/>
