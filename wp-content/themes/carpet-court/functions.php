@@ -2753,7 +2753,9 @@ function product_on_sale_without_discount($product_id) {
 
     if (!empty($rule_id_of_current_product)) {
         $status_of_rule = $wpdb->get_var($wpdb->prepare("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = %s AND post_id = %s", '_wcct_current_status_timing', intval($rule_id_of_current_product)));
-        if ($status_of_rule == 'running') {
+        $status_of_wp_post = get_post_status( intval($rule_id_of_current_product) );
+
+        if ($status_of_rule == 'running' && !($status_of_wp_post === 'wcctdisabled')) {
             $deal_enable_price_discount = $wpdb->get_var( $wpdb->prepare("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = %s AND post_id = %s", '_wcct_deal_enable_price_discount', intval($rule_id_of_current_product)));
             $sales_rule_enabled_without_discount = $deal_enable_price_discount == 0;
         }
