@@ -120,7 +120,7 @@ $special_offer = get_field('special_offers', $product->id);
                 </div>
             </div>
             <div class="product-card-extend">
-                <?php if($on_sale || $on_sale_without_discount): ?>
+                <?php if($on_sale_without_discount): ?>
                     <?php if(!empty($special_offer)): ?>
                         <div class="product-card-special">
                             <div class="product-card-special__item"><?= $special_offer ?></div>

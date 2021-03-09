@@ -238,7 +238,7 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                             <?php endif; ?>
                             <div class="product-price__unit">*per sqm</div>
                         </div>
-                        <div class="product-special"><?php if($on_sale || $on_sale_without_discount): ?><?php echo !empty($special_offer) ? $special_offer : '' ?><?php endif; ?></div>
+                        <div class="product-special"><?php if($on_sale_without_discount): ?><?php echo !empty($special_offer) ? $special_offer : '' ?><?php endif; ?></div>
                     </div>
                     <div class="product-selector js-product-parent">
                         <div class="product-selector__title">Selected Colour:
