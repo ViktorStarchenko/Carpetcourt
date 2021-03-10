@@ -80,11 +80,7 @@ $pages = paginate_links(array(
     ?>
     <?php if (is_array($pages) && empty($_REQUEST['show_all'])) : ?>
         <div class="switch-to-paginate-to-all">
-            <a href="?show_all=1" class="btn">Show all products</a>
-        </div>
-    <?php elseif (!empty($_REQUEST['show_all'])) : ?>
-        <div class="switch-to-paginate-to-all">
-            <a href="<?= get_category_link(get_queried_object_id()); ?>" class="btn">Show pagination</a>
+            <a href="<?= home_url($_SERVER['REQUEST_URI']) ?><?= count($_GET) ? "&show_all=1": '?show_all=1'?>" class="btn">Show all products</a>
         </div>
     <?php endif; ?>
 </div>
