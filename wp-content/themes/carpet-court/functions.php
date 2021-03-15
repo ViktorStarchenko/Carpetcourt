@@ -2764,3 +2764,61 @@ function product_on_sale_without_discount($product_id) {
     return $sales_rule_enabled_without_discount;
 }
 
+function updateNewCats() {
+    $base_query = [
+        'post_type'      => 'product',
+        'posts_per_page' => -1,
+        'product_cat'    => 'carpet',
+        'post_status' => 'publish',
+    ];
+    $meta_gray = [
+        'relation' => 'OR',
+        [
+            'key' => 'colour_filter',
+            'value' => 'grey',
+            'compare' => 'LIKE'
+        ],
+        [
+            'key' => 'colour_filter',
+            'value' => 'light-grey',
+            'compare' => 'LIKE'
+        ],
+        [
+            'key' => 'colour_filter',
+            'value' => 'dark-grey',
+            'compare' => 'LIKE'
+        ],
+    ];
+    $meta_dark = [
+        'relation' => 'OR',
+        [
+            'key' => 'colour_filter',
+            'value' => 'black',
+            'compare' => 'LIKE'
+        ],
+        [
+            'key' => 'colour_filter',
+            'value' => 'dark-brown',
+            'compare' => 'LIKE'
+        ],
+        [
+            'key' => 'colour_filter',
+            'value' => 'dark-grey',
+            'compare' => 'LIKE'
+        ],
+    ];
+    $base_query['meta_query'] = $meta_gray;
+    $products_to_update_gray = new WP_Query($base_query);
+    while ( $products_to_update_gray->have_posts() ) : $products_to_update_gray->the_post();
+        wp_set_object_terms(get_the_ID(), 28916, 'product_cat', true);
+    endwhile;
+    wp_reset_query();
+
+    $base_query['meta_query'] = $meta_dark;
+    $products_to_update_dark = new WP_Query($base_query);
+    while ( $products_to_update_dark->have_posts() ) : $products_to_update_dark->the_post();
+        wp_set_object_terms(get_the_ID(), 28917, 'product_cat', true);
+    endwhile;
+    wp_reset_query();
+}
+
