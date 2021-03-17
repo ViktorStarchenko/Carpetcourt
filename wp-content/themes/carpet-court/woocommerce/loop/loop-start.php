@@ -223,7 +223,7 @@
                                     <?php $all_cats = get_categories(
                                         [
                                             'taxonomy' => 'product_cat',
-                                            'exclude' => CATEGORY_FLOORING_ID
+                                            'exclude' => [CATEGORY_FLOORING_ID, CATEGORY_CARPET_TILES_ID, CATEGORY_VINYL_ID, CATEGORY_WOOL_ID, CATEGORY_NYLON_ID, CATEGORY_PATTERNED_ID, CATEGORY_POLYESTER_ID, CATEGORY_DARK_ID, CATEGORY_GREY_ID, CATEGORY_KITCHEN_ID, CATEGORY_BATHROOM_ID]
                                         ]
                                     );
                                     $cur_cat_id = get_queried_object_id();
