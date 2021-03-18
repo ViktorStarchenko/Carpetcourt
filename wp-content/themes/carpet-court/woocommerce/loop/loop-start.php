@@ -227,7 +227,7 @@
                                         ]
                                     );
                                     $cur_cat_id = get_queried_object_id();
-
+                                    $cur_cat_is_hidden = in_array($cur_cat_id, [CATEGORY_POLYESTER_ID, CATEGORY_NYLON_ID, CATEGORY_GREY_ID, CATEGORY_DARK_ID]);
                                     $flooringFlag = false;
                                     $num = 0;
                                     foreach ($all_cats as $category){
@@ -245,7 +245,7 @@
                                                     name="Type"
                                                     id="Type<?= $num?>"
                                                     class="filter-item__input"
-                                                <?php if($category->term_id == $cur_cat_id) echo "checked"; ?>
+                                                <?php if($category->term_id == $cur_cat_id || ($category->term_id == CATEGORY_CARPET_ID && $cur_cat_is_hidden)) echo "checked"; ?>
                                                     slug="<?= $category->slug ?>"
                                             />
                                             <label for="Type<?= $num?>" class="filter-item__label <?= $flooringFlag ? 'filter-item__label-visual-checked' : ''; ?> "><?= $category->name ?></label>
