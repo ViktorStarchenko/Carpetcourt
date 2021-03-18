@@ -248,22 +248,25 @@ function compare_name($a, $b)
                                                                 // sort alphabetically by name
                                                                 usort($all_fibre, 'compare_name');
                                                                 ?>
-                                                                <?php foreach ($all_fibre as $c_fibre){ ?>
-                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?fibre=<?= $c_fibre->slug ?>" class="menu-item__link"><?= $c_fibre->name ?></a></li>
-                                                            <?php } ?>
-                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/wool-carpet" class="menu-item__link hidden">Wool Carpet</a></li>
-                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/nylon-carpet" class="menu-item__link hidden">Nylon Carpet</a></li>
-                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/polyester-carpet" class="menu-item__link hidden">Polyester Carpet</a></li>
+                                                                <?php foreach ($all_fibre as $c_fibre){?>
+                                                                    <?php if($c_fibre->slug === 'polyester'):?>
+                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/polyester-carpet" class="menu-item__link">Polyester</a></li>
+                                                                    <?php else: ?>
+                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?fibre=<?= $c_fibre->slug ?>" class="menu-item__link"><?= $c_fibre->name ?></a></li>
+                                                                    <?php endif;?>
+                                                                <?php } ?>
+                                                                    <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/nylon-carpet" class="menu-item__link">Nylon</a></li>
+                                                                    <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/wool-carpet" class="menu-item__link hidden">Wool Carpet</a></li>
+                                                                    <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/polyester-carpet" class="menu-item__link hidden">Polyester Carpet</a></li>
                                                             <?php endif; ?>
                                                         </ul>
                                                     <?php elseif ($dropdown['sub_item']['title'] == "Colour") : ?>
                                                         <ul class="menu-item__list">
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=grey" class="menu-item__link">Grey</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/grey-carpet" class="menu-item__link">Grey Carpet</a></li>
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=brown" class="menu-item__link">Brown Carpet</a></li>
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=beige" class="menu-item__link">Beige Carpet</a></li>
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=blue" class="menu-item__link">Blue Carpet</a></li>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/grey-carpet" class="menu-item__link hidden">Grey Carpet</a></li>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/dark-carpet" class="menu-item__link hidden">Dark Carpet</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/dark-carpet" class="menu-item__link">Dark Carpet</a></li>
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/patterned-carpet" class="menu-item__link hidden">Patterned Carpet</a></li>
                                                             <?php /*
                                                                 <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?colour=patterned" class="menu-item__link">Patterned</a></li>
