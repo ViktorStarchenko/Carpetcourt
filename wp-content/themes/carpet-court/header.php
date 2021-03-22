@@ -203,7 +203,14 @@ function compare_name($a, $b)
                                                 <div class="menu-item">
                                                     <?php if (empty($image)) : ?>
                                                         <?php if ($dropdown['sub_item']['title'] == "Carpet Tiles"):?>
-                                                            <a href="<?= $dropdown['sub_item']['url']?>" class="menu-item__title hidden"><?= $dropdown['sub_item']['title'] ?></a>
+                                                            <a href="#" class="menu-item__title" style="pointer-events: none;">More Carpet Options</a>
+                                                            <ul class="menu-item__list">
+                                                                <li class="menu-item__unit">
+                                                                    <a href="<?= $dropdown['sub_item']['url']?>" class="menu-item__link">
+                                                                        <?= $dropdown['sub_item']['title'] ?>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
                                                         <?php else :?>
                                                             <a href="#" class="menu-item__title" style="pointer-events: none;"><?= $dropdown['sub_item']['title'] ?></a>
                                                         <?php endif; ?>
@@ -233,7 +240,11 @@ function compare_name($a, $b)
                                                                 asort($all_styles); ?>
 
                                                                 <?php foreach ($all_styles as $key => $c_style){ ?>
-                                                                <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
+                                                                <?php if($key === 'patterned'):?>
+                                                                    <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/patterned-carpet/" class="menu-item__link"><?= $c_style ?></a></li>
+                                                                <?php else: ?>
+                                                                    <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
+                                                                <?php endif;?>
                                                             <?php } ?>
                                                             <?php endif; ?>
                                                         </ul>
@@ -251,12 +262,13 @@ function compare_name($a, $b)
                                                                 <?php foreach ($all_fibre as $c_fibre){?>
                                                                     <?php if($c_fibre->slug === 'polyester'):?>
                                                                         <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/polyester-carpet" class="menu-item__link">Polyester</a></li>
+                                                                    <?php elseif ($c_fibre->slug === 'wool'): ?>
+                                                                        <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/wool-carpet" class="menu-item__link">Wool</a></li>
                                                                     <?php else: ?>
                                                                         <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/carpet/?fibre=<?= $c_fibre->slug ?>" class="menu-item__link"><?= $c_fibre->name ?></a></li>
                                                                     <?php endif;?>
                                                                 <?php } ?>
                                                                     <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/nylon-carpet" class="menu-item__link">Nylon</a></li>
-                                                                    <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/wool-carpet" class="menu-item__link hidden">Wool Carpet</a></li>
                                                                     <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/polyester-carpet" class="menu-item__link hidden">Polyester Carpet</a></li>
                                                             <?php endif; ?>
                                                         </ul>
@@ -277,6 +289,7 @@ function compare_name($a, $b)
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/rhino-carpet/" class="menu-item__link">Rhino</a></li>
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/malmo/" class="menu-item__link">Malmo</a></li>
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/premium-collection/" class="menu-item__link">Premium Collection</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/product_brand/norman-ellison/" class="menu-item__link">Normal Ellison</a></li>
                                                         </ul>
                                                     <?php endif ?>
                                                 </div>
@@ -380,18 +393,18 @@ function compare_name($a, $b)
                                                         <?php if ($all_styles) :
                                                         //asort($all_styles); ?>
 
-                                                        <?php if ($menu_cat->term_id != 8 && $menu_cat->term_id != 10) : ?>
+                                                        <?php if ($menu_cat->term_id != 8 && $menu_cat->term_id != 12) : ?>
                                                             <?php foreach ($all_styles as $key => $c_style){ ?>
                                                                 <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
                                                             <?php } ?>
-                                                        <?php elseif ($menu_cat->term_id == 10) :?>
+                                                        <?php elseif ($menu_cat->term_id == 12) :?>
                                                             <?php foreach ($all_styles as $key => $c_style){ ?>
                                                                 <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/<?= $menu_cat->slug ?>/?style=<?= $key ?>" class="menu-item__link"><?= $c_style ?></a></li>
                                                             <?php } ?>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/vinyl-tiles" class="menu-item__link hidden">Vinyl Tiles</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/vinyl-tiles" class="menu-item__link">Vinyl Tiles</a></li>
                                                         <?php else: ?>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/bathroom-tiles" class="menu-item__link hidden">Bathroom Tiles</a></li>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/kitchen-tiles" class="menu-item__link hidden">Kitchen Tiles</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/bathroom-tiles" class="menu-item__link">Bathroom Tiles</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/products/kitchen-tiles" class="menu-item__link">Kitchen Tiles</a></li>
                                                         <?php endif; ?>
                                                     <?php endif; ?>
                                                     <?php endif; ?>
