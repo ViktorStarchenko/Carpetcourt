@@ -289,7 +289,7 @@ function compare_name($a, $b)
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/rhino-carpet/" class="menu-item__link">Rhino</a></li>
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/malmo/" class="menu-item__link">Malmo</a></li>
                                                             <li class="menu-item__unit"><a href="<?= home_url(); ?>/premium-collection/" class="menu-item__link">Premium Collection</a></li>
-                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/product_brand/norman-ellison/" class="menu-item__link">Normal Ellison</a></li>
+                                                            <li class="menu-item__unit"><a href="<?= home_url(); ?>/product_brand/norman-ellison/" class="menu-item__link hidden">Normal Ellison</a></li>
                                                         </ul>
                                                     <?php endif ?>
                                                 </div>
