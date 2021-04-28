@@ -84,7 +84,7 @@ jQuery(document).ready(function ($) {
 		current_fs.hide();
 		var label = $("#progressbar li").eq($("fieldset").index(previous_fs)).find('h3 span').html();
 	});
-	$('.first-previous').live('click', function (e) {
+	$('.first-previous').on('click', function (e) {
 		e.preventDefault();
 		$(this).closest('.cpm-container-fluid').hide();
 		$('.cpm-first-step').show();
@@ -95,7 +95,7 @@ jQuery(document).ready(function ($) {
 		$('#term_' + term).trigger('click');
 		$('#page-modal-popup').modal('hide');
 	});
-	$('.product_color_filter_tax').live('click', function (e) {
+	$('.product_color_filter_tax').on('click', function (e) {
 		e.preventDefault();
 		var term = $(this).data('term');
 		var term_name = $(this).data('name');
@@ -165,7 +165,7 @@ jQuery(document).ready(function ($) {
 		}
 		next_progress_bar($(this).closest('fieldset'));
 	});
-	$('a.cpm-first-steps').live('click', function (e) {
+	$('a.cpm-first-steps').on('click', function (e) {
 		e.preventDefault();
 		var _this = $(this);
 		var parent_li = _this.parent().closest('li');
