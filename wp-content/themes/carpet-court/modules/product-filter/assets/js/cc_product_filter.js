@@ -486,7 +486,7 @@ jQuery(document).ready(function ($) {
 				maxSlides : 1
 			});
 	}
-	$('figure.fig-hover').live('click', function (e) {
+	$('figure.fig-hover').on('click', function (e) {
 		e.preventDefault();
 		var _this = $(this).next('div.ms-checkbox').find('input.filter-checkbox-btn');
 		var data_taxonomy = _this.data('taxonomy');
