@@ -2851,12 +2851,3 @@ function change_meta_title_blog($title) {
     return $title;
 }
 
-add_filter('wpseo_canonical', 'set_canonical');
-
-function set_canonical($url) {
-    if (isset($_GET['cat'])) {
-        return $url.'?cat=' . $_GET['cat'];
-    }
-    return $url;
-}
-
