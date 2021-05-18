@@ -22,7 +22,7 @@ if (!empty($blogSetting['sort'])) {
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
 
-$cat = $blogCategory->cat_ID;
+$cat = $blogCategory->slug;
 $blogLabel = get_field('category_title', $blogCategory);
 $catLabel = $blogLabel;
 if (!empty($_GET['cat'])) {
@@ -35,14 +35,14 @@ $orderType = "DESC";
 $orderLabel = "Newest";
 $sortKey = 0;
 foreach ($sort as $key => $item) {
-	if (!empty($_REQUEST['sort']) && !empty($_REQUEST['type'])) {
-		if ($item['sort'] == $_REQUEST['sort'] && $item['type'] == $_REQUEST['type']) {
-			$orderBy = $_REQUEST['sort'];
-			$orderType = $_REQUEST['type'];
-			$orderLabel = $item['title'];
+    if (!empty($_REQUEST['sort']) && !empty($_REQUEST['type'])) {
+        if ($item['sort'] == $_REQUEST['sort'] && $item['type'] == $_REQUEST['type']) {
+            $orderBy = $_REQUEST['sort'];
+            $orderType = $_REQUEST['type'];
+            $orderLabel = $item['title'];
             $sortKey = $key;
-		}
-	}
+        }
+    }
 }
 
 $taxonomies = [
@@ -57,18 +57,18 @@ $args = [
 $childTerms = get_terms($taxonomies, $args);
 
 foreach ($childTerms as $term) {
-    if ($cat == $term->term_id) {
+    if ($cat == $term->slug) {
         $catLabel = $term->name;
     }
 }
 
 $blogQuery = new WP_Query([
-	'posts_per_page' => $posts_per_page,
-	'cat' => $cat,
-	'paged' => $paged,
-	'post_status' => 'publish',
-	'order' => $orderType,
-	'orderby' => $orderBy
+    'posts_per_page' => $posts_per_page,
+    'category_name' => $cat,
+    'paged' => $paged,
+    'post_status' => 'publish',
+    'order' => $orderType,
+    'orderby' => $orderBy
 ]);
 
 $big = 99999999999999;
@@ -82,18 +82,18 @@ print_r($posts);
 echo "</pre>";
 */
 ?>
-	<main class="g-main">
+    <main class="g-main">
         <?php if (!empty($hero['enable'])) : ?>
             <?= template_part('hero', $hero); ?>
         <?php endif; ?>
         <?php if (!empty($childTerms)) : ?>
             <div class="">
                 <div class="blog-filter">
-                    <a href="<?= get_permalink() ?>" style="color: <?= get_field('color', $blogCategory) ?>" class="filter-plate all <?= $cat == $blogCategory->cat_ID ? ' active ' : '' ?>">
+                    <a href="<?= get_permalink() ?>" style="color: <?= get_field('color', $blogCategory) ?>" class="filter-plate all <?= $cat == $blogCategory->slug ? ' active ' : '' ?>">
                         <span><?= $blogLabel ?></span>
                     </a>
                     <?php foreach ($childTerms as $term) : ?>
-                        <a href="<?= get_permalink() ?>?cat=<?= $term->term_id ?>" style="color: <?= get_field('color', $term) ?>" class="filter-plate <?= $term->term_id == $cat ? 'active' : '' ?>">
+                        <a href="<?= get_permalink() ?>?cat=<?= $term->slug ?>" style="color: <?= get_field('color', $term) ?>" class="filter-plate <?= $term->slug == $cat ? 'active' : '' ?>">
                             <span><?= get_field('category_title', $term) ?></span>
                         </a>
                     <?php endforeach; ?>
@@ -110,7 +110,7 @@ echo "</pre>";
                                 <?= $catLabel; ?>
                                 <div class="f-dropdown-menu">
                                     <div class="drop-item">
-                                        <?php if ($cat != $blogCategory->cat_ID) : ?>
+                                        <?php if ($cat != $blogCategory->slug) : ?>
                                             <a href="<?= get_permalink() ?>"><?= $blogLabel ?></a>
                                         <?php else : ?>
                                             <span><?= $blogLabel ?></span>
@@ -119,10 +119,10 @@ echo "</pre>";
                                     <?php foreach ($childTerms as $term) : ?>
                                         <?php
                                         $label = '';
-                                        if ($term->term_id == $cat) {
+                                        if ($term->slug == $cat) {
                                             $label =  '<span>'.get_field('category_title', $term).'</span>';
                                         } else {
-                                            $label =  '<a href="'.get_permalink().'?cat='.$term->term_id.'" >'.get_field('category_title', $term).'</a>';
+                                            $label =  '<a href="'.get_permalink().'?cat='.$term->slug.'" >'.get_field('category_title', $term).'</a>';
                                         }
                                         ?>
                                         <div class="drop-item"><?= $label ?></div>
@@ -163,8 +163,8 @@ echo "</pre>";
                 </div>
             <?php endif; ?>
         </div>
-		<div class="section-blog">
-			<div class="container">
+        <div class="section-blog">
+            <div class="container">
                 <div class="header-sort-wrap">
                     <div class="section-filter">
                         <div class="f-wrap">
@@ -176,10 +176,10 @@ echo "</pre>";
                                         <div class="current-toggle">
                                             <?= $orderLabel ?>
                                             <div class="f-dropdown-menu">
-												<?php foreach ($sort as $key => $item) : ?>
-													<?php
-													if ($sortKey == $key) {
-														$label = '<span>'.$item["title"].'</span>';
+                                                <?php foreach ($sort as $key => $item) : ?>
+                                                    <?php
+                                                    if ($sortKey == $key) {
+                                                        $label = '<span>'.$item["title"].'</span>';
                                                     } else {
                                                         $sorted_uri = esc_url(add_query_arg([
                                                                 'sort' => $item["sort"],
@@ -188,41 +188,41 @@ echo "</pre>";
                                                         ));
                                                         $label = '<a href="'.$sorted_uri.'" >'.$item["title"].'</a>';
                                                     }
-													?>
+                                                    ?>
                                                     <div class="drop-item"><?= $label ?></div>
-												<?php endforeach; ?>
+                                                <?php endforeach; ?>
                                             </div>
                                         </div>
                                     </button>
                                 </div>
-							<?php endif; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
-				<div class="s-list js-card-wrapper">
+                <div class="s-list js-card-wrapper">
                     <?php foreach ($posts as $post) : ?>
                         <?php
-                            $image[0] = "";
-                            if (has_post_thumbnail($post->ID)) {
-                                $image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large');
-                            }
+                        $image[0] = "";
+                        if (has_post_thumbnail($post->ID)) {
+                            $image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large');
+                        }
 
-                            $postCategories = wp_get_post_categories($post->ID);
+                        $postCategories = wp_get_post_categories($post->ID);
                         ?>
                         <div class="list-item-container">
                             <div class="list-item">
                                 <div>
                                     <a href="<?= get_permalink($post->ID); ?>" style="background-image: url(<?= $image[0]; ?>)" class="card"></a>
                                     <?php if (!empty($postCategories)) : ?>
-                                    <div class="card-filter-item-wrap">
-                                        <?php foreach ($childTerms as $term) : ?>
-                                            <?php foreach ($postCategories as $postCategory) : ?>
-                                                <?php if ($term->term_id == $postCategory) : ?>
-                                                    <div class="card-filter-item" style="color: <?= get_field('color', $term) ?>" ><?= $term->name; ?></div>
-                                                <?php endif; ?>
+                                        <div class="card-filter-item-wrap">
+                                            <?php foreach ($childTerms as $term) : ?>
+                                                <?php foreach ($postCategories as $postCategory) : ?>
+                                                    <?php if ($term->term_id == $postCategory) : ?>
+                                                        <div class="card-filter-item" style="color: <?= get_field('color', $term) ?>" ><?= $term->name; ?></div>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
                                             <?php endforeach; ?>
-                                        <?php endforeach; ?>
-                                    </div>
+                                        </div>
                                     <?php endif; ?>
                                     <div class="card-label">
                                         <div class="card-blog-title"><?= $post->post_title; ?></div>
@@ -243,52 +243,52 @@ echo "</pre>";
                             </div>
                         </div>
                     <?php endforeach; ?>
-				</div>
+                </div>
                 <div class="footer-wrap">
                     <div class="counter hide-mobile">Items <?= 1 + ($paged-1) * $posts_per_page; ?> - <?= $paged*$posts_per_page > $total_posts ? $total_posts : $paged*$posts_per_page; ?> of <?= $total_posts; ?></div>
                     <nav class="pagination-wrap">
                         <div class="pagination" >
-							<?php
-							echo paginate_links( array(
-								'base'    => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-								'format'  => '?paged=%#%',
-								'current' => max( 1, get_query_var('paged') ),
-								'total'   => $total_pages,
-								'prev_text'    => __('<'),
-								'next_text'    => __('>'),
-							) );?>
+                            <?php
+                            echo paginate_links( array(
+                                'base'    => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+                                'format'  => '?paged=%#%',
+                                'current' => max( 1, get_query_var('paged') ),
+                                'total'   => $total_pages,
+                                'prev_text'    => __('<'),
+                                'next_text'    => __('>'),
+                            ) );?>
                         </div>
                     </nav>
                 </div>
-			</div>
+            </div>
 
 
 
-		</div>
-	</main>
-<!--
-    <script>
-        jQuery(document).ready(function(){
-            jQuery('.carousel-slider-blog').slick({
-                height: '100%',
-                infinite: true,
-                arrows: true,
-                prevArrow: '<span class="btn-prev-hero ic-nav-prev"></span>',
-                nextArrow: '<span class="btn-next-hero ic-nav-next"></span>',
-                speed: 600,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                rows: 0,
-                dots: true,
-                dotsClass: 'my-dots',
-                customPaging: function() { return ''; },
-                adaptiveHeight: true,
-                autoplay: false,
-                autoplaySpeed: 5000,
-                pauseOnHover: false
-        });
-        });
-    </script>
-    -->
+        </div>
+    </main>
+    <!--
+        <script>
+            jQuery(document).ready(function(){
+                jQuery('.carousel-slider-blog').slick({
+                    height: '100%',
+                    infinite: true,
+                    arrows: true,
+                    prevArrow: '<span class="btn-prev-hero ic-nav-prev"></span>',
+                    nextArrow: '<span class="btn-next-hero ic-nav-next"></span>',
+                    speed: 600,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    rows: 0,
+                    dots: true,
+                    dotsClass: 'my-dots',
+                    customPaging: function() { return ''; },
+                    adaptiveHeight: true,
+                    autoplay: false,
+                    autoplaySpeed: 5000,
+                    pauseOnHover: false
+            });
+            });
+        </script>
+        -->
 <?php
 get_footer();

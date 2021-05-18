@@ -2832,3 +2832,31 @@ function updateNewCats() {
     wp_reset_query();
 }
 
+add_filter( 'wpseo_opengraph_title', 'change_meta_title_blog', 10, 1);
+add_filter( 'wpseo_title', 'change_meta_title_blog', 10, 1);
+
+function change_meta_title_blog($title) {
+    if (isset($_GET['cat'])) {
+        $cat = htmlspecialchars($_GET['cat']);
+        $catObj = get_category_by_slug($cat);
+        $taxonomy = $catObj->taxonomy;
+        $term_id = $catObj->term_id;
+        $meta   = get_option('wpseo_taxonomy_meta');
+        $title  = $meta[$taxonomy][$term_id]['wpseo_title'];
+        $yoast_obj = new WPSEO_Replace_Vars();
+
+        return $yoast_obj->replace($title, $catObj);
+    }
+
+    return $title;
+}
+
+add_filter('wpseo_canonical', 'set_canonical');
+
+function set_canonical($url) {
+    if (isset($_GET['cat'])) {
+        return $url.'?cat=' . $_GET['cat'];
+    }
+    return $url;
+}
+
