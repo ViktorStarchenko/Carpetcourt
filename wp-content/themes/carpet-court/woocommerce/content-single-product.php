@@ -255,7 +255,7 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                         </div>
                         <?php if (!empty($currentColour) && !empty($relatedProducts)) : ?>
                             <div class="product-selector-inner">
-                                <a href="#" class="product-selector-preview">
+                                <a href="#" class="product-selector-preview js-show-swatch">
                                     <?php if (!empty($colors)) : ?>
                                         <?php foreach ($colors as $color) : ?>
                                             <?php if ($color->term_id == $currentColour) : ?>
