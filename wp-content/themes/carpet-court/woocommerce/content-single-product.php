@@ -791,13 +791,15 @@ $primary = get_term_by('term_taxonomy_id', $primary);
             <div class="swatch-gallery-inner">
                 <ul class="swatch-gallery-thumbs">
                     <?php
-                    $colors = get_the_terms( $product->id, 'pa_color' );
+
                     if (!empty($colors))
                         foreach ($colors as $color){
+                            if ($color->term_id == $currentColour) :
                             $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
                             <li data-naming="<?= $color->name ?>" class="swatch-gallery-thumbs__item js-product-trigger" data-color="<?= $color->slug ?>">
                                 <div class="swatch-gallery-thumbs__img"><img src="<?= $color_image ?>" alt="<?= $color->name ?>"></div>
                             </li>
+                            <?php endif ?>
                         <?php }
                     ?>
 
