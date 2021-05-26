@@ -791,6 +791,7 @@ $primary = get_term_by('term_taxonomy_id', $primary);
             <div class="swatch-gallery-inner">
                 <ul class="swatch-gallery-thumbs">
                     <?php
+                    $colors = get_the_terms( $product->id, 'pa_color' );
                     if (!empty($colors))
                         foreach ($colors as $color){
                             $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
