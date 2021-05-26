@@ -83,3 +83,10 @@ jQuery(document).on( 'keyup', 'input[name="s"]', function() {
         }
     });
 })
+jQuery(document).on('click','.swatch-gallery .js-product-trigger', function() {
+    var data = $(this).stop(true, true).data('color');
+    var colorName = $(this).stop(true, true).data('naming');
+    $('.js-sw-color').removeClass('is-visible');
+    $(".js-sw-color.color-" + data).addClass('is-visible');
+    $('.product-selector__title-select.js-select-color').html(colorName);
+});
