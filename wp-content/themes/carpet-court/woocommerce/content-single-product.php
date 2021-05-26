@@ -791,23 +791,69 @@ $primary = get_term_by('term_taxonomy_id', $primary);
             <div class="swatch-gallery-inner">
                 <ul class="swatch-gallery-thumbs">
                     <?php
+                    if (!empty($currentColour) && !empty($relatedProducts)) { ?>
+                        <?php if (!empty($colors)) : ?>
+                            <?php foreach ($colors as $color) : ?>
+                                <?php if ($color->term_id == $currentColour) : ?>
+                                    <?php $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
 
-                    if (!empty($colors))
-                        foreach ($colors as $color){
-                            if ($color->term_id == $currentColour) :
-                            $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
-                            <li data-naming="<?= $color->name ?>" class="swatch-gallery-thumbs__item js-product-trigger" data-color="<?= $color->slug ?>">
-                                <div class="swatch-gallery-thumbs__img"><img src="<?= $color_image ?>" alt="<?= $color->name ?>"></div>
-                            </li>
-                            <?php endif ?>
-                        <?php }
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <?php foreach ($relatedProducts as $relatedProduct) : ?>
+                                <?php
+                                $relatedProductColour = get_field('current_colour', $relatedProduct);
+                                $color = get_term_by('term_taxonomy_id', $relatedProductColour);
+                                ?>
+                                <?php if (!empty($color) && !empty($relatedProductColour)) : ?>
+                                    <?php $color_image = get_term_meta($relatedProductColour, 'cpm_color_thumbnail', true ); ?>
+                                    <li data-naming="<?= $color->name ?>" class="swatch-gallery-thumbs__item js-product-trigger" data-color="<?= $color->slug ?>">
+                                        <div class="swatch-gallery-thumbs__img"><img src="<?= $color_image ?>" alt="<?= $color->name ?>"></div>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
+                   <?php }
+                    else{
+                        if (!empty($colors))
+                            foreach ($colors as $color){
+                                $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+                                <li data-naming="<?= $color->name ?>" class="swatch-gallery-thumbs__item js-product-trigger" data-color="<?= $color->slug ?>">
+                                    <div class="swatch-gallery-thumbs__img"><img src="<?= $color_image ?>" alt="<?= $color->name ?>"></div>
+                                </li>
+                            <?php }
+
+                    }
                     ?>
 
                 </ul>
                 <div class="swatch-gallery__select js-select-color"></div>
                 <div class="swatch-gallery-preview">
                     <?php
-                    $image_count = 0;
+                    if (!empty($currentColour) && !empty($relatedProducts)) {
+                        $image_count = 0; ?>
+                        <?php if (!empty($colors)) : ?>
+                            <?php foreach ($colors as $color) : ?>
+                                <?php if ($color->term_id == $currentColour) : ?>
+                                    <?php $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
+
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <?php foreach ($relatedProducts as $relatedProduct) : ?>
+                                <?php
+                                $relatedProductColour = get_field('current_colour', $relatedProduct);
+                                $color = get_term_by('term_taxonomy_id', $relatedProductColour);
+                                ?>
+                                <?php if (!empty($color) && !empty($relatedProductColour)) : ?>
+                                    <?php $color_image = get_term_meta($relatedProductColour, 'cpm_color_thumbnail', true ); ?>
+                                    <div style="background-image:url('<?= $color_image ?>');" class="swatch-gallery-preview__item js-product-target"></div>
+                                <?php  $image_count++; endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
+                    <?php }
+                    else {
+                        $image_count = 0;
                     if (!empty($colors))
                         foreach ($colors as $color){
                             $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
@@ -815,6 +861,7 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                             <?php
                             $image_count++;
                         }
+                    }
                     ?>
                     <div style="background-image:url('<?= get_template_directory_uri() ?>/static/public/images/product-preview/product-preview.png');" data-trig-index="<?= $image_count?>" class="swatch-gallery-preview__item js-product-target"></div>
                 </div>
