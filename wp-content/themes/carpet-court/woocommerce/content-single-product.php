@@ -279,6 +279,7 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </a>
+                                <div class="product-selector-preview__button"><span>Open Swatch Gallery</span></div></a>
                                 <ul class="product-selector-thumbs">
                                     <?php if (!empty($colors)) : ?>
                                         <?php foreach ($colors as $color) : ?>
@@ -793,7 +794,7 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                     if (!empty($colors))
                         foreach ($colors as $color){
                             $color_image = get_term_meta( $color->term_id, 'cpm_color_thumbnail', true ); ?>
-                            <li data-naming="<?= $color->name ?>" class="swatch-gallery-thumbs__item js-product-trigger">
+                            <li data-naming="<?= $color->name ?>" class="swatch-gallery-thumbs__item js-product-trigger" data-color="<?= $color->slug ?>">
                                 <div class="swatch-gallery-thumbs__img"><img src="<?= $color_image ?>" alt="<?= $color->name ?>"></div>
                             </li>
                         <?php }
