@@ -278,8 +278,8 @@ $primary = get_term_by('term_taxonomy_id', $primary);
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
+                                    <div class="product-selector-preview__button"><span>Open Swatch Gallery</span></div></a>
                                 </a>
-                                <div class="product-selector-preview__button"><span>Open Swatch Gallery</span></div></a>
                                 <ul class="product-selector-thumbs">
                                     <?php if (!empty($colors)) : ?>
                                         <?php foreach ($colors as $color) : ?>
