@@ -16,6 +16,7 @@ define('CATEGORY_KITCHEN_ID', 28915);
 define('CATEGORY_BATHROOM_ID', 28914);
 define('CATEGORY_ALL_ID', 27927);
 define('CATEGORY_CARPET_ID', 7);
+define('CATEGORY_SALE', 28965);
 @ini_set( 'upload_max_size' , '300M' );
 @ini_set( 'post_max_size', '300M');
 include "include/findStore.php";
@@ -2849,5 +2850,45 @@ function change_meta_title_blog($title) {
     }
 
     return $title;
+}
+
+function getAllProductsFromAllActiveSaleRulesAndAddToSaleCategory() {
+    global $wpdb;
+    $rule_ids_of_current_active_campaigns = $wpdb->get_results( $wpdb->prepare("SELECT post_id, meta_value FROM $wpdb->postmeta WHERE meta_key = %s", 'wcct_rule'));
+    $product_ids = [];
+    $product_ids_to_remove = [];
+    if(count($rule_ids_of_current_active_campaigns)) {
+        foreach ($rule_ids_of_current_active_campaigns as $rule) {
+            $status_of_rule = $wpdb->get_var($wpdb->prepare("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = %s AND post_id = %s", '_wcct_current_status_timing', intval($rule->post_id)));
+            $status_of_wp_post = get_post_status( intval($rule->post_id) );
+            $rule_options = unserialize($rule->meta_value);
+            if ($status_of_rule == 'running' && !($status_of_wp_post === 'wcctdisabled')) {
+                foreach ($rule_options as $option) {
+                    foreach ($option as $suboption) {
+                        $product_ids[] = $suboption['condition'];
+                    }
+                }
+            } else {
+                foreach ($rule_options as $option) {
+                    foreach ($option as $suboption) {
+                        $product_ids_to_remove[] = $suboption['condition'];
+                    }
+                }
+            }
+
+        }
+    }
+    $product_ids_flatten = array_merge([],...$product_ids);
+    $product_ids_to_remove_flatten = array_merge([],...$product_ids_to_remove);
+    if(count($product_ids_flatten)) {
+        foreach ($product_ids_flatten as $id) {
+            wp_set_object_terms(intval($id), CATEGORY_SALE, 'product_cat', true);
+        }
+    }
+    if(count($product_ids_to_remove_flatten)) {
+        foreach ($product_ids_to_remove_flatten as $id) {
+            wp_remove_object_terms(intval($id), CATEGORY_SALE, 'product_cat');
+        }
+    }
 }
 

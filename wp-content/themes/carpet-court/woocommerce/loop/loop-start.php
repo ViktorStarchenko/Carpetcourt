@@ -227,6 +227,9 @@
                                         ]
                                     );
                                     $cur_cat_id = get_queried_object_id();
+                                    if ($cur_cat_id == CATEGORY_SALE) {
+                                        getAllProductsFromAllActiveSaleRulesAndAddToSaleCategory();
+                                    }
                                     $cur_cat_is_hidden = in_array($cur_cat_id, [CATEGORY_POLYESTER_ID, CATEGORY_NYLON_ID, CATEGORY_GREY_ID, CATEGORY_DARK_ID]);
                                     $flooringFlag = false;
                                     $num = 0;

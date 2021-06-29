@@ -355,7 +355,7 @@ function compare_name($a, $b)
                                     <div class="drop-menu__nav">
                                         <?php //$all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID, 26253, 26257, 26254, 26255, 26256, 26258, 26259, 26260, 26261, 26262], 'hide_empty' => 0 ]);
                                         //$all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID, 26349, 26350, 26351, 26352, 26353, 26354, 26356, 26357, 26358, 26359], 'hide_empty' => 0 ]);
-                                        $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID, 28914, 28915, 28916, 28917, 28918, 28919, 28920, 28921, 28922, 28923], 'hide_empty' => 0 ]);
+                                        $all_categories = get_categories(['taxonomy' => 'product_cat', 'exclude' => [CATEGORY_CARPET_ID,CATEGORY_ALL_ID,CATEGORY_FLOORING_ID, 28914, 28915, 28916, 28917, 28918, 28919, 28920, 28921, 28922, 28923, CATEGORY_SALE], 'hide_empty' => 0 ]);
                                         foreach ($all_categories as $menu_cat) :
                                             ?>
                                             <div class="menu-item">
