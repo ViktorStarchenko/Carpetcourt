@@ -139,6 +139,11 @@ if ( ! function_exists( 'carpet_court_setup' ) ) :
              wp_enqueue_script( 'store-profile-js', get_template_directory_uri().'/assets/js/cpm-store-profile.js');
          }
 
+         if ( is_page_template('wpsl-templates/locator.php') ) {
+             wp_deregister_script( 'jquery' );
+             enqueue_versioned_script( 'jquery',  '/static/public/js/libs/jquery-1.12.4.js', false, false);
+         }
+
          if(is_search()){
              wp_enqueue_style('masonry');
              wp_enqueue_script( 'mason-imagesloaded', get_template_directory_uri().'/assets/js/imagesloaded.pkgd.min.js', '', '', true );
