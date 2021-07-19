@@ -911,3 +911,10 @@ $primary = get_term_by('term_taxonomy_id', $primary);
 
 
 <?php do_action( 'woocommerce_after_single_product' ); ?>
+<script type="text/javascript">
+      $(document).ready(function() {
+    if (window.location.href.indexOf("/product/rugs/") > -1) {
+      $('.product-price__unit').hide();
+    }
+  });
+</script>

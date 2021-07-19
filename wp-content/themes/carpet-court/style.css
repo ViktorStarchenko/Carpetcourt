@@ -8479,3 +8479,6 @@ label.filter-item__label-visual-checked::after {
 .hidden {
     display: none;
 }
+.term-rugs .product-card-price__unit {
+    display: none;
+}
